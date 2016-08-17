@@ -14,7 +14,10 @@ html(lang='en', ng-app='angularModule')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(ng-controller='MainController')
     div
-      a(href='#main')='{{hello}}Control Panel'
+      div='temp = {{status.temp / 100}}'
+      div='baseTemp = {{status.baseTemp / 100}}'
+      div='currentPos = X:{{status.currentPos.X / 100000}} Y:{{status.currentPos.Y / 100000}} Z:{{status.currentPos.Z / 100000}}'
+      a(href='#main')='Control Panel'
       br
       a(href='#fileManager')='File Manager'
     div(ng-view)
