@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -12,7 +12,7 @@ var users = require('./routes/users');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-server.listen(3001);
+server.listen(3123);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,36 +60,65 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var printerProcess = exec('"C:/Users/Roma/Documents/Visual Studio 2015/Projects/PrintDream/src/PrintDream.PrinterEmulator/bin/Debug/netcoreapp1.0/win7-x64/PrintDream.PrinterEmulator.exe"');
+var printerProcess = spawn('./printer');
 
 var lastStatusUpdateDate = new Date(0);
-var browserSocket;
+var browserSockets = [];
 
 printerProcess.stdout.on('data', function(data) {
-    if (browserSocket != null && new Date() - lastStatusUpdateDate > 5000)
+    if (browserSockets.length > 0 && new Date() - lastStatusUpdateDate > 1000)
     {
-      var strings = data.split("\r\n");
+      data = data.toString();
+      console.log(data);
+      var strings = data.split("\n");
       strings.forEach(function(item, i, arr) { 
         if (item.startsWith("I"))
         {
+          lastStatusUpdateDate = new Date();
           item = item.substr(1);
           console.log("sent status");
-          browserSocket.emit('status', eval("(" + item + ")"));
+          browserSockets.forEach(function(socket, i, arr) {
+            socket.emit('status', eval("(" + item + ")"));
+          });
         }
       });
-
-      lastStatusUpdateDate = new Date();
     } 
   });
 
 io.on('connection', function (socket) {
   console.log("socket connected")
-  browserSocket = socket;
+  browserSockets.push(socket)
 
   socket.on('disconnect', function () {
       console.log("socket disconnected")
-      browserSocket = null;
+      browserSockets.splice(browserSockets.indexOf(socket), 1);
   });
 });
 
 module.exports = app;
+
+process.stdin.resume();//so the program will not close instantly
+
+function exitHandler(options, err) {
+    if (options.cleanup) {
+      console.log('clean');
+      printerProcess.kill();
+    }
+    
+    if (err) {
+      console.log(err.stack);
+    }
+    
+    if (options.exit) {
+      process.exit();
+    }
+}
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null, { cleanup: true }));
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, { exit: true}));
+
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, { exit: true }));

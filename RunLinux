@@ -1,0 +1,3 @@
+#!/bin/bash
+
+PORT=12346 DEBUG=myapp:* npm start

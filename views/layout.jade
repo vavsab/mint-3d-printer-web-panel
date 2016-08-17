@@ -1,4 +1,4 @@
-﻿doctype html
+doctype html
 html(lang='en', ng-app='angularModule')
   head
     script(src='/javascripts/libs/jquery/dist/jquery.js')
@@ -14,9 +14,12 @@ html(lang='en', ng-app='angularModule')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(ng-controller='MainController')
     div
-      div='temp = {{status.temp / 100}}'
-      div='baseTemp = {{status.baseTemp / 100}}'
+      div='temp = {{status.temp / 10}}'
+      div='baseTemp = {{status.baseTemp / 10}}'
       div='currentPos = X:{{status.currentPos.X / 100000}} Y:{{status.currentPos.Y / 100000}} Z:{{status.currentPos.Z / 100000}}'
+      div='line_count = {{status.line_index /status.line_count * 100}} %'
+      div='tempPWM = {{status.tempPWM / 1024 * 100 }} %'
+      div='cullerRate = {{status.cullerRate / 65535 * 100 }} %'
       a(href='#main')='Control Panel'
       br
       a(href='#fileManager')='File Manager'
