@@ -1,0 +1,14 @@
+{
+  "name": "express-app1",
+  "description": "ExpressApp1",
+  "main": "",
+  "authors": [
+    "[object Object]"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "socket.io-client": "^1.4.8",
+    "AngularJS": "angular-latest#^1.5.8"
+  }
+}
