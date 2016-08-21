@@ -12,6 +12,13 @@
     "angular": "^1.5.8",
     "angular-route": "^1.5.8",
     "jquery": "^3.1.0",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "raphael": "^2.2.1",
+    "morris.js": "morrisjs#^0.5.1",
+    "metisMenu": "^2.5.2",
+    "font-awesome": "^4.6.3",
+    "angular-animate": "^1.5.8",
+    "angular-touch": "^1.5.8",
+    "angular-bootstrap": "^2.1.1"
   }
 }

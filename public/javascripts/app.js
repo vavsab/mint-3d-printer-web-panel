@@ -1,11 +1,12 @@
-﻿app = angular.module('angularModule', ['ngRoute'])
+﻿app = angular.module('angularModule', ['ngRoute', 'ui.bootstrap'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
-            when('/main', {
-                templateUrl: 'partials/main.html'
+            when('/', {
+                templateUrl: 'partials/dashboard.html',
+                controller: 'DashboardController'
             }).
             when('/fileManager', {
                 templateUrl: 'partials/fileManager.html'
             }).
-            otherwise({ redirectTo: '/main' });
+            otherwise({ redirectTo: '/' });
     }]);

@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Dashboard</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-bar-chart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div>Temperature: {{status.temp / 10}} °C</div>
+                        <div>Base: {{status.baseTemp / 10}} °C</div>
+                        <div>PWM: {{status.tempPWM / 10}} °C</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{status.cullerRate}}%</div>
+                        <div>Culler rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div>X: {{status.currentPos.X / 10000 | number : 2}}</div>
+                        <div>Y: {{status.currentPos.Y / 10000 | number : 2}}</div>
+                        <div>Z: {{status.currentPos.Z / 10000 | number : 2}}</div>
+                        <div>Current position</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <uib-progressbar value="status.lineIndex / status.lineCount * 100">
+                            <span style="color:white; white-space:nowrap;">{{ status.lineIndex / status.lineCount * 100 | number : 2 }}%</span>
+                        </uib-progressbar>
+                        <div>Printing Progress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
