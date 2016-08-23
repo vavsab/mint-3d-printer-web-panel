@@ -4,6 +4,19 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+<div class="row" style="margin-bottom:20px;">
+    <form>
+        <div class="form-group">
+            <label for="commandName">Command name</label>
+            <input id="commandName" class="form-control" type="text" placeholder="Command name" ng-model="commandName" />
+        </div>
+            
+        <button class="btn btn-default" ng-click="sendCommand();">Send command</button>
+        <span class="label label-default" ng-show="isCommandRunning">Running...</span>
+        <span class="label label-success" ng-show="!isCommandRunning && commandSucceded">Ok</span>
+        <span class="label label-warning" ng-show="!isCommandRunning && !commandSucceded && commandError">Error: {{commandError}}</span>
+    </form>
+</div>
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-6 col-md-6">

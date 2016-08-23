@@ -1,0 +1,10 @@
+[
+    {
+        "commandName" : "Start",
+        "commandCode" : "START0"
+    },
+    {
+        "commandName" : "Stop",
+        "commandCode" : "STOP1"
+    }
+]
