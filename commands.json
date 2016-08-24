@@ -1,10 +1,16 @@
 [
     {
         "commandName" : "Start",
-        "commandCode" : "START0"
+        "commandCode" : "start"
     },
     {
-        "commandName" : "Stop",
-        "commandCode" : "STOP1"
+        "commandName" : "FeedRate",
+        "commandCode" : "M220 S80",
+        "paramaters" : [{ 
+            "parameterCode" : "S",
+            "parameterName" : "Rate",
+            "parameterTitle" : "Rate, percents",
+            "isRequired": false 
+        }]
     }
 ]

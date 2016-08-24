@@ -20,7 +20,6 @@
             <label for="commandName">Command name</label>
             <input id="commandName" class="form-control" type="text" placeholder="Command name" ng-model="commandName" />
         </div>
-        <button class="btn btn-default" ng-click="sendCommand();">Start</button>
         <button class="btn btn-default" ng-click="sendCommand();">Send command</button>
         <span class="label label-default" ng-show="isCommandRunning">Running...</span>
         <span class="label label-success" ng-show="!isCommandRunning && commandSucceded">Ok</span>

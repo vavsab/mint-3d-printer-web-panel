@@ -16,7 +16,7 @@ app.controller('DashboardController', ['$scope', '$http', function ($scope, $htt
         $scope.commandError = null;
         $scope.isCommandRunning = true;
 
-        $http.post("/api/command/" + $scope.commandName)
+        $http.post("/api/command/" + $scope.commandName, { isDirectCommand: true })
         .success(function (response) {
             $scope.commandSucceded = true;
         })
