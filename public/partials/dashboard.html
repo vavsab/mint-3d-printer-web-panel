@@ -38,7 +38,7 @@
                     <div class="col-xs-9 text-right">
                         <div>Temperature: {{status.temp / 10}} °C</div>
                         <div>Base: {{status.baseTemp / 10}} °C</div>
-                        <div>PWM: {{status.tempPWM}}</div>
+                        <div>PWM: {{status.tempPWM / 1024 * 100 | number : 2}}%</div>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         <i class="fa fa-tasks fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{status.cullerRate}}%</div>
+                        <div class="huge">{{status.cullerRate / 2550 * 100 | number : 2}}%</div>
                         <div>Culler rate</div>
                     </div>
                 </div>

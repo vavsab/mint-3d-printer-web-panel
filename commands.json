@@ -1,15 +1,22 @@
 [
     {
+        "commandTitle" : "Start",
         "commandName" : "Start",
         "commandCode" : "start"
     },
     {
+        "commandTitle" : "Stop",
+        "commandName" : "Stop",
+        "commandCode" : "stop"
+    },
+    {
+        "commandTitle" : "Feed Rate",
         "commandName" : "FeedRate",
         "commandCode" : "M220 S80",
-        "paramaters" : [{ 
-            "parameterCode" : "S",
-            "parameterName" : "Rate",
+        "paramaters" : [{
             "parameterTitle" : "Rate, percents",
+            "parameterName" : "Rate", 
+            "parameterCode" : "S",
             "isRequired": false 
         }]
     }
