@@ -1,8 +1,20 @@
-﻿module.exports = function (printerProcess) {
+﻿module.exports = function (printerProcess, uploads) {
     var express = require('express');
+    var fs = require('fs-extra')
     var commands = require('../commands.json');
 
     var router = express.Router();
+
+    router.post('/fileUpload', uploads.single("file"), function(req, res) {
+        console.log("FILE:" + req.file);
+        try {
+            fs.copySync(req.file.path, './data.txt', { clobber : true });
+        } catch (err) {
+            console.error(err);
+        }
+
+        res.status(200).send();
+    });
 
     router.post('/command/:commandName', function (req, res) {
         console.log("isDirectCommand: " + req.body.isDirectCommand);

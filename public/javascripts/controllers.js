@@ -1,8 +1,8 @@
-﻿app.controller('MainController', ['$scope', function ($scope) {
+﻿app.controller('mainController', ['$scope', function ($scope) {
     $scope.Header = "Keep Calm Printer Console";
 }]);
 
-app.controller('DashboardController', ['$scope', '$http', function ($scope, $http) {
+app.controller('dashboardController', ['$scope', '$http', function ($scope, $http) {
     var socket = io.connect();
     socket.on('status', function (data) {
         console.log(data);
@@ -30,4 +30,14 @@ app.controller('DashboardController', ['$scope', '$http', function ($scope, $htt
     }
 
     $scope.Header = "Keep Calm Printer Console";
+}]);
+
+app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scope, fileUpload) {
+    $scope.isRunning = false;
+
+    $scope.sendFile = function () {
+        fileUpload.uploadFileToUrl($scope.file, '/api/fileUpload');
+        $scope.succeded = true;
+        $scope.isRunning = false;
+    }
 }]);

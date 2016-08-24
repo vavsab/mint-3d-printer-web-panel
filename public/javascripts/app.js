@@ -3,10 +3,14 @@
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/dashboard.html',
-                controller: 'DashboardController'
+                controller: 'dashboardController'
             }).
             when('/fileManager', {
-                templateUrl: 'partials/fileManager.html'
+                templateUrl: 'partials/fileManager.html',
+                controller: 'fileManagerController'
+            }).
+            when('/commands', {
+                templateUrl: 'partials/commands.html'
             }).
             otherwise({ redirectTo: '/' });
     }]);

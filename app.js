@@ -5,6 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var printerRunner = require('./printerRunner');
+var multer = require('multer');
+var fs = require('fs-extra')
+
+var uploads = multer({
+  dest: './uploads/'
+});
+
 
 var routes = require('./routes/index');
 var apiCreator = require('./routes/api');
@@ -28,7 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 printerRunner.run(server);
 
 app.use('/', routes);
-app.use('/api', apiCreator(printerRunner.printerProcess));
+app.use('/api', apiCreator(printerRunner.printerProcess, uploads));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

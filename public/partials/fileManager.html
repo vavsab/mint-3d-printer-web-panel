@@ -2,5 +2,12 @@
     <h1>File Manager</h1>
 </div>
 <div class="row">
-    
+    <form ng-submit="sendFile();">
+        <label>Upload data.txt</label>
+        <input type="file" file-model="file" />
+        <input type="submit" value="Send File" />
+        <span class="label label-default" ng-show="isRunning">Running...</span>
+        <span class="label label-success" ng-show="!isRunning && succeded">Ok</span>
+        <span class="label label-warning" ng-show="!isRunning && !succeded && error">Error: {{commandError}}</span>
+    </form>
 </div>

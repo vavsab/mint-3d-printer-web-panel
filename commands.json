@@ -17,7 +17,7 @@
             "parameterTitle" : "Rate, percents",
             "parameterName" : "Rate", 
             "parameterCode" : "S",
-            "isRequired": false 
+            "isRequired": true 
         }]
     }
 ]

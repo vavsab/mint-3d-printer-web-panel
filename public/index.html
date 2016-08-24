@@ -40,6 +40,7 @@
     <script src="/javascripts/app.js"></script>
     <script src="/javascripts/controllers.js"></script>
     <script src="/javascripts/directives.js"></script>
+    <script src="/javascripts/services.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +51,7 @@
 
 </head>
 
-<body ng-controller="MainController">
+<body ng-controller="mainController">
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -71,6 +72,9 @@
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="#/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#/commands"><i class="fa fa-dashboard fa-fw"></i> Commands</a>
                         </li>
                         <li>
                             <a href="#/fileManager"><i class="fa fa-table fa-fw"></i> File Manager</a>
