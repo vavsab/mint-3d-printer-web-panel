@@ -1,0 +1,4 @@
+<button class="btn btn-default" ng-click="sendCommand(commandName);">{{commandName}}</button>
+<span class="label label-default" ng-show="isCommandRunning">Running...</span>
+<span class="label label-success" ng-show="!isCommandRunning && commandSucceded">Ok</span>
+<span class="label label-warning" ng-show="!isCommandRunning && !commandSucceded && commandError">Error: {{commandError}}</span>
