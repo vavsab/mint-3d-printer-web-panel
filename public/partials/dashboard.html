@@ -38,7 +38,7 @@
                     <div class="col-xs-9 text-right">
                         <div>Temperature: {{status.temp / 10}} °C</div>
                         <div>Base: {{status.baseTemp / 10}} °C</div>
-                        <div>PWM: {{status.tempPWM / 10}} °C</div>
+                        <div>PWM: {{status.tempPWM}}</div>
                     </div>
                 </div>
             </div>
@@ -84,8 +84,8 @@
                         <i class="fa fa-support fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <uib-progressbar value="status.lineIndex / status.lineCount * 100">
-                            <span style="color:white; white-space:nowrap;">{{ status.lineIndex / status.lineCount * 100 | number : 2 }}%</span>
+                        <uib-progressbar value="status.line_index / status.line_count * 100">
+                            <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | number : 2 }}%</span>
                         </uib-progressbar>
                         <div>Printing Progress</div>
                     </div>
