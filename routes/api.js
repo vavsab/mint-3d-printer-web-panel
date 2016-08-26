@@ -1,4 +1,4 @@
-﻿module.exports = function (printerProcess, uploads) {
+﻿module.exports = function (printerRunner, uploads) {
     var express = require('express');
     var fs = require('fs-extra')
     var commands = require('../commands.json');
@@ -34,7 +34,7 @@
 
         console.log("commandCode: " + commandCode);
         if (commandCode != null) {
-            printerProcess.stdin.write(commandCode + "\n");
+            printerRunner.send(commandCode + "\n");
             res.status(200).send();
         } else {
             res.status(404).json({ error: "command not found" });

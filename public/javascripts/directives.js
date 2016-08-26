@@ -3,21 +3,23 @@ app.directive('commandButton', function () {
         scope: {
             commandName: '@',
         },
-        controller: ['$scope', '$http', function ($scope, $http) {
+        controller: ['$scope', '$http', 'commandService', function ($scope, $http, commandService) {
             $scope.isCommandRunning = false,
             $scope.sendCommand = function(commandName) {
                 $scope.commandError = null;
                 $scope.isCommandRunning = true;
 
-                $http.post("/api/command/" + commandName)
-                .success(function (response) {
-                    $scope.commandSucceded = true;
-                })
-                .error(function (response) {
-                    $scope.commandSucceded = false;
-                    $scope.commandError = response.error;
-                })
-                .finally(function (response) {
+                commandService.sendCommand(commandName)
+                .then(
+                    function success() {
+                        $scope.commandSucceded = true;
+                    },
+                    function error(error) {
+                        $scope.commandSucceded = false;
+                        $scope.commandError = error;
+                    }
+                )
+                .finally(function () {
                     $scope.isCommandRunning = false;    
                 });
             }

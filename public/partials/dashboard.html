@@ -87,6 +87,7 @@
                         <uib-progressbar value="status.line_index / status.line_count * 100">
                             <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | number : 2 }}%</span>
                         </uib-progressbar>
+                        <div>Remained: {{status.timeRemained}}</div>
                         <div>Printing Progress</div>
                     </div>
                 </div>

@@ -32,10 +32,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-printerRunner.run(server);
+printerRunner = printerRunner(server);
 
 app.use('/', routes);
-app.use('/api', apiCreator(printerRunner.printerProcess, uploads));
+app.use('/api', apiCreator(printerRunner, uploads));
 
 
 // catch 404 and forward to error handler
@@ -76,7 +76,7 @@ process.stdin.resume();//so the program will not close instantly
 function exitHandler(options, err) {
     if (options.cleanup) {
       console.log('clean');
-      printerRunner.printerProcess.kill();
+      printerRunner.kill();
     }
     
     if (err) {

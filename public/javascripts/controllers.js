@@ -2,11 +2,21 @@
     $scope.Header = "Keep Calm Printer Console";
 }]);
 
-app.controller('dashboardController', ['$scope', '$http', function ($scope, $http) {
-    var socket = io.connect();
-    socket.on('status', function (data) {
-        console.log(data);
-        $scope.status = data;
+app.controller('dashboardController', ['$scope', '$http', 'printerStatusService', 'commandService', function ($scope, $http, printerStatusService, commandService) {
+    var msToTime = function (s) {
+        var ms = s % 1000;
+        s = (s - ms) / 1000;
+        var secs = s % 60;
+        s = (s - secs) / 60;
+        var mins = s % 60;
+        var hrs = (s - mins) / 60;
+
+        return hrs + ':' + mins + ':' + secs;
+    };
+
+    printerStatusService.onStatusChanged(function(status) {
+        $scope.status = status;
+        $scope.status.timeRemained = msToTime($scope.status.remainedMilliseconds)
         $scope.$apply();
     });
 
@@ -16,20 +26,20 @@ app.controller('dashboardController', ['$scope', '$http', function ($scope, $htt
         $scope.commandError = null;
         $scope.isCommandRunning = true;
 
-        $http.post("/api/command/" + $scope.commandName, { isDirectCommand: true })
-        .success(function (response) {
-            $scope.commandSucceded = true;
-        })
-        .error(function (response) {
-            $scope.commandSucceded = false;
-            $scope.commandError = response.error;
-        })
-        .finally(function (response) {
+        commandService.sendCommand($scope.commandName, true)
+        .then(
+            function success() {
+                $scope.commandSucceded = true;
+            },
+            function error(error) {
+                $scope.commandSucceded = false;
+                $scope.commandError = error;
+            }
+        )
+        .finally(function () {
             $scope.isCommandRunning = false;    
         });
     }
-
-    $scope.Header = "Keep Calm Printer Console";
 }]);
 
 app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scope, fileUpload) {
