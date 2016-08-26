@@ -28,7 +28,7 @@ module.exports = function (server)
 
             if (startPrintDate != null) {
               try {
-                status.remainedMilliseconds = status.line_count / ((new Date() - startPrintDate) / status.line_index);
+                status.remainedMilliseconds = status.line_count * ((new Date() - startPrintDate) / status.line_index);
               } catch(error) {
                 console.log("Error while calculating remainedMilliseconds variable: " + error)
               }  
