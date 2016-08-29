@@ -46,8 +46,18 @@ app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scop
     $scope.isRunning = false;
 
     $scope.sendFile = function () {
-        fileUpload.uploadFileToUrl($scope.file, '/api/fileUpload');
-        $scope.succeded = true;
-        $scope.isRunning = false;
+        $scope.isRunning = true;
+        $scope.error = null;
+
+        fileUpload.uploadFileToUrl($scope.file, '/api/fileUpload')
+            .then(function success() {
+                $scope.succeded = true;
+            },
+            function error(error) {
+                $scope.error = error;
+            })
+            .finally(function () {
+                $scope.isRunning = false;
+            });
     }
 }]);

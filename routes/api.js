@@ -9,11 +9,11 @@
         console.log("FILE:" + req.file);
         try {
             fs.copySync(req.file.path, './data.txt', { clobber : true });
-        } catch (err) {
-            console.error(err);
+            res.status(200).send();
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({error: error});
         }
-
-        res.status(200).send();
     });
 
     router.post('/command/:commandName', function (req, res) {

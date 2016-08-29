@@ -1,15 +1,21 @@
-app.service('fileUpload', ['$http', function ($http) {
+app.service('fileUpload', ['$http', '$q', function ($http, $q) {
     this.uploadFileToUrl = function(file, uploadUrl){
+        var deferred = $q.defer();
         var fd = new FormData();
         fd.append('file', file);
+
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         })
         .success(function(){
+            deferred.resolve();
         })
-        .error(function(){
+        .error(function(response){
+            deferred.reject(response.error);
         });
+
+        return deferred.promise;
     }
 }]);
 
