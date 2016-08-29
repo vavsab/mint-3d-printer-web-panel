@@ -17,27 +17,32 @@
     });
 
     router.post('/command/:commandName', function (req, res) {
-        console.log("isDirectCommand: " + req.body.isDirectCommand);
+        try {
+            console.log("isDirectCommand: " + req.body.isDirectCommand);
 
-        var commandCode = null;
-        if (req.body.isDirectCommand) {
-            commandCode = req.params.commandName;
-        } else {
-            var command = commands.find(function (value, index, array) {
-                return value.commandName === req.params.commandName;   
-            });
-            
-            if (command != null) {
-                commandCode = command.commandCode;
+            var commandCode = null;
+            if (req.body.isDirectCommand) {
+                commandCode = req.params.commandName;
+            } else {
+                var command = commands.find(function (value, index, array) {
+                    return value.commandName === req.params.commandName;   
+                });
+                
+                if (command != null) {
+                    commandCode = command.commandCode;
+                }
             }
-        }
 
-        console.log("commandCode: " + commandCode);
-        if (commandCode != null) {
-            printerRunner.send(commandCode + "\n");
-            res.status(200).send();
-        } else {
-            res.status(404).json({ error: "command not found" });
+            console.log("commandCode: " + commandCode);
+            if (commandCode != null) {
+                printerRunner.send(commandCode + "\n");
+                res.status(200).send();
+            } else {
+                res.status(404).json({ error: "command not found" });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({error : error});
         }
     });
 
