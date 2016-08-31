@@ -34,16 +34,27 @@ app.service('commandService', ['$http', '$q', function ($http, $q) {
 }]);
 
 app.service('printerStatusService', ['$http', function ($http) {
-    var observerCallbacks = [];
+    var statusCallbacks = [];
+    var eventCallbacks = [];
     var self = this;
     this.status = null;
 
     this.onStatusChanged = function(callback) {
-        observerCallbacks.push(callback);
+        statusCallbacks.push(callback);
     };
 
-    var notifyObservers = function(data) {
-        angular.forEach(observerCallbacks, function(callback){
+    this.onEvent = function(callback) {
+        eventCallbacks.push(callback);
+    };
+
+    var notifyStatusObservers = function(data) {
+        angular.forEach(statusCallbacks, function(callback){
+            callback(data);
+        });
+    };
+
+    var notifyEventObservers = function(data) {
+        angular.forEach(eventCallbacks, function(callback){
             callback(data);
         });
     };
@@ -52,6 +63,12 @@ app.service('printerStatusService', ['$http', function ($http) {
     socket.on('status', function (data) {
         console.log(data);
         self.status = data;
-        notifyObservers(data);
+        notifyStatusObservers(data);
+    });
+
+    socket.on('event', function (data) {
+        if (data.type == 'endPrint') {
+            notifyEventObservers();
+        }
     });
 }]);

@@ -12,10 +12,19 @@ module.exports = function (server)
   var browserSockets = [];
 
   printerProcess.stdout.on('data', function(data) {
+    data = data.toString();
     console.log("Data from printer was received: " + data);
+    if (data.startsWith("End print")) {
+      // to receive the last status message
+      lastStatusUpdateDate = new Date(0);
+      browserSockets.forEach(function(socket, i, arr) {
+        socket.emit("event", { type: "endPrint" });
+      });
+      
+      return;
+    }
 
     if (browserSockets.length > 0 && new Date() - lastStatusUpdateDate > 1000) {
-      data = data.toString();
       var strings = data.split("\n");
       strings.forEach(function(item, i, arr) { 
         if (item.startsWith("I")) {

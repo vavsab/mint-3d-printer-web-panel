@@ -20,6 +20,10 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
         $scope.$apply();
     });
 
+    printerStatusService.onEvent(function() {
+        alert("Printing is finished");
+    });
+
     $scope.isCommandRunning = false;
 
     $scope.sendCommand = function() {
