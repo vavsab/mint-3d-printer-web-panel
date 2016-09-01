@@ -14,16 +14,25 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
         return hrs + ':' + mins + ':' + secs;
     };
 
-    printerStatusService.onStatusChanged(function(status) {
+    var onStatusReceived = function(status) {
         $scope.status = status;
         $scope.status.timeRemained = msToTime($scope.status.remainedMilliseconds)
         $scope.$apply();
-    });
+    };
 
-    printerStatusService.onEvent(function() {
+    printerStatusService.eventAggregator.on('statusReceived', onStatusReceived);
+
+    var onPrintingEnded = function() {
         alert("Printing is finished");
+    };
+    
+    printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
+    
+    $scope.$on("$destroy", function () {
+        printerStatusService.eventAggregator.unsubscribe('statusReceived', onStatusReceived);
+        printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
     });
-
+    
     $scope.isCommandRunning = false;
 
     $scope.sendCommand = function() {

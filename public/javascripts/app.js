@@ -13,4 +13,4 @@
                 templateUrl: 'partials/commands.html'
             }).
             otherwise({ redirectTo: '/' });
-    }]);
+    }]);    

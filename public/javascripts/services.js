@@ -33,42 +33,76 @@ app.service('commandService', ['$http', '$q', function ($http, $q) {
     };
 }]);
 
-app.service('printerStatusService', ['$http', function ($http) {
-    var statusCallbacks = [];
-    var eventCallbacks = [];
+app.service('printerStatusService', ['$http', 'eventAggregatorFactory', function ($http, eventAggregatorFactory) {
+    this.eventAggregator = new eventAggregatorFactory();
     var self = this;
     this.status = null;
-
-    this.onStatusChanged = function(callback) {
-        statusCallbacks.push(callback);
-    };
-
-    this.onEvent = function(callback) {
-        eventCallbacks.push(callback);
-    };
-
-    var notifyStatusObservers = function(data) {
-        angular.forEach(statusCallbacks, function(callback){
-            callback(data);
-        });
-    };
-
-    var notifyEventObservers = function(data) {
-        angular.forEach(eventCallbacks, function(callback){
-            callback(data);
-        });
-    };
 
     var socket = io.connect();
     socket.on('status', function (data) {
         console.log(data);
         self.status = data;
-        notifyStatusObservers(data);
+        self.eventAggregator.trigger('statusReceived', data);
     });
 
     socket.on('event', function (data) {
         if (data.type == 'endPrint') {
-            notifyEventObservers();
+            self.eventAggregator.trigger('printingEnded', data);
         }
     });
+}]);
+
+app.factory('eventAggregatorFactory', [function () {
+    return function () {
+        var self = this;
+        this.events = [];
+        
+        var findIndexByEventName = function (eventName, createIfMissing = false) {
+            var index = -1;
+            for (var i = 0; i < self.events.length; i++) {
+                if (self.events[i].eventName == eventName) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (createIfMissing && index == -1) {
+                self.events.push({ eventName: eventName, callbacks: [] });
+                index = self.events.length - 1;
+            }
+
+            return index;
+        };
+
+        this.on = function(eventName, callback) {
+            var index = findIndexByEventName(eventName, true);
+            this.events[index].callbacks.push(callback);
+        }
+
+        this.unsubscribe = function(eventName, callback) {
+            var index = findIndexByEventName(eventName, false);
+            if (index == -1) {
+                return;
+            }
+
+            var oldCallbacks = this.events[index].callbacks;
+            this.events[index].callbacks = [];
+            oldCallbacks.forEach(function (oldCallback) {
+                if (oldCallback != callback) {
+                    this.events[index].callbacks.push(oldCallback);
+                }
+            }) 
+        }
+
+        this.trigger = function(eventName, data) {
+            var index = findIndexByEventName(eventName);
+            if (index == -1) {
+                return;
+            }
+
+            this.events[index].callbacks.forEach(function (callback) {
+                callback(data);
+            }) 
+        }
+    };
 }]);

@@ -27,7 +27,7 @@
                 var command = commands.find(function (value, index, array) {
                     return value.commandName === req.params.commandName;   
                 });
-                
+
                 if (command != null) {
                     commandCode = command.commandCode;
                 }

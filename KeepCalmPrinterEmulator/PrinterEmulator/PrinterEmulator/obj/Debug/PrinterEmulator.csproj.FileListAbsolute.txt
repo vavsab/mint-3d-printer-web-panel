@@ -1,0 +1,15 @@
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\bin\Debug\PrinterEmulator.exe.config
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator.csprojResolveAssemblyReference.cache
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\MainWindow.g.cs
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\App.g.cs
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator_MarkupCompile.cache
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\bin\Debug\PrinterEmulator.exe
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\bin\Debug\PrinterEmulator.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\MainWindow.baml
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator.g.resources
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator.Properties.Resources.resources
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator.csproj.GenerateResource.Cache
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator.exe
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\obj\Debug\PrinterEmulator.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\KeepCalmPrinterEmulator\PrinterEmulator\PrinterEmulator\bin\Debug\Newtonsoft.Json.xml
