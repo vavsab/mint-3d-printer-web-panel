@@ -1,4 +1,4 @@
-﻿module.exports = function (printerRunner, uploads) {
+﻿module.exports = function (printerProxy, uploads) {
     var express = require('express');
     var fs = require('fs-extra')
     var commands = require('../commands.json');
@@ -35,8 +35,12 @@
 
             console.log("commandCode: " + commandCode);
             if (commandCode != null) {
-                printerRunner.send(commandCode + "\n");
-                res.status(200).send();
+                var result = printerProxy.send(commandCode + "\n");
+                if (!result) {
+                    res.status(500).json({ error: "could not sent the command. Seems that printer is unavailable" });
+                } else {
+                    res.status(200).send();
+                }
             } else {
                 res.status(404).json({ error: "command not found" });
             }

@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var printerRunner = require('./printerRunner');
 var multer = require('multer');
-var fs = require('fs-extra')
+var fs = require('fs-extra');
+var printerStatusController = require('./printerStatusController');
+
+var printerProxy = require('./printerProxy');
+printerProxy = new printerProxy();
 
 var uploads = multer({
   dest: './uploads/'
@@ -32,10 +35,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-printerRunner = printerRunner(server);
-
 app.use('/', routes);
-app.use('/api', apiCreator(printerRunner, uploads));
+app.use('/api', apiCreator(printerProxy, uploads));
 
 
 // catch 404 and forward to error handler
@@ -69,14 +70,15 @@ app.use(function(err, req, res, next) {
   });
 });
 
+printerStatusController = printerStatusController(server, printerProxy);
+
 module.exports = app;
 
-process.stdin.resume();//so the program will not close instantly
+process.stdin.resume(); //so the program will not close instantly
 
 function exitHandler(options, err) {
     if (options.cleanup) {
       console.log('clean');
-      printerRunner.kill();
     }
     
     if (err) {

@@ -1,3 +1,3 @@
 #!/bin/bash
-
+nohup node printerContainer.js &
 NODE_ENV=stage DEBUG=myapp:* npm start

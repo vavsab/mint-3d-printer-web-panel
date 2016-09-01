@@ -1,19 +1,15 @@
-module.exports = function (server)
+module.exports = function (server, printerProxy)
 {
   var io = require('socket.io')(server);
-  var spawn = require('child_process').spawn;
   var config = require('config');
-
-  console.log("Run printer: '" + config.get("PrinterFilePath") + "'");
-  var printerProcess = spawn(config.get("PrinterFilePath"));
 
   var lastStatusUpdateDate = new Date(0);
   var startPrintDate = null;
   var browserSockets = [];
 
-  printerProcess.stdout.on('data', function(data) {
+  printerProxy.on('data', function(data) {
     data = data.toString();
-    console.log("Data from printer was received: " + data);
+    console.log("printerStatusController: Data received: " + data);
     if (data.startsWith("End print")) {
       // to receive the last status message
       lastStatusUpdateDate = new Date(0);
@@ -30,7 +26,7 @@ module.exports = function (server)
         if (item.startsWith("I")) {
           lastStatusUpdateDate = new Date();
           item = item.substr(1);
-          console.log("sent status");
+          console.log("printerStatusController: sent status to subscribers");
           browserSockets.forEach(function(socket, i, arr) {
             var status = eval("(" + item + ")");
             status.remainedMilliseconds = null;
@@ -39,7 +35,7 @@ module.exports = function (server)
               try {
                 status.remainedMilliseconds = (status.line_count - status.line_index) * ((new Date() - startPrintDate) / status.line_index);
               } catch(error) {
-                console.log("Error while calculating remainedMilliseconds variable: " + error)
+                console.log("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
               }  
             }
 
@@ -59,17 +55,4 @@ module.exports = function (server)
         browserSockets.splice(browserSockets.indexOf(socket), 1);
     });
   });
-
-  return {
-    send: function(data) {
-      printerProcess.stdin.write(data);
-      if (data.startsWith("start")) {
-        startPrintDate = new Date();
-      }
-    },
-    kill: function() {
-      printerProcess.kill();
-      console.log("killed printer process");
-    }
-  }
 } 
