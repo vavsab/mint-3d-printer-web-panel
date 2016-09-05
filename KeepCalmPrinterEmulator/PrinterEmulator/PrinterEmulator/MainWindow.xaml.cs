@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +12,7 @@ namespace PrinterEmulator
     public partial class MainWindow
     {
         private CancellationTokenSource cancellationTokenSource;
+        private readonly Random random = new Random(DateTime.Now.Millisecond);
 
         public MainWindow()
         {
@@ -23,17 +25,25 @@ namespace PrinterEmulator
             base.OnClosing(e);
         }
 
-        private void ConsoleWrite(string output)
+        private void ConsoleWrite(string output, bool error = false)
         {
-            Console.Write(output);
-            TextBoxOutput.Text += $"output>> {output.Replace("\n", Environment.NewLine)}";
+            if (error)
+            {
+                TextWriter errorWriter = Console.Error;
+                errorWriter.Write(output);
+            }
+            else
+            {
+                Console.Write(output);
+            }
+
+            TextBoxOutput.Text += $"{(error ? "output error" : "output")}>> {output.Replace("\n", Environment.NewLine)}";
         }
 
         private void CheckBoxStatus_OnChecked(object sender, RoutedEventArgs e)
         {
             cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
-            var random = new Random(DateTime.Now.Millisecond);
 
             Task.Run(() =>
             {
@@ -100,6 +110,11 @@ namespace PrinterEmulator
         private void ButtonSendCommand_Click(object sender, RoutedEventArgs e)
         {
             ConsoleWrite(TextBoxCommand.Text + '\n');
+        }
+
+        private void ButtonError_OnClick(object sender, RoutedEventArgs e)
+        {
+            ConsoleWrite("Some error #" + random.Next() + '\n', error: true);   
         }
     }
 }

@@ -2,53 +2,71 @@ var app = require('express')();
 var server = require('http').Server(app);
 var spawn = require('child_process').spawn;
 var config = require('config');
+var log4js = require('log4js');
+
+log4js.configure({
+  appenders: [
+    { type: 'console' },
+    { type: 'file', filename: 'logs/printerContainer.log', category: 'printerContainer' }
+  ]
+});
+
+var logger = log4js.getLogger('printerContainer');
 
 var port = 5555;
 server.listen(port);
-console.log('listening to ' + port);
+logger.info('listening to ' + port);
 
 var socketIo = require('socket.io')(server);
 var browserSockets = [];
 var printerProcess = spawn(config.get("PrinterFilePath"));
 
 socketIo.on('connection', function (socket) {
-    console.log("socket connected")
+    logger.info("socket connected")
     browserSockets.push(socket);
 
     socket.on('disconnect', function () {
-        console.log("socket disconnected")
+        logger.info("socket disconnected")
         browserSockets.splice(browserSockets.indexOf(socket), 1);
     });
 
     socket.on('stdin', function (data) {
-        console.log('stdin: ' + data);
+        logger.info('stdin: ' + data);
         printerProcess.stdin.write(data);
     });
 });
 
+printerProcess.stderr.on('data', function(data) {
+    data = data.toString();
+    logger.error(data);
+});
+
 printerProcess.stdout.on('data', function(data) {
     data = data.toString();
-    console.log("Data from printer was received: " + data);
+    logger.info("Data from printer was received: " + data);
     browserSockets.forEach(function(socket, i, arr) {
         socket.emit('stdout', data);
     });
 });
 
 printerProcess.on('exit', function () {
+    logger.info('exit bacause printer process stopped');
     process.exit()
 });
 
 function exitHandler(options, err) {
     if (options.cleanup) {
-        console.log('clean');
+        logger.info('clean');
         printerProcess.kill();
     }
 
     if (err) {
-        console.log(err.stack);
+        logger.error(err);
+        logger.error(err.stack);
     }
 
     if (options.exit) {
+        logger.info("exit");
         process.exit();
     }
 }

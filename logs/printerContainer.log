@@ -1,0 +1,38 @@
+[2016-09-06 01:20:16.178] [INFO] [default] - listening to 5555
+[2016-09-06 01:20:19.235] [INFO] [default] - socket connected
+[2016-09-06 01:20:35.915] [INFO] [default] - Data from printer was received: sdfsdf
+
+[2016-09-06 01:20:40.768] [INFO] [default] - Data from printer was received: * Some other info output *
+
+[2016-09-06 01:20:40.957] [INFO] [default] - Data from printer was received: I{temp:1190,baseTemp:2345,currentPos:{X:3252306,Y:7256928,Z:2496754},tempPWM:206,cullerRate:81,line_count:140231,line_index:45718}
+
+[2016-09-06 01:20:45.958] [INFO] [default] - Data from printer was received: * Some other info output *
+I{temp:4520,baseTemp:1803,currentPos:{X:9152899,Y:1759816,Z:4348342},tempPWM:481,cullerRate:26,line_count:168056,line_index:43454}
+
+[2016-09-06 01:20:50.958] [INFO] [default] - Data from printer was received: * Some other info output *
+
+[2016-09-06 01:20:50.960] [INFO] [default] - Data from printer was received: I{temp:3868,baseTemp:1170,currentPos:{X:3802956,Y:6317381,Z:749210},tempPWM:813,cullerRate:30,line_count:136471,line_index:15783}
+
+[2016-09-06 01:22:12.142] [INFO] [default] - listening to 5555
+[2016-09-06 01:22:30.811] [INFO] [default] - listening to 5555
+[2016-09-06 01:23:28.279] [INFO] [default] - listening to 5555
+[2016-09-06 01:23:31.343] [INFO] [default] - exit bacause end process stopped
+[2016-09-06 01:39:41.924] [INFO] printerContainer - listening to 5555
+[2016-09-06 01:39:44.865] [ERROR] printerContainer - <Buffer 53 6f 6d 65 20 65 72 72 6f 72 20 23 31 38 32 33 36 34 31 31 39 37 0a>
+[2016-09-06 01:39:45.060] [INFO] printerContainer - socket connected
+[2016-09-06 01:39:52.014] [ERROR] printerContainer - <Buffer 53 6f 6d 65 20 65 72 72 6f 72 20 23 37 35 37 39 37 35 31 35 30 0a>
+[2016-09-06 01:39:52.457] [ERROR] printerContainer - <Buffer 53 6f 6d 65 20 65 72 72 6f 72 20 23 31 30 30 30 38 36 39 30 34 31 0a>
+[2016-09-06 01:40:04.133] [INFO] printerContainer - exit bacause printer process stopped
+[2016-09-06 01:41:25.050] [INFO] printerContainer - listening to 5555
+[2016-09-06 01:41:28.268] [INFO] printerContainer - socket connected
+[2016-09-06 01:41:32.950] [ERROR] printerContainer - Some error #650037916
+
+[2016-09-06 01:41:33.126] [ERROR] printerContainer - Some error #1158410217
+
+[2016-09-06 01:41:33.333] [ERROR] printerContainer - Some error #236688131
+
+[2016-09-06 01:41:33.499] [ERROR] printerContainer - Some error #635797048
+
+[2016-09-06 01:41:33.668] [ERROR] printerContainer - Some error #1442602208
+
+[2016-09-06 01:41:42.133] [INFO] printerContainer - exit bacause printer process stopped
