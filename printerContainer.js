@@ -21,7 +21,7 @@ socketIo.on('connection', function (socket) {
     });
 
     socket.on('stdin', function (data) {
-        consol.log('stdin: ' + data);
+        console.log('stdin: ' + data);
         printerProcess.stdin.write(data);
     });
 });
