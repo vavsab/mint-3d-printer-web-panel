@@ -46,6 +46,12 @@ module.exports = function (server, printerProxy)
     } 
   });
 
+  printerProxy.on('sent_to_printer', function(data) {
+    if (data.startsWith("start")) {
+        startPrintDate = new Date();
+    }
+  });
+
   io.on('connection', function (socket) {
     console.log("socket connected")
     browserSockets.push(socket)

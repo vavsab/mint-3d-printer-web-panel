@@ -21,6 +21,7 @@ var proxy = function () {
         if (!socket.connected)
             return false;
 
+        self.emit('sent_to_printer', data);
         socket.emit('stdin', data);
         console.log('printerProxy: sent: ' + data);
         return true;
