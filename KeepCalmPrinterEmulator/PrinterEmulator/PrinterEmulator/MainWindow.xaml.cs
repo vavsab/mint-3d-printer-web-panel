@@ -57,6 +57,10 @@ namespace PrinterEmulator
                         Dispatcher.Invoke(() =>
                         {
                             TextBoxOutput.Text += $"input>> {buffer}{Environment.NewLine}";
+                            if (buffer.StartsWith("G300"))
+                            {
+                                ConsoleWrite(GetInfo() + "\n");
+                            }
                         });
 
                         Console.WriteLine($"* Some input: '" + buffer + "' *");
@@ -78,23 +82,7 @@ namespace PrinterEmulator
                         if (CheckBoxStatus.IsChecked ?? false)
                         {
                             ConsoleWrite("* Some other info output *\n");
-                            ConsoleWrite(
-                                InfoOutput.PackagePrefix +
-                                JsonSerializer.Serialize(new InfoOutput
-                                {
-                                    CullerRate = random.Next(0, 100),
-                                    LineCount = random.Next(100000, 200000),
-                                    LineIndex = random.Next(10000, 100000),
-                                    TempPWM = (short)random.Next(0, 1024),
-                                    Temperature = random.Next(0, 5000),
-                                    BaseTemperature = random.Next(0, 5000),
-                                    CurrentPosition = new Position
-                                    {
-                                        X = random.Next(0, 10000000),
-                                        Y = random.Next(0, 10000000),
-                                        Z = random.Next(0, 10000000)
-                                    }
-                                }) + "\n");
+                            ConsoleWrite(GetInfo() + "\n");
                         }
                     });
                 } while (!cancellationToken.WaitHandle.WaitOne(TimeSpan.FromSeconds(5)));
@@ -115,6 +103,26 @@ namespace PrinterEmulator
         private void ButtonError_OnClick(object sender, RoutedEventArgs e)
         {
             ConsoleWrite("Some error #" + random.Next() + '\n', error: true);   
+        }
+
+        private string GetInfo()
+        {
+            return InfoOutput.PackagePrefix + 
+                JsonSerializer.Serialize(new InfoOutput
+            {
+                CullerRate = random.Next(0, 100),
+                LineCount = random.Next(100000, 200000),
+                LineIndex = random.Next(10000, 100000),
+                TempPWM = (short)random.Next(0, 1024),
+                Temperature = random.Next(0, 5000),
+                BaseTemperature = random.Next(0, 5000),
+                CurrentPosition = new Position
+                {
+                    X = random.Next(0, 10000000),
+                    Y = random.Next(0, 10000000),
+                    Z = random.Next(0, 10000000)
+                }
+            })
         }
     }
 }

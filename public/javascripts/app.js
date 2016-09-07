@@ -18,15 +18,3 @@
             }).
             otherwise({ redirectTo: '/' });
     }]);    
-
-app.filter('to_trusted', ['$sce', function($sce){
-        return function(text) {
-            return $sce.trustAsHtml(text);
-        };
-    }]);
-
-
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
