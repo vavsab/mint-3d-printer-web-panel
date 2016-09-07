@@ -1,6 +1,7 @@
 ﻿module.exports = function (printerProxy, uploads) {
     var express = require('express');
-    var fs = require('fs-extra')
+    var fs = require('fs-extra');
+    var path = require('path');
     
     var commands = require('../commands.json');
     var logger = require('../logger');
@@ -45,6 +46,18 @@
             }
         } else {
             res.status(404).json({ error: "command not found" });
+        }
+    });
+
+    router.get('/log', function (req, res) { 
+        var fileName = req.query.fileName;
+
+        if (!fileName) {
+            res.status(200).json({files: fs.readdirSync('logs/')});
+        } else {
+            var fileContent = fs.readFileSync(path.join('logs/', fileName)).toString();
+            logger.warn(fileContent);
+            res.status(200).json({fileContent: fileContent});
         }
     });
 

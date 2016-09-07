@@ -86,3 +86,43 @@ app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scop
             });
     }
 }]);
+
+
+app.controller('logsController', ['$scope', 'logService', function ($scope, logService) {
+    $scope.isLoading = true;
+
+    logService.getFiles()
+        .then(
+            function success(response) {
+                $scope.files = response.files;
+            },
+            function error(error) {
+                $scope.error = error;
+            }
+        )
+        .finally(function () {
+            $scope.isLoading = false;    
+        });
+    
+    $scope.load = function () {
+        $scope.error = undefined;
+
+        if (!$scope.selectedFile) {
+            $scope.error = 'choose file to load';
+            return;
+        }
+
+        logService.getFileContent($scope.selectedFile)
+            .then(
+                function success(fileContent) {
+                    $scope.selectedFileContent = fileContent.replaceAll("\n", "<br />");
+                },
+                function error(error) {
+                    $scope.error = error;
+                }
+            ) 
+            .finally(function () {
+                $scope.isLoading = false;    
+            });
+    };
+}]);

@@ -78,7 +78,7 @@ process.stdin.resume(); //so the program will not close instantly
 
 function exitHandler(options, err) {
     if (options.cleanup) {
-      logger.info('clean');
+      console.log('Application cleanup');
     }
     
     if (err) {

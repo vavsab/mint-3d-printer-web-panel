@@ -1,0 +1,22 @@
+<div class="page-header">
+    <h1>Logs</h1>
+</div>
+
+<div class="row" ng-show="isLoading">
+    Loading...
+</div>
+
+<div class="row" ng-show="!isLoading && error">
+    Error: {{error}}
+</div>
+
+<div class="row" ng-show="!isLoading">
+    <label>Log filename:</label>
+    <select class="form-control" ng-model="selectedFile" ng-options="f for f in files">
+    </select>
+
+    <input class="btn btn-primary" type="submit" ng-click="load();" value="Load" style="margin-top:5px;" />
+
+    <p ng-bind-html="selectedFileContent | to_trusted">
+    </p>
+</div>

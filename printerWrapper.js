@@ -9,14 +9,14 @@ log4js.configure({
     { type: 'console' },
     { 
         type: 'dateFile', 
-        filename: 'logs/printerContainer', 
-        category: 'printerContainer',
+        filename: 'logs/printerWrapper', 
+        category: 'printerWrapper',
         pattern: "-yyyy-MM-dd.log",
         alwaysIncludePattern: true }
   ]
 });
 
-var logger = log4js.getLogger('printerContainer');
+var logger = log4js.getLogger('printerWrapper');
 
 var port = 5555;
 server.listen(port);
@@ -61,7 +61,7 @@ printerProcess.on('exit', function () {
 
 function exitHandler(options, err) {
     if (options.cleanup) {
-        logger.info('clean');
+        console.log('Application cleanup');
         printerProcess.kill();
     }
 

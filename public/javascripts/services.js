@@ -117,3 +117,29 @@ app.factory('eventAggregatorFactory', [function () {
         }
     };
 }]);
+
+app.service('logService', ['$http', '$q', function ($http, $q) {
+    this.getFileContent = function(fileName) {
+        return $q(function(resolve, reject) {
+            $http.get("/api/log/", { params: { fileName: fileName }})
+            .success(function (response) {
+                resolve(response.fileContent);
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    }
+
+    this.getFiles = function() {
+        return $q(function(resolve, reject) {
+            $http.get("/api/log/")
+            .success(function (response) {
+                resolve(response);
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
+}]);
