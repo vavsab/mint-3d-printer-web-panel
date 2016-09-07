@@ -53,7 +53,7 @@
 
 <body ng-controller="mainController">
     <div id="wrapper">
-
+        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert(alert)">{{alert.message}}</div>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -85,7 +85,6 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <div id="page-wrapper" ng-view>
         </div>
         <!-- /#page-wrapper -->

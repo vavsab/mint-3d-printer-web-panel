@@ -7,7 +7,12 @@ var log4js = require('log4js');
 log4js.configure({
   appenders: [
     { type: 'console' },
-    { type: 'file', filename: 'logs/printerContainer.log', category: 'printerContainer' }
+    { 
+        type: 'dateFile', 
+        filename: 'logs/printerContainer', 
+        category: 'printerContainer',
+        pattern: "-yyyy-MM-dd.log",
+        alwaysIncludePattern: true }
   ]
 });
 

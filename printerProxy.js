@@ -1,12 +1,13 @@
 var util = require('util');
 var eventEmitter = require('events').EventEmitter;
+var logger = require('./logger');
 
 var proxy = function () {
     var self = this;
     var socket = require('socket.io-client')('http://localhost:5555');
 
     socket.on('connect', function(){
-        console.log('printerProxy: Printer service connected');
+        logger.info('printerProxy: Printer service connected');
     });
 
     socket.on('stdout', function(data) {
@@ -14,7 +15,7 @@ var proxy = function () {
     });
 
     socket.on('disconnect', function() {
-        console.log('printerProxy: Printer service disconnected');
+        logger.info('printerProxy: Printer service disconnected');
     });
  
     this.send = function(data) {
@@ -23,7 +24,7 @@ var proxy = function () {
 
         self.emit('sent_to_printer', data);
         socket.emit('stdin', data);
-        console.log('printerProxy: sent: ' + data);
+        logger.info('printerProxy: sent: ' + data);
         return true;
     };
 };

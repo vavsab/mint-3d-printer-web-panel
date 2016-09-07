@@ -2,6 +2,7 @@ module.exports = function (server, printerProxy)
 {
   var io = require('socket.io')(server);
   var config = require('config');
+  var logger = require('./logger');
 
   var lastStatusUpdateDate = new Date(0);
   var startPrintDate = null;
@@ -9,7 +10,7 @@ module.exports = function (server, printerProxy)
 
   printerProxy.on('data', function(data) {
     data = data.toString();
-    console.log("printerStatusController: Data received: " + data);
+    logger.info("printerStatusController: Data received: " + data);
     if (data.startsWith("End print")) {
       // to receive the last status message
       lastStatusUpdateDate = new Date(0);
@@ -26,7 +27,7 @@ module.exports = function (server, printerProxy)
         if (item.startsWith("I")) {
           lastStatusUpdateDate = new Date();
           item = item.substr(1);
-          console.log("printerStatusController: sent status to subscribers");
+          logger.info("printerStatusController: sent status to subscribers");
           browserSockets.forEach(function(socket, i, arr) {
             var status = eval("(" + item + ")");
             status.remainedMilliseconds = null;
@@ -35,7 +36,7 @@ module.exports = function (server, printerProxy)
               try {
                 status.remainedMilliseconds = (status.line_count - status.line_index) * ((new Date() - startPrintDate) / status.line_index);
               } catch(error) {
-                console.log("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
+                logger.info("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
               }  
             }
 
@@ -53,12 +54,12 @@ module.exports = function (server, printerProxy)
   });
 
   io.on('connection', function (socket) {
-    console.log("socket connected")
+    logger.info("socket connected")
     browserSockets.push(socket)
 
     socket.on('disconnect', function () {
-        console.log("socket disconnected")
+        logger.info("socket disconnected")
         browserSockets.splice(browserSockets.indexOf(socket), 1);
     });
   });
-} 
+}

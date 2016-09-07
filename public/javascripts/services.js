@@ -1,3 +1,14 @@
+app.service('alertService', ['eventAggregatorFactory', function (eventAggregatorFactory) {
+    var self = this;
+    this.alerts = [];
+    this.eventAggregator = new eventAggregatorFactory();
+
+    this.add = function(type, message) {
+        self.alerts.push({type: type, message: message});
+        self.eventAggregator.trigger('alertsChanged');
+    };
+}]);
+
 app.service('fileUpload', ['$http', '$q', function ($http, $q) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var deferred = $q.defer();

@@ -1,8 +1,20 @@
-﻿app.controller('mainController', ['$scope', function ($scope) {
+﻿app.controller('mainController', ['$scope', 'alertService', function ($scope, alertService) {
     $scope.Header = "Keep Calm Printer Console";
+    $scope.alerts = alertService.alerts;
+    $scope.closeAlert = function (alert) {
+        $scope.alerts.forEach(function (value, index) {
+            if (value == alert) {
+                $scope.alerts.splice(index, 1);
+            }
+        })
+    }
+
+    alertService.eventAggregator.on('alertsChanged', function () {
+        $scope.$apply();
+    });
 }]);
 
-app.controller('dashboardController', ['$scope', '$http', 'printerStatusService', 'commandService', function ($scope, $http, printerStatusService, commandService) {
+app.controller('dashboardController', ['$scope', '$http', 'printerStatusService', 'commandService', 'alertService', function ($scope, $http, printerStatusService, commandService, alertService) {
     var msToTime = function (s) {
         var ms = s % 1000;
         s = (s - ms) / 1000;
@@ -23,7 +35,7 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
     printerStatusService.eventAggregator.on('statusReceived', onStatusReceived);
 
     var onPrintingEnded = function() {
-        alert("Printing is finished");
+        alertService.add('success', 'Printing is finished at ' + new Date());
     };
     
     printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
