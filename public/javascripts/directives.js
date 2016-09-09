@@ -1,30 +1,34 @@
-app.directive('commandButton', function () {
+app.directive('actionButton', function () {
     return {
         scope: {
-            commandName: '@',
+            action: '&',
+            buttonName: '@'
         },
-        controller: ['$scope', '$http', 'commandService', function ($scope, $http, commandService) {
-            $scope.isCommandRunning = false,
-            $scope.sendCommand = function(commandName) {
-                $scope.commandError = null;
-                $scope.isCommandRunning = true;
+        controller: ['$scope', '$http', function ($scope, $http) {
+            $scope.isActionRunning = false,
+            $scope.runAction = function() {
+                $scope.actionError = null;
+                $scope.isActionRunning = true;
 
-                commandService.sendCommand(commandName)
-                .then(
-                    function success() {
-                        $scope.commandSucceded = true;
-                    },
-                    function error(error) {
-                        $scope.commandSucceded = false;
-                        $scope.commandError = error;
-                    }
-                )
-                .finally(function () {
-                    $scope.isCommandRunning = false;    
-                });
+                var actionDefer = $scope.action();
+                if (actionDefer == null) {
+                    $scope.isActionRunning = false;
+                } else {
+                    actionDefer.then(
+                        function success() {
+                            $scope.actionSucceded = true;
+                        },
+                        function error(error) {
+                            $scope.actionSucceded = false;
+                            $scope.actionError = error;
+                    })
+                    .finally(function () {
+                        $scope.isActionRunning = false;    
+                    });
+                }
             }
         }],
-        templateUrl: '/partials/commandButton.html'
+        templateUrl: '/partials/actionButton.html'
     };
 });
 

@@ -15,20 +15,10 @@
 }]);
 
 app.controller('dashboardController', ['$scope', '$http', 'printerStatusService', 'commandService', 'alertService', function ($scope, $http, printerStatusService, commandService, alertService) {
-    var msToTime = function (s) {
-        var ms = s % 1000;
-        s = (s - ms) / 1000;
-        var secs = s % 60;
-        s = (s - secs) / 60;
-        var mins = s % 60;
-        var hrs = (s - mins) / 60;
-
-        return hrs + ':' + mins + ':' + secs;
-    };
 
     var onStatusReceived = function(status) {
         $scope.status = status;
-        $scope.status.timeRemained = msToTime($scope.status.remainedMilliseconds)
+        $scope.status.timeRemained = $scope.status.remainedMilliseconds;
         $scope.$apply();
     };
 
@@ -44,26 +34,9 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
         printerStatusService.eventAggregator.unsubscribe('statusReceived', onStatusReceived);
         printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
     });
-    
-    $scope.isCommandRunning = false;
 
-    $scope.sendCommand = function() {
-        $scope.commandError = null;
-        $scope.isCommandRunning = true;
-
-        commandService.sendCommand($scope.commandName, true)
-        .then(
-            function success() {
-                $scope.commandSucceded = true;
-            },
-            function error(error) {
-                $scope.commandSucceded = false;
-                $scope.commandError = error;
-            }
-        )
-        .finally(function () {
-            $scope.isCommandRunning = false;    
-        });
+    $scope.sendCommand = function(commandName, isDirectCommand = false) {
+        return commandService.sendCommand(commandName, isDirectCommand);
     }
 }]);
 
@@ -95,6 +68,7 @@ app.controller('logsController', ['$scope', 'logService', function ($scope, logS
         .then(
             function success(response) {
                 $scope.files = response.files;
+                $scope.totalSize = response.totalSize;
             },
             function error(error) {
                 $scope.error = error;

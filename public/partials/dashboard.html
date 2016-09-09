@@ -7,20 +7,17 @@
 <div class="row" style="margin-bottom:20px;">
     <label>Commands</label>
     <div style="margin-bottom:5px;">
-        <command-button command-name="Start" />
+        <action-button button-name="Start" action="sendCommand('Start');" />
     </div>
     <div style="margin-bottom:5px;">
-        <command-button command-name="Stop" />
+        <action-button button-name="Stop" action="sendCommand('Stop');" />
     </div>
     <form>
         <div class="form-group">
             <label for="commandName">Command name</label>
             <input id="commandName" class="form-control" type="text" placeholder="Command name" ng-model="commandName" />
         </div>
-        <button class="btn btn-default" ng-click="sendCommand();">Send command</button>
-        <span class="label label-default" ng-show="isCommandRunning">Running...</span>
-        <span class="label label-success" ng-show="!isCommandRunning && commandSucceded">Ok</span>
-        <span class="label label-warning" ng-show="!isCommandRunning && !commandSucceded && commandError">Error: {{commandError}}</span>
+        <action-button button-name="Send command" action="sendCommand(commandName, true);" />
     </form>
 </div>
 <!-- /.row -->
@@ -29,10 +26,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-bar-chart fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12">
                         <div>Temperature: {{status.temp / 10 | replaceIfUndefined}} °C</div>
                         <div>Base: {{status.baseTemp / 10 | replaceIfUndefined}} °C</div>
                         <div>PWM: {{status.tempPWM / 1024 * 100 | number : 2 | replaceIfUndefined}}%</div>
@@ -45,12 +39,9 @@
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12">
+                        <label>Culler rate</label>
                         <div class="huge">{{status.cullerRate / 2550 * 100 | number : 2 | replaceIfUndefined}}%</div>
-                        <div>Culler rate</div>
                     </div>
                 </div>
             </div>
@@ -60,14 +51,11 @@
         <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12">
+                        <label>Current position</label>
                         <div>X: {{status.currentPos.X / 10000 | number : 2 | replaceIfUndefined}}</div>
                         <div>Y: {{status.currentPos.Y / 10000 | number : 2 | replaceIfUndefined}}</div>
                         <div>Z: {{status.currentPos.Z / 10000 | number : 2 | replaceIfUndefined}}</div>
-                        <div>Current position</div>
                     </div>
                 </div>
             </div>
@@ -77,15 +65,12 @@
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-support fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
+                    <div class="col-xs-12">
+                        <label>Printing Progress</label>
                         <uib-progressbar value="status.line_index / status.line_count * 100">
                             <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | number : 2 | replaceIfUndefined}}%</span>
                         </uib-progressbar>
-                        <div>Remained: {{status.timeRemained | replaceIfUndefined}}</div>
-                        <div>Printing Progress</div>
+                        <div>Remained: {{status.timeRemained | millisecondsToTime }}</div>
                     </div>
                 </div>
             </div>

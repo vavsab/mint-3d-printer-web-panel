@@ -50,7 +50,7 @@ namespace PrinterEmulator
                 string buffer = "";
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    char c = (char)Console.Read();
+                    char c = (char)Console.In.Read();
 
                     if (c == '\n')
                     {
@@ -81,11 +81,23 @@ namespace PrinterEmulator
                     {
                         if (CheckBoxStatus.IsChecked ?? false)
                         {
-                            ConsoleWrite("* Some other info output *\n");
                             ConsoleWrite(GetInfo() + "\n");
                         }
                     });
-                } while (!cancellationToken.WaitHandle.WaitOne(TimeSpan.FromSeconds(5)));
+                    Thread.Sleep(5000);
+                } while (!cancellationToken.IsCancellationRequested);
+            }, cancellationToken);
+
+            Task.Run(() =>
+            {
+                do
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        ConsoleWrite("* Some other info output *\n");
+                    });
+                    Thread.Sleep(10000);
+                } while (!cancellationToken.IsCancellationRequested);
             }, cancellationToken);
         }
 
@@ -122,7 +134,7 @@ namespace PrinterEmulator
                     Y = random.Next(0, 10000000),
                     Z = random.Next(0, 10000000)
                 }
-            })
+            });
         }
     }
 }

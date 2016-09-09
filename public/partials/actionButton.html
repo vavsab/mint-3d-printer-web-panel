@@ -1,0 +1,4 @@
+<button class="btn btn-default" ng-click="runAction();">{{buttonName}}</button>
+<span class="label label-default" ng-show="isActionRunning">Running...</span>
+<span class="label label-success" ng-show="!isActionRunning && actionSucceded">Ok</span>
+<span class="label label-warning" ng-show="!isActionRunning && !actionSucceded && actionError">Error: {{actionError}}</span>

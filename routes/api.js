@@ -38,7 +38,7 @@
         if (commandCode != null) {
             var result = printerProxy.send(commandCode + "\n");
             if (!result) {
-                var errorMessage = 'could not sent the command. Seems that printer is unavailable'; 
+                var errorMessage = 'could not send the command. Seems that printer is unavailable'; 
                 logger.warn(errorMessage);
                 res.status(500).json({ error: errorMessage });
             } else {
@@ -52,11 +52,19 @@
     router.get('/log', function (req, res) { 
         var fileName = req.query.fileName;
 
+        var fileNames = fs.readdirSync('logs/');
+        var totalSize = 0;
+        fileNames.forEach(function (fileName) {
+            totalSize += fs.statSync('logs/' + fileName).size;
+        });
+
         if (!fileName) {
-            res.status(200).json({files: fs.readdirSync('logs/')});
+            res.status(200).json({
+                files: fileNames,
+                totalSize: totalSize 
+            });
         } else {
             var fileContent = fs.readFileSync(path.join('logs/', fileName)).toString();
-            logger.warn(fileContent);
             res.status(200).json({fileContent: fileContent});
         }
     });

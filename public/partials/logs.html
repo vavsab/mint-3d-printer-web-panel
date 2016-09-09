@@ -11,6 +11,8 @@
 </div>
 
 <div class="row" ng-show="!isLoading">
+    <label>Total log size: {{totalSize | dataSize}}</label>
+    <br />
     <label>Log filename:</label>
     <select class="form-control" ng-model="selectedFile" ng-options="f for f in files">
     </select>
