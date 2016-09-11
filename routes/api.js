@@ -1,4 +1,4 @@
-﻿module.exports = function (printerProxy, uploads) {
+﻿module.exports = function (printerProxy, printerStatusController, uploads) {
     var express = require('express');
     var fs = require('fs-extra');
     var path = require('path');
@@ -66,6 +66,11 @@
         } else {
             res.download(path.join('logs/', fileName));
         }
+    });
+
+    // For getting the last printer status
+    router.get('/status', function (req, res) {
+        res.status(200).json(printerStatusController.currentStatus);
     });
 
     return router;

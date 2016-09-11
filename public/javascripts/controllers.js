@@ -19,11 +19,16 @@
 }]);
 
 app.controller('dashboardController', ['$scope', '$http', 'printerStatusService', 'commandService', 'alertService', function ($scope, $http, printerStatusService, commandService, alertService) {
-
     var onStatusReceived = function(status) {
         $scope.status = status;
         $scope.$apply();
     };
+
+    // get current status
+    printerStatusService.getStatus()
+    .then(function success(status) {
+        $scope.status = status;
+    });
 
     printerStatusService.eventAggregator.on('statusReceived', onStatusReceived);
 

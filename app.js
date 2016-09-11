@@ -35,8 +35,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+printerStatusController = printerStatusController(server, printerProxy);
+
 app.use('/', routes);
-app.use('/api', apiCreator(printerProxy, uploads));
+app.use('/api', apiCreator(printerProxy, printerStatusController, uploads));
 
 
 // catch 404 and forward to error handler
@@ -69,8 +71,6 @@ app.use(function(err, req, res, next) {
     error: err.message
   });
 });
-
-printerStatusController = printerStatusController(server, printerProxy);
 
 module.exports = app;
 

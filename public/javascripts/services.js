@@ -44,7 +44,7 @@ app.service('commandService', ['$http', '$q', function ($http, $q) {
     };
 }]);
 
-app.service('printerStatusService', ['$http', 'eventAggregatorFactory', function ($http, eventAggregatorFactory) {
+app.service('printerStatusService', ['$http', 'eventAggregatorFactory', '$q', function ($http, eventAggregatorFactory, $q) {
     this.eventAggregator = new eventAggregatorFactory();
     var self = this;
     this.status = null;
@@ -61,6 +61,18 @@ app.service('printerStatusService', ['$http', 'eventAggregatorFactory', function
             self.eventAggregator.trigger('printingEnded', data);
         }
     });
+
+    this.getStatus = function () {
+        return $q(function(resolve, reject) {
+            $http.get('/api/status')
+            .success(function (status) {
+                resolve(status);
+            })
+            .error(function (response) {
+                reject(response.error);
+            });
+        });
+    };
 }]);
 
 app.factory('eventAggregatorFactory', [function () {
