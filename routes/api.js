@@ -54,18 +54,17 @@
 
         var fileNames = fs.readdirSync('logs/');
         var totalSize = 0;
+        var fileData = [];
         fileNames.forEach(function (fileName) {
-            totalSize += fs.statSync('logs/' + fileName).size;
+            fileData.push({fileName: fileName, size: fs.statSync(path.join('logs/', fileName)).size});
         });
 
         if (!fileName) {
             res.status(200).json({
-                files: fileNames,
-                totalSize: totalSize 
+                files: fileData, 
             });
         } else {
-            var fileContent = fs.readFileSync(path.join('logs/', fileName)).toString();
-            res.status(200).json({fileContent: fileContent});
+            res.download(path.join('logs/', fileName));
         }
     });
 

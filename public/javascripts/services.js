@@ -119,23 +119,28 @@ app.factory('eventAggregatorFactory', [function () {
 }]);
 
 app.service('logService', ['$http', '$q', function ($http, $q) {
-    this.getFileContent = function(fileName) {
+    this.getFile = function(fileName) {
         return $q(function(resolve, reject) {
-            $http.get("/api/log/", { params: { fileName: fileName }})
-            .success(function (response) {
-                resolve(response.fileContent);
-            })
-            .error(function (response) {
-                reject(response.error);
-            })
+            var anchor = angular.element('<a/>');
+            anchor.css({display: 'none'}); 
+            angular.element(document.body).append(anchor);
+
+            anchor.attr({
+                href: '/api/log/?fileName=' + encodeURI(fileName),
+                target: '_blank',
+                download: fileName
+            })[0].click();
+
+            anchor.remove(); // Clean it up afterwards
+            resolve();
         });
     }
 
-    this.getFiles = function() {
+    this.getFilesInfo = function() {
         return $q(function(resolve, reject) {
             $http.get("/api/log/")
             .success(function (response) {
-                resolve(response);
+                resolve(response.files);
             })
             .error(function (response) {
                 reject(response.error);

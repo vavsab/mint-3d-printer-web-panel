@@ -64,11 +64,16 @@ app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scop
 app.controller('logsController', ['$scope', 'logService', function ($scope, logService) {
     $scope.isLoading = true;
 
-    logService.getFiles()
+    logService.getFilesInfo()
         .then(
-            function success(response) {
-                $scope.files = response.files;
-                $scope.totalSize = response.totalSize;
+            function success(filesInfo) {
+                $scope.filesInfo = filesInfo;
+                var totalSize = 0;
+                filesInfo.forEach(function (fileInfo) {
+                    totalSize += fileInfo.size;
+                });
+
+                $scope.totalSize = totalSize;
             },
             function error(error) {
                 $scope.error = error;
@@ -78,19 +83,12 @@ app.controller('logsController', ['$scope', 'logService', function ($scope, logS
             $scope.isLoading = false;    
         });
     
-    $scope.load = function () {
+    $scope.getFile = function (fileName) {
         $scope.error = undefined;
 
-        if (!$scope.selectedFile) {
-            $scope.error = 'choose file to load';
-            return;
-        }
-
-        logService.getFileContent($scope.selectedFile)
+        logService.getFile(fileName)
             .then(
-                function success(fileContent) {
-                    $scope.selectedFileContent = fileContent.replaceAll("\n", "<br />");
-                },
+                function success(fileContent) {},
                 function error(error) {
                     $scope.error = error;
                 }
