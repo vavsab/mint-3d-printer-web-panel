@@ -26,7 +26,7 @@ module.exports = function (server, printerProxy)
   printerProxy.on('data', function(data) {
     data = data.toString();
     logger.info("printerStatusController: Data received: " + data);
-    if (data.startsWith("End print")) {
+    if (data.includes("End print")) {
       // to receive the last status message
       lastPrintingStatusUpdateDate = new Date(0);
       browserSockets.forEach(function(socket, i, arr) {
