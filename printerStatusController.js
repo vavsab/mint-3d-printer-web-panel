@@ -20,7 +20,6 @@ module.exports = function (server, printerProxy)
   setInterval(function () {
     if (new Date() - lastPrintingStatusUpdateDate > 3000) {
       printerProxy.send(requestPrinterStatusCommand); // Request printer status
-      lastPrintingStatusUpdateDate = new Date();
     }
   }, 3000);
 
