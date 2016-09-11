@@ -1,6 +1,10 @@
-﻿app.controller('mainController', ['$scope', 'alertService', function ($scope, alertService) {
+﻿app.controller('mainController', ['$scope', 'alertService', 'siteAvailabilityInterceptor', function ($scope, alertService, siteAvailabilityInterceptor) {
     $scope.Header = "Keep Calm Printer Console";
     $scope.alerts = alertService.alerts;
+    siteAvailabilityInterceptor.onError = function () {
+        alertService.add('danger', 'Site is not available');
+    };
+
     $scope.closeAlert = function (alert) {
         $scope.alerts.forEach(function (value, index) {
             if (value == alert) {
@@ -59,7 +63,6 @@ app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scop
             });
     }
 }]);
-
 
 app.controller('logsController', ['$scope', 'logService', function ($scope, logService) {
     $scope.isLoading = true;
