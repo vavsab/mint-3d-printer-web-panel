@@ -48,5 +48,23 @@ namespace PrintDream.Model
         /// </summary>
         [DataMember(Name = "isPrint")]
         public byte IsPrint { get; set; }
+
+        /// <summary>
+        /// Extruder pushing coefficient (1234 means 123,4 %)
+        /// </summary>
+        [DataMember(Name = "extrOver")]
+        public int ExtruderOver { get; set; }
+
+        /// <summary>
+        /// Printer general speed (1234 means 123,4 %)
+        /// </summary>
+        [DataMember(Name = "feedRate")]
+        public int FeedRate { get; set; }
+
+        /// <summary>
+        /// Speed of head moving in meters/minute multiplied by 10^3
+        /// </summary>
+        [DataMember(Name = "speed")]
+        public int Speed { get; set; }
     }
 }

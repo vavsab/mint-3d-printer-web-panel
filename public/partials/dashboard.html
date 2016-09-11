@@ -30,18 +30,9 @@
                         <div>Temperature: {{status.temp / 10 | replaceIfUndefined}} °C</div>
                         <div>Base: {{status.baseTemp / 10 | replaceIfUndefined}} °C</div>
                         <div>PWM: {{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-6">
-        <div class="panel panel-green">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <label>Culler rate</label>
-                        <div class="huge">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
+                        <div>Culler rate: {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
+                        <div>Extruder over: {{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</div>
+                        <div>Feed rate: {{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</div>
                     </div>
                 </div>
             </div>
@@ -61,13 +52,13 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6">
+    <div class="col-lg-6 col-md-6" ng-show="status.remainedMilliseconds">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Printing Progress</label>
-                        <uib-progressbar value="status.line_index / status.line_count * 100">
+                        <uib-progressbar class="progress-striped active" type="success" value="status.line_index / status.line_count * 100">
                             <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
                         </uib-progressbar>
                         <div>Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>

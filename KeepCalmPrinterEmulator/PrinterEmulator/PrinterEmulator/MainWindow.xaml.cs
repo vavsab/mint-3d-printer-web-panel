@@ -134,8 +134,11 @@ namespace PrinterEmulator
                     Y = random.Next(0, 10000000),
                     Z = random.Next(0, 10000000)
                 },
-                IsPrint = isPrinting ? (byte)1 : (byte)0
-            });
+                IsPrint = isPrinting ? (byte)1 : (byte)0,
+                FeedRate = random.Next(10, 5000),
+                ExtruderOver = random.Next(10, 5000),
+                Speed = random.Next(1000, 1000000)
+                });
         }
     }
 }
