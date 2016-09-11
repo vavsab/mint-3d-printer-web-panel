@@ -33,6 +33,7 @@
                         <div>Culler rate: {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
                         <div>Extruder over: {{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</div>
                         <div>Feed rate: {{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</div>
+                        <div>Speed: {{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/minute</div>
                     </div>
                 </div>
             </div>
