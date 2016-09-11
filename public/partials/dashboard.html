@@ -29,7 +29,7 @@
                     <div class="col-xs-12">
                         <div>Temperature: {{status.temp / 10 | replaceIfUndefined}} °C</div>
                         <div>Base: {{status.baseTemp / 10 | replaceIfUndefined}} °C</div>
-                        <div>PWM: {{status.tempPWM / 1024 * 100 | number : 2 | replaceIfUndefined}}%</div>
+                        <div>PWM: {{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Culler rate</label>
-                        <div class="huge">{{status.cullerRate / 2550 * 100 | number : 2 | replaceIfUndefined}}%</div>
+                        <div class="huge">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
                     </div>
                 </div>
             </div>
@@ -53,9 +53,9 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Current position</label>
-                        <div>X: {{status.currentPos.X / 10000 | number : 2 | replaceIfUndefined}}</div>
-                        <div>Y: {{status.currentPos.Y / 10000 | number : 2 | replaceIfUndefined}}</div>
-                        <div>Z: {{status.currentPos.Z / 10000 | number : 2 | replaceIfUndefined}}</div>
+                        <div>X: {{status.currentPos.X / 10000 | toFixed : 2 | replaceIfUndefined}}</div>
+                        <div>Y: {{status.currentPos.Y / 10000 | toFixed : 2 | replaceIfUndefined}}</div>
+                        <div>Z: {{status.currentPos.Z / 10001 | toFixed : 2 | replaceIfUndefined}}</div>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     <div class="col-xs-12">
                         <label>Printing Progress</label>
                         <uib-progressbar value="status.line_index / status.line_count * 100">
-                            <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | number : 2 | replaceIfUndefined}}%</span>
+                            <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
                         </uib-progressbar>
                         <div>Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
                     </div>

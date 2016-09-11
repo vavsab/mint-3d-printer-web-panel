@@ -49,6 +49,11 @@ printerProcess.stderr.on('data', function(data) {
 printerProcess.stdout.on('data', function(data) {
     data = data.toString();
     logger.info("Data from printer was received: " + data);
+
+    if (data.startsWith('r') || data.startsWith('g') || data.startsWith('m')) {
+        return;
+    }
+
     browserSockets.forEach(function(socket, i, arr) {
         socket.emit('stdout', data);
     });
