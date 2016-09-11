@@ -11,7 +11,7 @@ var proxy = function () {
             return false;
 
         self.emit('sent_to_printer', data);
-        socket.emit('stdin', data);
+        socket.emit('stdin', data + '\n');
         logger.info('printerProxy: sent: ' + data);
         return true;
     };

@@ -36,7 +36,7 @@
 
         logger.info("commandCode: " + commandCode);
         if (commandCode != null) {
-            var result = printerProxy.send(commandCode + "\n");
+            var result = printerProxy.send(commandCode);
             if (!result) {
                 var errorMessage = 'could not send the command. Seems that printer is unavailable'; 
                 logger.warn(errorMessage);
