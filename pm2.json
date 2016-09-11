@@ -1,0 +1,15 @@
+{
+  "apps" : [{
+    "name"        : "server",
+    "script"      : "app.js",
+    "env": {
+      "NODE_ENV": "stage"
+    }
+  }, {
+    "name"       : "printer",
+    "script"     : "printerWrapper.js",
+    "env": {
+      "NODE_ENV": "stage"
+    }
+  }]
+}
