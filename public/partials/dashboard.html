@@ -70,7 +70,7 @@
                         <uib-progressbar value="status.line_index / status.line_count * 100">
                             <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | number : 2 | replaceIfUndefined}}%</span>
                         </uib-progressbar>
-                        <div>Remained: {{status.timeRemained | millisecondsToTime }}</div>
+                        <div>Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
                     </div>
                 </div>
             </div>

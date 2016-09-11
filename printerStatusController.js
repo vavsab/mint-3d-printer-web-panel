@@ -31,6 +31,13 @@ module.exports = function (server, printerProxy)
           browserSockets.forEach(function(socket, i, arr) {
             var status = eval("(" + item + ")");
             status.remainedMilliseconds = null;
+            if (status.isPrint == 1 && status.line_index > 100) {
+              if (startPrintDate == null) {
+                startPrintDate = new Date();
+              }
+            } else {
+              startPrintDate = null;
+            }
 
             if (startPrintDate != null) {
               try {
@@ -45,12 +52,6 @@ module.exports = function (server, printerProxy)
         }
       });
     } 
-  });
-
-  printerProxy.on('sent_to_printer', function(data) {
-    if (data.startsWith("start")) {
-        startPrintDate = new Date();
-    }
   });
 
   io.on('connection', function (socket) {

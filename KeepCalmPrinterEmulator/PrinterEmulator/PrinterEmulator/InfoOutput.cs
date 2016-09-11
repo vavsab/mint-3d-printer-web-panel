@@ -42,5 +42,11 @@ namespace PrintDream.Model
         /// </summary>
         [DataMember(Name = "line_index")]
         public int LineIndex { get; set; }
+
+        /// <summary>
+        /// Determines whether printer is active now
+        /// </summary>
+        [DataMember(Name = "isPrint")]
+        public byte IsPrint { get; set; }
     }
 }

@@ -22,7 +22,6 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
 
     var onStatusReceived = function(status) {
         $scope.status = status;
-        $scope.status.timeRemained = $scope.status.remainedMilliseconds;
         $scope.$apply();
     };
 

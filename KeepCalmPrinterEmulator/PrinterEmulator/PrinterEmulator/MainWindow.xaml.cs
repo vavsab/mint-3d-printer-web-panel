@@ -81,7 +81,7 @@ namespace PrinterEmulator
                     {
                         if (CheckBoxStatus.IsChecked ?? false)
                         {
-                            ConsoleWrite(GetInfo() + "\n");
+                            ConsoleWrite(GetInfo(isPrinting: true) + "\n");
                         }
                     });
                     Thread.Sleep(5000);
@@ -117,7 +117,7 @@ namespace PrinterEmulator
             ConsoleWrite("Some error #" + random.Next() + '\n', error: true);   
         }
 
-        private string GetInfo()
+        private string GetInfo(bool isPrinting = false)
         {
             return InfoOutput.PackagePrefix + 
                 JsonSerializer.Serialize(new InfoOutput
@@ -133,7 +133,8 @@ namespace PrinterEmulator
                     X = random.Next(0, 10000000),
                     Y = random.Next(0, 10000000),
                     Z = random.Next(0, 10000000)
-                }
+                },
+                IsPrint = isPrinting ? (byte)1 : (byte)0
             });
         }
     }
