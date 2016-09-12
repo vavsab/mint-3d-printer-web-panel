@@ -25,7 +25,7 @@ module.exports = function (server, printerProxy)
 
   printerProxy.on('data', function(data) {
     data = data.toString();
-    logger.info("printerStatusController: Data received: " + data);
+    logger.trace("printerStatusController: Data received: " + data);
     if (data.includes("End print")) {
       // to receive the last status message
       lastPrintingStatusUpdateDate = new Date(0);
@@ -42,11 +42,11 @@ module.exports = function (server, printerProxy)
         if (item.startsWith("I")) {
           lastPrintingStatusUpdateDate = new Date();
           item = item.substr(1);
-          logger.info("printerStatusController: sent status to subscribers");
+          
           browserSockets.forEach(function(socket, i, arr) {
             var status = eval("(" + item + ")");
             status.remainedMilliseconds = null;
-            if (status.isPrint == 1 && status.line_index > 100) {
+            if (status.isPrint == 1) {
               if (startPrintDate == null) {
                 startPrintDate = new Date();
               }
@@ -54,17 +54,19 @@ module.exports = function (server, printerProxy)
               startPrintDate = null;
             }
 
-            if (startPrintDate != null) {
+            if (startPrintDate != null && status.line_index > 100) {
               try {
                 status.remainedMilliseconds = (status.line_count - status.line_index) * ((new Date() - startPrintDate) / status.line_index);
               } catch(error) {
-                logger.info("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
+                logger.warn("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
               }  
             }
 
             self.currentStatus = status;
             socket.emit('status', status);
           });
+
+          logger.trace("printerStatusController: sent status to subscribers");
         }
       });
     } 

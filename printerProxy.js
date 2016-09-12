@@ -12,7 +12,7 @@ var proxy = function () {
 
         self.emit('sent_to_printer', data);
         socket.emit('stdin', data + '\n');
-        logger.info('printerProxy: sent: ' + data);
+        logger.trace('printerProxy: sent: ' + data);
         return true;
     };
 

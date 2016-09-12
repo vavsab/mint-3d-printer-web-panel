@@ -9,7 +9,7 @@
     var router = express.Router();
 
     router.post('/fileUpload', uploads.single("file"), function(req, res) {
-        logger.info("FILE:" + req.file);
+        logger.trace("FILE:" + req.file);
         try {
             fs.copySync(req.file.path, './data.txt', { clobber : true });
             res.status(200).send();
@@ -20,7 +20,7 @@
     });
 
     router.post('/command/:commandName', function (req, res) {
-        logger.info("isDirectCommand: " + req.body.isDirectCommand);
+        logger.trace("isDirectCommand: " + req.body.isDirectCommand);
         var commandCode = null;
         if (req.body.isDirectCommand) {
             commandCode = req.params.commandName;
@@ -34,7 +34,7 @@
             }
         }
 
-        logger.info("commandCode: " + commandCode);
+        logger.trace("commandCode: " + commandCode);
         if (commandCode != null) {
             var result = printerProxy.send(commandCode);
             if (!result) {
