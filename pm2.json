@@ -2,7 +2,6 @@
   "apps" : [{
     "name"        : "server",
     "script"      : "app.js",
-    "watch"       : true,
     "env": {
       "NODE_ENV": "stage"
     }
