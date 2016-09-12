@@ -43,7 +43,8 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
         printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
     });
 
-    $scope.sendCommand = function(commandName, isDirectCommand = false) {
+    $scope.sendCommand = function(commandName, isDirectCommand) {
+        isDirectCommand = isDirectCommand === undefined ? false : isDirectCommand;
         return commandService.sendCommand(commandName, isDirectCommand);
     }
 }]);

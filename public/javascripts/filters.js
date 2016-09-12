@@ -5,13 +5,15 @@ app.filter('toTrusted', ['$sce', function($sce){
 }]);
 
 app.filter('toFixed', [function(){
-    return function(text, fractionDigits = 2) {
+    return function(text, fractionDigits) {
+        fractionDigits = fractionDigits || 2;
         return text.toFixed(fractionDigits);
     };
 }]);
 
 app.filter('replaceIfUndefined', [function(){
-    return function(text, replacement = '---') {
+    return function(text, replacement) {
+        replacement = replacement || '---';
         return text === '' || text === undefined || isNaN(text) ? replacement : text;
     };
 }]);

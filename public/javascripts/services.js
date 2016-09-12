@@ -31,7 +31,8 @@ app.service('fileUpload', ['$http', '$q', function ($http, $q) {
 }]);
 
 app.service('commandService', ['$http', '$q', function ($http, $q) {
-    this.sendCommand = function(commandName, isDirectCommand = false) {
+    this.sendCommand = function(commandName, isDirectCommand) {
+        isDirectCommand = isDirectCommand === undefined ? false : isDirectCommand;
         return $q(function(resolve, reject) {
             $http.post("/api/command/" + commandName, { isDirectCommand: isDirectCommand })
             .success(function (response) {
@@ -80,7 +81,8 @@ app.factory('eventAggregatorFactory', [function () {
         var self = this;
         this.events = [];
         
-        var findIndexByEventName = function (eventName, createIfMissing = false) {
+        var findIndexByEventName = function (eventName, createIfMissing) {
+            createIfMissing = createIfMissing === undefined ? false : createIfMissing;
             var index = -1;
             for (var i = 0; i < self.events.length; i++) {
                 if (self.events[i].eventName == eventName) {
