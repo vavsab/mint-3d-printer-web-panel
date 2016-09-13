@@ -81,7 +81,7 @@ namespace PrinterEmulator
                     {
                         if (CheckBoxStatus.IsChecked ?? false)
                         {
-                            ConsoleWrite(GetInfo(isPrinting: true) + "\n");
+                            ConsoleWrite(GetInfo() + "\n");
                         }
                     });
                     Thread.Sleep(5000);
@@ -124,7 +124,7 @@ namespace PrinterEmulator
             {
                 CullerRate = random.Next(0, 100),
                 LineCount = random.Next(100000, 200000),
-                LineIndex = random.Next(10000, 100000),
+                LineIndex = random.Next(1, 200),
                 TempPWM = (short)random.Next(0, 1024),
                 Temperature = random.Next(0, 5000),
                 BaseTemperature = random.Next(0, 5000),
@@ -134,11 +134,11 @@ namespace PrinterEmulator
                     Y = random.Next(0, 10000000),
                     Z = random.Next(0, 10000000)
                 },
-                IsPrint = isPrinting ? (byte)1 : (byte)0,
+                IsPrint = (CheckBoxIsPrinting.IsChecked ?? false) ? (byte)1 : (byte)0,
                 FeedRate = random.Next(10, 5000),
                 ExtruderOver = random.Next(10, 5000),
                 Speed = random.Next(1000, 1000000)
-                });
+             });
         }
     }
 }

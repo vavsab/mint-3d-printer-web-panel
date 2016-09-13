@@ -60,8 +60,11 @@ printerProcess.stdout.on('data', function(data) {
 });
 
 printerProcess.on('exit', function () {
-    logger.info('exit bacause printer process stopped');
-    process.exit()
+    logger.info('Exit bacause printer process stopped');
+    logger.info("Flush logger and exit");
+    log4js.shutdown(function() { 
+        process.exit(); 
+    });
 });
 
 function exitHandler(options, err) {
@@ -76,8 +79,10 @@ function exitHandler(options, err) {
     }
 
     if (options.exit) {
-        logger.info("exit");
-        process.exit();
+        logger.info("Flush logger and exit");
+        log4js.shutdown(function() { 
+            process.exit(); 
+        });
     }
 }
 

@@ -27,13 +27,44 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div>Temperature: {{status.temp / 10 | replaceIfUndefined}} °C</div>
-                        <div>Base: {{status.baseTemp / 10 | replaceIfUndefined}} °C</div>
-                        <div>PWM: {{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
-                        <div>Culler rate: {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</div>
-                        <div>Extruder over: {{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</div>
-                        <div>Feed rate: {{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</div>
-                        <div>Speed: {{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/minute</div>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Sensor</th>
+                                <th>Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Temperature</td>
+                                <td>{{status.temp / 10 | replaceIfUndefined}} °C</td>
+                            </tr>
+                            <tr>
+                                <td>Base</td>
+                                <td>{{status.baseTemp / 10 | replaceIfUndefined}} °C</td>
+                            </tr>
+                            <tr>
+                                <td>PWM</td>
+                                <td>{{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
+                            </tr>
+                            <tr>
+                                <td>Culler rate</td>
+                                <td>{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
+                            </tr>
+                            <tr>
+                                <td>Extruder over</td>
+                                <td>{{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
+                            </tr>
+                            <tr>
+                                <td>Feed rate</td>
+                                <td>{{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
+                            </tr>
+                            <tr>
+                                <td>Speed</td>
+                                <td>{{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/minute</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -53,7 +84,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6" ng-show="status.remainedMilliseconds">
+    <div class="col-lg-6 col-md-6" ng-show="status.startPrintDate != null">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -62,7 +93,10 @@
                         <uib-progressbar class="progress-striped active" value="status.line_index / status.line_count * 100">
                             <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
                         </uib-progressbar>
-                        <div>Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
+                        <div>Started on: {{status.startPrintDate | toDate}}</div>
+                        <div ng-show="status.remainedMilliseconds == null">Calculating time of printing...</div>
+                        <div ng-show="status.remainedMilliseconds != null">Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
+                        <div ng-show="status.endPrintDate != null">End time: {{status.endPrintDate | toDate}}</div>
                     </div>
                 </div>
             </div>

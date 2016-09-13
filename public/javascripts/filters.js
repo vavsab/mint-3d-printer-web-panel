@@ -11,6 +11,13 @@ app.filter('toFixed', [function(){
     };
 }]);
 
+app.filter('toDate', [function(){
+    return function(text) {
+        var date = new Date(text);
+        return date.toLocaleTimeString() + ' ' + date.toLocaleDateString();
+    };
+}]);
+
 app.filter('replaceIfUndefined', [function(){
     return function(text, replacement) {
         replacement = replacement || '---';

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var fs = require('fs-extra');
+var log4js = require('log4js');
 
 var printerStatusController = require('./printerStatusController');
 var logger = require('./logger');
@@ -87,7 +88,10 @@ function exitHandler(options, err) {
     }
     
     if (options.exit) {
-      process.exit();
+      logger.info("Flush logger and exit");
+      log4js.shutdown(function() { 
+        process.exit(); 
+      });
     }
 }
 
