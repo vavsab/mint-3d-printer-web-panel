@@ -42,34 +42,42 @@ module.exports = function (server, printerProxy)
         if (item.startsWith("I")) {
           lastPrintingStatusUpdateDate = new Date();
           item = item.substr(1);
+
+          var status;
+          try {
+            status = eval("(" + item + ")");
+          } catch (error) {
+            logger.warn("Could not parse JSON '" + item + "': " + error);
+            return;
+          }
+
+          status.remainedMilliseconds = null;
+          if (status.isPrint == 1) {
+            if (startPrintDate == null) {
+              startPrintDate = new Date();
+            }
+          } else {
+            startPrintDate = null;
+          }
+
+          if (startPrintDate != null && status.line_index > 100) {
+            try {
+              status.remainedMilliseconds = (status.line_count - status.line_index) * ((new Date() - startPrintDate) / status.line_index);
+            } catch(error) {
+              logger.warn("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
+            }  
+          }
+
+          status.startPrintDate = startPrintDate;
+          status.endPrintDate = null;
+
+          if (status.remainedMilliseconds != null) {
+            status.endPrintDate = new Date(status.startPrintDate.getTime() + status.remainedMilliseconds);
+          }
+
+          self.currentStatus = status;
           
-          browserSockets.forEach(function(socket, i, arr) {
-            var status = eval("(" + item + ")");
-            status.remainedMilliseconds = null;
-            if (status.isPrint == 1) {
-              if (startPrintDate == null) {
-                startPrintDate = new Date();
-              }
-            } else {
-              startPrintDate = null;
-            }
-
-            if (startPrintDate != null && status.line_index > 100) {
-              try {
-                status.remainedMilliseconds = (status.line_count - status.line_index) * ((new Date() - startPrintDate) / status.line_index);
-              } catch(error) {
-                logger.warn("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
-              }  
-            }
-
-            status.startPrintDate = startPrintDate;
-            status.endPrintDate = null;
-
-            if (status.remainedMilliseconds != null) {
-              status.endPrintDate = new Date(status.startPrintDate.getTime() + status.remainedMilliseconds);
-            }
-
-            self.currentStatus = status;
+          browserSockets.forEach(function(socket, i, arr) {       
             socket.emit('status', status);
           });
 

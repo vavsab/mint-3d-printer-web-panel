@@ -138,7 +138,7 @@ namespace PrinterEmulator
                 FeedRate = random.Next(10, 5000),
                 ExtruderOver = random.Next(10, 5000),
                 Speed = random.Next(1000, 1000000)
-             });
+            });
         }
     }
 }
