@@ -72,7 +72,7 @@ module.exports = function (server, printerProxy)
           status.endPrintDate = null;
 
           if (status.remainedMilliseconds != null) {
-            status.endPrintDate = new Date(status.startPrintDate.getTime() + status.remainedMilliseconds);
+            status.endPrintDate = new Date(new Date().getTime() + status.remainedMilliseconds);
           }
 
           self.currentStatus = status;

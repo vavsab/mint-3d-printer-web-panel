@@ -76,9 +76,9 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Current position</label>
-                        <div>X: {{status.currentPos.X / 10000 | toFixed : 2 | replaceIfUndefined}}</div>
-                        <div>Y: {{status.currentPos.Y / 10000 | toFixed : 2 | replaceIfUndefined}}</div>
-                        <div>Z: {{status.currentPos.Z / 10001 | toFixed : 2 | replaceIfUndefined}}</div>
+                        <div>X: {{status.currentPos.X / 100000 | toFixed : 2 | replaceIfUndefined}}</div>
+                        <div>Y: {{status.currentPos.Y / 100000 | toFixed : 2 | replaceIfUndefined}}</div>
+                        <div>Z: {{status.currentPos.Z / 100000 | toFixed : 2 | replaceIfUndefined}}</div>
                     </div>
                 </div>
             </div>
