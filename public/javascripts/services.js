@@ -1,3 +1,35 @@
+app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
+    var self = this;
+    
+    this.prompt = function (message, title) {
+        self.title = title;
+        return $q(function (resolve, reject) {
+            var modalInstance = $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/partials/dialogs/promptDialog.html',
+                controller: 'promptDialogController',
+                controllerAs: '$ctrl',
+                resolve: {
+                    message: function () {
+                        return message;
+                    },
+                    title: function () {
+                        return title;
+                    }
+                }
+            });
+
+            modalInstance.result.then(
+            function success(answer) {
+                resolve(answer);
+            }, function error() {
+                reject();
+            });
+        });
+    }
+}]);
+
 app.service('alertService', ['eventAggregatorFactory', function (eventAggregatorFactory) {
     var self = this;
     this.alerts = [];
@@ -170,7 +202,19 @@ app.service('fileService', ['$http', '$q', function ($http, $q) {
         return $q(function(resolve, reject) {
             $http.delete("/api/fileManager", { params: {path: filePath} })
             .success(function (response) {
-                resolve(response);
+                resolve();
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
+
+    this.createDirectory = function(directoryName, path) {
+        return $q(function(resolve, reject) {
+            $http.post("/api/fileManager/directory", { directoryName: directoryName, path: path })
+            .success(function (response) {
+                resolve();
             })
             .error(function (response) {
                 reject(response.error);

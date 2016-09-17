@@ -53,15 +53,15 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     };
 }]);
 
-app.controller('dashboardController', ['$scope', '$http', 'commandService', 'alertService', 
-function ($scope, $http, commandService, alertService) {
+app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 
+function ($scope, commandService, alertService) {
     $scope.sendCommand = function(command) {
         return commandService.sendCommand(command);
     }
 }]);
 
-app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 
-function ($scope, fileService, $q, commandService, $uibModal) {
+app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService',
+function ($scope, fileService, $q, commandService, $uibModal, dialogService) {
     $scope.isRunning = false;
 
     $scope.sendFile = function () {
@@ -152,6 +152,29 @@ function ($scope, fileService, $q, commandService, $uibModal) {
         });
     };
 
+    $scope.createDirectory = function () {
+        return $q(function (resolve, reject) {
+            dialogService.prompt("Specify folder name", 'New folder').then(
+            function success (folderName) {
+                if (folderName == null) {
+                    reject('Folder name is empty');
+                } else {
+                    fileService.createDirectory(folderName, convertPathToString()).then(
+                    function success() {
+                        resolve();
+                        refreshPath();
+                    },
+                    function error(error) {
+                        reject(error); 
+                    });
+                }
+            },
+            function error () {
+                reject('cancelled');
+            });
+        });
+    };
+
     $scope.startPrint = function (fileName) {
         return $q(function (resolve, reject) {
             if ($scope.status.isPrint) {
@@ -172,8 +195,8 @@ function ($scope, fileService, $q, commandService, $uibModal) {
         var modalInstance = $uibModal.open({
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: 'analyseModal.html',
-            controller: 'fileManagerAnalyseFileController',
+            templateUrl: '/partials/dialogs/analyseDialog.html',
+            controller: 'analyseDialogController',
             controllerAs: '$ctrl',
             resolve: {
                 fileName: function () {
@@ -181,15 +204,6 @@ function ($scope, fileService, $q, commandService, $uibModal) {
                 }
             }
         });
-    };
-}]);
-
-app.controller('fileManagerAnalyseFileController', ['$uibModalInstance', '$scope', 'fileName', 
-function ($uibModalInstance, $scope, fileName) { 
-    var $ctrl = this;
-
-    $ctrl.ok = function () {
-        $uibModalInstance.close();
     };
 }]);
 

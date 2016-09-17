@@ -1,55 +1,4 @@
-﻿<script type="text/ng-template" id="analyseModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">G-code analyser</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-        <uib-progressbar class="progress-striped active">
-            Not implemented yet
-        </uib-progressbar>
-        <div class="panel panel-default">
-            <div class="panel-heading">Results</div>
-            <div class="panel-body">
-                <table class="table tabel-condensed">
-                    <thead>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Model size</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Total filament used</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Total filament weight used</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Estimated print time</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Estimated layer height</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Layer count</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-    </div>
-</script>
-
-<div class="page-header">
+﻿<div class="page-header">
     <h1>File Manager</h1>
 </div>
 <div class="row">
@@ -64,15 +13,9 @@
         </ol>
 
         <form ng-submit="sendFile();" class="form-horizontal">
-            <div class="form-group">
-                <div class="col-sm-3">
-                    <input type="file" file-model="file" />
-                </div>
-                <input class="btn btn-primary btn-xs col-sm-3" type="submit" value="Upload" />
-                <span class="label label-default" ng-show="isRunning">Running...</span>
-                <span class="label label-success" ng-show="!isRunning && succeded">Ok</span>
-                <span class="label label-warning" ng-show="!isRunning && !succeded && error">Error: {{error}}</span>
-            </div>
+            <input type="file" file-model="file" style="float: left; margin-top: 6px;" />
+            <action-button action="sendFile()" button-name="Upload" />
+            <action-button action="createDirectory()" button-name="Create directory" />
         </form>
 
         <table class="table table-striped">

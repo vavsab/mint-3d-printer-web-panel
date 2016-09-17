@@ -111,5 +111,17 @@
         }
     });
 
+    router.post('/fileManager/directory', function(req, res) {
+        logger.trace("create directory:" + req.body.directoryName + " path: " + req.body.path);
+        var absolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.body.path));
+
+        if (!absolutePath.startsWith(fileManagerRootPath)) {
+            res.status(400).json({error: 'Path violation'});
+        } else {
+            fs.mkdirSync(path.join(absolutePath, req.body.directoryName));
+            res.status(200).send();
+        }
+    });
+
     return router;
 }
