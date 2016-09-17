@@ -1,4 +1,55 @@
-﻿<div class="page-header">
+﻿<script type="text/ng-template" id="analyseModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">G-code analyser</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <uib-progressbar class="progress-striped active">
+            Not implemented yet
+        </uib-progressbar>
+        <div class="panel panel-default">
+            <div class="panel-heading">Results</div>
+            <div class="panel-body">
+                <table class="table tabel-condensed">
+                    <thead>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Model size</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Total filament used</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Total filament weight used</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Estimated print time</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Estimated layer height</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Layer count</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+    </div>
+</script>
+
+<div class="page-header">
     <h1>File Manager</h1>
 </div>
 <div class="row">
@@ -47,15 +98,9 @@
                     </td>
                     <td ng-hide="file.isDirectory">{{file.size | dataSize}}</td>
                     <td ng-hide="file.isDirectory">
-                        <button type="button" class="btn btn-default" uib-tooltip="Analyse">
-                            <span class="glyphicon glyphicon-tasks"></span>
-                        </button>
-                        <button type="button" class="btn btn-default" uib-tooltip="Print">
-                            <span class="glyphicon glyphicon-print"></span>
-                        </button>
-                        <button type="button" class="btn btn-default" ng-click="removeFile(file.fileName)" uib-tooltip="Remove">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
+                        <action-button action="analyseFile(file.fileName)" button-name="Analyse" />
+                        <action-button action="startPrint(file.fileName)" button-name="Print" />
+                        <action-button action="removeFile(file.fileName)" button-name="Remove" />
                     </td>
                 </tr>
             </tbody>

@@ -10,10 +10,9 @@ app.service('alertService', ['eventAggregatorFactory', function (eventAggregator
 }]);
 
 app.service('commandService', ['$http', '$q', function ($http, $q) {
-    this.sendCommand = function(commandName, isDirectCommand) {
-        isDirectCommand = isDirectCommand === undefined ? false : isDirectCommand;
+    this.sendCommand = function(command) {
         return $q(function(resolve, reject) {
-            $http.post("/api/command/" + commandName, { isDirectCommand: isDirectCommand })
+            $http.post("/api/command/", {command: command})
             .success(function (response) {
                 resolve();
             })
@@ -29,11 +28,15 @@ app.service('printerStatusService', ['$http', 'eventAggregatorFactory', '$q', fu
     var self = this;
     this.status = null;
 
+    var refreshStatus = function (status) {
+        console.log(status);
+        self.status = status;
+        self.eventAggregator.trigger('statusReceived', status);
+    };
+
     var socket = io.connect();
     socket.on('status', function (data) {
-        console.log(data);
-        self.status = data;
-        self.eventAggregator.trigger('statusReceived', data);
+        refreshStatus(data);
     });
 
     socket.on('event', function (data) {
@@ -44,15 +47,22 @@ app.service('printerStatusService', ['$http', 'eventAggregatorFactory', '$q', fu
 
     this.getStatus = function () {
         return $q(function(resolve, reject) {
-            $http.get('/api/status')
-            .success(function (status) {
-                resolve(status);
-            })
-            .error(function (response) {
-                reject(response.error);
-            });
+            if (self.status == null) {
+                $http.get('/api/status')
+                .success(function (status) {
+                    self.status = status;
+                    resolve(status);
+                })
+                .error(function (response) {
+                    reject(response.error);
+                });
+            } else {
+                resoleve(self.status);
+            }
         });
     };
+
+    this.getStatus();
 }]);
 
 app.factory('eventAggregatorFactory', [function () {

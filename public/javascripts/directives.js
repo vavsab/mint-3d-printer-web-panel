@@ -2,7 +2,8 @@ app.directive('actionButton', function () {
     return {
         scope: {
             action: '&',
-            buttonName: '@'
+            buttonName: '@',
+            type: '@'
         },
         controller: ['$scope', '$http', function ($scope, $http) {
             $scope.isActionRunning = false,

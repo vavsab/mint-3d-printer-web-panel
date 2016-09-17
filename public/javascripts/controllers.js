@@ -1,4 +1,5 @@
-﻿app.controller('mainController', ['$scope', 'alertService', 'siteAvailabilityInterceptor', function ($scope, alertService, siteAvailabilityInterceptor) {
+﻿app.controller('mainController', ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q',
+function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q) {
     $scope.Header = "Keep Calm Printer Console";
     $scope.alerts = alertService.alerts;
     siteAvailabilityInterceptor.onError = function () {
@@ -16,9 +17,7 @@
     alertService.eventAggregator.on('alertsChanged', function () {
         $scope.$apply();
     });
-}]);
 
-app.controller('dashboardController', ['$scope', '$http', 'printerStatusService', 'commandService', 'alertService', function ($scope, $http, printerStatusService, commandService, alertService) {
     var onStatusReceived = function(status) {
         $scope.status = status;
         $scope.$apply();
@@ -43,13 +42,26 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
         printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
     });
 
-    $scope.sendCommand = function(commandName, isDirectCommand) {
-        isDirectCommand = isDirectCommand === undefined ? false : isDirectCommand;
-        return commandService.sendCommand(commandName, isDirectCommand);
+    $scope.emergencyStop = function () {
+        if (confirm("Are you sure to stop printing?")) {
+            return commandService.sendCommand("stop");
+        } else {
+            return $q(function (resolve, reject) {
+                reject('cancelled');
+            });
+        }
+    };
+}]);
+
+app.controller('dashboardController', ['$scope', '$http', 'commandService', 'alertService', 
+function ($scope, $http, commandService, alertService) {
+    $scope.sendCommand = function(command) {
+        return commandService.sendCommand(command);
     }
 }]);
 
-app.controller('fileManagerController', ['$scope', 'fileService', function ($scope, fileService) {
+app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 
+function ($scope, fileService, $q, commandService, $uibModal) {
     $scope.isRunning = false;
 
     $scope.sendFile = function () {
@@ -124,19 +136,65 @@ app.controller('fileManagerController', ['$scope', 'fileService', function ($sco
     };
 
     $scope.removeFile = function (fileName) {
-        if (confirm("Are you sure to remove '" + fileName + "'?")) {
-            fileService.removeFile(convertPathToString() + fileName)
-            .then(function success() {
-                refreshPath();
-            },
-            function error(error) {
-                $scope.folderLoadingError = error;
-            });
-        }
-    }
+        return $q(function (resolve, reject) {
+            if (confirm("Are you sure to remove '" + fileName + "'?")) {
+                fileService.removeFile(convertPathToString() + fileName)
+                .then(function success() {
+                    resolve();
+                    refreshPath();
+                },
+                function error(error) {
+                    reject(error);
+                });
+            } else {
+                reject('cancelled');
+            }
+        });
+    };
+
+    $scope.startPrint = function (fileName) {
+        return $q(function (resolve, reject) {
+            if ($scope.status.isPrint) {
+                reject('Printer is busy now');
+            } else {
+                return commandService.sendCommand('start "' + convertPathToString() + fileName + '"')
+                .then(function success() {
+                    resolve();
+                },
+                function error(error) {
+                    reject(error);
+                });
+            }
+        });
+    };
+
+    $scope.analyseFile = function (fileName) {
+        var modalInstance = $uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'analyseModal.html',
+            controller: 'fileManagerAnalyseFileController',
+            controllerAs: '$ctrl',
+            resolve: {
+                fileName: function () {
+                    return fileName;
+                }
+            }
+        });
+    };
 }]);
 
-app.controller('logsController', ['$scope', 'logService', function ($scope, logService) {
+app.controller('fileManagerAnalyseFileController', ['$uibModalInstance', '$scope', 'fileName', 
+function ($uibModalInstance, $scope, fileName) { 
+    var $ctrl = this;
+
+    $ctrl.ok = function () {
+        $uibModalInstance.close();
+    };
+}]);
+
+app.controller('logsController', ['$scope', 'logService', 
+function ($scope, logService) {
     $scope.isLoading = true;
 
     logService.getFilesInfo()

@@ -5,19 +5,12 @@
     <!-- /.col-lg-12 -->
 </div>
 <div class="row" style="margin-bottom:20px;">
-    <label>Commands</label>
-    <div style="margin-bottom:5px;">
-        <action-button button-name="Start" action="sendCommand('Start');" />
-    </div>
-    <div style="margin-bottom:5px;">
-        <action-button button-name="Stop" action="sendCommand('Stop');" />
-    </div>
     <form>
         <div class="form-group">
             <label for="commandName">Command name</label>
             <input id="commandName" class="form-control" type="text" placeholder="Command name" ng-model="commandName" />
         </div>
-        <action-button button-name="Send command" action="sendCommand(commandName, true);" />
+        <action-button button-name="Send command" action="sendCommand(commandName);" />
     </form>
 </div>
 <!-- /.row -->

@@ -2,33 +2,41 @@
     var express = require('express');
     var fs = require('fs-extra');
     var path = require('path');
-    
-    var commands = require('../commands.json');
     var logger = require('../logger');
     
-    var rootFilePath = "files";
-    var rootAbsolutePath = fs.realpathSync(rootFilePath);
+    var fileManagerRootPath = fs.realpathSync("files");
 
     var router = express.Router();
 
-    router.post('/command/:commandName', function (req, res) {
-        logger.trace("isDirectCommand: " + req.body.isDirectCommand);
-        var commandCode = null;
-        if (req.body.isDirectCommand) {
-            commandCode = req.params.commandName;
-        } else {
-            var command = commands.find(function (value, index, array) {
-                return value.commandName === req.params.commandName;   
-            });
+    router.post('/command', function (req, res) {
+        var command = req.body.command;
 
-            if (command != null) {
-                commandCode = command.commandCode;
+        // process start command path
+        if (command.startsWith('start ')) {
+
+            // get file path
+            var startFilePath = command.replace('start ', '');
+
+            // remove brackets
+            startFilePath = startFilePath.replace(/"/g, '');
+
+            // remove start slash
+            startFilePath = startFilePath.replace(/^[\\\/]/g, '');
+
+            logger.trace('startFilePath: ' + startFilePath);
+            startFilePath = fs.realpathSync(path.join(fileManagerRootPath, startFilePath));
+            logger.trace('startFilePath: ' + startFilePath);
+            if (!startFilePath.startsWith(fileManagerRootPath)) {
+                res.status(400).json({ error: "Path violation" });
+                return;
+            } else {
+                command = 'start "' + startFilePath + '"';
             }
         }
 
-        logger.trace("commandCode: " + commandCode);
-        if (commandCode != null) {
-            var result = printerProxy.send(commandCode);
+        logger.trace("command: " + command);
+        if (command != null) {
+            var result = printerProxy.send(command);
             if (!result) {
                 var errorMessage = 'could not send the command. Seems that printer is unavailable'; 
                 logger.warn(errorMessage);
@@ -66,8 +74,8 @@
     });
 
      router.get('/fileManager', function (req, res) {
-        var currentFolderAbsolutePath = fs.realpathSync(path.join(rootFilePath, req.query.path));
-        if (!currentFolderAbsolutePath.startsWith(rootAbsolutePath)) {
+        var currentFolderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.path));
+        if (!currentFolderAbsolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});
         }
 
@@ -85,8 +93,8 @@
     });
 
     router.delete('/fileManager', function(req, res) {
-        var fileAbsolutePath = fs.realpathSync(path.join(rootFilePath, req.query.path));
-        if (!fileAbsolutePath.startsWith(rootAbsolutePath)) {
+        var fileAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.path));
+        if (!fileAbsolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});
         } else {
             fs.unlinkSync(fileAbsolutePath);
@@ -96,9 +104,9 @@
 
     router.post('/fileManager', uploads.single("file"), function(req, res) {
         logger.trace("fileUpload:" + req.file + ' directory: ' + req.body.directory);
-        var folderAbsolutePath = fs.realpathSync(path.join(rootFilePath, req.body.directory));
+        var folderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.body.directory));
 
-        if (!folderAbsolutePath.startsWith(rootAbsolutePath)) {
+        if (!folderAbsolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});
         } else {
             fs.copySync(req.file.path, path.join(folderAbsolutePath, req.file.originalname), { clobber : true });
