@@ -17,9 +17,6 @@
             // get file path
             var startFilePath = command.replace('start ', '');
 
-            // remove brackets
-            startFilePath = startFilePath.replace(/"/g, '');
-
             // remove start slash
             startFilePath = startFilePath.replace(/^[\\\/]/g, '');
 
@@ -30,7 +27,7 @@
                 res.status(400).json({ error: "Path violation" });
                 return;
             } else {
-                command = 'start "' + startFilePath + '"';
+                command = 'start ' + startFilePath;
             }
         }
 

@@ -157,7 +157,7 @@ function ($scope, fileService, $q, commandService, $uibModal) {
             if ($scope.status.isPrint) {
                 reject('Printer is busy now');
             } else {
-                return commandService.sendCommand('start "' + convertPathToString() + fileName + '"')
+                return commandService.sendCommand('start ' + convertPathToString() + fileName)
                 .then(function success() {
                     resolve();
                 },
