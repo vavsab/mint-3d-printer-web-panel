@@ -49,16 +49,17 @@ app.controller('dashboardController', ['$scope', '$http', 'printerStatusService'
     }
 }]);
 
-app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scope, fileUpload) {
+app.controller('fileManagerController', ['$scope', 'fileService', function ($scope, fileService) {
     $scope.isRunning = false;
 
     $scope.sendFile = function () {
         $scope.isRunning = true;
         $scope.error = null;
 
-        fileUpload.uploadFileToUrl($scope.file, '/api/fileUpload')
+        fileService.uploadFileToDirectory($scope.file, convertPathToString())
             .then(function success() {
                 $scope.succeded = true;
+                refreshPath();
             },
             function error(error) {
                 $scope.error = error;
@@ -66,6 +67,72 @@ app.controller('fileManagerController', ['$scope', 'fileUpload', function ($scop
             .finally(function () {
                 $scope.isRunning = false;
             });
+    }
+
+    var convertPathToString = function () {
+        var pathString = '/';
+        $scope.currentPath.forEach(function (item) {
+            pathString += item + '/';
+        });
+
+        return pathString;
+    };
+
+    var refreshPath = function () {
+        $scope.isFolderLoading = true;
+
+        fileService.getFolderContents(convertPathToString())
+        .then(function success (folderContents) {
+            if ($scope.currentPath.length != 0) {
+                folderContents.unshift({ 
+                    fileName: '..',
+                    isDirectory: true,
+                    size: 0
+                });
+            }
+
+            $scope.currentFolderContents = folderContents
+        },
+        function error(error) {
+            $scope.folderLoadingError = error;
+        })
+        .finally(function () {
+            $scope.isFolderLoading = false;
+        });
+    }
+
+    $scope.currentPath = [];
+    refreshPath();
+
+    $scope.goToFolder = function (folderName) {
+        if (folderName == '..') {
+            // go up
+            $scope.currentPath.pop();
+        } else  {
+            $scope.currentPath.push(folderName);
+        }
+
+        refreshPath();
+    };
+
+    $scope.goToPathIndex = function (index) {
+        while ($scope.currentPath.length > index) {
+            $scope.currentPath.pop();
+        }
+
+        refreshPath();
+    };
+
+    $scope.removeFile = function (fileName) {
+        if (confirm("Are you sure to remove '" + fileName + "'?")) {
+            fileService.removeFile(convertPathToString() + fileName)
+            .then(function success() {
+                refreshPath();
+            },
+            function error(error) {
+                $scope.folderLoadingError = error;
+            });
+        }
     }
 }]);
 

@@ -2,12 +2,64 @@
     <h1>File Manager</h1>
 </div>
 <div class="row">
-    <form ng-submit="sendFile();">
-        <label>Upload data.txt</label>
-        <input type="file" style="margin-bottom: 5px;" file-model="file" />
-        <input class="btn btn-primary" type="submit" value="Send File" />
-        <span class="label label-default" ng-show="isRunning">Running...</span>
-        <span class="label label-success" ng-show="!isRunning && succeded">Ok</span>
-        <span class="label label-warning" ng-show="!isRunning && !succeded && error">Error: {{error}}</span>
-    </form>
+    <span class="label label-default" ng-show="isFolderLoading">Folder is loading...</span>
+    <span class="label label-warning" ng-show="folderLoadingError != null">Error: {{folderLoadingError}}</span>
+    <div ng-show="!isFolderLoading && !folderLoadingError">
+
+        <ol class="breadcrumb">
+            Location:
+            <li><a href ng-click="goToPathIndex(0)"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+            <li ng-repeat="folderName in currentPath"><a href ng-click="goToPathIndex($index + 1)">{{folderName}}</a></li>
+        </ol>
+
+        <form ng-submit="sendFile();" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="file" file-model="file" />
+                </div>
+                <input class="btn btn-primary btn-xs col-sm-3" type="submit" value="Upload" />
+                <span class="label label-default" ng-show="isRunning">Running...</span>
+                <span class="label label-success" ng-show="!isRunning && succeded">Ok</span>
+                <span class="label label-warning" ng-show="!isRunning && !succeded && error">Error: {{error}}</span>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <th>File name</th>
+                <th>Size</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="file in currentFolderContents">
+                    <td ng-show="file.isDirectory">
+                        <a href ng-click="goToFolder(file.fileName)" >
+                            <span ng-show="file.fileName == '..'" class="glyphicon glyphicon-level-up bigger"></span>
+                            <span ng-show="file.fileName != '..'" class="glyphicon glyphicon-folder-open bigger"></span>
+                            <span ng-show="file.fileName != '..'" style="margin-left: 5px;">{{file.fileName}}</span>
+                        </a>
+                    </td>
+                    <td ng-show="file.isDirectory">dir</td>
+                    <td ng-show="file.isDirectory"></td>
+
+                    <td ng-hide="file.isDirectory">
+                        <span class="glyphicon glyphicon-file bigger"></span> {{file.fileName}}
+                    </td>
+                    <td ng-hide="file.isDirectory">{{file.size | dataSize}}</td>
+                    <td ng-hide="file.isDirectory">
+                        <button type="button" class="btn btn-default" uib-tooltip="Analyse">
+                            <span class="glyphicon glyphicon-tasks"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" uib-tooltip="Print">
+                            <span class="glyphicon glyphicon-print"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="removeFile(file.fileName)" uib-tooltip="Remove">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

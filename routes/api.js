@@ -5,19 +5,11 @@
     
     var commands = require('../commands.json');
     var logger = require('../logger');
+    
+    var rootFilePath = "files";
+    var rootAbsolutePath = fs.realpathSync(rootFilePath);
 
     var router = express.Router();
-
-    router.post('/fileUpload', uploads.single("file"), function(req, res) {
-        logger.trace("FILE:" + req.file);
-        try {
-            fs.copySync(req.file.path, './data.txt', { clobber : true });
-            res.status(200).send();
-        } catch (error) {
-            logger.error(error);
-            res.status(500).send({error: error});
-        }
-    });
 
     router.post('/command/:commandName', function (req, res) {
         logger.trace("isDirectCommand: " + req.body.isDirectCommand);
@@ -71,6 +63,47 @@
     // For getting the last printer status
     router.get('/status', function (req, res) {
         res.status(200).json(printerStatusController.currentStatus);
+    });
+
+     router.get('/fileManager', function (req, res) {
+        var currentFolderAbsolutePath = fs.realpathSync(path.join(rootFilePath, req.query.path));
+        if (!currentFolderAbsolutePath.startsWith(rootAbsolutePath)) {
+            res.status(400).json({error: 'Path violation'});
+        }
+
+        var files = [];
+        fs.readdirSync(currentFolderAbsolutePath).forEach(function (fileName) {
+            var stats = fs.statSync(path.join(currentFolderAbsolutePath, fileName));
+            files.push({
+                fileName: fileName,
+                isDirectory: stats.isDirectory(),
+                size: stats.size
+            })
+        });
+
+        res.status(200).json(files);
+    });
+
+    router.delete('/fileManager', function(req, res) {
+        var fileAbsolutePath = fs.realpathSync(path.join(rootFilePath, req.query.path));
+        if (!fileAbsolutePath.startsWith(rootAbsolutePath)) {
+            res.status(400).json({error: 'Path violation'});
+        } else {
+            fs.unlinkSync(fileAbsolutePath);
+            res.status(200).send();
+        }
+    });
+
+    router.post('/fileManager', uploads.single("file"), function(req, res) {
+        logger.trace("fileUpload:" + req.file + ' directory: ' + req.body.directory);
+        var folderAbsolutePath = fs.realpathSync(path.join(rootFilePath, req.body.directory));
+
+        if (!folderAbsolutePath.startsWith(rootAbsolutePath)) {
+            res.status(400).json({error: 'Path violation'});
+        } else {
+            fs.copySync(req.file.path, path.join(folderAbsolutePath, req.file.originalname), { clobber : true });
+            res.status(200).send();
+        }
     });
 
     return router;

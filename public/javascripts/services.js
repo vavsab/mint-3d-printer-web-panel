@@ -9,27 +9,6 @@ app.service('alertService', ['eventAggregatorFactory', function (eventAggregator
     };
 }]);
 
-app.service('fileUpload', ['$http', '$q', function ($http, $q) {
-    this.uploadFileToUrl = function(file, uploadUrl){
-        var deferred = $q.defer();
-        var fd = new FormData();
-        fd.append('file', file);
-
-        $http.post(uploadUrl, fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        })
-        .success(function(){
-            deferred.resolve();
-        })
-        .error(function(response){
-            deferred.reject(response.error);
-        });
-
-        return deferred.promise;
-    }
-}]);
-
 app.service('commandService', ['$http', '$q', function ($http, $q) {
     this.sendCommand = function(commandName, isDirectCommand) {
         isDirectCommand = isDirectCommand === undefined ? false : isDirectCommand;
@@ -161,4 +140,51 @@ app.service('logService', ['$http', '$q', function ($http, $q) {
             })
         });
     };
+}]);
+
+
+app.service('fileService', ['$http', '$q', function ($http, $q) {
+    this.getFolderContents = function (folderPath) {
+        return $q(function(resolve, reject) {
+            $http.get("/api/fileManager", { params: {path: folderPath} })
+            .success(function (response) {
+                resolve(response);
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    }
+
+    this.removeFile = function(filePath) {
+        return $q(function(resolve, reject) {
+            $http.delete("/api/fileManager", { params: {path: filePath} })
+            .success(function (response) {
+                resolve(response);
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
+
+    this.uploadFileToDirectory = function(file, directory) {
+        var deferred = $q.defer();
+        var fd = new FormData();
+        fd.append('file', file);
+        fd.append('directory', directory);
+
+        $http.post('/api/fileManager', fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+            deferred.resolve();
+        })
+        .error(function(response){
+            deferred.reject(response.error);
+        });
+
+        return deferred.promise;
+    }
 }]);

@@ -1,3 +1,7 @@
 .progress-bar {
   min-width: 6em;
 }
+
+.bigger {
+  font-size: 1.5em;
+}
