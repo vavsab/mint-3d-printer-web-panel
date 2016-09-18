@@ -137,7 +137,8 @@ namespace PrinterEmulator
                 IsPrint = (CheckBoxIsPrinting.IsChecked ?? false) ? (byte)1 : (byte)0,
                 FeedRate = random.Next(10, 5000),
                 ExtruderOver = random.Next(10, 5000),
-                Speed = random.Next(1000, 1000000)
+                Speed = random.Next(1000, 1000000),
+                FileName = @"C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\files\Folder1\CubeHeight.stl"
             });
         }
     }

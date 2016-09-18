@@ -7,6 +7,8 @@ module.exports = function (server, printerProxy)
   var io = require('socket.io')(server);
   var config = require('config');
   var logger = require('./logger');
+  var fs = require('fs-extra');
+  var fileManagerRootPath = fs.realpathSync("files");
 
   var lastPrintingStatusUpdateDate = new Date(0); // Status for printing process
   var startPrintDate = null;
@@ -66,6 +68,11 @@ module.exports = function (server, printerProxy)
             } catch(error) {
               logger.warn("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
             }  
+          }
+
+          // filter absolute path
+          if (status.fileName) {
+            status.fileName = status.fileName.replace(fileManagerRootPath, '');
           }
 
           status.startPrintDate = startPrintDate;

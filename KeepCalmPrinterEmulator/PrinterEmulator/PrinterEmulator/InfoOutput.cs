@@ -66,5 +66,11 @@ namespace PrintDream.Model
         /// </summary>
         [DataMember(Name = "speed")]
         public int Speed { get; set; }
+
+        /// <summary>
+        /// File name of the current or the last printed file
+        /// </summary>
+        [DataMember(Name = "fileName")]
+        public string FileName { get; set; }
     }
 }
