@@ -1,5 +1,5 @@
-﻿app.controller('mainController', ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q',
-function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q) {
+﻿app.controller('mainController', ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q', 'dialogService',
+function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q, dialogService) {
     $scope.Header = "Keep Calm Printer Console";
     $scope.alerts = alertService.alerts;
     siteAvailabilityInterceptor.onError = function () {
@@ -43,13 +43,21 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     });
 
     $scope.emergencyStop = function () {
-        if (confirm("Are you sure to stop printing?")) {
-            return commandService.sendCommand("stop");
-        } else {
-            return $q(function (resolve, reject) {
+        return $q(function (resolve, reject) {
+            dialogService.confirm("Are you sure to stop printing?", 'Emergency stop').then(
+            function success () {
+                commandService.sendCommand("stop").then(
+                function success () {
+                    resolve();
+                },
+                function error (error) {
+                    reject(error);
+                });
+            },
+            function error () {
                 reject('cancelled');
             });
-        }
+        });
     };
 }]);
 
@@ -137,7 +145,8 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService) {
 
     $scope.remove = function (file) {
         return $q(function (resolve, reject) {
-            if (confirm("Are you sure to remove '" + file.fileName + "'?")) {
+            dialogService.confirm("Are you sure to remove '" + file.fileName + "'?", 'Confirm removal').then(
+            function success () {
                 fileService.remove(convertPathToString() + file.fileName)
                 .then(function success() {
                     resolve();
@@ -145,10 +154,11 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService) {
                 },
                 function error(error) {
                     reject(error);
-                });
-            } else {
+                })
+            },
+            function error () {
                 reject('cancelled');
-            }
+            });
         });
     };
 
