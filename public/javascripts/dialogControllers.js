@@ -1,3 +1,18 @@
+app.controller('confirmDialogController', ['$uibModalInstance', 'message', 'title', 
+function ($uibModalInstance, message, title) { 
+    var self = this;
+    self.title = title;
+    self.message = message;
+    
+    self.ok = function () {
+        $uibModalInstance.close();
+    };
+
+    self.cancel = function () {
+        $uibModalInstance.dismiss();
+  };
+}]);
+
 app.controller('promptDialogController', ['$uibModalInstance', 'message', 'title', 
 function ($uibModalInstance, message, title) { 
     var self = this;

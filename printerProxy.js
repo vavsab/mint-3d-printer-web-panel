@@ -5,6 +5,7 @@ var logger = require('./logger');
 var proxy = function () {
     var self = this;
     var socket = require('socket.io-client')('http://localhost:5555');
+    var buffer = "";
 
     this.send = function(data) {
         if (!socket.connected)
@@ -22,7 +23,11 @@ var proxy = function () {
     });
 
     socket.on('stdout', function(data) {
-        self.emit('data', data)
+        buffer += data;
+        if (data[data.length - 1] == '\n') {
+            self.emit('data', buffer);
+            buffer = "";            
+        }
     });
 
     socket.on('disconnect', function() {

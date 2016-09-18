@@ -2,7 +2,6 @@ app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
     var self = this;
     
     this.prompt = function (message, title) {
-        self.title = title;
         return $q(function (resolve, reject) {
             var modalInstance = $uibModal.open({
                 ariaLabelledBy: 'modal-title',
@@ -23,6 +22,33 @@ app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
             modalInstance.result.then(
             function success(answer) {
                 resolve(answer);
+            }, function error() {
+                reject();
+            });
+        });
+    }
+
+    this.confirm = function (message, title) {
+        return $q(function (resolve, reject) {
+            var modalInstance = $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/partials/dialogs/confirmDialog.html',
+                controller: 'confirmDialogController',
+                controllerAs: '$ctrl',
+                resolve: {
+                    message: function () {
+                        return message;
+                    },
+                    title: function () {
+                        return title;
+                    }
+                }
+            });
+
+            modalInstance.result.then(
+            function success() {
+                resolve();
             }, function error() {
                 reject();
             });
@@ -198,9 +224,9 @@ app.service('fileService', ['$http', '$q', function ($http, $q) {
         });
     }
 
-    this.removeFile = function(filePath) {
+    this.remove = function(path) {
         return $q(function(resolve, reject) {
-            $http.delete("/api/fileManager", { params: {path: filePath} })
+            $http.delete("/api/fileManager", { params: {path: path} })
             .success(function (response) {
                 resolve();
             })

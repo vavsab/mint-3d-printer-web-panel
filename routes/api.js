@@ -94,7 +94,12 @@
         if (!fileAbsolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});
         } else {
-            fs.unlinkSync(fileAbsolutePath);
+            if (fs.statSync(fileAbsolutePath).isDirectory()) {
+                fs.rmdirSync(fileAbsolutePath);
+            } else {
+                fs.unlinkSync(fileAbsolutePath);
+            }
+
             res.status(200).send();
         }
     });

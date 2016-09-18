@@ -135,10 +135,10 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService) {
         refreshPath();
     };
 
-    $scope.removeFile = function (fileName) {
+    $scope.remove = function (file) {
         return $q(function (resolve, reject) {
-            if (confirm("Are you sure to remove '" + fileName + "'?")) {
-                fileService.removeFile(convertPathToString() + fileName)
+            if (confirm("Are you sure to remove '" + file.fileName + "'?")) {
+                fileService.remove(convertPathToString() + file.fileName)
                 .then(function success() {
                     resolve();
                     refreshPath();

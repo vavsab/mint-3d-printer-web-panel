@@ -34,7 +34,9 @@
                         </a>
                     </td>
                     <td ng-show="file.isDirectory">dir</td>
-                    <td ng-show="file.isDirectory"></td>
+                    <td ng-show="file.isDirectory">
+                        <action-button ng-show="file.fileName != '..'" action="remove(file)" button-name="Remove" />
+                    </td>
 
                     <td ng-hide="file.isDirectory">
                         <span class="glyphicon glyphicon-file bigger"></span> {{file.fileName}}
@@ -43,7 +45,7 @@
                     <td ng-hide="file.isDirectory">
                         <action-button action="analyseFile(file.fileName)" button-name="Analyse" />
                         <action-button action="startPrint(file.fileName)" button-name="Print" />
-                        <action-button action="removeFile(file.fileName)" button-name="Remove" />
+                        <action-button action="remove(file)" button-name="Remove" />
                     </td>
                 </tr>
             </tbody>
