@@ -267,4 +267,18 @@ app.service('fileService', ['$http', '$q', function ($http, $q) {
 
         return deferred.promise;
     }
+
+    this.analyseGcode = function(path) {
+        var deferred = $q.defer();
+
+        $http.get('/api/fileManager/gcode', { params: { path: path }})
+        .success(function (response) {
+            deferred.resolve(response);
+        })
+        .error(function (response) {
+            deferred.reject(response.error);
+        })
+
+        return deferred.promise;
+    };
 }]);

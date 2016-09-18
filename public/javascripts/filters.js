@@ -6,6 +6,9 @@ app.filter('toTrusted', ['$sce', function($sce){
 
 app.filter('toFixed', [function(){
     return function(text, fractionDigits) {
+        if (text == null)
+            return text;
+
         fractionDigits = fractionDigits || 2;
         return text.toFixed(fractionDigits);
     };

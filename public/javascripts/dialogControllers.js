@@ -28,9 +28,21 @@ function ($uibModalInstance, message, title) {
   };
 }]);
 
-app.controller('analyseDialogController', ['$uibModalInstance', 'fileName', 
-function ($uibModalInstance, fileName) { 
+app.controller('analyseDialogController', ['$uibModalInstance', 'path', 'fileService', 
+function ($uibModalInstance, path, fileService) { 
     var self = this;
+    self.isLoading = true;
+    self.error = null;
+    
+    fileService.analyseGcode(path).then(
+    function success (result) {
+        self.result = result;
+    },
+    function error (error) {
+        self.error = error;
+    }).finally(function () {
+        self.isLoading = false;
+    })
 
     self.ok = function () {
         $uibModalInstance.close();

@@ -3,6 +3,8 @@
     var fs = require('fs-extra');
     var path = require('path');
     var logger = require('../logger');
+    var gcodeAnalyser = require('../gcodeAnalyser');
+    var sync = require('sync');
     
     var fileManagerRootPath = fs.realpathSync("files");
 
@@ -125,6 +127,47 @@
         } else {
             fs.mkdirSync(path.join(absolutePath, req.body.directoryName));
             res.status(200).send();
+        }
+    });
+
+    router.get('/fileManager/gcode', function(req, res) {
+        var gcodeFilePath = req.query.path;
+        logger.trace("analyse gcode:" + gcodeFilePath);
+        var absolutePath = fs.realpathSync(path.join(fileManagerRootPath, gcodeFilePath));
+
+        if (!absolutePath.startsWith(fileManagerRootPath)) {
+            res.status(400).json({error: 'Path violation'});
+        } else { 
+            var analyseGcode = function(absolutePath, callback) {
+                gcodeAnalyser.self.postMessage = function (message) {
+                    if (message.cmd == 'returnModel') {
+                        logger.trace('analyseGcode: returnModel');
+                        gcodeAnalyser.runAnalyze();
+                    }
+
+                    if (message.cmd == 'analyzeDone') {
+                        logger.trace('analyseGcode: analyzeDone');
+                        callback(null, message.msg);
+                    }
+                };
+
+                gcodeAnalyser.parseGCode({
+                    gcode: fs.readFileSync(absolutePath).toString().split(/\n/),
+                    options: {
+                        firstReport: 5
+                    }
+                });
+            };
+            
+            sync(function(){
+                var result = analyseGcode.sync(null, absolutePath);
+                logger.trace('analyseGcode: done');
+
+                var plaDensity = 1.24;
+                result.totalWeight = plaDensity * 3.141 * 1.75 * 1.75 / 10 / 10 / 4 * result.totalFilament / 10;
+
+                res.status(200).json(result);
+            });
         }
     });
 

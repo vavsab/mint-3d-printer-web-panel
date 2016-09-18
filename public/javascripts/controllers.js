@@ -209,8 +209,8 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService) {
             controller: 'analyseDialogController',
             controllerAs: '$ctrl',
             resolve: {
-                fileName: function () {
-                    return fileName;
+                path: function () {
+                    return convertPathToString() + fileName;
                 }
             }
         });
