@@ -114,6 +114,7 @@
             res.status(400).json({error: 'Path violation'});
         } else {
             fs.copySync(req.file.path, path.join(folderAbsolutePath, req.file.originalname), { clobber : true });
+            fs.removeSync(req.file.path);
             res.status(200).send();
         }
     });
