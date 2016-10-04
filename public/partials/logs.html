@@ -24,7 +24,10 @@
             <tr ng-repeat="f in filesInfo">
                 <td>{{f.fileName}}</td>
                 <td>{{f.size | dataSize}}<td>
-                <td><input class="btn btn-primary" type="button" ng-click="getFile(f.fileName);" value="Download"></td>
+                <td>
+                    <input class="btn btn-primary" type="button" ng-click="getFile(f.fileName);" value="Download">
+                    <action-button action="remove(f.fileName)" button-name="Remove" />
+                </td>
             </tr>
         </tbody>
     </table>

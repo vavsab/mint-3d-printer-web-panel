@@ -1,4 +1,4 @@
-﻿app = angular.module('angularModule', ['ngRoute', 'ui.bootstrap'])
+﻿app = angular.module('angularModule', ['ngRoute', 'ui.bootstrap', 'ngFileUpload'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
             when('/', {

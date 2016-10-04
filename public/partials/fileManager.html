@@ -12,9 +12,12 @@
             <li ng-repeat="folderName in currentPath"><a href ng-click="goToPathIndex($index + 1)">{{folderName}}</a></li>
         </ol>
 
-        <form ng-submit="sendFile();" class="form-horizontal">
-            <input type="file" file-model="file" style="float: left; margin-top: 6px;" />
-            <action-button action="sendFile()" button-name="Upload" />
+        <form class="form-horizontal">
+            <span class="label label-default" ng-show="isUploading">Uploading '{{file.name}}'</span>
+            <uib-progressbar ng-show="isUploading" class="progress-striped active" value="uploadProgress" animate="false">
+                <span>{{ uploadProgress | toFixed : 2 }}%</span>
+            </uib-progressbar>
+            <button ng-show="!isUploading" class="btn btn-default" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
             <action-button action="createDirectory()" button-name="Create directory" />
         </form>
 

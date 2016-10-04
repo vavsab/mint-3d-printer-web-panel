@@ -208,10 +208,22 @@ app.service('logService', ['$http', '$q', function ($http, $q) {
             })
         });
     };
+
+    this.remove = function(fileName) { 
+        return $q(function(resolve, reject) {
+            $http.delete("/api/log/", { params: {fileName: fileName} })
+            .success(function (response) {
+                resolve();
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
 }]);
 
 
-app.service('fileService', ['$http', '$q', function ($http, $q) {
+app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload) {
     this.getFolderContents = function (folderPath) {
         return $q(function(resolve, reject) {
             $http.get("/api/fileManager", { params: {path: folderPath} })
@@ -249,23 +261,10 @@ app.service('fileService', ['$http', '$q', function ($http, $q) {
     };
 
     this.uploadFileToDirectory = function(file, directory) {
-        var deferred = $q.defer();
-        var fd = new FormData();
-        fd.append('file', file);
-        fd.append('directory', directory);
-
-        $http.post('/api/fileManager', fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        })
-        .success(function(){
-            deferred.resolve();
-        })
-        .error(function(response){
-            deferred.reject(response.error);
+        return Upload.upload({
+            url: '/api/fileManager',
+            data: {file: file, 'directory': directory}
         });
-
-        return deferred.promise;
     }
 
     this.analyseGcode = function(path) {

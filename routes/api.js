@@ -7,6 +7,7 @@
     var sync = require('sync');
     
     var fileManagerRootPath = fs.realpathSync("files");
+    var logsRootPath = fs.realpathSync("logs");
 
     var router = express.Router();
 
@@ -51,11 +52,11 @@
     router.get('/log', function (req, res) { 
         var fileName = req.query.fileName;
 
-        var fileNames = fs.readdirSync('logs/');
+        var fileNames = fs.readdirSync(logsRootPath);
         var totalSize = 0;
         var fileData = [];
         fileNames.forEach(function (fileName) {
-            fileData.push({fileName: fileName, size: fs.statSync(path.join('logs/', fileName)).size});
+            fileData.push({fileName: fileName, size: fs.statSync(path.join(logsRootPath, fileName)).size});
         });
 
         if (!fileName) {
@@ -63,8 +64,18 @@
                 files: fileData, 
             });
         } else {
-            res.download(path.join('logs/', fileName));
+            res.download(path.join(logsRootPath, fileName));
         }
+    });
+
+    router.delete('/log', function(req, res) {
+        var pathToFile = path.join(logsRootPath, req.query.fileName)
+        if (!pathToFile.startsWith(logsRootPath)) {
+            res.status(400).json({error: 'Path violation'});
+        }
+
+        fs.unlinkSync(pathToFile);
+        res.status(200).send();
     });
 
     // For getting the last printer status
