@@ -63,6 +63,20 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
 app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 
 function ($scope, commandService, alertService) {
+
+    $scope.commands = [
+        { title: 'Home', command: 'G28' },
+        { title: 'Temperature to zero', command: 'M104 S0' }, 
+        { title: 'Temperature to 205', command: 'M104 S205' },
+        { title: 'Fan On', command: 'M106 S255' },
+        { title: 'Fan Off', command: 'M106 S0' },
+        { title: 'Reset values', command: 'M206 S0' }
+    ];
+
+    $scope.setCommand = function (command) {
+        $scope.command = command;
+    };
+
     $scope.sendCommand = function(command) {
         return commandService.sendCommand(command);
     }

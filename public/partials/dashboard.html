@@ -1,16 +1,24 @@
 ﻿<div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Dashboard</h1>
-    </div>
-    <!-- /.col-lg-12 -->
+    </div> <!-- /.col-lg-12 -->
 </div>
 <div class="row" style="margin-bottom:20px;">
-    <form>
+    <form class="navbar-form navbar-left">
         <div class="form-group">
-            <label for="commandName">Command name</label>
-            <input id="commandName" class="form-control" type="text" placeholder="Command name" ng-model="commandName" />
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Send G-code..." ng-model="command">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-repeat="c in commands"><a href ng-click="setCommand(c.command)">{{c.title}} <span class="badge">{{c.command}}</span></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="http://reprap.org/wiki/G-code">G-code wiki (RepRap)</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+            </div>                
+            <action-button button-name="Send" action="sendCommand(command);" />
         </div>
-        <action-button button-name="Send command" action="sendCommand(commandName);" />
     </form>
 </div>
 <!-- /.row -->
