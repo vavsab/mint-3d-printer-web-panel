@@ -15,10 +15,19 @@
         var command = req.body.command;
 
         // process start command path
+        var startCommand = null;
         if (command.startsWith('start ')) {
+            startCommand = 'start ';
+        }
+
+        if (command.startsWith('startb ')) {
+            startCommand = 'startb ';
+        }
+ 
+        if (startCommand != null) {
 
             // get file path
-            var startFilePath = command.replace('start ', '');
+            var startFilePath = command.replace(startCommand, '');
 
             // remove start slash
             startFilePath = startFilePath.replace(/^[\\\/]/g, '');
@@ -30,7 +39,7 @@
                 res.status(400).json({ error: "Path violation" });
                 return;
             } else {
-                command = 'start ' + startFilePath;
+                command = startCommand + startFilePath;
             }
         }
 

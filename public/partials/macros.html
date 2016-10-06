@@ -1,0 +1,25 @@
+<div class="page-header">
+    <h1>Macros</h1>
+</div>
+<div class="row">
+    <div class="col-xs-3" style="padding:0;">
+        <div class="list-group">
+            <a href ng-repeat="macro in macros" ng-click="selectMacro(macro)" class="list-group-item" ng-class="{active: macro == selectedMacro}">{{macro.title}}</a>
+            <a href ng-click="create()" class="list-group-item"><span class="glyphicon glyphicon-plus"></span> Create new</a>
+        </div>
+    </div>
+    <div class="col-xs-9" style="padding-left:5px;">
+        <textarea class="form-control" rows="5" ng-model="selectedMacro.content"></textarea>
+        <div style="margin-top:5px;">
+            <action-button action="save()" button-name="Save" icon="floppy-disk" type="primary" />
+            <action-button action="remove()" button-name="Remove" icon="trash" type="danger" />
+            <action-button action="run()" button-name="Run" icon="send" type="success" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div ng-repeat="item in console" class="row" ng-class="{'bg-primary': item.type=='default', 'bg-success': item.type=='success', 'bg-danger': item.type=='error'}">
+        <div class="col-xs-2">{{item.time.toLocaleTimeString()}}</div>
+        <div class="col-xs-10">{{item.content}}</div>
+    </div>
+</div>

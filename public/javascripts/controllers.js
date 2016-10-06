@@ -203,12 +203,12 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
         });
     };
 
-    $scope.startPrint = function (fileName) {
+    $scope.startPrint = function (fileName, withBuffer) {
         return $q(function (resolve, reject) {
             if ($scope.status.isPrint) {
                 reject('Printer is busy now');
             } else {
-                return commandService.sendCommand('start ' + convertPathToString() + fileName)
+                return commandService.sendCommand((withBuffer ? 'startb ' : 'start ') + convertPathToString() + fileName)
                 .then(function success() {
                     resolve();
                 },
@@ -296,4 +296,91 @@ function ($scope, logService, dialogService, $q) {
             });
         });
     };
+}]);
+
+app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', '$q', 'commandService', function ($scope, dialogService, macrosService, $q, commandService) {
+
+    var maxIndex;
+    $scope.selectedMacro = null;
+
+    $scope.macros = [
+        {id: 0, title: 'GoHome', content:'G28'},
+        {id: 1, title: 'TempOn', content:'M104 S205'},
+        {id: 2, title: 'FanOff', content:'M106 S0'}
+    ];
+    maxIndex = 2;
+
+    $scope.console = [
+        { type: 'default', time: new Date(), content: 'page loaded'},
+        { type: 'success', time: new Date(), content: 'G28'},
+        { type: 'error', time: new Date(), content: 'error while sending'}
+    ];
+
+    $scope.selectMacro = function (macro) {
+        $scope.selectedMacro = macro;
+    }
+
+    $scope.remove = function () {
+        if ($scope.selectedMacro == null)
+            return;
+
+        dialogService.confirm("Are you sure to remove '" + $scope.selectedMacro.title + "'?", 'Confirm removal').then(
+            function success() {
+                return $q(function (resolve, reject) {
+                    macrosService.remove($scope.selectedMacro.id).then(
+                    function success() {
+                        $scope.macros.slice($scope.macros.indexOf($scope.selectedMacro));
+                        resolve();
+                    },
+                    function error() {
+                        reject();
+                    });
+                });
+            }
+        );
+    };
+
+    $scope.run = function () {
+        if ($scope.selectedMacro == null)
+            return;
+
+        return $q(function (resolve, reject) {
+            var macros = $scope.selectedMacro;
+            var lines = macros.content.split(/\n/);
+            var lineIndex = 0;
+
+            var sendNextLine = function () {
+                if (lineIndex >= lines.length) {
+                    $scope.console.push({ type: 'success', time: new Date(), content: 'Macros "' + macros.title + '" is finished'});
+                    resolve();
+                }
+                
+                commandService.sendCommand(lines[lineIndex]).then(
+                function success() {
+                    $scope.console.push({ type: 'success', time: new Date(), content: lines[lineIndex]});
+                    lineIndex++;
+                    sendNextLine();
+                },
+                function error(error) {
+                    $scope.console.push({ type: 'error', time: new Date(), content: error});
+                    reject(error);
+                });
+            };
+        });
+    };
+
+    $scope.save = function () {
+        if ($scope.selectedMacro == null)
+            return;
+
+        return macrosService.save($scope.selectedMacro);
+    };
+
+    $scope.create = function () {
+        dialogService.prompt("Specify macros name", 'New macros').then(
+        function success(name) {
+            maxIndex++;
+            $scope.macros.push({id: maxIndex, title: name, content: ''});
+        });
+    }
 }]);

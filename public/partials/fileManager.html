@@ -17,8 +17,8 @@
             <uib-progressbar ng-show="isUploading" class="progress-striped active" value="uploadProgress" animate="false">
                 <span>{{ uploadProgress | toFixed : 2 }}%</span>
             </uib-progressbar>
-            <button ng-show="!isUploading" class="btn btn-default" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
-            <action-button action="createDirectory()" button-name="Create directory" />
+            <button ng-show="!isUploading" class="btn btn-primary" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
+            <action-button action="createDirectory()" button-name="Create directory" icon="plus" />
         </form>
 
         <table class="table table-striped">
@@ -38,7 +38,7 @@
                     </td>
                     <td ng-show="file.isDirectory">dir</td>
                     <td ng-show="file.isDirectory">
-                        <action-button ng-show="file.fileName != '..'" action="remove(file)" button-name="Remove" />
+                        <action-button ng-show="file.fileName != '..'" action="remove(file)" button-name="Remove" icon="trash" type="danger" />
                     </td>
 
                     <td ng-hide="file.isDirectory">
@@ -46,9 +46,10 @@
                     </td>
                     <td ng-hide="file.isDirectory">{{file.size | dataSize}}</td>
                     <td ng-hide="file.isDirectory">
-                        <action-button action="analyseFile(file.fileName)" button-name="Analyse" />
-                        <action-button action="startPrint(file.fileName)" button-name="Print" />
-                        <action-button action="remove(file)" button-name="Remove" />
+                        <action-button action="analyseFile(file.fileName)" button-name="Analyse" type="info" icon="tasks" />
+                        <action-button action="startPrint(file.fileName, false)" button-name="Print" type="success" icon="print" />
+                        <action-button action="startPrint(file.fileName, true)" button-name="Print (with buffer)" type="success" icon="print" />
+                        <action-button action="remove(file)" button-name="Remove" type="danger" icon="trash" />
                     </td>
                 </tr>
             </tbody>

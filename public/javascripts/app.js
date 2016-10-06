@@ -9,8 +9,9 @@
                 templateUrl: 'partials/fileManager.html',
                 controller: 'fileManagerController'
             }).
-            when('/commands', {
-                templateUrl: 'partials/commands.html'
+            when('/macros', {
+                templateUrl: 'partials/macros.html',
+                controller: 'macrosController'
             }).
             when('/logs', {
                 templateUrl: 'partials/logs.html',

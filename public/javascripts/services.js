@@ -281,3 +281,42 @@ app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload
         return deferred.promise;
     };
 }]);
+
+app.service('macrosService', ['$http', '$q', function ($http, $q) {
+
+    this.get = function (macrosId) {
+        return $q(function(resolve, reject) {
+            $http.get("/api/macros", { params: {macrosId: macrosId} })
+            .success(function (response) {
+                resolve(response);
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
+
+    this.remove = function (macrosId) {
+        return $q(function(resolve, reject) {
+            $http.delete("/api/macros", { params: {macrosId: macrosId} })
+            .success(function (response) {
+                resolve();
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
+
+    this.save = function (macros) {
+        return $q(function(resolve, reject) {
+            $http.post("/api/fileManager/directory", { macros: macros })
+            .success(function (response) {
+                resolve();
+            })
+            .error(function (response) {
+                reject(response.error);
+            })
+        });
+    };
+}]);

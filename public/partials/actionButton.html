@@ -1,4 +1,10 @@
-<button class="btn" ng-class="{'btn-danger': type=='danger', 'btn-default': type == null}" ng-click="runAction();">{{buttonName}}</button>
+<button 
+    class="btn" 
+    ng-class="[buttonClass]" 
+    ng-click="runAction();">
+    <span class="glyphicon" ng-show='icon' ng-class="[iconClass]"></span> 
+    {{buttonName}}
+</button>
 <span class="label label-default" ng-show="isActionRunning">Running...</span>
 <span class="label label-success" ng-show="!isActionRunning && actionSucceded">Ok</span>
 <span class="label label-warning" ng-show="!isActionRunning && !actionSucceded && actionError">Error: {{actionError}}</span>

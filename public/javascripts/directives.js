@@ -3,10 +3,18 @@ app.directive('actionButton', function () {
         scope: {
             action: '&',
             buttonName: '@',
-            type: '@'
+            type: '@',
+            icon: '@'
         },
         controller: ['$scope', '$http', function ($scope, $http) {
-            $scope.isActionRunning = false,
+            $scope.isActionRunning = false;
+
+            $scope.buttonClass = "btn-" + ($scope.type ? $scope.type : 'default');
+
+            if ($scope.icon) {
+                $scope.iconClass = 'glyphicon-' + $scope.icon;
+            }
+
             $scope.runAction = function() {
                 $scope.actionError = null;
                 $scope.isActionRunning = true;
