@@ -32,7 +32,12 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     printerStatusService.eventAggregator.on('statusReceived', onStatusReceived);
 
     var onPrintingEnded = function() {
-        alertService.add('success', 'Printing is finished at ' + new Date());
+        var time = new Date().toLocaleTimeString();
+        if (Notification.permission == 'granted') {
+            new Notification('Printing is finished', { body: 'Finished at ' + time, icon: '/images/notification-done.png' })
+        }
+        
+        alertService.add('success', 'Printing was finished at ' + time);
     };
     
     printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
@@ -59,6 +64,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
             });
         });
     };
+
+    if (Notification.permission == "default") {
+        Notification.requestPermission();
+    } 
 }]);
 
 app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 
