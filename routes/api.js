@@ -247,6 +247,13 @@
     var defaultPrinterSettingsPath = 'printerSettingsDefault.cfg';
 
     router.get('/settings', function (req, res) {
+        try {
+            fs.statSync(printerSettingsPath);
+        }
+        catch (e) {
+            fs.copySync(defaultPrinterSettingsPath, printerSettingsPath);
+        }
+
         var result = "{";
         fs.readFileSync(printerSettingsPath).toString().split(/\n/)
         .forEach(function (line) {
