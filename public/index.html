@@ -36,6 +36,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/libs/angular/angular.js"></script>
     <script src="/javascripts/libs/angular-route/angular-route.js"></script>
+    <script src="/javascripts/libs/angular-resource/angular-resource.js"></script>
     <script src="/javascripts/libs/angular-animate/angular-animate.js"></script>
     <script src="/javascripts/libs/angular-touch/angular-touch.js"></script>
     <script src="/javascripts/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -70,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">{{Header}}</a>
+                <a class="navbar-brand" href="#/">{{Header}}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -109,6 +110,9 @@
                         </li>
                         <li>
                             <a href="#/logs"><span class="glyphicon glyphicon-warning-sign"></span> Logs</a>
+                        </li>
+                        <li>
+                            <a href="#/settings"><span class="glyphicon glyphicon-wrench"></span> Settings</a>
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,41 @@
+<div class="page-header">
+    <h1>Settings</h1>
+</div>
+<div class="row">
+    <form class="form-horizontal">
+        <div class="form-group" ng-repeat="displayItem in displaySettings">
+            <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
+            <div class="input-group col-sm-10">
+                <input class="form-control" name="{{displayItem.tag}}" 
+                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]">
+                <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <action-button action="save();" button-name="Apply" type="success" />
+                <action-button action="reset();" button-name="Set to defaults" type="warning" />
+            </div>
+        </div>
+    </form>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="zOffset">Top offset</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input class="form-control" name="zOffset" placeholder="Offset" ng-model="zOffset">
+                    <span class="input-group-addon" id="zOffset">mm</span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <action-button action="moveHome();" button-name="Move home" />
+                <action-button action="test();" button-name="Test" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <action-button action="saveOffset();" button-name="Apply" type="success" />
+            </div>
+        </div>
+    </form>
+</div>

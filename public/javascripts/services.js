@@ -282,7 +282,11 @@ app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload
     };
 }]);
 
-app.service('macrosService', ['$http', '$q', function ($http, $q) {
+app.service('macrosService', ['$http', '$q', '$resource', function ($http, $q, $resource) {
+
+    this.getMacrosResource = function () {
+        return $resource('/api/macros/:id', {id : '@id'});    
+    };
 
     this.get = function (macrosId) {
         return $q(function(resolve, reject) {
@@ -318,5 +322,19 @@ app.service('macrosService', ['$http', '$q', function ($http, $q) {
                 reject(response.error);
             })
         });
+    };
+}]);
+
+app.service('settingsService', ['$resource', '$http', '$q', function ($resource, $http, $q) {
+    this.reset = function () {
+        return $http.post('/api/settings/reset');
+    };
+
+    this.get = function () {
+        return $http.get('/api/settings/');
+    };
+
+    this.save = function (settings) {
+        return $http.post('/api/settings/', { settings: settings } );
     };
 }]);

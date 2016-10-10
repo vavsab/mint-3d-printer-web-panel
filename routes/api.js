@@ -192,5 +192,96 @@
         }
     });
 
+    var macrosSettingsPath = 'macrosSettings.json';
+    router.get('/macros', function (req, res) {
+        if (req.id == null) {
+            res.json(JSON.parse(fs.readFileSync(macrosSettingsPath).toString()));
+        }
+    });
+
+    router.post('/macros/:id', function (req, res) {
+        macrosList = JSON.parse(fs.readFileSync(macrosSettingsPath).toString());
+        var id = req.id;
+        var indexToReplace = null;
+        for (var i = 0; i < macrosList.length; i++) {
+            if (macrosList[i].id === id) {
+                indexToReplace = i;
+                break;
+            }
+        };
+
+        if (indexToReplace != null) {
+            macrosList[indexToReplace] = req.body; 
+        } else {
+            macrosList.push(req.body);
+        }
+
+        fs.writeFileSync(macrosSettingsPath, JSON.stringify(macrosList));
+        res.send();
+    });
+
+    router.delete('/macros/:id', function (req, res) {
+        macrosList = JSON.parse(fs.readFileSync(macrosSettingsPath).toString());
+
+        var id = req.params.id;
+        var indexToReplace = null;
+        for (var i = 0; i < macrosList.length; i++) {
+            logger.warn(macrosList[i].id);
+            if (macrosList[i].id == id) {
+                indexToReplace = i;
+                break;
+            }
+        };
+
+        if (indexToReplace != null) {
+            macrosList.splice(indexToReplace, 1);
+            fs.writeFileSync(macrosSettingsPath, JSON.stringify(macrosList));
+        } else {
+            res.status(404);
+        }
+
+        res.send();
+    });
+
+    var printerSettingsPath = 'printerSettings.cfg';
+    var defaultPrinterSettingsPath = 'printerSettingsDefault.cfg';
+
+    router.get('/settings', function (req, res) {
+        var result = "{";
+        fs.readFileSync(printerSettingsPath).toString().split(/\n/)
+        .forEach(function (line) {
+            var keyValue = line.split(' ');
+            if (keyValue.length != 2)
+                return;
+
+            result += '"' + keyValue[0] + '":' + keyValue[1] + ',';
+        });
+
+        result = result.replace(/,\s*$/, ''); // remove last comma
+        result += "}";
+
+        res.json(JSON.parse(result));
+    });
+
+    router.post('/settings', function (req, res) {
+        var result = '';
+        var settings = req.body.settings;
+        for (var property in settings) {
+            if (settings.hasOwnProperty(property)) {
+                result += property + ' ' + settings[property] + '\n';  
+            }
+        }
+
+        fs.writeFileSync(printerSettingsPath, result);
+        printerProxy.send('UpdateSettings');
+        res.send();
+    });
+
+    router.post('/settings/reset', function (req, res) {
+        fs.copySync(defaultPrinterSettingsPath, printerSettingsPath, { clobber : true });
+        printerProxy.send('UpdateSettings');
+        res.send();
+    });
+
     return router;
 }

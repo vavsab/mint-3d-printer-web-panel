@@ -308,22 +308,27 @@ function ($scope, logService, dialogService, $q) {
 }]);
 
 app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', '$q', 'commandService', function ($scope, dialogService, macrosService, $q, commandService) {
-
+    var macrosResource = macrosService.getMacrosResource();
     var maxIndex;
     $scope.selectedMacro = null;
 
-    $scope.macros = [
-        {id: 0, title: 'GoHome', content:'G28'},
-        {id: 1, title: 'TempOn', content:'M104 S205'},
-        {id: 2, title: 'FanOff', content:'M106 S0'}
-    ];
-    maxIndex = 2;
+    $scope.console = [{ type: 'default', time: new Date(), content: 'Loading contents...'}];
 
-    $scope.console = [
-        { type: 'default', time: new Date(), content: 'page loaded'},
-        { type: 'success', time: new Date(), content: 'G28'},
-        { type: 'error', time: new Date(), content: 'error while sending'}
-    ];
+    macrosResource.query().$promise.then(
+    function success(data) {
+        $scope.macros = data;
+        maxIndex = -1;
+        $scope.macros.forEach(function (item) {
+            if (item.id > maxIndex) {
+                maxIndex = item.id;
+            }
+        });
+
+        $scope.console.push({ type: 'success', time: new Date(), content: 'Page loaded'})
+    },
+    function error(error) {
+        $scope.console.push({ type: 'error', time: new Date(), content: 'Error while page loading: ' + error})
+    });
 
     $scope.selectMacro = function (macro) {
         $scope.selectedMacro = macro;
@@ -336,12 +341,13 @@ app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', 
         dialogService.confirm("Are you sure to remove '" + $scope.selectedMacro.title + "'?", 'Confirm removal').then(
             function success() {
                 return $q(function (resolve, reject) {
-                    macrosService.remove($scope.selectedMacro.id).then(
+                    $scope.selectedMacro.$delete().then(
                     function success() {
-                        $scope.macros.slice($scope.macros.indexOf($scope.selectedMacro));
+                        $scope.macros.splice($scope.macros.indexOf($scope.selectedMacro));
                         resolve();
                     },
-                    function error() {
+                    function error(response) {
+                        $scope.console.push({ type: 'error', time: new Date(), content: 'Error while removing macros: ' + response.status})
                         reject();
                     });
                 });
@@ -382,14 +388,86 @@ app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', 
         if ($scope.selectedMacro == null)
             return;
 
-        return macrosService.save($scope.selectedMacro);
+        return $scope.selectedMacro.$save();
     };
 
     $scope.create = function () {
         dialogService.prompt("Specify macros name", 'New macros').then(
         function success(name) {
             maxIndex++;
-            $scope.macros.push({id: maxIndex, title: name, content: ''});
+            $scope.macros.push(new macrosResource({id: maxIndex, title: name, content: ''}));
         });
+    }
+}]);
+
+app.controller('settingsController', ['$scope', 'settingsService', 'commandService', '$q', 
+function ($scope, settingsService, commandService, $q) {
+    $scope.settings = null;
+    $scope.zOffset = 0;
+    $scope.isLoading = true;
+
+    $scope.displaySettings = [
+        { title: "L", tag: "L", comment: "mm * 10^-5" },
+        { title: "Height", tag: "H", comment: "mm * 10^-5" },
+        { title: "ZeroHeight", tag: "Z", comment: "mm * 10^-5" },
+        { title: "Tower0Qx", tag: "Tx0", comment: "mm * 10^-5" },
+        { title: "Tower0Qy", tag: "Ty0", comment: "mm * 10^-5" },
+        { title: "Tower1Qx", tag: "Tx1", comment: "mm * 10^-5" },
+        { title: "Tower1Qy", tag: "Ty1", comment: "mm * 10^-5" },
+        { title: "Tower2Qx", tag: "Tx2", comment: "mm * 10^-5" },
+        { title: "Tower2Qy", tag: "Ty2", comment: "mm * 10^-5" },
+        { title: "Tower0Calibr", tag: "T0C", comment: "mm * 10^-5" },
+        { title: "Tower1Calibr", tag: "T1C", comment: "mm * 10^-5" },
+        { title: "Tower2Calibr", tag: "T2C", comment: "mm * 10^-5" },
+        { title: "Aceleration", tag: "A", comment: "mm * 10^-5" }
+    ];
+
+    var refresh = function () {
+        $scope.loading = true;
+        settingsService.get().then(
+        function success(response) {
+            $scope.settings = response.data;
+        },
+        function error(error) {
+            $scope.error = "Error while loading: " + error;
+        })
+        .finally(function () {
+            $scope.isLoading = false;
+        });
+    };
+    
+    refresh();
+
+    $scope.save = function () {
+        return settingsService.save($scope.settings);
+    }
+
+    $scope.saveOffset = function () {
+        $scope.settings.Z += Math.round(parseFloat($scope.zOffset) * 100000);
+        var promise = settingsService.save($scope.settings);
+        return promise.then(function success() {
+            $scope.zOffset = 0;
+        });
+    }
+
+    $scope.reset = function() {
+        return $q(function (resolve, reject) {
+            settingsService.reset().then(
+            function success() { 
+                refresh();
+                resolve();
+            },
+            function error(error){
+                reject(error);
+            });
+        });
+    };
+
+    $scope.moveHome = function () {
+        return commandService.sendCommand('G28'); 
+    };
+
+    $scope.test = function () {
+        return commandService.sendCommand("G1 Z" + $scope.zOffset + " F3000");
     }
 }]);
