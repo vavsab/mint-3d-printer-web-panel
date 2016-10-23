@@ -5,3 +5,13 @@
 .bigger {
   font-size: 1.5em;
 }
+
+body {
+  padding-top: 60px;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-top: 15px;
+  }
+}

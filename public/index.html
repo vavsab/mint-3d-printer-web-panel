@@ -41,6 +41,7 @@
     <script src="/javascripts/libs/angular-touch/angular-touch.js"></script>
     <script src="/javascripts/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/javascripts/libs/ng-file-upload/ng-file-upload.js"></script>
+    <script src="/javascripts/libs/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="/javascripts/app.js"></script>
     <script src="/javascripts/factories.js"></script>
     <script src="/javascripts/filters.js"></script>
@@ -59,11 +60,10 @@
 
 </head>
 
-<body ng-controller="mainController">
+<body ng-controller="mainController" ng-cloak>
     <div id="wrapper">
-        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert(alert)">{{alert.message}}</div>
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -126,6 +126,20 @@
 
     </div>
     <!-- /#wrapper -->
+
+    <div style="position: fixed; bottom: 0; left: 3px;" ng-show="alerts.length > 0">
+        <div class="panel panel-default" style="margin-bottom: 3px;">
+            <div class="panel-heading">
+                Messages <span class="badge">{{alerts.length}}</span>
+                <span class="glyphicon glyphicon-trash" style="margin-left:10px; float: right" href ng-click="removeAllAlerts();"></span>
+                <span class="glyphicon glyphicon-menu-up" style="margin-left:10px; float: right" href ng-show="isMinimized" ng-click="isMinimized = false;"></span>
+                <span class="glyphicon glyphicon-menu-down" style="margin-left:10px; float: right" href ng-show="!isMinimized" ng-click="isMinimized = true;"></span>
+            </div>
+            <div class="panel-body" ng-show="!isMinimized">
+                <div uib-alert ng-repeat="alert in alerts" style="margin-bottom: 5px;" ng-class="'alert-' + (alert.type || 'warning')" close="removeAlert(alert)">{{alert.message}}</div>
+            </div>
+        </div>
+    </div>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/javascripts/libs/metisMenu/dist/metisMenu.min.js"></script>

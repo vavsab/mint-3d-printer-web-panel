@@ -48,3 +48,26 @@ function ($uibModalInstance, path, fileService) {
         $uibModalInstance.close();
     };
 }]);
+
+app.controller('runMacrosDialogController', ['$uibModalInstance', 'macros', 'macrosService', 'localStorageService',
+function ($uibModalInstance, macros, macrosService, localStorageService) {
+    var self = this;
+    self.macros = macros;
+
+    self.values = null;
+    if (localStorageService.isSupported) {
+        self.values = localStorageService.get("macroParams" + macros.id);
+    } 
+    
+    if (!self.values) {
+        self.values = {};
+    }
+
+    self.run = function () {
+        return macrosService.run(self.macros, self.values).then(function success() {
+            localStorageService.set("macroParams" + macros.id, self.values);
+        });
+    };
+
+    self.close = $uibModalInstance.close;
+}]);

@@ -1,0 +1,10 @@
+[
+    { "id":1, "title":"GoHome", "content":"G28", "isReadOnly": true, "parameters": [
+        {"name": "param1", "title": "paramTitle1"},
+        {"name": "param2", "title": "paramTitle2"}
+    ]},
+    { "id":2, "title":"ChangeFilament", "content":"G4021", "isReadOnly": false, "parameters": [
+        {"name": "param3", "title": "paramTitle3"},
+        {"name": "param4", "title": "paramTitle4"}
+    ]}
+]

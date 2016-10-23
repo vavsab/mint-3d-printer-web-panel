@@ -1,41 +1,70 @@
 <div class="page-header">
     <h1>Settings</h1>
 </div>
-<div class="row">
-    <form class="form-horizontal">
-        <div class="form-group" ng-repeat="displayItem in displaySettings">
-            <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
-            <div class="input-group col-sm-10">
-                <input class="form-control" name="{{displayItem.tag}}" 
-                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]">
-                <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
+<uib-tabset active="active">
+    <uib-tab heading="Dashboard">
+        <div class="row" style="margin-top: 5px;">
+            <div class="col-xs-4">
+                <b>Macroses</b> 
+                <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in macroses | orderBy: 'id'" ng-model="selectedMacroses" />
+            </div>
+            <div class="col-xs-2">
+                <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-right" ng-click="moveToDashboard(selectedMacroses);" ng-class="{'disabled': selectedMacroses.length == 0}"></button></div>
+                <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-left" ng-click="removeFromDashboard(selectedDashboardMacroses);" ng-class="{'disabled': selectedDashboardMacroses.length == 0}"></button></div>
+            </div>
+            <div class="col-xs-4">
+                <b>Dashboard macroses</b>
+                <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in dashboardMacroses" ng-model="selectedDashboardMacroses" />
+            </div>
+            <div class="col-xs-2">
+                <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-up" ng-click="moveDashboardMacrosUp(selectedDashboardMacroses[0]);" ng-class="{'disabled': selectedDashboardMacroses.length != 1}"></button></div>
+                <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-down" ng-click="moveDashboardMacrosDown(selectedDashboardMacroses[0]);" ng-class="{'disabled': selectedDashboardMacroses.length != 1}"></button></div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <action-button action="save();" button-name="Apply" type="success" />
-                <action-button action="reset();" button-name="Set to defaults" type="warning" />
+        <div class="row">
+            <div class="col-sm-12" style="margin-top: 5px;">
+                <action-button action="saveMacrosSettings();" button-name="Apply" type="success" />
             </div>
         </div>
-    </form>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="zOffset">Top offset</label>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <input class="form-control" name="zOffset" placeholder="Offset" ng-model="zOffset">
-                    <span class="input-group-addon" id="zOffset">mm</span>
+    </uib-tab>
+    <uib-tab heading="Printer">
+        <div class="row" style="margin-top: 5px;">
+            <form class="form-horizontal">
+                <div class="form-group" ng-repeat="displayItem in displaySettings">
+                    <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
+                    <div class="input-group col-sm-10">
+                        <input class="form-control" name="{{displayItem.tag}}" 
+                            placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]">
+                        <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <action-button action="moveHome();" button-name="Move home" />
-                <action-button action="test();" button-name="Test" />
-            </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <action-button action="save();" button-name="Apply" type="success" />
+                        <action-button action="reset();" button-name="Set to defaults" type="warning" />
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="zOffset">Top offset</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <input class="form-control" name="zOffset" placeholder="Offset" ng-model="zOffset">
+                            <span class="input-group-addon" id="zOffset">mm</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <action-button action="moveHome();" button-name="Move home" />
+                        <action-button action="test();" button-name="Test" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <action-button action="saveOffset();" button-name="Apply" type="success" />
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <action-button action="saveOffset();" button-name="Apply" type="success" />
-            </div>
-        </div>
-    </form>
-</div>
+    </uib-tab>
+</uib-tabset>

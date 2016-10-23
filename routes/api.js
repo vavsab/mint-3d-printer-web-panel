@@ -193,6 +193,15 @@
     });
 
     var macrosSettingsPath = 'macrosSettings.json';
+    var defaultMacrosSettingsPath = 'macrosSettingsDefault.json';
+
+    try {
+        fs.statSync(macrosSettingsPath);
+    }
+    catch (e) {
+        fs.copySync(defaultMacrosSettingsPath, macrosSettingsPath);
+    }
+
     router.get('/macros', function (req, res) {
         if (req.id == null) {
             res.json(JSON.parse(fs.readFileSync(macrosSettingsPath).toString()));
@@ -201,16 +210,22 @@
 
     router.post('/macros/:id', function (req, res) {
         macrosList = JSON.parse(fs.readFileSync(macrosSettingsPath).toString());
-        var id = req.id;
+        var id = req.params.id;
         var indexToReplace = null;
         for (var i = 0; i < macrosList.length; i++) {
-            if (macrosList[i].id === id) {
+            if (macrosList[i].id == id) {
                 indexToReplace = i;
                 break;
             }
         };
 
         if (indexToReplace != null) {
+            var macros = macrosList[indexToReplace];
+            if (macros.isReadOnly) {
+                res.status(400).json({error: "Cannot edit readonly macros"});
+                return;
+            }
+
             macrosList[indexToReplace] = req.body; 
         } else {
             macrosList.push(req.body);
@@ -234,6 +249,11 @@
         };
 
         if (indexToReplace != null) {
+            if (macrosList[indexToReplace].isReadOnly) {
+                res.status(400).json("Cannot delete readonly macros");
+                return;
+            }
+
             macrosList.splice(indexToReplace, 1);
             fs.writeFileSync(macrosSettingsPath, JSON.stringify(macrosList));
         } else {
@@ -243,17 +263,34 @@
         res.send();
     });
 
+    var websiteSettingsPath = 'websiteSettings.json';
+    var defaultWebsiteSettingsPath = 'websiteSettingsDefault.json';
+    try {
+        fs.statSync(websiteSettingsPath);
+    }
+    catch (e) {
+        fs.copySync(defaultWebsiteSettingsPath, websiteSettingsPath);
+    }
+
+    router.get('/settings/website', function (req, res) {
+         res.json(JSON.parse(fs.readFileSync(websiteSettingsPath).toString()));
+    });
+
+    router.post('/settings/website', function (req, res) {
+        fs.writeFileSync(websiteSettingsPath, JSON.stringify(req.body));
+        res.send();
+    });
+
     var printerSettingsPath = 'printerSettings.cfg';
     var defaultPrinterSettingsPath = 'printerSettingsDefault.cfg';
+    try {
+        fs.statSync(printerSettingsPath);
+    }
+    catch (e) {
+        fs.copySync(defaultPrinterSettingsPath, printerSettingsPath);
+    }
 
-    router.get('/settings', function (req, res) {
-        try {
-            fs.statSync(printerSettingsPath);
-        }
-        catch (e) {
-            fs.copySync(defaultPrinterSettingsPath, printerSettingsPath);
-        }
-
+    router.get('/settings/printer', function (req, res) {
         var result = "{";
         fs.readFileSync(printerSettingsPath).toString().split(/\n/)
         .forEach(function (line) {
@@ -270,9 +307,9 @@
         res.json(JSON.parse(result));
     });
 
-    router.post('/settings', function (req, res) {
+    router.post('/settings/printer', function (req, res) {
         var result = '';
-        var settings = req.body.settings;
+        var settings = req.body;
         for (var property in settings) {
             if (settings.hasOwnProperty(property)) {
                 result += property + ' ' + settings[property] + '\n';  
@@ -284,7 +321,7 @@
         res.send();
     });
 
-    router.post('/settings/reset', function (req, res) {
+    router.post('/settings/printer/reset', function (req, res) {
         fs.copySync(defaultPrinterSettingsPath, printerSettingsPath, { clobber : true });
         printerProxy.send('UpdateSettings');
         res.send();

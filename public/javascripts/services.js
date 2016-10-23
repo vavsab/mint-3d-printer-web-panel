@@ -2,58 +2,40 @@ app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
     var self = this;
     
     this.prompt = function (message, title) {
-        return $q(function (resolve, reject) {
-            var modalInstance = $uibModal.open({
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/partials/dialogs/promptDialog.html',
-                controller: 'promptDialogController',
-                controllerAs: '$ctrl',
-                resolve: {
-                    message: function () {
-                        return message;
-                    },
-                    title: function () {
-                        return title;
-                    }
+        var modalInstance = $uibModal.open({
+            templateUrl: '/partials/dialogs/promptDialog.html',
+            controller: 'promptDialogController',
+            controllerAs: '$ctrl',
+            resolve: {
+                message: function () {
+                    return message;
+                },
+                title: function () {
+                    return title;
                 }
-            });
-
-            modalInstance.result.then(
-            function success(answer) {
-                resolve(answer);
-            }, function error() {
-                reject();
-            });
+            }
         });
-    }
+
+        return modalInstance.result;
+    };
 
     this.confirm = function (message, title) {
-        return $q(function (resolve, reject) {
-            var modalInstance = $uibModal.open({
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/partials/dialogs/confirmDialog.html',
-                controller: 'confirmDialogController',
-                controllerAs: '$ctrl',
-                resolve: {
-                    message: function () {
-                        return message;
-                    },
-                    title: function () {
-                        return title;
-                    }
+        var modalInstance = $uibModal.open({
+            templateUrl: '/partials/dialogs/confirmDialog.html',
+            controller: 'confirmDialogController',
+            controllerAs: '$ctrl',
+            resolve: {
+                message: function () {
+                    return message;
+                },
+                title: function () {
+                    return title;
                 }
-            });
-
-            modalInstance.result.then(
-            function success() {
-                resolve();
-            }, function error() {
-                reject();
-            });
+            }
         });
-    }
+
+        return modalInstance.result;
+    };
 }]);
 
 app.service('alertService', ['eventAggregatorFactory', function (eventAggregatorFactory) {
@@ -282,59 +264,67 @@ app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload
     };
 }]);
 
-app.service('macrosService', ['$http', '$q', '$resource', function ($http, $q, $resource) {
+app.service('macrosService', ['$http', '$q', '$resource', 'commandService', 
+function ($http, $q, $resource, commandService) {
 
     this.getMacrosResource = function () {
         return $resource('/api/macros/:id', {id : '@id'});    
     };
 
-    this.get = function (macrosId) {
-        return $q(function(resolve, reject) {
-            $http.get("/api/macros", { params: {macrosId: macrosId} })
-            .success(function (response) {
-                resolve(response);
-            })
-            .error(function (response) {
-                reject(response.error);
-            })
-        });
-    };
+    this.run = function (macros, parameterValues) {
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+        var script = macros.content;
 
-    this.remove = function (macrosId) {
-        return $q(function(resolve, reject) {
-            $http.delete("/api/macros", { params: {macrosId: macrosId} })
-            .success(function (response) {
-                resolve();
-            })
-            .error(function (response) {
-                reject(response.error);
-            })
-        });
-    };
+        for (var i = 0; i < macros.parameters.length; i++) {
+            var parameter = macros.parameters[i];
+            var regex = new RegExp("\%" + parameter.name + "\%", "g");
+            var value = parameterValues[parameter.name];
+            if (value === undefined) {
+                deferred.reject("Parameter '"+ parameter.title +"' is not set");
+                return promise;
+            }
 
-    this.save = function (macros) {
-        return $q(function(resolve, reject) {
-            $http.post("/api/fileManager/directory", { macros: macros })
-            .success(function (response) {
-                resolve();
-            })
-            .error(function (response) {
-                reject(response.error);
-            })
+            script = script.replace(regex, value);
+        };
+
+        console.log("Macros script to run: '" + script + "'");
+        
+        script.split(/\n/).forEach(function (line) {
+            // Skip empty lines
+            if (line.match(/^\s*$/))
+                return;
+
+            promise = promise.then(function success() {
+                return commandService.sendCommand(line);
+            });
         });
+        
+        deferred.resolve();
+        return promise;
     };
 }]);
 
-app.service('settingsService', ['$resource', '$http', '$q', function ($resource, $http, $q) {
-    this.reset = function () {
-        return $http.post('/api/settings/reset');
-    };
-
+app.service('websiteSettingsService', ['httpq', function (httpq) {
     this.get = function () {
-        return $http.get('/api/settings/');
+        return httpq.get('/api/settings/website');
     };
 
     this.save = function (settings) {
-        return $http.post('/api/settings/', { settings: settings } );
+        return httpq.post('/api/settings/website', settings);
+    };
+}]);
+
+app.service('printerSettingsService', ['httpq', function (httpq) {
+    this.reset = function () {
+        return httpq.post('/api/settings/printer/reset');
+    };
+
+    this.get = function () {
+        return httpq.get('/api/settings/printer');
+    };
+
+    this.save = function (settings) {
+        return httpq.post('/api/settings/printer', settings);
     };
 }]);

@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3 class="modal-title">Run macros '{{$ctrl.macros.title}}'</h3>
+</div>
+<div class="modal-body">
+    <div ng-show="$ctrl.macros.parameters.length == 0">
+        No parameters
+    </div>
+    <div ng-show="$ctrl.macros.parameters.length > 0">
+        <label>Parameters</label>
+        <br />
+        <div ng-repeat="param in $ctrl.macros.parameters">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="{{param.name}}">{{param.title}}</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input class="form-control" name="{{param.name}}" placeholder="{{param.title}}" ng-model="$ctrl.values[param.name]">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <action-button button-name="Run" type="success" action="$ctrl.run()" />
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.close()">Close</button>
+</div>

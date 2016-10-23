@@ -1,4 +1,5 @@
-﻿app.controller('mainController', ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q', 'dialogService',
+﻿app.controller('mainController', 
+['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q', 'dialogService',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q, dialogService) {
     $scope.Header = "Keep Calm Printer Console";
     $scope.alerts = alertService.alerts;
@@ -6,13 +7,21 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
         alertService.add('danger', 'Site is not available');
     };
 
-    $scope.closeAlert = function (alert) {
+    $scope.isMinimized = false;
+
+    $scope.removeAllAlerts = function () {
+        while ($scope.alerts.length) {
+            $scope.alerts.pop();
+        }
+    };
+
+    $scope.removeAlert = function (alert) {
         $scope.alerts.forEach(function (value, index) {
             if (value == alert) {
                 $scope.alerts.splice(index, 1);
             }
         })
-    }
+    }  
 
     alertService.eventAggregator.on('alertsChanged', function () {
         $scope.$apply();
@@ -70,9 +79,9 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     } 
 }]);
 
-app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 
-function ($scope, commandService, alertService) {
-
+app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 
+function ($scope, commandService, alertService, macrosService, $uibModal, websiteSettingsService) {
+    
     $scope.commands = [
         { title: 'Home', command: 'G28' },
         { title: 'Temperature to zero', command: 'M104 S0' }, 
@@ -89,6 +98,37 @@ function ($scope, commandService, alertService) {
     $scope.sendCommand = function(command) {
         return commandService.sendCommand(command);
     }
+
+    var macrosResource = macrosService.getMacrosResource();
+    macrosResource.query().$promise.then(
+    function success(macroses) {
+        websiteSettingsService.get().then(function success(settings) {
+            $scope.macroses = [];
+            settings.dashboardMacrosIds.forEach(function (macroId) {
+                for (var i = 0; i < macroses.length; i++) {
+                    if (macroses[i].id == macroId) {
+                        $scope.macroses.push(macroses[i]);
+                        break;
+                    }
+                }
+            });
+        });
+    });
+
+    $scope.runMacros = function (macros) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/partials/dialogs/runMacrosDialog.html',
+            controller: 'runMacrosDialogController',
+            controllerAs: '$ctrl',
+            resolve: {
+                macros: function () {
+                    return macros;
+                }
+            }
+        });
+
+        return modalInstance.result;
+    };
 }]);
 
 app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload',
@@ -230,8 +270,6 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
 
     $scope.analyseFile = function (fileName) {
         var modalInstance = $uibModal.open({
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
             templateUrl: '/partials/dialogs/analyseDialog.html',
             controller: 'analyseDialogController',
             controllerAs: '$ctrl',
@@ -307,52 +345,75 @@ function ($scope, logService, dialogService, $q) {
     };
 }]);
 
-app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', '$q', 'commandService', function ($scope, dialogService, macrosService, $q, commandService) {
+app.controller('macrosController', 
+['$scope', 'dialogService', 'macrosService', '$q', 'commandService', 'localStorageService', 
+function ($scope, dialogService, macrosService, $q, commandService, localStorageService) {
     var macrosResource = macrosService.getMacrosResource();
     var maxIndex;
     $scope.selectedMacro = null;
+    $scope.isLoading = true;
 
-    $scope.console = [{ type: 'default', time: new Date(), content: 'Loading contents...'}];
+    $scope.selectMacro = function (macro) {
+        $scope.selectedMacro = macro;
+        $scope.values = null;
+        if (localStorageService.isSupported) {
+            $scope.values = localStorageService.get("macroParams" + macro.id);
+        } 
+        
+        if (!$scope.values) {
+            $scope.values = {};
+        }
+    };
 
     macrosResource.query().$promise.then(
     function success(data) {
         $scope.macros = data;
         maxIndex = -1;
+        if ($scope.macros.length > 0) {
+            $scope.selectMacro($scope.macros[0]);
+        } else {
+            $scope.selectMacro(null);
+        }
+        
         $scope.macros.forEach(function (item) {
             if (item.id > maxIndex) {
                 maxIndex = item.id;
             }
         });
-
-        $scope.console.push({ type: 'success', time: new Date(), content: 'Page loaded'})
     },
     function error(error) {
-        $scope.console.push({ type: 'error', time: new Date(), content: 'Error while page loading: ' + error})
+        $scope.error = 'Error while page loading: ' + error;
+    })
+    .finally(function () {
+        $scope.isLoading = false;
     });
-
-    $scope.selectMacro = function (macro) {
-        $scope.selectedMacro = macro;
-    }
 
     $scope.remove = function () {
         if ($scope.selectedMacro == null)
             return;
 
+        return $q(function (resolve, reject) {
         dialogService.confirm("Are you sure to remove '" + $scope.selectedMacro.title + "'?", 'Confirm removal').then(
             function success() {
-                return $q(function (resolve, reject) {
-                    $scope.selectedMacro.$delete().then(
-                    function success() {
-                        $scope.macros.splice($scope.macros.indexOf($scope.selectedMacro));
-                        resolve();
-                    },
-                    function error(response) {
-                        $scope.console.push({ type: 'error', time: new Date(), content: 'Error while removing macros: ' + response.status})
-                        reject();
-                    });
+                $scope.selectedMacro.$delete().then(
+                function success() {
+                    $scope.macros.splice($scope.macros.indexOf($scope.selectedMacro), 1);
+                    if ($scope.macros.length > 0) {
+                        $scope.selectMacro($scope.macros[0]);
+                    } else {
+                        $scope.selectMacro(null);
+                    }
+
+                    resolve();
+                },
+                function error(response) {
+                    reject(response.error);
                 });
-            }
-        );
+            },
+            function error (error) {
+                reject(error);
+            });
+        });
     };
 
     $scope.run = function () {
@@ -360,27 +421,18 @@ app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', 
             return;
 
         return $q(function (resolve, reject) {
-            var macros = $scope.selectedMacro;
-            var lines = macros.content.split(/\n/);
-            var lineIndex = 0;
-
-            var sendNextLine = function () {
-                if (lineIndex >= lines.length) {
-                    $scope.console.push({ type: 'success', time: new Date(), content: 'Macros "' + macros.title + '" is finished'});
-                    resolve();
-                }
-                
-                commandService.sendCommand(lines[lineIndex]).then(
+            macrosService.run($scope.selectedMacro, $scope.values).then(
                 function success() {
-                    $scope.console.push({ type: 'success', time: new Date(), content: lines[lineIndex]});
-                    lineIndex++;
-                    sendNextLine();
+                    if (localStorageService.isSupported) {
+                        localStorageService.set("macroParams" + $scope.selectedMacro.id, $scope.values);
+                    }
+
+                    resolve();
                 },
                 function error(error) {
-                    $scope.console.push({ type: 'error', time: new Date(), content: error});
                     reject(error);
-                });
-            };
+                }
+            );
         });
     };
 
@@ -391,17 +443,30 @@ app.controller('macrosController', ['$scope', 'dialogService', 'macrosService', 
         return $scope.selectedMacro.$save();
     };
 
+    $scope.addParameter = function () {
+        var paramNo = $scope.selectedMacro.parameters.length + 1;
+        $scope.selectedMacro.parameters.push({"name": "param" + paramNo, "title": "param title" + paramNo});
+    };
+
+    $scope.removeParameter = function (param) {
+        console.log(param);
+        $scope.selectedMacro.parameters.splice($scope.selectedMacro.parameters.indexOf(param), 1);
+    };
+
     $scope.create = function () {
         dialogService.prompt("Specify macros name", 'New macros').then(
         function success(name) {
             maxIndex++;
-            $scope.macros.push(new macrosResource({id: maxIndex, title: name, content: ''}));
+            var newMacros = new macrosResource({id: maxIndex, title: name, content: '', isReadOnly: false, parameters: []});
+            $scope.selectedMacro = newMacros;
+            $scope.macros.push(newMacros);
         });
     }
 }]);
 
-app.controller('settingsController', ['$scope', 'settingsService', 'commandService', '$q', 
-function ($scope, settingsService, commandService, $q) {
+app.controller('settingsController', 
+['$scope', 'printerSettingsService', 'websiteSettingsService', 'commandService', '$q', 'macrosService',
+function ($scope, printerSettingsService, websiteSettingsService, commandService, $q, macrosService) {
     $scope.settings = null;
     $scope.zOffset = 0;
     $scope.isLoading = true;
@@ -409,24 +474,24 @@ function ($scope, settingsService, commandService, $q) {
     $scope.displaySettings = [
         { title: "L", tag: "L", comment: "mm * 10^-5" },
         { title: "Height", tag: "H", comment: "mm * 10^-5" },
-        { title: "ZeroHeight", tag: "Z", comment: "mm * 10^-5" },
-        { title: "Tower0Qx", tag: "Tx0", comment: "mm * 10^-5" },
-        { title: "Tower0Qy", tag: "Ty0", comment: "mm * 10^-5" },
-        { title: "Tower1Qx", tag: "Tx1", comment: "mm * 10^-5" },
-        { title: "Tower1Qy", tag: "Ty1", comment: "mm * 10^-5" },
-        { title: "Tower2Qx", tag: "Tx2", comment: "mm * 10^-5" },
-        { title: "Tower2Qy", tag: "Ty2", comment: "mm * 10^-5" },
-        { title: "Tower0Calibr", tag: "T0C", comment: "mm * 10^-5" },
-        { title: "Tower1Calibr", tag: "T1C", comment: "mm * 10^-5" },
-        { title: "Tower2Calibr", tag: "T2C", comment: "mm * 10^-5" },
-        { title: "Aceleration", tag: "A", comment: "mm * 10^-5" }
+        { title: "Zero Height", tag: "Z", comment: "mm * 10^-5" },
+        { title: "Tower0 Qx", tag: "Tx0", comment: "mm * 10^-5" },
+        { title: "Tower0 Qy", tag: "Ty0", comment: "mm * 10^-5" },
+        { title: "Tower1 Qx", tag: "Tx1", comment: "mm * 10^-5" },
+        { title: "Tower1 Qy", tag: "Ty1", comment: "mm * 10^-5" },
+        { title: "Tower2 Qx", tag: "Tx2", comment: "mm * 10^-5" },
+        { title: "Tower2 Qy", tag: "Ty2", comment: "mm * 10^-5" },
+        { title: "Tower0 Calibration", tag: "T0C", comment: "mm * 10^-5" },
+        { title: "Tower1 Calibration", tag: "T1C", comment: "mm * 10^-5" },
+        { title: "Tower2 Calibration", tag: "T2C", comment: "mm * 10^-5" },
+        { title: "Acceleration", tag: "A", comment: "mm * 10^-5" }
     ];
 
     var refresh = function () {
         $scope.loading = true;
-        settingsService.get().then(
-        function success(response) {
-            $scope.settings = response.data;
+        printerSettingsService.get().then(
+        function success(data) {
+            $scope.settings = data;
         },
         function error(error) {
             $scope.error = "Error while loading: " + error;
@@ -439,12 +504,12 @@ function ($scope, settingsService, commandService, $q) {
     refresh();
 
     $scope.save = function () {
-        return settingsService.save($scope.settings);
+        return printerSettingsService.save($scope.settings);
     }
 
     $scope.saveOffset = function () {
         $scope.settings.Z += Math.round(parseFloat($scope.zOffset) * 100000);
-        var promise = settingsService.save($scope.settings);
+        var promise = printerSettingsService.save($scope.settings);
         return promise.then(function success() {
             $scope.zOffset = 0;
         });
@@ -452,7 +517,7 @@ function ($scope, settingsService, commandService, $q) {
 
     $scope.reset = function() {
         return $q(function (resolve, reject) {
-            settingsService.reset().then(
+            printerSettingsService.reset().then(
             function success() { 
                 refresh();
                 resolve();
@@ -470,4 +535,77 @@ function ($scope, settingsService, commandService, $q) {
     $scope.test = function () {
         return commandService.sendCommand("G1 Z" + $scope.zOffset + " F3000");
     }
+
+    $scope.dashboardMacroses = [];
+    $scope.selectedMacroses = [];
+    $scope.selectedDashboardMacroses = [];
+    var websiteSettings = null;
+    var macrosResource = macrosService.getMacrosResource();
+    macrosResource.query().$promise.then(
+    function success(data) {
+        $scope.macroses = data;
+        
+        return websiteSettingsService.get().then(function success(settings) {
+            websiteSettings = settings;
+            websiteSettings.dashboardMacrosIds.forEach(function (macrosId) {
+                var macrosToMoveIndex = null;
+                for (var i = 0; i < $scope.macroses.length; i++) {
+                    if ($scope.macroses[i].id == macrosId) {
+                        macrosToMoveIndex = i;
+                        break;
+                    }
+                }
+
+                if (macrosToMoveIndex != null) {
+                    $scope.dashboardMacroses.push($scope.macroses.splice(macrosToMoveIndex, 1)[0]);
+                }    
+            });
+        });
+    },
+    function error(error) {
+        $scope.error = 'Error while page loading: ' + error;
+    });
+
+    $scope.moveToDashboard = function (macroses) {
+        macroses.forEach(function (macros) {
+            var index = $scope.macroses.indexOf(macros);
+            $scope.dashboardMacroses.push($scope.macroses.splice(index, 1)[0]);
+        });
+    };
+
+    $scope.removeFromDashboard = function (macroses) {
+        macroses.forEach(function (macros) {
+            var index = $scope.dashboardMacroses.indexOf(macros);
+            $scope.macroses.push($scope.dashboardMacroses.splice(index, 1)[0]);
+        });
+    };
+
+    $scope.moveDashboardMacrosUp = function (macros) {
+        var index = $scope.dashboardMacroses.indexOf(macros);
+        if (index - 1 >= 0) {
+            var tmp = $scope.dashboardMacroses[index - 1];
+            $scope.dashboardMacroses[index - 1] = $scope.dashboardMacroses[index];
+            $scope.dashboardMacroses[index] = tmp;
+        }
+    };
+
+    $scope.moveDashboardMacrosDown = function (macros) {
+        var index = $scope.dashboardMacroses.indexOf(macros);
+        if (index + 1 < $scope.dashboardMacroses.length) {
+            var tmp = $scope.dashboardMacroses[index + 1];
+            $scope.dashboardMacroses[index + 1] = $scope.dashboardMacroses[index];
+            $scope.dashboardMacroses[index] = tmp;
+        }
+    };
+
+    $scope.saveMacrosSettings = function () {
+        var macrosIds = [];
+        $scope.dashboardMacroses.forEach(function (macros) {
+            macrosIds.push(macros.id);
+        });
+
+        websiteSettings.dashboardMacrosIds = macrosIds;
+
+        return websiteSettingsService.save(websiteSettings);
+    };
 }]);
