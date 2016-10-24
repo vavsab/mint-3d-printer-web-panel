@@ -1,7 +1,9 @@
 ﻿app = angular.module('angularModule', 
-    ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 'ngResource', 'LocalStorageModule']);
+    ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 'ngAnimate', 'ngResource', 'LocalStorageModule']);
 
-app.config(['$routeSegmentProvider', function ($routeSegmentProvider) {
+app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentProvider, $routeProvider) {
+    $routeSegmentProvider.options.autoLoadTemplates = true;
+
     $routeSegmentProvider
         .when('/', 'main')
         .when('/fileManager', 'fileManager')
@@ -40,11 +42,15 @@ app.config(['$routeSegmentProvider', function ($routeSegmentProvider) {
                 controller: 'settingsPrinterController'
             })
         .up();
+
+    $routeProvider.otherwise({redirectTo: '/'}); 
 }]);
 
 app.config(function($httpProvider) {
     $httpProvider.interceptors.push('siteAvailabilityInterceptor');
 });
+
+app.value('loader', {show: true});
 
 app.factory('httpq', ['$http', '$q', function($http, $q) {
   return {

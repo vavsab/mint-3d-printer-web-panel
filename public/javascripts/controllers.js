@@ -1,6 +1,9 @@
 ﻿app.controller('mainController', 
-['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q', 'dialogService',
-function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q, dialogService) {
+['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q', 'dialogService', 'loader',
+function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q, dialogService, loader) {
+    $scope.loader = loader;
+    loader.show = false;
+
     $scope.Header = "Keep Calm Printer Console";
     $scope.alerts = alertService.alerts;
     siteAvailabilityInterceptor.onError = function () {
@@ -79,9 +82,9 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     } 
 }]);
 
-app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 
-function ($scope, commandService, alertService, macrosService, $uibModal, websiteSettingsService) {
-    
+app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 'loader', 
+function ($scope, commandService, alertService, macrosService, $uibModal, websiteSettingsService, loader) {
+    loader.show = true;    
     $scope.commands = [
         { title: 'Home', command: 'G28' },
         { title: 'Temperature to zero', command: 'M104 S0' }, 
@@ -113,6 +116,8 @@ function ($scope, commandService, alertService, macrosService, $uibModal, websit
                 }
             });
         });
+    }).finally(function () {
+        $scope.loader.show = false;
     });
 
     $scope.runMacros = function (macros) {

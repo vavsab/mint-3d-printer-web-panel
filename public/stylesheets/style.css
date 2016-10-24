@@ -15,3 +15,25 @@ body {
     padding-top: 15px;
   }
 }
+
+.animate.ng-enter {
+	transition: opacity 0.5s;
+	opacity: 0.0;
+}
+
+.animate.ng-enter-active {
+	opacity: 1.0;
+}
+
+.animate.ng-leave {
+    display: none;
+}
+
+#loading {
+    position: absolute;
+    width: 300px;
+    top: 10px;
+    right: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    z-index: 1040;
+}
