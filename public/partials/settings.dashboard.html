@@ -1,0 +1,23 @@
+<div class="row" style="margin-top: 5px;">
+    <div class="col-xs-4">
+        <b>Macroses</b> 
+        <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in macroses | orderBy: 'id'" ng-model="selectedMacroses" />
+    </div>
+    <div class="col-xs-2">
+        <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-right" ng-click="moveToDashboard(selectedMacroses);" ng-class="{'disabled': selectedMacroses.length == 0}"></button></div>
+        <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-left" ng-click="removeFromDashboard(selectedDashboardMacroses);" ng-class="{'disabled': selectedDashboardMacroses.length == 0}"></button></div>
+    </div>
+    <div class="col-xs-4">
+        <b>Dashboard macroses</b>
+        <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in dashboardMacroses" ng-model="selectedDashboardMacroses" />
+    </div>
+    <div class="col-xs-2">
+        <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-up" ng-click="moveDashboardMacrosUp(selectedDashboardMacroses[0]);" ng-class="{'disabled': selectedDashboardMacroses.length != 1}"></button></div>
+        <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-down" ng-click="moveDashboardMacrosDown(selectedDashboardMacroses[0]);" ng-class="{'disabled': selectedDashboardMacroses.length != 1}"></button></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" style="margin-top: 5px;">
+        <action-button action="saveMacrosSettings();" button-name="Apply" type="success" />
+    </div>
+</div>

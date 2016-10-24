@@ -3,16 +3,14 @@ app.directive('actionButton', function () {
         scope: {
             action: '&',
             buttonName: '@',
+            disabled: '=',
             type: '@',
             icon: '@'
         },
         controller: ['$scope', '$http', function ($scope, $http) {
             $scope.isActionRunning = false;
-
-            $scope.buttonClass = "btn-" + ($scope.type ? $scope.type : 'default');
-
-            if ($scope.icon) {
-                $scope.iconClass = 'glyphicon-' + $scope.icon;
+            if (!$scope.type) {
+                $scope.type = 'default';
             }
 
             $scope.runAction = function() {
@@ -56,3 +54,25 @@ app.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+app.directive('validationFloat', function () {
+    var isValid = function(s) {
+        return /^\d+(.\d+)?$/.test(s);
+    };
+
+    return {
+        require:'ngModel',
+        link: function (scope, elm, attrs, ngModelCtrl) {
+
+            ngModelCtrl.$parsers.unshift(function (viewValue) {
+                ngModelCtrl.$setValidity('float', isValid(viewValue));
+                return parseFloat(viewValue);
+            });
+
+            ngModelCtrl.$formatters.unshift(function (modelValue) {
+                ngModelCtrl.$setValidity('float', isValid(modelValue));
+                return parseFloat(modelValue);
+            });
+        }
+    };
+});

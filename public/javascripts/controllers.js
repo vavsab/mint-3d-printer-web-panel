@@ -464,11 +464,11 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
     }
 }]);
 
-app.controller('settingsController', 
-['$scope', 'printerSettingsService', 'websiteSettingsService', 'commandService', '$q', 'macrosService',
-function ($scope, printerSettingsService, websiteSettingsService, commandService, $q, macrosService) {
+app.controller('settingsPrinterController', 
+['$scope', 'printerSettingsService', 'commandService',
+function ($scope, printerSettingsService, commandService) {
     $scope.settings = null;
-    $scope.zOffset = 0;
+    $scope.offset = { z: 0 };
     $scope.isLoading = true;
 
     $scope.displaySettings = [
@@ -508,23 +508,16 @@ function ($scope, printerSettingsService, websiteSettingsService, commandService
     }
 
     $scope.saveOffset = function () {
-        $scope.settings.Z += Math.round(parseFloat($scope.zOffset) * 100000);
+        $scope.settings.Z = parseInt($scope.settings.Z) + Math.round(parseFloat($scope.offset.z) * 100000);
         var promise = printerSettingsService.save($scope.settings);
         return promise.then(function success() {
-            $scope.zOffset = 0;
+            $scope.offset.z = 0;
         });
     }
 
     $scope.reset = function() {
-        return $q(function (resolve, reject) {
-            printerSettingsService.reset().then(
-            function success() { 
-                refresh();
-                resolve();
-            },
-            function error(error){
-                reject(error);
-            });
+        return printerSettingsService.reset().then(function success() { 
+            refresh();
         });
     };
 
@@ -533,8 +526,13 @@ function ($scope, printerSettingsService, websiteSettingsService, commandService
     };
 
     $scope.test = function () {
-        return commandService.sendCommand("G1 Z" + $scope.zOffset + " F3000");
+        return commandService.sendCommand("G1 Z" + $scope.offset.z.toFixed(3) + " F3000");
     }
+}]);
+
+app.controller('settingsDashboardController', 
+['$scope', 'websiteSettingsService', 'macrosService',
+function ($scope, websiteSettingsService, macrosService) {
 
     $scope.dashboardMacroses = [];
     $scope.selectedMacroses = [];

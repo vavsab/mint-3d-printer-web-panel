@@ -1,29 +1,46 @@
-﻿app = angular.module('angularModule', ['ngRoute', 'ui.bootstrap', 'ngFileUpload', 'ngResource', 'LocalStorageModule']);
+﻿app = angular.module('angularModule', 
+    ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 'ngResource', 'LocalStorageModule']);
 
-app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.
-        when('/', {
+app.config(['$routeSegmentProvider', function ($routeSegmentProvider) {
+    $routeSegmentProvider
+        .when('/', 'main')
+        .when('/fileManager', 'fileManager')
+        .when('/macros', 'macros')
+        .when('/logs', 'logs')
+        .when('/settings','settings.dashboard')
+        .when('/settings/dashboard','settings.dashboard')
+        .when('/settings/printer','settings.printer')
+
+        .segment('main', {
             templateUrl: 'partials/dashboard.html',
             controller: 'dashboardController'
-        }).
-        when('/fileManager', {
+        })
+        .segment('fileManager', {
             templateUrl: 'partials/fileManager.html',
             controller: 'fileManagerController'
-        }).
-        when('/macros', {
+        })
+        .segment('macros', {
             templateUrl: 'partials/macros.html',
             controller: 'macrosController'
-        }).
-        when('/logs', {
+        })
+        .segment('logs', {
             templateUrl: 'partials/logs.html',
             controller: 'logsController'
-        }).
-        when('/settings', {
-            templateUrl: 'partials/settings.html',
-            controller: 'settingsController'
-        }).
-        otherwise({ redirectTo: '/' });
-}]);    
+        })
+        .segment('settings', {
+            templateUrl: 'partials/settings.html'
+        })
+        .within()
+            .segment('dashboard', {
+                templateUrl: 'partials/settings.dashboard.html',
+                controller: 'settingsDashboardController'
+            })
+            .segment('printer', {
+                templateUrl: 'partials/settings.printer.html',
+                controller: 'settingsPrinterController'
+            })
+        .up();
+}]);
 
 app.config(function($httpProvider) {
     $httpProvider.interceptors.push('siteAvailabilityInterceptor');
