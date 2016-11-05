@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using PrinterEmulator;
+using System.Runtime.Serialization;
 
 namespace PrintDream.Model
 {
@@ -9,6 +10,15 @@ namespace PrintDream.Model
     public class InfoOutput
     {
         public const string PackagePrefix = "I";
+
+        [DataMember(Name = "State")]
+        public int StateCode { get; set; }
+
+        public State State
+        {
+            get { return (State)StateCode; }
+            set { StateCode = (int)value; }
+        }
 
         [DataMember(Name = "temp")]
         public long Temperature { get; set; }
@@ -42,12 +52,6 @@ namespace PrintDream.Model
         /// </summary>
         [DataMember(Name = "line_index")]
         public int LineIndex { get; set; }
-
-        /// <summary>
-        /// Determines whether printer is active now
-        /// </summary>
-        [DataMember(Name = "isPrint")]
-        public byte IsPrint { get; set; }
 
         /// <summary>
         /// Extruder pushing coefficient (1234 means 123,4 %)

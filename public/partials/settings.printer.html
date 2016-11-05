@@ -4,7 +4,7 @@
             <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
             <div class="input-group col-sm-10">
                 <input class="form-control" name="{{displayItem.tag}}" 
-                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]" ng-virtual-keyboard>
+                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]" ng-keyboard>
                 <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
             </div>
         </div>
@@ -20,7 +20,7 @@
             <label class="control-label col-sm-2" for="zOffset">Top offset</label>
             <div class="col-sm-7">
                 <div class="input-group" ng-class="{'has-error' : offsetForm.$invalid}">
-                    <input class="form-control" id="zOffsetInput" name="zOffsetInput" placeholder="Offset" ng-model="offset.z" validation-float ng-virtual-keyboard>
+                    <input class="form-control" id="zOffsetInput" name="zOffsetInput" placeholder="Offset" ng-model="offset.z" validation-float ng-keyboard>
                     <span class="input-group-addon" id="zOffset">mm</span>
                 </div>
                 <p class="help-block text-danger" ng-if="offsetForm.zOffsetInput.$error.float">Enter valid float number</p>

@@ -23,7 +23,8 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <CheckBox Margin="5" Name="CheckBoxStatus" Content="Send status" Checked="CheckBoxStatus_OnChecked" Unchecked="CheckBoxStatus_OnUnchecked" />
-            <CheckBox Margin="5" Name="CheckBoxIsPrinting" Content="Is printing" />
+            <TextBlock Margin="5" Text="State" />
+            <ComboBox ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" />
         </StackPanel>
         <Button Margin="5" Grid.Row="2" Name="ButtonError" Content="Send error" Click="ButtonError_OnClick" />
         <TextBlock Margin="5" Grid.Row="3" Text="Console" />

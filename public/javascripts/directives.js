@@ -1,14 +1,38 @@
-app.directive('actionButton', function () {
+app.directive('actionButton', ['printerStatusService', 'printerStatus', 
+function (printerStatusService, printerStatus) {
     return {
         scope: {
             action: '&',
             buttonName: '@',
             disabled: '=',
             type: '@',
-            icon: '@'
+            icon: '@',
+            disableWhenPrinterIsBusy: '@'
         },
         controller: ['$scope', '$http', function ($scope, $http) {
             $scope.isActionRunning = false;
+            $scope.forbiddenPrinterState = false;
+
+            var refreshState = function (printerState) {
+                $scope.forbiddenPrinterState = ["Buffering", "PrintBuffering", "Printing"]
+                    .indexOf(printerState) != -1;
+            };
+
+            refreshState(printerStatus.status.state);
+            
+            var onStatusReceived = function (status) {
+                if (!$scope.disableWhenPrinterIsBusy)
+                    return;
+                refreshState(status.state);
+                $scope.$applyAsync();
+            };
+
+            printerStatusService.eventAggregator.on('statusReceived', onStatusReceived);
+
+            $scope.$on('$destroy', function () {
+                printerStatusService.eventAggregator.unsubscribe('statusReceived', onStatusReceived);
+            });
+
             if (!$scope.type) {
                 $scope.type = 'default';
             }
@@ -37,7 +61,7 @@ app.directive('actionButton', function () {
         }],
         templateUrl: '/partials/actionButton.html'
     };
-});
+}]);
 
 app.directive('fileModel', ['$parse', function ($parse) {
     return {
@@ -57,7 +81,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 app.directive('validationFloat', function () {
     var isValid = function(s) {
-        return /^\d+(.\d+)?$/.test(s);
+        return /^-?\d+(.\d+)?$/.test(s);
     };
 
     return {
@@ -76,3 +100,31 @@ app.directive('validationFloat', function () {
         }
     };
 });
+
+
+app.directive('ngKeyboard', ['ngVirtualKeyboardService', '$timeout', 'browserSettings',
+	function(ngVirtualKeyboardService, $timeout, browserSettings) {
+		return {
+			restrict: 'A',
+			require: '?ngModel',
+			scope: {
+				config: '=ngKeyboard'
+			},
+			link: function(scope, elements, attrs, ngModelCtrl) {
+                if (!browserSettings.showVirtualKeyboard) {
+                    return;
+                }
+
+				if (!ngModelCtrl) {
+					return;
+				}
+
+				ngVirtualKeyboardService.attach(elements[0], scope.config, function(e, kb, el) {
+					$timeout(function() {
+						ngModelCtrl.$setViewValue(elements[0].value);
+					});
+				});
+			}
+		};
+	}
+]);

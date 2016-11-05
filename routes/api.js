@@ -44,10 +44,18 @@
         }
 
         logger.trace("command: " + command);
+        if (printerStatusController.currentStatus == undefined ||
+            printerStatusController.currentStatus.state == undefined ||
+            ["Buffering", "PrintBuffering",	"Printing"].indexOf(printerStatusController.currentStatus.state) != -1) {
+            res.status(400).json({ error: 'Printer has invalid state for sending commands' });
+            return;
+        }
+
         if (command != null) {
             var result = printerProxy.send(command);
+            
             if (!result) {
-                var errorMessage = 'could not send the command. Seems that printer is unavailable'; 
+                var errorMessage = 'Printer is unavailable'; 
                 logger.warn(errorMessage);
                 res.status(500).json({ error: errorMessage });
             } else {

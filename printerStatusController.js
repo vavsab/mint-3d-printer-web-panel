@@ -53,8 +53,23 @@ module.exports = function (server, printerProxy)
             return;
           }
 
+          if (status.State !== undefined) {
+            var statusMap = ["Idle", "CopyData", "CopyDataBuffer", "Buffering",
+	            "PrintBuffering",	"Printing",	"Pause", "PauseBuffering", 
+              "PausePrintBuffering"];
+            
+            if (statusMap.hasOwnProperty(status.State)) {
+              status.state = statusMap[status.State];
+            } else {
+              status.state = "Unknown";
+            }
+
+            status.stateCode = status.State;
+            delete status.State; 
+          }
+
           status.remainedMilliseconds = null;
-          if (status.isPrint == 1) {
+          if (status.state == 'Printing') {
             if (startPrintDate == null) {
               startPrintDate = new Date();
             }

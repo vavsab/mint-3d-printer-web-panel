@@ -96,10 +96,10 @@
                 </li>
                 <li>
                     <h3 style="height: 30px; margin: 10px;">
-                        <span class="label label-bg" ng-class="{'label-success': status.isPrint, 'label-default': !status.isPrint}">State: {{status.isPrint ? 'Printing' : 'Idle'}}</span>
+                        <span class="label label-bg" ng-class="{'label-success': status.state == 'Printing', 'label-default': status.state != 'Printing'}">State: {{status.state}}</span>
                     </h3>
                 </li>
-                <li ng-show="status.isPrint">
+                <li ng-show="status.state != undefined && status.state != 'Idle'">
                     <action-button button-name="Emergency stop" type='danger' action='emergencyStop()' />
                 </li>
             </ul>

@@ -31,7 +31,7 @@
                                 <label class="control-label col-sm-4" for="{{param.name}}">{{param.title}}</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input class="form-control" name="{{param.name}}" placeholder="{{param.title}}" ng-model="values[param.name]" ng-virtual-keyboard>
+                                        <input class="form-control" name="{{param.name}}" placeholder="{{param.title}}" ng-model="values[param.name]" ng-keyboard>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 
-                <action-button action="run()" button-name="Run" icon="send" type="success" />
+                <action-button action="run()" button-name="Run" icon="send" type="success" disable-when-printer-is-busy="true" />
             </div>
         </uib-tab>
         <uib-tab index="1" heading="{{selectedMacro.isReadOnly?'System macros code':'Edit'}}">
@@ -49,13 +49,13 @@
                         <div class="form-group">
                             <div class="col-sm-5">
                                 <input class="form-control" placeholder="Parameter title" ng-model="param.title" ng-show="selectedMacro.isReadOnly" disabled>
-                                <input class="form-control" placeholder="Parameter title" ng-model="param.title" ng-show="!selectedMacro.isReadOnly" ng-virtual-keyboard>
+                                <input class="form-control" placeholder="Parameter title" ng-model="param.title" ng-show="!selectedMacro.isReadOnly" ng-keyboard>
                             </div>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="{{param.name}}">%</span>
                                     <input class="form-control" name="{{param.name}}" placeholder="Parameter name" ng-model="param.name" ng-show="selectedMacro.isReadOnly" disabled>
-                                    <input class="form-control" name="{{param.name}}" placeholder="Parameter name" ng-model="param.name" ng-show="!selectedMacro.isReadOnly" ng-virtual-keyboard>
+                                    <input class="form-control" name="{{param.name}}" placeholder="Parameter name" ng-model="param.name" ng-show="!selectedMacro.isReadOnly" ng-keyboard>
                                     <span class="input-group-addon" id="{{param.name}}">%</span>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                 <action-button action="addParameter()" button-name="Add" icon="plus" type="default" ng-show="!selectedMacro.isReadOnly" />
 
                 <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-show="selectedMacro.isReadOnly" disabled></textarea>
-                <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-show="!selectedMacro.isReadOnly" ng-virtual-keyboard></textarea>
+                <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-show="!selectedMacro.isReadOnly" ng-keyboard></textarea>
                 
                 <div style="margin-top:5px;" ng-show="!selectedMacro.isReadOnly">
                     <action-button action="save()" button-name="Save" icon="floppy-disk" type="primary" />

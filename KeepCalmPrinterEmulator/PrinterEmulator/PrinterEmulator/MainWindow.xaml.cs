@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using PrintDream.Model;
 using JsonSerializer = PrintDream.Core.JsonSerializer;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PrinterEmulator
-{    
+{
     public partial class MainWindow
     {
         private CancellationTokenSource cancellationTokenSource;
@@ -17,7 +19,14 @@ namespace PrinterEmulator
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            States = Enum.GetValues(typeof(State)).OfType<State>().ToList();
+            SelectedState = (State)999;
         }
+
+        public List<State> States { get; set; }
+
+        public State SelectedState { get; set; }
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -122,6 +131,7 @@ namespace PrinterEmulator
             return InfoOutput.PackagePrefix + 
                 JsonSerializer.Serialize(new InfoOutput
             {
+                State = SelectedState,
                 CullerRate = random.Next(0, 100),
                 LineCount = random.Next(100000, 200000),
                 LineIndex = random.Next(1, 200),
@@ -134,7 +144,6 @@ namespace PrinterEmulator
                     Y = random.Next(0, 10000000),
                     Z = random.Next(0, 10000000)
                 },
-                IsPrint = (CheckBoxIsPrinting.IsChecked ?? false) ? (byte)1 : (byte)0,
                 FeedRate = random.Next(10, 5000),
                 ExtruderOver = random.Next(10, 5000),
                 Speed = random.Next(1000, 1000000),

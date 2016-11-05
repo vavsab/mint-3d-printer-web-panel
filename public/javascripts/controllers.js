@@ -259,7 +259,7 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
 
     $scope.startPrint = function (fileName, withBuffer) {
         return $q(function (resolve, reject) {
-            if ($scope.status.isPrint) {
+            if ($scope.status.state !== 'Idle') {
                 reject('Printer is busy now');
             } else {
                 return commandService.sendCommand((withBuffer ? 'startb ' : 'start ') + convertPathToString() + fileName)
@@ -610,5 +610,23 @@ function ($scope, websiteSettingsService, macrosService) {
         websiteSettings.dashboardMacrosIds = macrosIds;
 
         return websiteSettingsService.save(websiteSettings);
+    };
+}]);
+
+app.controller('settingsGeneralController', ['localStorageService', 'browserSettings', 
+function (localStorageService, browserSettings) {
+
+    var self = this;
+    
+    if (localStorageService.isSupported) {
+        browserSettings.showVirtualKeyboard = localStorageService.get('showVirtualKeyboard')
+    }
+
+    this.showVirtualKeyboard = browserSettings.showVirtualKeyboard
+
+    this.save = function () {
+        if (localStorageService.isSupported) {
+            localStorageService.set('showVirtualKeyboard', self.showVirtualKeyboard);
+        }
     };
 }]);

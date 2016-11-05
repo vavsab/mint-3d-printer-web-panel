@@ -49,7 +49,7 @@ app.service('alertService', ['eventAggregatorFactory', function (eventAggregator
     };
 }]);
 
-app.service('commandService', ['$http', '$q', function ($http, $q) {
+app.service('commandService', ['$http', '$q', 'printerStatus', function ($http, $q, printerStatus) {
     this.sendCommand = function(command) {
         return $q(function(resolve, reject) {
             $http.post("/api/command/", {command: command})
@@ -63,14 +63,14 @@ app.service('commandService', ['$http', '$q', function ($http, $q) {
     };
 }]);
 
-app.service('printerStatusService', ['$http', 'eventAggregatorFactory', '$q', function ($http, eventAggregatorFactory, $q) {
+app.service('printerStatusService', ['$http', 'eventAggregatorFactory', '$q', 'printerStatus', 
+function ($http, eventAggregatorFactory, $q, printerStatus) {
     this.eventAggregator = new eventAggregatorFactory();
     var self = this;
-    this.status = null;
 
     var refreshStatus = function (status) {
         console.log(status);
-        self.status = status;
+        printerStatus.status = status;
         self.eventAggregator.trigger('statusReceived', status);
     };
 

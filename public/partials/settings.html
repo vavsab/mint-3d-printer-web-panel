@@ -2,6 +2,9 @@
     <h1>Settings</h1>
 </div>
 <ul class="nav nav-tabs">
+    <li ng-class="{active: ('settings.general' | routeSegmentStartsWith)}">
+        <a href="#/settings/">General</a>
+    </li>
     <li ng-class="{active: ('settings.dashboard' | routeSegmentStartsWith)}">
         <a href="#/settings/dashboard">Dashboard</a>
     </li>

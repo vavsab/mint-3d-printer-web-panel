@@ -14,7 +14,7 @@
                     <label class="control-label col-sm-4" for="{{param.name}}">{{param.title}}</label>
                     <div class="col-sm-8">
                         <div class="input-group">
-                            <input class="form-control" name="{{param.name}}" placeholder="{{param.title}}" ng-model="$ctrl.values[param.name]" ng-virtual-keyboard>
+                            <input class="form-control" name="{{param.name}}" placeholder="{{param.title}}" ng-model="$ctrl.values[param.name]" ng-keyboard>
                         </div>
                     </div>
                 </div>
@@ -23,6 +23,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <action-button button-name="Run" type="success" action="$ctrl.run()" />
+    <action-button button-name="Run" type="success" action="$ctrl.run()" disable-when-printer-is-busy="true" />
     <button class="btn btn-warning" type="button" ng-click="$ctrl.close()">Close</button>
 </div>
