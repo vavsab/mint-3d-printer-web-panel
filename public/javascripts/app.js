@@ -52,9 +52,9 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
     $routeProvider.otherwise({redirectTo: '/'}); 
 }]);
 
-app.config(function($httpProvider) {
+app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('siteAvailabilityInterceptor');
-});
+}]);
 
 app.value('loader', {show: true});
 app.value('printerStatus', {status: {}});

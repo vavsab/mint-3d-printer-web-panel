@@ -1,6 +1,8 @@
 ﻿app.controller('mainController', 
-['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 'commandService', '$q', 'dialogService', 'loader',
-function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, commandService, $q, dialogService, loader) {
+['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
+    'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
+function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
+    commandService, $q, dialogService, loader, localStorageService, browserSettings) {
     $scope.loader = loader;
     loader.show = false;
 
@@ -32,7 +34,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
     var onStatusReceived = function(status) {
         $scope.status = status;
-        $scope.$apply();
+        $scope.$applyAsync();
     };
 
     // get current status
@@ -80,6 +82,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     if (Notification.permission == "default") {
         Notification.requestPermission();
     } 
+
+    if (localStorageService.isSupported) {
+        browserSettings.showVirtualKeyboard = localStorageService.get('showVirtualKeyboard');
+    }
 }]);
 
 app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 'loader', 
@@ -617,16 +623,12 @@ app.controller('settingsGeneralController', ['localStorageService', 'browserSett
 function (localStorageService, browserSettings) {
 
     var self = this;
-    
-    if (localStorageService.isSupported) {
-        browserSettings.showVirtualKeyboard = localStorageService.get('showVirtualKeyboard')
-    }
-
-    this.showVirtualKeyboard = browserSettings.showVirtualKeyboard
+    this.showVirtualKeyboard = browserSettings.showVirtualKeyboard;
 
     this.save = function () {
         if (localStorageService.isSupported) {
             localStorageService.set('showVirtualKeyboard', self.showVirtualKeyboard);
+            browserSettings.showVirtualKeyboard = self.showVirtualKeyboard;
         }
     };
 }]);

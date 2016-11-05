@@ -14,7 +14,7 @@ function (printerStatusService, printerStatus) {
             $scope.forbiddenPrinterState = false;
 
             var refreshState = function (printerState) {
-                $scope.forbiddenPrinterState = printerState != "Idle";
+                $scope.forbiddenPrinterState = printerState != null && printerState != "Idle";
             };
 
             refreshState(printerStatus.status.state);

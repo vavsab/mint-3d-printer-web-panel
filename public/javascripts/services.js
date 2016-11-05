@@ -91,13 +91,14 @@ function ($http, eventAggregatorFactory, $q, printerStatus) {
                 $http.get('/api/status')
                 .success(function (status) {
                     self.status = status;
+                    refreshStatus(status);
                     resolve(status);
                 })
                 .error(function (response) {
                     reject(response.error);
                 });
             } else {
-                resoleve(self.status);
+                resolve(self.status);
             }
         });
     };
