@@ -1,20 +1,5 @@
-<div class="row" style="margin-top: 5px;">
-    <form class="form-horizontal">
-        <div class="form-group" ng-repeat="displayItem in displaySettings">
-            <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
-            <div class="input-group col-sm-10">
-                <input class="form-control" name="{{displayItem.tag}}" 
-                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]" ng-keyboard>
-                <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <action-button action="save();" button-name="Apply" type="success" disable-when-printer-is-busy="true" />
-                <action-button action="reset();" button-name="Set to defaults" type="warning" disable-when-printer-is-busy="true" />
-            </div>
-        </div>
-    </form>
+<div class="row" style="margin-top: 10px;">
+
     <form class="form-horizontal" name="offsetForm">
         <div class="form-group">
             <label class="control-label col-sm-2" for="zOffset">Top offset</label>
@@ -36,4 +21,23 @@
             </div>
         </div>
     </form>
+
+    <button class="btn btn-default" data-toggle="collapse" data-target="#advancedPrinterSettings">Advanced settings</button>
+    <form class="form-horizontal collapse" id="advancedPrinterSettings" style="margin-top: 5px;">
+        <div class="form-group" ng-repeat="displayItem in displaySettings">
+            <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
+            <div class="input-group col-sm-10">
+                <input class="form-control" name="{{displayItem.tag}}" 
+                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]" ng-keyboard>
+                <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <action-button action="save();" button-name="Apply" type="success" disable-when-printer-is-busy="true" />
+                <action-button action="reset();" button-name="Set to defaults" type="warning" disable-when-printer-is-busy="true" />
+            </div>
+        </div>
+    </form>
+    
 </div>
