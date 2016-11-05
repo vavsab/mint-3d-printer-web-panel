@@ -10,8 +10,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <action-button action="save();" button-name="Apply" type="success" />
-                <action-button action="reset();" button-name="Set to defaults" type="warning" />
+                <action-button action="save();" button-name="Apply" type="success" disable-when-printer-is-busy="true" />
+                <action-button action="reset();" button-name="Set to defaults" type="warning" disable-when-printer-is-busy="true" />
             </div>
         </div>
     </form>
@@ -26,13 +26,13 @@
                 <p class="help-block text-danger" ng-if="offsetForm.zOffsetInput.$error.float">Enter valid float number</p>
             </div>
             <div class="col-sm-3">
-                <action-button action="moveHome();" button-name="Move home" />
-                <action-button action="test();" button-name="Test" disabled="offsetForm.$invalid" />
+                <action-button action="moveHome();" button-name="Move home" disable-when-printer-is-busy="true" />
+                <action-button action="test();" button-name="Test" disabled="offsetForm.$invalid" disable-when-printer-is-busy="true" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <action-button action="saveOffset();" button-name="Apply" type="success" />
+                <action-button action="saveOffset();" button-name="Apply" type="success" disable-when-printer-is-busy="true" />
             </div>
         </div>
     </form>

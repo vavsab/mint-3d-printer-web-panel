@@ -130,7 +130,7 @@ app.factory('eventAggregatorFactory', [function () {
 
         this.on = function(eventName, callback) {
             var index = findIndexByEventName(eventName, true);
-            this.events[index].callbacks.push(callback);
+            self.events[index].callbacks.push(callback);
         }
 
         this.unsubscribe = function(eventName, callback) {
@@ -139,11 +139,11 @@ app.factory('eventAggregatorFactory', [function () {
                 return;
             }
 
-            var oldCallbacks = this.events[index].callbacks;
-            this.events[index].callbacks = [];
+            var oldCallbacks = self.events[index].callbacks;
+            self.events[index].callbacks = [];
             oldCallbacks.forEach(function (oldCallback) {
                 if (oldCallback != callback) {
-                    this.events[index].callbacks.push(oldCallback);
+                    self.events[index].callbacks.push(oldCallback);
                 }
             }) 
         }
@@ -154,7 +154,7 @@ app.factory('eventAggregatorFactory', [function () {
                 return;
             }
 
-            this.events[index].callbacks.forEach(function (callback) {
+            self.events[index].callbacks.forEach(function (callback) {
                 callback(data);
             }) 
         }
