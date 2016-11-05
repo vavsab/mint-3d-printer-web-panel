@@ -22,11 +22,17 @@ namespace PrinterEmulator
             DataContext = this;
             States = Enum.GetValues(typeof(State)).OfType<State>().ToList();
             SelectedState = (State)999;
+            LineCount = 100;
+            LineIndex = 1;
         }
 
         public List<State> States { get; set; }
 
         public State SelectedState { get; set; }
+
+        public int LineIndex { get; set; }
+
+        public int LineCount { get; set; }
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -133,8 +139,8 @@ namespace PrinterEmulator
             {
                 State = SelectedState,
                 CullerRate = random.Next(0, 100),
-                LineCount = random.Next(100000, 200000),
-                LineIndex = random.Next(1, 200),
+                LineCount = LineCount,
+                LineIndex = LineIndex,
                 TempPWM = (short)random.Next(0, 1024),
                 Temperature = random.Next(0, 5000),
                 BaseTemperature = random.Next(0, 5000),

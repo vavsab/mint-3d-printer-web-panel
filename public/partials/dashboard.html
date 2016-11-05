@@ -89,19 +89,32 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6" ng-show="status.startPrintDate != null">
+    <div class="col-lg-6 col-md-6" ng-show="status.startDate != null">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-12">
-                        <label>Printing Progress</label>
+                        <div>
+                            <span class="animate-switch-container" ng-switch="status.state">
+                                <label class="animate-switch" ng-switch-when="Buffering">Buffering Progress</label>
+                                <label class="animate-switch" ng-switch-when="PauseBuffering">Buffering Progress</label>
+                                <label class="animate-switch" ng-switch-when="PrintBuffering">Printing Progress</label>
+                                <label class="animate-switch" ng-switch-when="Printing">Printing Progress</label>
+                                <label class="animate-switch" ng-switch-when="Pause">Printing Progress</label>
+                                <label class="animate-switch" ng-switch-when="PausePrintBuffering">Printing Progress</label>
+                                <label class="animate-switch" ng-switch-default>default</label>
+                            </span>
+                            <span class="label label-default" ng-show="['PauseBuffering', 'Pause', 'PausePrintBuffering'].indexOf(status.state) != -1">
+                                paused
+                            </span>
+                        </div>
                         <uib-progressbar class="progress-striped active" value="status.line_index / status.line_count * 100">
                             <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
                         </uib-progressbar>
-                        <div>Started on: {{status.startPrintDate | toDate}}</div>
+                        <div>Started on: {{status.startDate | toDate}}</div>
                         <div ng-show="status.remainedMilliseconds == null">Calculating time of printing...</div>
                         <div ng-show="status.remainedMilliseconds != null">Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
-                        <div ng-show="status.endPrintDate != null">End time: {{status.endPrintDate | toDate}}</div>
+                        <div ng-show="status.endDate != null">End time: {{status.endDate | toDate}}</div>
                     </div>
                 </div>
             </div>

@@ -25,6 +25,10 @@
             <CheckBox Margin="5" Name="CheckBoxStatus" Content="Send status" Checked="CheckBoxStatus_OnChecked" Unchecked="CheckBoxStatus_OnUnchecked" />
             <TextBlock Margin="5" Text="State" />
             <ComboBox ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" />
+            <TextBlock Margin="5" Text="line_index" />
+            <TextBox Text="{Binding LineIndex}" MinWidth="50" />
+            <TextBlock Margin="5" Text="line_count" />
+            <TextBox Text="{Binding LineCount}" MinWidth="50" />
         </StackPanel>
         <Button Margin="5" Grid.Row="2" Name="ButtonError" Content="Send error" Click="ButtonError_OnClick" />
         <TextBlock Margin="5" Grid.Row="3" Text="Console" />

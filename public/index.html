@@ -96,7 +96,10 @@
                 </li>
                 <li>
                     <h3 style="height: 30px; margin: 10px;">
-                        <span class="label label-bg" ng-class="{'label-success': status.state == 'Printing', 'label-default': status.state != 'Printing'}">State: {{status.state}}</span>
+                        <span class="label label-bg"
+                            ng-class="{'label-success': ['Printing', 'PrintBuffering'].indexOf(status.state) != -1, 'label-warning': ['CopyData', 'CopyDataBuffer', 'Buffering', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf(status.state) != -1, 'label-default': status.state == 'Idle'}">
+                            State: {{status.state}}
+                        </span>
                     </h3>
                 </li>
                 <li ng-show="status.state != undefined && status.state != 'Idle'">

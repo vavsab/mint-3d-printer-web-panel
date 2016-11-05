@@ -1,5 +1,82 @@
 module.exports = function (server, printerProxy)
 {
+  function RemainingTimeCounter() {
+    var initialStartTime = null;
+
+    // initial start time but after pause/resume
+    var virtualStartTime = null;
+
+    var lastPauseTime = null;
+    var doneItems = null;
+    var totalItems = null;
+
+    this.start = function () {
+      initialStartTime = new Date();
+      virtualStartTime = initialStartTime;
+    };
+
+    this.pause = function () {
+      lastPauseTime = new Date();
+    };
+
+    this.resume = function () {
+      if (lastPauseTime != null) {
+        // add pause time to start time
+        virtualStartTime = new Date(virtualStartTime.getTime() + (new Date() - lastPauseTime));
+        lastPauseTime = null;
+      }
+    };
+
+    this.setProgress = function (done, total) {
+      doneItems = done;
+      totalItems = total;
+    };
+
+    this.getRemainedTime = function () {
+      if (virtualStartTime == null || doneItems == null || totalItems == null) {
+        return null;
+      }
+
+      var averageTimePerItem = ((lastPauseTime != null ? lastPauseTime : new Date()) - virtualStartTime) / (doneItems * 1.0);
+
+      return (totalItems - doneItems) * averageTimePerItem;
+    };
+
+    this.getDoneItems = function () {
+      return doneItems;
+    };
+
+    this.getStartTime = function () {
+      return initialStartTime;
+    };
+  };
+
+  var remainingTimeCounter = new RemainingTimeCounter();
+  var statesThatRequireRemainedTime = ['Buffering', 'PrintBuffering', 'Printing', 'Pause', 'PauseBuffering', 'PausePrintBuffering'];
+  var previousState = "Unknown";
+  var stateTransitionConfiguration = [
+    {from: 'Unknown', to: 'Buffering', action: 'start'},
+    {from: 'Idle', to: 'Buffering', action: 'start'},
+    {from: 'CopyDataBuffer', to: 'Buffering', action: 'start'},
+
+    {from: 'Unknown', to: 'Printing', action: 'start'},
+    {from: 'Idle', to: 'Printing', action: 'start'},
+    {from: 'CopyData', to: 'Printing', action: 'start'},
+
+    {from: 'Unknown', to: 'PrintBuffering', action: 'start'},
+    {from: 'Idle', to: 'PrintBuffering', action: 'start'},
+    {from: 'Buffering', to: 'PrintBuffering', action: 'start'},
+    {from: 'CopyDataBuffer', to: 'PrintBuffering', action: 'start'},
+
+    {from: 'Buffering', to: 'PauseBuffering', action: 'pause'},
+    {from: 'PrintBuffering', to: 'PausePrintBuffering', action: 'pause'},
+    {from: 'Printing', to: 'Pause', action: 'pause'},
+
+    {from: 'PauseBuffering', to: 'Buffering', action: 'resume'},
+    {from: 'PausePrintBuffering', to: 'PrintBuffering', action: 'resume'},
+    {from: 'Pause', to: 'Printing', action: 'resume'}
+  ];
+
   var requestPrinterStatusCommand = "G300";
   var self = this;
   this.currentStatus = null;
@@ -11,7 +88,6 @@ module.exports = function (server, printerProxy)
   var fileManagerRootPath = fs.realpathSync("files");
 
   var lastPrintingStatusUpdateDate = new Date(0); // Status for printing process
-  var startPrintDate = null;
   var browserSockets = [];
 
   printerProxy.on('connected', function() {
@@ -66,35 +142,37 @@ module.exports = function (server, printerProxy)
 
             status.stateCode = status.State;
             delete status.State; 
+
+            // Apply transition action for calculating remaining time
+            var transition = null;
+            for (var i = 0; i < stateTransitionConfiguration.length; i++) {
+              var current = stateTransitionConfiguration[i];
+              if (current.from === previousState && current.to === status.state) {
+                remainingTimeCounter[current.action]();
+                break;
+              }
+            }
+
+            previousState = status.state;
           }
 
           status.remainedMilliseconds = null;
-          if (status.state == 'Printing') {
-            if (startPrintDate == null) {
-              startPrintDate = new Date();
-            }
-          } else {
-            startPrintDate = null;
+          
+          if (status.line_index != null && status.line_count != null) {
+            remainingTimeCounter.setProgress(status.line_index, status.line_count);
           }
 
-          if (startPrintDate != null && status.line_index > 100) {
-            try {
-              status.remainedMilliseconds = (status.line_count - status.line_index) * ((new Date() - startPrintDate) / status.line_index);
-            } catch(error) {
-              logger.warn("printerStatusController: Error while calculating remainedMilliseconds variable: " + error)
-            }  
+          if (statesThatRequireRemainedTime.indexOf(status.state) != -1) {
+            status.startDate = remainingTimeCounter.getStartTime(); 
+            if (remainingTimeCounter.getDoneItems() > 100) {
+              status.remainedMilliseconds = remainingTimeCounter.getRemainedTime();
+              status.endDate = new Date(new Date().getTime() + status.remainedMilliseconds);  
+            }
           }
 
           // filter absolute path
           if (status.fileName) {
             status.fileName = status.fileName.replace(fileManagerRootPath, '');
-          }
-
-          status.startPrintDate = startPrintDate;
-          status.endPrintDate = null;
-
-          if (status.remainedMilliseconds != null) {
-            status.endPrintDate = new Date(new Date().getTime() + status.remainedMilliseconds);
           }
 
           self.currentStatus = status;
@@ -104,9 +182,8 @@ module.exports = function (server, printerProxy)
           });
 
           logger.trace("printerStatusController: sent status to subscribers");
-        }
-      });
-    } 
+      }});
+    }
   });
 
   io.on('connection', function (socket) {
