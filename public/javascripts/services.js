@@ -63,8 +63,8 @@ app.service('commandService', ['$http', '$q', 'printerStatus', function ($http, 
     };
 }]);
 
-app.service('printerStatusService', ['$http', 'eventAggregatorFactory', '$q', 'printerStatus', 
-function ($http, eventAggregatorFactory, $q, printerStatus) {
+app.service('printerStatusService', ['$http', 'httpq', 'eventAggregatorFactory', '$q', 'printerStatus', 
+function ($http, httpq, eventAggregatorFactory, $q, printerStatus) {
     this.eventAggregator = new eventAggregatorFactory();
     var self = this;
 
@@ -101,6 +101,10 @@ function ($http, eventAggregatorFactory, $q, printerStatus) {
                 resolve(self.status);
             }
         });
+    };
+
+    this.getTemperatureChartData = function () {
+        return httpq.get('/api/status/temperature');
     };
 
     this.getStatus();

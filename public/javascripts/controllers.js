@@ -56,7 +56,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     
     printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
     
-    $scope.$on("$destroy", function () {
+    $scope.$on('$destroy', function () {
         printerStatusService.eventAggregator.unsubscribe('statusReceived', onStatusReceived);
         printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
     });
@@ -88,8 +88,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     }
 }]);
 
-app.controller('dashboardController', ['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 'loader', 
+app.controller('dashboardController', 
+['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 'loader', 
 function ($scope, commandService, alertService, macrosService, $uibModal, websiteSettingsService, loader) {
+
     loader.show = true;    
     $scope.commands = [
         { title: 'Home', command: 'G28' },
@@ -503,8 +505,40 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
 }]);
 
 app.controller('settingsPrinterController', 
-['$scope', 'printerSettingsService', 'commandService',
-function ($scope, printerSettingsService, commandService) {
+['$scope', 'printerSettingsService', 'commandService', 'printerStatusService',
+function ($scope, printerSettingsService, commandService, printerStatusService) {
+
+    $scope.temperatureChartLabels = [];
+    $scope.temperatureChartSeries = ['Temperature', 'Base temperature'];
+    
+    // 0 seria - temperature, 1 seria - base temperature
+    $scope.temperatureChartData = [[],[]];
+
+    var refreshChartByStatus = function (status) {
+        while ($scope.temperatureChartLabels.length > 30) {
+            $scope.temperatureChartLabels.shift();
+            $scope.temperatureChartData[0].shift();
+            $scope.temperatureChartData[1].shift();      
+        }
+
+        $scope.temperatureChartLabels.push(new Date(status.date).toLocaleTimeString());
+        $scope.temperatureChartData[0].push(status.temp / 10);
+        $scope.temperatureChartData[1].push(status.baseTemp / 10);
+    }
+
+    printerStatusService.getTemperatureChartData().then(function success(temperatureData) {
+        temperatureData.temp.forEach(function (chartPoint) {
+             $scope.temperatureChartLabels.push(new Date(chartPoint.date).toLocaleTimeString());
+             $scope.temperatureChartData[0].push(chartPoint.value / 10);
+        });
+
+        temperatureData.baseTemp.forEach(function (chartPoint) {
+            $scope.temperatureChartData[1].push(chartPoint.value / 10);
+        });
+    }).then(function success () { // do not update chart until it is loaded
+        printerStatusService.eventAggregator.on('statusReceived', refreshChartByStatus);
+    });
+
     $scope.settings = null;
     $scope.offset = { z: 0 };
     $scope.isLoading = true;
@@ -566,6 +600,10 @@ function ($scope, printerSettingsService, commandService) {
     $scope.test = function () {
         return commandService.sendCommand("G1 Z" + $scope.offset.z.toFixed(3) + " F3000");
     }
+
+    $scope.$on('$destroy', function () {
+        printerStatusService.eventAggregator.unsubscribe('statusReceived', refreshChartByStatus);
+    });
 }]);
 
 app.controller('settingsDashboardController', 

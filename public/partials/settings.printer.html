@@ -38,6 +38,17 @@
                 <action-button action="reset();" button-name="Set to defaults" type="warning" allow-when-printer-is-in-state="Idle" />
             </div>
         </div>
+
+        <h3 class="page-header">Pid regulation settings</h3>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Temperature
+            </div>
+            <div class="panel-body">
+                <canvas class="chart chart-line" height="75" chart-data="temperatureChartData" chart-options="{animation: { duration: 0 }, legend: {display: true} }" chart-series="temperatureChartSeries" chart-labels="temperatureChartLabels">
+                </canvas>
+            </div>
+        </div>
     </form>
     
 </div>

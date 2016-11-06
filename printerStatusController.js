@@ -80,6 +80,11 @@ module.exports = function (server, printerProxy)
   var requestPrinterStatusCommand = "G300";
   var self = this;
   this.currentStatus = null;
+  
+  this.temperatureChartData = {
+    baseTemp: [],
+    temp: [] 
+  };
 
   var io = require('socket.io')(server);
   var config = require('config');
@@ -128,6 +133,17 @@ module.exports = function (server, printerProxy)
             logger.warn("Could not parse JSON '" + item + "': " + error);
             return;
           }
+
+          status.date = new Date();
+
+          temperatureChartData.baseTemp.push({date: status.date, value: status.baseTemp});
+          temperatureChartData.temp.push({date: status.date, value: status.temp});
+          
+          while (temperatureChartData.baseTemp.length > 30) {
+            temperatureChartData.baseTemp.shift();
+            temperatureChartData.temp.shift();
+          };
+          
 
           if (status.State !== undefined) {
             var statusMap = ["Idle", "CopyData", "CopyDataBuffer", "Buffering",

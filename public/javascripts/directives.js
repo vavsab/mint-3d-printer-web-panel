@@ -24,7 +24,10 @@ function (printerStatusService, printerStatus) {
                 }
             };
 
-            refreshState(printerStatus.status.state);
+            if (printerStatus.status != null) {
+                refreshState(printerStatus.status.state);
+            }
+            
             
             var onStatusReceived = function (status) {
                 if (!$scope.disableWhenPrinterIsBusy)

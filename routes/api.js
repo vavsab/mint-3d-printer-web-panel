@@ -94,6 +94,11 @@
         res.status(200).json(printerStatusController.currentStatus);
     });
 
+    // For getting the last temperature measurements
+    router.get('/status/temperature', function (req, res) {
+        res.status(200).json(printerStatusController.temperatureChartData);
+    });
+
      router.get('/fileManager', function (req, res) {
         var currentFolderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.path));
         if (!currentFolderAbsolutePath.startsWith(fileManagerRootPath)) {
