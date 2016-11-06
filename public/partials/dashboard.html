@@ -91,6 +91,8 @@
             <div class="panel-heading">
                 <div>
                     <span ng-switch="status.state">
+                        <span ng-switch-when="CopyData">Copy Progress</span>
+                        <span ng-switch-when="CopyDataBuffer">Copy Progress</span>
                         <span ng-switch-when="Buffering">Buffering Progress</span>
                         <span ng-switch-when="PauseBuffering">Buffering Progress</span>
                         <span ng-switch-when="PrintBuffering">Printing Progress</span>

@@ -52,9 +52,18 @@ module.exports = function (server, printerProxy)
   };
 
   var remainingTimeCounter = new RemainingTimeCounter();
-  var statesThatRequireRemainedTime = ['Buffering', 'PrintBuffering', 'Printing', 'Pause', 'PauseBuffering', 'PausePrintBuffering'];
+
+  var statesThatRequireRemainedTime = ['Buffering', 'PrintBuffering', 'Printing', 'Pause', 
+    'PauseBuffering', 'PausePrintBuffering', 'CopyData', 'CopyDataBuffer'];
+
   var previousState = "Unknown";
   var stateTransitionConfiguration = [
+    {from: 'Unknown', to: 'CopyData', action: 'start'},
+    {from: 'Idle', to: 'CopyData', action: 'start'},
+
+    {from: 'Unknown', to: 'CopyDataBuffer', action: 'start'},
+    {from: 'Idle', to: 'CopyDataBuffer', action: 'start'},
+
     {from: 'Unknown', to: 'Buffering', action: 'start'},
     {from: 'Idle', to: 'Buffering', action: 'start'},
     {from: 'CopyDataBuffer', to: 'Buffering', action: 'start'},
@@ -138,7 +147,7 @@ module.exports = function (server, printerProxy)
 
           temperatureChartData.baseTemp.push({date: status.date, value: status.baseTemp});
           temperatureChartData.temp.push({date: status.date, value: status.temp});
-          
+
           while (temperatureChartData.baseTemp.length > 30) {
             temperatureChartData.baseTemp.shift();
             temperatureChartData.temp.shift();
