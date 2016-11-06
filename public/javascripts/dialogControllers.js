@@ -49,10 +49,13 @@ function ($uibModalInstance, path, fileService) {
     };
 }]);
 
-app.controller('runMacrosDialogController', ['$uibModalInstance', 'macros', 'macrosService', 'localStorageService',
-function ($uibModalInstance, macros, macrosService, localStorageService) {
+app.controller('runMacrosDialogController', 
+['$uibModalInstance', 'macros', 'macrosService', 'localStorageService', 'printerStatus',
+function ($uibModalInstance, macros, macrosService, localStorageService, printerStatus) {
     var self = this;
     self.macros = macros;
+
+    self.printerStatus = printerStatus;
 
     self.values = null;
     if (localStorageService.isSupported) {

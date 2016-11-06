@@ -47,8 +47,8 @@
                     <td ng-hide="file.isDirectory">{{file.size | dataSize}}</td>
                     <td ng-hide="file.isDirectory">
                         <action-button action="analyseFile(file.fileName)" button-name="Analyse" type="info" icon="tasks" />
-                        <action-button action="startPrint(file.fileName, false)" button-name="Print" type="success" icon="print" disable-when-printer-is-busy="true" />
-                        <action-button action="startPrint(file.fileName, true)" button-name="Print (with buffer)" type="success" icon="print" disable-when-printer-is-busy="true" />
+                        <action-button action="startPrint(file.fileName, false)" button-name="Print" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
+                        <action-button action="startPrint(file.fileName, true)" button-name="Print (with buffer)" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
                         <action-button action="remove(file)" button-name="Remove" type="danger" icon="trash" />
                     </td>
                 </tr>

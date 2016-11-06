@@ -7,14 +7,21 @@ function (printerStatusService, printerStatus) {
             disabled: '=',
             type: '@',
             icon: '@',
-            disableWhenPrinterIsBusy: '@'
+            disableWhenPrinterIsInState: '@',
+            allowWhenPrinterIsInState: '@'
         },
         controller: ['$scope', '$http', function ($scope, $http) {
             $scope.isActionRunning = false;
             $scope.forbiddenPrinterState = false;
 
             var refreshState = function (printerState) {
-                $scope.forbiddenPrinterState = printerState != null && printerState != "Idle";
+                if ($scope.disableWhenPrinterIsInState) {
+                    $scope.forbiddenPrinterState = $scope.disableWhenPrinterIsInState.split('|').indexOf(printerState) != -1;
+                }
+
+                if ($scope.allowWhenPrinterIsInState) {
+                    $scope.forbiddenPrinterState = $scope.allowWhenPrinterIsInState.split('|').indexOf(printerState) == -1;
+                }
             };
 
             refreshState(printerStatus.status.state);

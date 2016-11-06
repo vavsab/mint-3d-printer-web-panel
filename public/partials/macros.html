@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 
-                <action-button action="run()" button-name="Run" icon="send" type="success" />
+                <action-button action="run()" button-name="Run" icon="send" type="success" disabled="selectedMacro.restrictedStates.indexOf(status.state) != -1" />
             </div>
         </uib-tab>
         <uib-tab index="1" heading="{{selectedMacro.isReadOnly?'System macros code':'Edit'}}">
@@ -48,14 +48,12 @@
                     <form class="form-horizontal">
                         <div class="form-group">
                             <div class="col-sm-5">
-                                <input class="form-control" placeholder="Parameter title" ng-model="param.title" ng-show="selectedMacro.isReadOnly" disabled>
-                                <input class="form-control" placeholder="Parameter title" ng-model="param.title" ng-show="!selectedMacro.isReadOnly" ng-keyboard>
+                                <input class="form-control" placeholder="Parameter title" ng-model="param.title" ng-disabled="selectedMacro.isReadOnly" ng-keyboard>
                             </div>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="{{param.name}}">%</span>
-                                    <input class="form-control" name="{{param.name}}" placeholder="Parameter name" ng-model="param.name" ng-show="selectedMacro.isReadOnly" disabled>
-                                    <input class="form-control" name="{{param.name}}" placeholder="Parameter name" ng-model="param.name" ng-show="!selectedMacro.isReadOnly" ng-keyboard>
+                                    <input class="form-control" name="{{param.name}}" placeholder="Parameter name" ng-model="param.name" ng-disabled="selectedMacro.isReadOnly" ng-keyboard>
                                     <span class="input-group-addon" id="{{param.name}}">%</span>
                                 </div>
                             </div>
@@ -65,10 +63,18 @@
                         </div>
                     </form>
                 </div>
-                <action-button action="addParameter()" button-name="Add" icon="plus" type="default" ng-show="!selectedMacro.isReadOnly" />
+                <action-button action="addParameter()" button-name="Add parameter" icon="plus" type="default" ng-show="!selectedMacro.isReadOnly" />
 
-                <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-show="selectedMacro.isReadOnly" disabled></textarea>
-                <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-show="!selectedMacro.isReadOnly" ng-keyboard></textarea>
+                <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-disabled="selectedMacro.isReadOnly" ng-keyboard></textarea>
+
+                <div style="margin-top: 5px;">
+                    <button class="btn btn-default" ng-click="allowedPrinterStatesCollapsed = !allowedPrinterStatesCollapsed">Allowed printer states</button>
+                    <div uib-collapse="!allowedPrinterStatesCollapsed">
+                        <div class="checkbox" ng-repeat="stateInfo in statesInfo">
+                            <label><input type="checkbox" ng-model="stateInfo.isAllowed" ng-disabled="selectedMacro.isReadOnly">{{stateInfo.title}}</label>
+                        </div>
+                    </div>
+                </div>
                 
                 <div style="margin-top:5px;" ng-show="!selectedMacro.isReadOnly">
                     <action-button action="save()" button-name="Save" icon="floppy-disk" type="primary" />

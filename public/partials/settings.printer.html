@@ -11,13 +11,13 @@
                 <p class="help-block text-danger" ng-if="offsetForm.zOffsetInput.$error.float">Enter valid float number</p>
             </div>
             <div class="col-sm-3">
-                <action-button action="moveHome();" button-name="Move home" disable-when-printer-is-busy="true" />
-                <action-button action="test();" button-name="Test" disabled="offsetForm.$invalid" disable-when-printer-is-busy="true" />
+                <action-button action="moveHome();" button-name="Move home" allow-when-printer-is-in-state="Idle" />
+                <action-button action="test();" button-name="Test" disabled="offsetForm.$invalid" allow-when-printer-is-in-state="Idle" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <action-button action="saveOffset();" button-name="Apply" type="success" disable-when-printer-is-busy="true" />
+                <action-button action="saveOffset();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
             </div>
         </div>
     </form>
@@ -34,8 +34,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <action-button action="save();" button-name="Apply" type="success" disable-when-printer-is-busy="true" />
-                <action-button action="reset();" button-name="Set to defaults" type="warning" disable-when-printer-is-busy="true" />
+                <action-button action="save();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
+                <action-button action="reset();" button-name="Set to defaults" type="warning" allow-when-printer-is-in-state="Idle" />
             </div>
         </div>
     </form>

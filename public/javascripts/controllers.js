@@ -363,9 +363,29 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
     var maxIndex;
     $scope.selectedMacro = null;
     $scope.isLoading = true;
+    $scope.statesInfo = [
+        {state: 'Idle', title: 'Idle', isAllowed: true},
+        {state: 'CopyData', title: 'Data copy', isAllowed: true},
+        {state: 'CopyDataBuffer', title: 'Data copy (with buffer)', isAllowed: true},
+        {state: 'Buffering', title: 'Buffering', isAllowed: true},
+        {state: 'PrintBuffering', title: 'Printing (with buffer)', isAllowed: true},
+        {state: 'Printing', title: 'Printing', isAllowed: true},
+        {state: 'Pause', title: 'Pause', isAllowed: true},
+        {state: 'PauseBuffering', title: 'Pause (printing with buffer)', isAllowed: true},
+        {state: 'PausePrintBuffering', title: 'Pause (buffering)', isAllowed: true}
+    ];
 
     $scope.selectMacro = function (macro) {
         $scope.selectedMacro = macro;
+
+        if (macro.restrictedStates == null) {
+            macro.restrictedStates = [];
+        }
+
+        $scope.statesInfo.forEach(function (stateInfo) {
+            stateInfo.isAllowed = macro.restrictedStates.indexOf(stateInfo.state) == -1;
+        });
+
         $scope.values = null;
         if (localStorageService.isSupported) {
             $scope.values = localStorageService.get("macroParams" + macro.id);
@@ -451,6 +471,13 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
         if ($scope.selectedMacro == null)
             return;
 
+        $scope.selectedMacro.restrictedStates = [];
+        $scope.statesInfo.forEach(function (stateInfo) {
+            if (!stateInfo.isAllowed) {
+                $scope.selectedMacro.restrictedStates.push(stateInfo.state);
+            }
+        });
+
         return $scope.selectedMacro.$save();
     };
 
@@ -468,11 +495,11 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
         dialogService.prompt("Specify macros name", 'New macros').then(
         function success(name) {
             maxIndex++;
-            var newMacros = new macrosResource({id: maxIndex, title: name, content: '', isReadOnly: false, parameters: []});
+            var newMacros = new macrosResource({id: maxIndex, title: name, content: '', isReadOnly: false, parameters: [], restrictedStates: []});
             $scope.selectedMacro = newMacros;
             $scope.macros.push(newMacros);
         });
-    }
+    };
 }]);
 
 app.controller('settingsPrinterController', 
