@@ -13,32 +13,58 @@
         </ol>
 
         <form class="form-horizontal">
-            <span class="label label-default" ng-show="isUploading">Uploading '{{file.name}}'</span>
-            <uib-progressbar ng-show="isUploading" class="progress-striped active" value="uploadProgress" animate="false">
-                <span>{{ uploadProgress | toFixed : 2 }}%</span>
-            </uib-progressbar>
-            <button ng-show="!isUploading" class="btn btn-primary" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
-            <action-button action="createDirectory()" button-name="Create directory" icon="plus" />
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." ng-model="fileFilter.fileName" ng-keyboard>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-show="fileFilter.fileName" ng-click="fileFilter = {}"><span class="glyphicon glyphicon-remove"></span></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <span class="label label-default" ng-show="isUploading">Uploading '{{file.name}}'</span>
+                    <uib-progressbar ng-show="isUploading" class="progress-striped active" value="uploadProgress" animate="false">
+                        <span>{{ uploadProgress | toFixed : 2 }}%</span>
+                    </uib-progressbar>
+                    <button ng-show="!isUploading" class="btn btn-primary" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
+
+                    <action-button action="createDirectory()" button-name="Create directory" icon="plus" />
+                </div>
+            </div>
         </form>
 
         <table class="table table-striped">
             <thead>
-                <th>File name</th>
+                <th>
+                    <a href ng-click="isReverseSorting = !isReverseSorting">File name</a>
+                    <span ng-show="!isReverseSorting" class="glyphicon glyphicon-sort-by-attributes" />
+                    <span ng-show="isReverseSorting" class="glyphicon glyphicon-sort-by-attributes-alt" />
+                </th>
                 <th>Size</th>
                 <th>Actions</th>
             </thead>
             <tbody>
-                <tr ng-repeat="file in currentFolderContents">
+                <tr ng-show="currentPath.length">
+                    <td>
+                        <a href ng-click="goToFolder('..')" >
+                            <span class="glyphicon glyphicon-level-up bigger"></span>
+                        </a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat="file in currentFolderContents | filter:fileFilter | orderBy:'fileName':isReverseSorting">
                     <td ng-show="file.isDirectory">
                         <a href ng-click="goToFolder(file.fileName)" >
-                            <span ng-show="file.fileName == '..'" class="glyphicon glyphicon-level-up bigger"></span>
-                            <span ng-show="file.fileName != '..'" class="glyphicon glyphicon-folder-open bigger"></span>
-                            <span ng-show="file.fileName != '..'" style="margin-left: 5px;">{{file.fileName}}</span>
+                            <span class="glyphicon glyphicon-folder-open bigger"></span>
+                            <span style="margin-left: 5px;">{{file.fileName}}</span>
                         </a>
                     </td>
                     <td ng-show="file.isDirectory">dir</td>
                     <td ng-show="file.isDirectory">
-                        <action-button ng-show="file.fileName != '..'" action="remove(file)" button-name="Remove" icon="trash" type="danger" />
+                        <action-button action="remove(file)" button-name="Remove" icon="trash" type="danger" />
                     </td>
 
                     <td ng-hide="file.isDirectory">

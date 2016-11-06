@@ -179,18 +179,11 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
     };
 
     var refreshPath = function () {
+        $scope.fileFilter = {};
         $scope.isFolderLoading = true;
 
         fileService.getFolderContents(convertPathToString())
         .then(function success (folderContents) {
-            if ($scope.currentPath.length != 0) {
-                folderContents.unshift({ 
-                    fileName: '..',
-                    isDirectory: true,
-                    size: 0
-                });
-            }
-
             $scope.currentFolderContents = folderContents
         },
         function error(error) {
