@@ -1,7 +1,7 @@
 <button 
     class="btn" 
     ng-class="'btn-' + type"
-    ng-disabled="disabled || (forbiddenPrinterState && disableWhenPrinterIsBusy)" 
+    ng-disabled="disabled || forbiddenPrinterState" 
     ng-click="runAction();">
     <span class="glyphicon" ng-show='icon' ng-class="icon ? ('glyphicon-' + icon) : ''"></span> 
     {{buttonName}} {{isDisabled.x}}
