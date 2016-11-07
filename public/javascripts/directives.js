@@ -32,8 +32,9 @@ function (printerStatusService, printerStatus) {
             
             
             var onStatusReceived = function (status) {
-                if (!$scope.disableWhenPrinterIsBusy)
+                if (!$scope.allowWhenPrinterIsInState && !$scope.disableWhenPrinterIsInState)
                     return;
+
                 refreshState(status.state);
                 $scope.$applyAsync();
             };
