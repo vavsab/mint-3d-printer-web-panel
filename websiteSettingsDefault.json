@@ -1,3 +1,4 @@
 {
-    "dashboardMacrosIds" : [1, 2, 3]
+    "dashboardMacrosIds" : [1, 2, 3],
+    "isPrintingWithBuffer": false
 }

@@ -1,8 +1,10 @@
 ﻿app.controller('mainController', 
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
+    'websiteSettings', 'websiteSettingsService',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
-    commandService, $q, dialogService, loader, localStorageService, browserSettings) {
+    commandService, $q, dialogService, loader, localStorageService, browserSettings,
+    websiteSettings, websiteSettingsService) {
     $scope.loader = loader;
     loader.show = false;
 
@@ -86,6 +88,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     if (localStorageService.isSupported) {
         browserSettings.showVirtualKeyboard = localStorageService.get('showVirtualKeyboard');
     }
+
+    websiteSettingsService.get().then(function success(settings) { 
+        websiteSettings.settings = settings;
+    });
 }]);
 
 app.controller('dashboardController', 
@@ -144,10 +150,11 @@ function ($scope, commandService, alertService, macrosService, $uibModal, websit
     };
 }]);
 
-app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload',
-function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upload) {
+app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload', 'websiteSettings',
+function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upload, websiteSettings) {
     $scope.isRunning = false;
     $scope.uploadProgress = 0;
+    $scope.websiteSettings = websiteSettings;
 
     $scope.sendFile = function () {
         $scope.isUploading = true;
@@ -549,7 +556,10 @@ function ($scope, printerSettingsService, commandService, printerStatusService) 
         { title: "Tower0 Calibration", tag: "T0C", comment: "mm * 10^-5" },
         { title: "Tower1 Calibration", tag: "T1C", comment: "mm * 10^-5" },
         { title: "Tower2 Calibration", tag: "T2C", comment: "mm * 10^-5" },
-        { title: "Acceleration", tag: "A", comment: "mm * 10^-5" }
+        { title: "Acceleration", tag: "A", comment: "mm * 10^-5" },
+        { title: "Heater 1. Kp", tag: "H1Kp", comment: "constant" },
+        { title: "Heater 1. Kdd", tag: "H1Kdd", comment: "constant" },
+        { title: "Heater 1. Kid", tag: "H1Kid", comment: "constant" }
     ];
 
     var refresh = function () {
@@ -599,22 +609,22 @@ function ($scope, printerSettingsService, commandService, printerStatusService) 
     });
 }]);
 
-app.controller('settingsDashboardController', 
-['$scope', 'websiteSettingsService', 'macrosService',
-function ($scope, websiteSettingsService, macrosService) {
+app.controller('settingsConsoleController', 
+['$scope', 'websiteSettingsService', 'macrosService', 'websiteSettings',
+function ($scope, websiteSettingsService, macrosService, websiteSettings) {
 
     $scope.dashboardMacroses = [];
     $scope.selectedMacroses = [];
     $scope.selectedDashboardMacroses = [];
-    var websiteSettings = null;
+    $scope.websiteSettings = null;
     var macrosResource = macrosService.getMacrosResource();
     macrosResource.query().$promise.then(
     function success(data) {
         $scope.macroses = data;
         
         return websiteSettingsService.get().then(function success(settings) {
-            websiteSettings = settings;
-            websiteSettings.dashboardMacrosIds.forEach(function (macrosId) {
+            $scope.websiteSettings = settings;
+            $scope.websiteSettings.dashboardMacrosIds.forEach(function (macrosId) {
                 var macrosToMoveIndex = null;
                 for (var i = 0; i < $scope.macroses.length; i++) {
                     if ($scope.macroses[i].id == macrosId) {
@@ -665,28 +675,32 @@ function ($scope, websiteSettingsService, macrosService) {
         }
     };
 
-    $scope.saveMacrosSettings = function () {
+    $scope.saveSettings = function () {
         var macrosIds = [];
         $scope.dashboardMacroses.forEach(function (macros) {
             macrosIds.push(macros.id);
         });
 
-        websiteSettings.dashboardMacrosIds = macrosIds;
+        $scope.websiteSettings.dashboardMacrosIds = macrosIds;
 
-        return websiteSettingsService.save(websiteSettings);
+        return websiteSettingsService.save($scope.websiteSettings).then(function success() {
+            websiteSettings.settings = $scope.websiteSettings;
+        });
     };
 }]);
 
-app.controller('settingsGeneralController', ['localStorageService', 'browserSettings', 
-function (localStorageService, browserSettings) {
+app.controller('settingsGeneralController', ['localStorageService', 'browserSettings', '$scope',
+function (localStorageService, browserSettings, $scope) {
 
     var self = this;
     this.showVirtualKeyboard = browserSettings.showVirtualKeyboard;
 
-    this.save = function () {
+    $scope.$watch(function () { return self.showVirtualKeyboard; }, 
+    function (newValue, oldValue) {
         if (localStorageService.isSupported) {
-            localStorageService.set('showVirtualKeyboard', self.showVirtualKeyboard);
-            browserSettings.showVirtualKeyboard = self.showVirtualKeyboard;
+            localStorageService.set('showVirtualKeyboard', newValue);
         }
-    };
+
+        browserSettings.showVirtualKeyboard = newValue;
+    });
 }]);

@@ -1,14 +1,9 @@
 <div class="row" style="margin-top: 5px;">
     <form class="form-horizontal">
         <div class="form-group">
-            <label class="control-label col-sm-4" for="keyboar">Show virtual keyboard</label>
-            <div class="input-group col-sm-8">
-                <input type="checkbox" id="keyboard" style="margin-top:10px;" ng-model="$ctrl.showVirtualKeyboard" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <action-button action="$ctrl.save();" button-name="Apply" type="success" />
+            <label class="control-label col-xs-4" for="showVirtualKeyboard">Show virtual keyboard</label>
+            <div class="input-group col-xs-8">
+                <input type="checkbox" id="showVirtualKeyboard" style="margin-top:10px;" ng-model="$ctrl.showVirtualKeyboard" />
             </div>
         </div>
     </form>

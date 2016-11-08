@@ -20,8 +20,6 @@ function (printerStatusService, printerStatus) {
                 }
 
                 if ($scope.allowWhenPrinterIsInState) {
-                    console.warn($scope.allowWhenPrinterIsInState);
-                    console.warn($scope.allowWhenPrinterIsInState.split('|').indexOf(printerState));
                     $scope.forbiddenPrinterState = $scope.allowWhenPrinterIsInState.split('|').indexOf(printerState) == -1;
                 }
             };

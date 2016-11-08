@@ -12,7 +12,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/macros', 'macros')
         .when('/logs', 'logs')
         .when('/settings','settings.general')
-        .when('/settings/dashboard','settings.dashboard')
+        .when('/settings/console','settings.console')
         .when('/settings/printer','settings.printer')
 
         .segment('main', {
@@ -39,9 +39,9 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
                 templateUrl: 'partials/settings.general.html',
                 controller: 'settingsGeneralController as $ctrl'
             })
-            .segment('dashboard', {
-                templateUrl: 'partials/settings.dashboard.html',
-                controller: 'settingsDashboardController'
+            .segment('console', {
+                templateUrl: 'partials/settings.console.html',
+                controller: 'settingsConsoleController'
             })
             .segment('printer', {
                 templateUrl: 'partials/settings.printer.html',
@@ -59,6 +59,7 @@ app.config(['$httpProvider', function($httpProvider) {
 app.value('loader', {show: true});
 app.value('printerStatus', {status: {}});
 app.value('browserSettings', {showVirtualKeyboard: false});
+app.value('websiteSettings', {settings: {}});
 
 app.factory('httpq', ['$http', '$q', function($http, $q) {
   return {
