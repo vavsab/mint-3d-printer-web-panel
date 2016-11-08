@@ -110,10 +110,10 @@ module.exports = function (server, printerProxy)
 
   // Request status in idle mode
   setInterval(function () {
-    if (new Date() - lastPrintingStatusUpdateDate > 3000) {
+    if (new Date() - lastPrintingStatusUpdateDate > 1000) {
       printerProxy.send(requestPrinterStatusCommand); // Request printer status
     }
-  }, 3000);
+  }, 1000);
 
   printerProxy.on('data', function(data) {
     data = data.toString();
