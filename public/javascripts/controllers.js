@@ -157,6 +157,9 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
     $scope.websiteSettings = websiteSettings;
 
     $scope.sendFile = function () {
+        if (!$scope.file)
+            return;
+            
         $scope.isUploading = true;
         $scope.error = null;
 

@@ -1,7 +1,8 @@
-﻿module.exports = function (printerProxy, printerStatusController, uploads) {
+﻿module.exports = function (printerProxy, printerStatusController) {
     var express = require('express');
     var fs = require('fs-extra');
     var path = require('path');
+    var multer = require('multer');
     var logger = require('../logger');
     var gcodeAnalyser = require('../gcodeAnalyser');
     var sync = require('sync');
@@ -133,17 +134,35 @@
         }
     });
 
-    router.post('/fileManager', uploads.single("file"), function(req, res) {
-        logger.trace("fileUpload:" + req.file + ' directory: ' + req.body.directory);
-        var folderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.body.directory));
+    var uploadFile = multer({
+        storage: multer.diskStorage({
+            destination: function (req, file, cb) {
 
-        if (!folderAbsolutePath.startsWith(fileManagerRootPath)) {
-            res.status(400).json({error: 'Path violation'});
-        } else {
-            fs.copySync(req.file.path, path.join(folderAbsolutePath, req.file.originalname), { clobber : true });
-            fs.removeSync(req.file.path);
-            res.status(200).send();
+                var folderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.directory));
+                if (!folderAbsolutePath.startsWith(fileManagerRootPath)) {
+                    cb(new Error("Path violation"));   
+                    return; 
+                }
+
+                logger.trace("folderAbsolutePath : " + folderAbsolutePath);
+                cb(null, folderAbsolutePath);
+            },
+            filename: function (req, file, cb) {
+                logger.trace("file.originalname : " + file.originalname);
+                cb(null, file.originalname);
+            }
         }
+    )}).single("file");
+
+    router.post('/fileManager', function(req, res) {
+        uploadFile(req, res, function (err) {
+            if (err) {
+                res.status(400).json({error: 'Path violation'}); 
+                return;
+            }
+
+            res.status(200).send();
+        });
     });
 
     router.post('/fileManager/directory', function(req, res) {

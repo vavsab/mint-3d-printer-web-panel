@@ -249,8 +249,8 @@ app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload
 
     this.uploadFileToDirectory = function(file, directory) {
         return Upload.upload({
-            url: '/api/fileManager',
-            data: {file: file, 'directory': directory}
+            url: '/api/fileManager?directory=' + directory,
+            data: {file: file}
         });
     }
 

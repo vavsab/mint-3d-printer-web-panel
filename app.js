@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer');
 var fs = require('fs-extra');
 var log4js = require('log4js');
 
@@ -12,10 +11,6 @@ var printerStatusController = require('./printerStatusController');
 var logger = require('./logger');
 var printerProxy = require('./printerProxy');
 printerProxy = new printerProxy();
-
-var uploads = multer({
-  dest: './uploads/'
-});
 
 var routes = require('./routes/index');
 var apiCreator = require('./routes/api');
@@ -39,8 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 printerStatusController = printerStatusController(server, printerProxy);
 
 app.use('/', routes);
-app.use('/api', apiCreator(printerProxy, printerStatusController, uploads));
-
+app.use('/api', apiCreator(printerProxy, printerStatusController));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

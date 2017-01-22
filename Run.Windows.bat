@@ -1,3 +1,5 @@
 START node printerWrapper.js &
-set DEBUG=myapp:* & npm start
+npm start
 PAUSE
+
+::set DEBUG=printer:*,express:* -- add before start to see debug messages
