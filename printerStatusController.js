@@ -89,7 +89,7 @@ module.exports = function (server, printerProxy)
   var requestPrinterStatusCommand = "G300";
   var self = this;
   this.currentStatus = null;
-  
+
   this.temperatureChartData = {
     baseTemp: [],
     temp: [] 
@@ -103,6 +103,14 @@ module.exports = function (server, printerProxy)
 
   var lastPrintingStatusUpdateDate = new Date(0); // Status for printing process
   var browserSockets = [];
+
+  var printerErrorsFilePath = 'logs/lastPrinterErrros.json'; 
+  var maxPrinterErrorCount = 50;
+  this.lastPrinterErrors = [];
+
+  if (fs.existsSync(printerErrorsFilePath)) {
+    self.lastPrinterErrors = JSON.parse(fs.readFileSync(printerErrorsFilePath))
+  }
 
   printerProxy.on('connected', function() {
     printerProxy.send(requestPrinterStatusCommand); // Request printer status
@@ -210,6 +218,17 @@ module.exports = function (server, printerProxy)
       }});
     }
   });
+
+  printerProxy.on('error', function(data) { 
+    self.lastPrinterErrors.push({ date: new Date(), message: data});
+    while (self.lastPrinterErrors.length > maxPrinterErrorCount){
+      self.lastPrinterErrors.shift();
+    }
+  });
+
+  this.flush = function () {
+    fs.writeFileSync(printerErrorsFilePath, JSON.stringify(self.lastPrinterErrors));
+  }
 
   io.on('connection', function (socket) {
     logger.info("socket connected")

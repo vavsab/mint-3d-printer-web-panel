@@ -87,6 +87,8 @@ function exitHandler(options, err) {
         process.exit(); 
       });
     }
+
+    printerStatusController.flush();
 }
 
 //do something when app is closing

@@ -1,0 +1,22 @@
+<div class="row" ng-show="$ctrl.isLoading">
+    Loading...
+</div>
+<div class="row" ng-show="!$ctrl.isLoading && $ctrl.error">
+    Error: {{$ctrl.error}}
+</div>
+<div class="row" ng-show="!$ctrl.isLoading && !$ctrl.error">
+     <table class="col-xs-12 table table-condensed">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="printerError in $ctrl.printerErrors">
+            <td>{{printerError.date | date:'short'}}</td>
+            <td>{{printerError.message}}</td>
+        </tr>
+        </tbody>
+     </table> 
+</div>

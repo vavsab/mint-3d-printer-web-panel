@@ -166,7 +166,7 @@ app.factory('eventAggregatorFactory', [function () {
     };
 }]);
 
-app.service('logService', ['$http', '$q', function ($http, $q) {
+app.service('logService', ['$http', '$q', 'httpq', function ($http, $q, httpq) {
     this.getFile = function(fileName) {
         return $q(function(resolve, reject) {
             var anchor = angular.element('<a/>');
@@ -194,6 +194,10 @@ app.service('logService', ['$http', '$q', function ($http, $q) {
                 reject(response.error);
             })
         });
+    };
+
+    this.getPrinterErrors = function() {
+        return httpq.get("/api/log/printer");
     };
 
     this.remove = function(fileName) { 

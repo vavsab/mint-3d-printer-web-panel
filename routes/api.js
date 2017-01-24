@@ -61,6 +61,10 @@
         }
     });
 
+    router.get('/log/printer', function (req, res) { 
+        res.status(200).json(printerStatusController.lastPrinterErrors);
+    });
+
     router.get('/log', function (req, res) { 
         var fileName = req.query.fileName;
 

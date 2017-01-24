@@ -159,7 +159,7 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
     $scope.sendFile = function () {
         if (!$scope.file)
             return;
-            
+
         $scope.isUploading = true;
         $scope.error = null;
 
@@ -298,50 +298,70 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
     };
 }]);
 
-app.controller('logsController', ['$scope', 'logService', 'dialogService', '$q',
-function ($scope, logService, dialogService, $q) {
-    $scope.isLoading = true;
+app.controller('printerLogsController', ['$scope', 'logService', function ($scope, logService) {
+    var self = this;
+    self.isLoading = true;
+
+    var refresh = function () {
+        logService.getPrinterErrors().then(function success(errors) {
+            self.isLoading = false;
+            self.printerErrors = errors.reverse();
+        });
+    }
+
+    refresh();
+    var intervalId = setInterval(refresh, 1000);
+
+    $scope.$on("$destroy", function () {
+        clearInterval(intervalId);
+    })
+}]);
+
+app.controller('logsController', ['logService', 'dialogService', '$q',
+function (logService, dialogService, $q) {
+    var self = this;
+    self.isLoading = true;
 
     var refreshLogs = function () {
-        $scope.isLoading = true;
+        self.isLoading = true;
         logService.getFilesInfo()
         .then(
             function success(filesInfo) {
-                $scope.filesInfo = filesInfo;
+                self.filesInfo = filesInfo;
                 var totalSize = 0;
                 filesInfo.forEach(function (fileInfo) {
                     totalSize += fileInfo.size;
                 });
 
-                $scope.totalSize = totalSize;
+                self.totalSize = totalSize;
             },
             function error(error) {
-                $scope.error = error;
+                self.error = error;
             }
         )
         .finally(function () {
-            $scope.isLoading = false;    
+            self.isLoading = false;    
         });
     };
 
     refreshLogs();
     
-    $scope.getFile = function (fileName) {
-        $scope.error = undefined;
+    self.getFile = function (fileName) {
+        self.error = undefined;
 
         logService.getFile(fileName)
             .then(
                 function success(fileContent) {},
                 function error(error) {
-                    $scope.error = error;
+                    self.error = error;
                 }
             ) 
             .finally(function () {
-                $scope.isLoading = false;    
+                self.isLoading = false;    
             });
     };
 
-    $scope.remove = function (fileName) {
+    self.remove = function (fileName) {
         return $q(function (resolve, reject) {
             dialogService.confirm("Are you sure to remove '" + fileName + "'?", 'Confirm removal').then(
             function success () {

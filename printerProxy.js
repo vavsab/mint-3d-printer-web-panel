@@ -30,6 +30,10 @@ var proxy = function () {
         }
     });
 
+    socket.on('stderr', function(data) {
+        self.emit("error", data);
+    });
+
     socket.on('disconnect', function() {
         logger.info('printerProxy: Printer service disconnected');
     });

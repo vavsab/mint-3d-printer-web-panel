@@ -10,7 +10,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/', 'main')
         .when('/fileManager', 'fileManager')
         .when('/macros', 'macros')
-        .when('/logs', 'logs')
+        .when('/logs', 'logs.general')
+        .when('/logs/printer', 'logs.printer')
         .when('/settings','settings.general')
         .when('/settings/console','settings.console')
         .when('/settings/printer','settings.printer')
@@ -28,9 +29,18 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             controller: 'macrosController'
         })
         .segment('logs', {
-            templateUrl: 'partials/logs.html',
-            controller: 'logsController'
+            templateUrl: 'partials/logs.html'
         })
+        .within()
+            .segment('general', {
+                templateUrl: 'partials/logs.general.html',
+                controller: 'logsController as $ctrl'
+            })
+            .segment('printer', {
+                templateUrl: 'partials/logs.printer.html',
+                controller: 'printerLogsController as $ctrl'
+            })
+        .up()
         .segment('settings', {
             templateUrl: 'partials/settings.html'
         })

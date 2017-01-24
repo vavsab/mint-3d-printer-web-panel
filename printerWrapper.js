@@ -44,6 +44,10 @@ socketIo.on('connection', function (socket) {
 printerProcess.stderr.on('data', function(data) {
     data = data.toString();
     logger.error(data);
+
+    browserSockets.forEach(function(socket, i, arr) {
+        socket.emit('stderr', data);
+    });
 });
 
 printerProcess.stdout.on('data', function(data) {
