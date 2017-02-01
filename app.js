@@ -7,6 +7,10 @@ var bodyParser = require('body-parser');
 var fs = require('fs-extra');
 var log4js = require('log4js');
 
+if (!fs.existsSync('logs')){
+    fs.mkdirSync('logs');
+}
+
 var printerStatusController = require('./printerStatusController');
 var logger = require('./logger');
 var printerProxy = require('./printerProxy');
