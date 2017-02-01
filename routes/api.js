@@ -5,7 +5,6 @@
     var multer = require('multer');
     var logger = require('../logger');
     var gcodeAnalyser = require('../gcodeAnalyser');
-    var sync = require('sync');
     
     var fileManagerRootPath = fs.realpathSync("files");
     var logsRootPath = fs.realpathSync("logs");
@@ -198,7 +197,7 @@
 
                     if (message.cmd == 'analyzeDone') {
                         logger.trace('analyseGcode: analyzeDone');
-                        callback(null, message.msg);
+                        callback(message.msg);
                     }
                 };
 
@@ -210,8 +209,7 @@
                 });
             };
             
-            sync(function(){
-                var result = analyseGcode.sync(null, absolutePath);
+            var result = analyseGcode(absolutePath, function (result) {
                 logger.trace('analyseGcode: done');
 
                 var plaDensity = 1.24;
