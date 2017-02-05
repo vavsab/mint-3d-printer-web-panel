@@ -72,7 +72,7 @@
 
 </head>
 
-<body ng-controller="mainController" ng-cloak>
+<body ng-controller="mainController as $ctrl" ng-cloak>
     <div id="loading" class="alert" ng-show="loader.show">Loading...</div>
     <div id="wrapper">
         <!-- Navigation -->
@@ -84,7 +84,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#/">{{Header}}</a>
+                <a class="navbar-brand" href="#/">{{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : 'Keep Calm Printer'}} Console</a>
             </div>
             <!-- /.navbar-header -->
 

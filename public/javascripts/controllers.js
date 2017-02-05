@@ -5,10 +5,10 @@
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
     commandService, $q, dialogService, loader, localStorageService, browserSettings,
     websiteSettings, websiteSettingsService) {
+    this.websiteSettings = websiteSettings;
     $scope.loader = loader;
-    loader.show = false;
+    $scope.show = false;
 
-    $scope.Header = "Keep Calm Printer Console";
     $scope.alerts = alertService.alerts;
     siteAvailabilityInterceptor.onError = function () {
         alertService.add('danger', 'Site is not available');

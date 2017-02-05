@@ -1,3 +1,8 @@
+<h4 class="page-header" style="margin-top:15px;">General</h4>
+<div class="row">
+    <b class="col-xs-2">Printer name</b>
+    <input type="text" id="printerName" ng-model="websiteSettings.printerName" class="col-xs-9 form-control" ng-keyboard>
+</div>
 <h4 class="page-header" style="margin-top:15px;">Dashboard</h4>
 <div class="row">
     <div class="col-xs-4">
@@ -21,8 +26,8 @@
 <div class="row">
     <form class="form-horizontal">
         <div class="form-group">
-            <label class="control-label col-xs-3" for="isPrintingWithBuffer">Use pre-buffering</label>
-            <div class="input-group col-xs-9">
+            <label class="control-label col-sm-2" for="isPrintingWithBuffer">Use pre-buffering</label>
+            <div class="input-group col-sm-10">
                 <input type="checkbox" id="isPrintingWithBuffer" style="margin-top:10px;" ng-model="websiteSettings.isPrintingWithBuffer" />
             </div>
         </div>
