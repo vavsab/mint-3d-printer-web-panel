@@ -2,6 +2,10 @@
     <h1>File Manager</h1>
 </div>
 <div class="row">
+    <b>Disk usage: {{diskspace.total - diskspace.free | dataSize}} of {{diskspace.total | dataSize}}</b>
+    <uib-progressbar type="warning" value="(diskspace.total - diskspace.free) / diskspace.total * 100">
+        <span>{{((diskspace.total - diskspace.free) / diskspace.total * 100) | toFixed : 2 }}%</span>
+    </uib-progressbar>
     <span class="label label-default" ng-show="isFolderLoading">Folder is loading...</span>
     <span class="label label-warning" ng-show="folderLoadingError != null">Error: {{folderLoadingError}}</span>
     <div ng-show="!isFolderLoading && !folderLoadingError">

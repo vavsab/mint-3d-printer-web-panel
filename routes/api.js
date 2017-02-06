@@ -3,6 +3,7 @@
     var fs = require('fs-extra');
     var path = require('path');
     var multer = require('multer');
+    var diskspace = require('diskspace');
     var logger = require('../logger');
     var gcodeAnalyser = require('../gcodeAnalyser');
     
@@ -103,7 +104,19 @@
         res.status(200).json(printerStatusController.temperatureChartData);
     });
 
-     router.get('/fileManager', function (req, res) {
+    router.get('/fileManager/diskspace', function (req, res) {
+        diskspace.check(path.parse(fileManagerRootPath).root, function (err, total, free, status) {
+            if (err) {
+                let error = 'diskspace: ' + err;
+                logger.warn(error)
+                res.status(500).json({error: error});
+            } else {
+                res.status(200).json({ total: total, free: free });
+            }
+        })
+    });
+
+    router.get('/fileManager', function (req, res) {
         var currentFolderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.path));
         if (!currentFolderAbsolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});

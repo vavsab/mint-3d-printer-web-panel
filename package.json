@@ -10,6 +10,7 @@
     "config": "^1.21.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "diskspace": "^1.0.3",
     "express": "~4.13.4",
     "fs-extra": "^0.30.0",
     "jade": "~1.11.0",

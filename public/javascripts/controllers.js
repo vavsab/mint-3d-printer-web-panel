@@ -1,10 +1,10 @@
 ﻿app.controller('mainController', 
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
-    'websiteSettings', 'websiteSettingsService',
+    'websiteSettings', 'websiteSettingsService', 'fileService',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
     commandService, $q, dialogService, loader, localStorageService, browserSettings,
-    websiteSettings, websiteSettingsService) {
+    websiteSettings, websiteSettingsService, fileService) {
     this.websiteSettings = websiteSettings;
     $scope.loader = loader;
     $scope.show = false;
@@ -39,7 +39,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
         $scope.$applyAsync();
     };
 
-    // get current status
+        // get current status
     printerStatusService.getStatus()
     .then(function success(status) {
         $scope.status = status;
@@ -58,11 +58,6 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     
     printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
     
-    $scope.$on('$destroy', function () {
-        printerStatusService.eventAggregator.unsubscribe('statusReceived', onStatusReceived);
-        printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
-    });
-
     $scope.emergencyStop = function () {
         return $q(function (resolve, reject) {
             dialogService.confirm("Are you sure to stop printing?", 'Emergency stop').then(
@@ -91,7 +86,23 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
     websiteSettingsService.get().then(function success(settings) { 
         websiteSettings.settings = settings;
+        document.title = settings.printerName + " Console";
     });
+
+    var refreshDiskspace = function (diskspace) {
+        $scope.diskspace = diskspace;
+        $scope.$applyAsync();
+    };
+
+    fileService.eventAggregator.on('diskspace', refreshDiskspace);
+
+    $scope.$on('$destroy', function () {
+        printerStatusService.eventAggregator.unsubscribe('statusReceived', onStatusReceived);
+        printerStatusService.eventAggregator.unsubscribe('printingEnded', onPrintingEnded);
+        fileService.eventAggregator.unsubscribe('diskspace', refreshDiskspace);
+    });
+
+    loader.show = false;
 }]);
 
 app.controller('dashboardController', 
@@ -708,6 +719,7 @@ function ($scope, websiteSettingsService, macrosService, websiteSettings) {
 
         return websiteSettingsService.save($scope.websiteSettings).then(function success() {
             websiteSettings.settings = $scope.websiteSettings;
+            document.title = websiteSettings.settings.printerName + " Console";
         });
     };
 }]);

@@ -63,7 +63,8 @@ app.service('commandService', ['$http', '$q', 'printerStatus', function ($http, 
     };
 }]);
 
-app.service('printerStatusService', ['$http', 'httpq', 'eventAggregatorFactory', '$q', 'printerStatus', 
+app.service('printerStatusService', 
+['$http', 'httpq', 'eventAggregatorFactory', '$q', 'printerStatus', 
 function ($http, httpq, eventAggregatorFactory, $q, printerStatus) {
     this.eventAggregator = new eventAggregatorFactory();
     var self = this;
@@ -214,7 +215,22 @@ app.service('logService', ['$http', '$q', 'httpq', function ($http, $q, httpq) {
 }]);
 
 
-app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload) {
+app.service('fileService', ['$http', '$q', 'Upload', 'httpq', 'eventAggregatorFactory', 
+function ($http, $q, Upload, httpq, eventAggregatorFactory) {
+    var self = this;
+    this.eventAggregator = new eventAggregatorFactory();
+
+    this.getDiskspace = function () {
+        return httpq.get('api/fileManager/diskspace').then(function (diskspace) {
+            self.eventAggregator.trigger('diskspace', diskspace);
+        });
+    }
+
+    this.getDiskspace();
+
+    // Refresh every 10 minutes
+    setInterval(self.getDiskspace, 1000 * 60 * 10);
+
     this.getFolderContents = function (folderPath) {
         return $q(function(resolve, reject) {
             $http.get("/api/fileManager", { params: {path: folderPath} })
@@ -231,7 +247,9 @@ app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload
         return $q(function(resolve, reject) {
             $http.delete("/api/fileManager", { params: {path: path} })
             .success(function (response) {
-                resolve();
+                self.getDiskspace().then(function() {
+                    resolve();
+                });
             })
             .error(function (response) {
                 reject(response.error);
@@ -255,6 +273,8 @@ app.service('fileService', ['$http', '$q', 'Upload', function ($http, $q, Upload
         return Upload.upload({
             url: '/api/fileManager?directory=' + directory,
             data: {file: file}
+        }).then(function () {
+            return self.getDiskspace();
         });
     }
 

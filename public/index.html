@@ -123,8 +123,8 @@
                         </li>
                         <li>
                             <a href="#/fileManager" ng-class="{active: ('fileManager' | routeSegmentStartsWith)}">
-                                <span class="glyphicon glyphicon-th-list"></span> 
-                                File Manager
+                                <span class="glyphicon glyphicon-th-list"></span>
+                                File Manager <span class="badge alert-danger" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="Less than 20% of disk space">!</span>
                             </a>
                         </li>
                         <li>
