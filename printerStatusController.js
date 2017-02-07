@@ -109,7 +109,11 @@ module.exports = function (server, printerProxy)
   this.lastPrinterErrors = [];
 
   if (fs.existsSync(printerErrorsFilePath)) {
-    self.lastPrinterErrors = JSON.parse(fs.readFileSync(printerErrorsFilePath))
+    try {
+      self.lastPrinterErrors = JSON.parse(fs.readFileSync(printerErrorsFilePath))
+    } catch (error) {
+      self.lastPrinterErrors = [];
+    }
   }
 
   printerProxy.on('connected', function() {
