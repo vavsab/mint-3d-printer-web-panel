@@ -89,23 +89,25 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <h3 style="height: 30px; margin: 10px;">
-                        <span class="label label-bg label-success">Temp: {{status.temp / 10 | replaceIfUndefined}} °C</span>
-                    </h3>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" uib-tooltip="Temperature" tooltip-placement="bottom">
+                        <img src="/images/temperature.png" width="14" height="14" />
+                        {{status.temp / 10 | replaceIfUndefined}} °C
+                    </a>
                 </li>
-                <li>
-                    <h3 style="height: 30px; margin: 10px;">
-                        <span class="label label-bg label-success">Fan: {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
-                    </h3>
+                <li class="dropdown" uib-tooltip="Fan" tooltip-placement="bottom">
+                    <a class="dropdown-toggle">
+                        <img src="/images/fan.png" width="14" height="14" />
+                        {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}% 
+                    </a>
                 </li>
-                <li>
-                    <h3 style="height: 30px; margin: 10px;">
-                        <span class="label label-bg"
-                            ng-class="{'label-success': ['Printing', 'PrintBuffering'].indexOf(status.state) != -1, 'label-warning': ['CopyData', 'CopyDataBuffer', 'Buffering', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf(status.state) != -1, 'label-default': status.state == 'Idle'}">
-                            State: {{status.state}}
-                        </span>
-                    </h3>
+                <li class="dropdown" uib-tooltip="Status" tooltip-placement="bottom">
+                    <a class="dropdown-toggle">
+                        <span class="label label-bg" ng-class="{'label-success': ['Printing', 'PrintBuffering'].indexOf(status.state) != -1, 'label-warning': ['CopyData', 'CopyDataBuffer', 'Buffering', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf(status.state) != -1, 'label-default': status.state == 'Idle'}">
+                            {{status.state | toStatusText}}
+                        </span> 
+                    </a>
+                     
                 </li>
                 <li ng-show="status.state != undefined && status.state != 'Idle'">
                     <action-button button-name="Emergency stop" type='danger' action='emergencyStop()' />

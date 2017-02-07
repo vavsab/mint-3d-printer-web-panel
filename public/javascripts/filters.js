@@ -4,6 +4,29 @@ app.filter('toTrusted', ['$sce', function($sce){
     };
 }]);
 
+app.filter('toStatusText', [function(){
+    return function(status) {        
+        switch (status) {
+            case "CopyData":
+                return "Copying data";
+            case "CopyDataBuffer":
+                return "Copying (buffer)";
+            case "PauseBuffering":
+                return "Buffering paused";
+            case "PrintBuffering":
+                return "Buffering";
+            case "Printing":
+                return "Printing";
+            case "Pause":
+                return "Paused";
+            case "PausePrintBuffering":
+                return "Paused (buffer)";
+            default:
+                return status;
+        }
+    };
+}]);
+
 app.filter('toFixed', [function(){
     return function(text, fractionDigits) {
         if (text == null)
