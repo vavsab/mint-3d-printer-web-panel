@@ -9,6 +9,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     $scope.loader = loader;
     $scope.show = false;
 
+    this.play2048 = function () {
+        dialogService.play2048();
+    };
+
     $scope.alerts = alertService.alerts;
     siteAvailabilityInterceptor.onError = function () {
         alertService.add('danger', 'Site is not available');

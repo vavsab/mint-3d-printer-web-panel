@@ -49,6 +49,14 @@ function ($uibModalInstance, path, fileService) {
     };
 }]);
 
+app.controller('2048DialogController', ['$uibModalInstance', 
+function ($uibModalInstance) {
+    var self = this; 
+    self.close = function () {
+        $uibModalInstance.close();
+    };
+}]);
+
 app.controller('runMacrosDialogController', 
 ['$uibModalInstance', 'macros', 'macrosService', 'localStorageService', 'printerStatus',
 function ($uibModalInstance, macros, macrosService, localStorageService, printerStatus) {

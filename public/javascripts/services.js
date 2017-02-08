@@ -1,6 +1,24 @@
 app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
     var self = this;
     
+    this.play2048 = function (message, title) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/partials/dialogs/2048Dialog.html',
+            controller: '2048DialogController',
+            controllerAs: '$ctrl',
+            resolve: {
+                message: function () {
+                    return message;
+                },
+                title: function () {
+                    return title;
+                }
+            }
+        });
+
+        return modalInstance.result;
+    };
+
     this.prompt = function (message, title) {
         var modalInstance = $uibModal.open({
             templateUrl: '/partials/dialogs/promptDialog.html',
