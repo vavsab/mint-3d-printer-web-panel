@@ -597,6 +597,7 @@ function ($scope, printerSettingsService, commandService, printerStatusService) 
         { title: "Acceleration", tag: "A", comment: "mm * 10^-5" },
         { title: "Heater 1. Kp", tag: "H1Kp", comment: "constant" },
         { title: "Heater 1. Kdd", tag: "H1Kdd", comment: "constant" },
+        { title: "Heater 1. Kid", tag: "H1Kid", comment: "constant" },
         { title: "Extruder 1. Tick per minute", tag: "extruder.TickPerM", comment: "constant" },
         { title: "Extruder 1. Delay interval to speed", tag: "extruder.DelayIntervalToSpeed", comment: "constant" },
         { title: "Min speed", tag: "MinSpeed", comment: "constant" }
