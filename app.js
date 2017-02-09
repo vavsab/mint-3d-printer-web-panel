@@ -11,6 +11,10 @@ if (!fs.existsSync('logs')){
     fs.mkdirSync('logs');
 }
 
+if (!fs.existsSync('files')){
+    fs.mkdirSync('files');
+}
+
 var printerStatusController = require('./printerStatusController');
 var logger = require('./logger');
 var printerProxy = require('./printerProxy');
