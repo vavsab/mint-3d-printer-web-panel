@@ -5,6 +5,7 @@ function (printerStatusService, printerStatus) {
             action: '&',
             buttonName: '@',
             disabled: '=',
+            popoverPlacement: '@',
             type: '@',
             icon: '@',
             disableWhenPrinterIsInState: '@',
@@ -13,6 +14,10 @@ function (printerStatusService, printerStatus) {
         controller: ['$scope', '$http', function ($scope, $http) {
             $scope.isActionRunning = false;
             $scope.forbiddenPrinterState = false;
+
+            $scope.closePopover = function () {
+                $scope.isPopoverOpen = false;
+            };
 
             var refreshState = function (printerState) {
                 if ($scope.disableWhenPrinterIsInState) {
@@ -47,8 +52,12 @@ function (printerStatusService, printerStatus) {
                 $scope.type = 'default';
             }
 
+            if (!$scope.popoverPlacement) {
+                $scope.popoverPlacement = 'top';
+            }
+
             $scope.runAction = function() {
-                $scope.actionError = null;
+                $scope.isPopoverOpen = false;
                 $scope.isActionRunning = true;
 
                 var actionDefer = $scope.action();
@@ -56,15 +65,22 @@ function (printerStatusService, printerStatus) {
                     $scope.isActionRunning = false;
                 } else {
                     actionDefer.then(
-                        function success() {
+                        function success(message) {
+                            $scope.actionMessage = message || "ok";
                             $scope.actionSucceded = true;
+                                
+                            setTimeout(function() {
+                                $scope.isPopoverOpen = false;    
+                                $scope.$applyAsync();
+                            }, 1000);
                         },
                         function error(error) {
                             $scope.actionSucceded = false;
-                            $scope.actionError = error;
+                            $scope.actionMessage = error;
                     })
                     .finally(function () {
                         $scope.isActionRunning = false;    
+                        $scope.isPopoverOpen = true;
                     });
                 }
             }

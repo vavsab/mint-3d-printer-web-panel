@@ -46,3 +46,48 @@ body {
   position: fixed;
   width: 100%;
 }
+
+/* Button styles */
+
+.btn.loading {
+  padding: 0;
+}
+
+.btn.loading span.btn-content {
+  display: block;
+  padding: 6px 12px;
+  height: 100%;
+  background-color: rgba(179, 179, 179, .3);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.loading span.btn-content:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: linear-gradient(
+    -45deg, 
+    rgba(255, 255, 255, .2) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, .2) 50%, 
+    rgba(255, 255, 255, .2) 75%, 
+    transparent 75%, 
+    transparent
+  );
+  z-index: 1;
+  background-size: 50px 50px;
+  animation: loading-move 2s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes loading-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}

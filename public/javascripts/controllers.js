@@ -75,7 +75,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
                 });
             },
             function error () {
-                reject('cancelled');
+                resolve('cancelled');
             });
         });
     };
@@ -255,7 +255,7 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
                 })
             },
             function error () {
-                reject('cancelled');
+                resolve("cancelled");
             });
         });
     };
@@ -278,7 +278,7 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
                 }
             },
             function error () {
-                reject('cancelled');
+                resolve('cancelled');
             });
         });
     };
@@ -390,7 +390,7 @@ function (logService, dialogService, $q) {
                 })
             },
             function error () {
-                reject('cancelled');
+                resolve('cancelled');
             });
         });
     };

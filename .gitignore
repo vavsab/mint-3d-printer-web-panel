@@ -5,7 +5,7 @@
 /ps
 /printer
 /KeepCalmPrinterEmulator/src/PrintDream.PrinterEmulator/bin
-/logs
+logs/
 /printerSettings.cfg
 /macrosSettings.json
 /websiteSettings.json

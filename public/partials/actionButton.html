@@ -1,11 +1,23 @@
+<script type="text/ng-template" id="popoverTemplate.html">
+    <div>
+        <span ng-class="{'text-danger': !actionSucceded, 'text-success': actionSucceded}">
+            {{(actionMessage)}}
+            <a href class="close" ng-click="closePopover();" title="Close" style="padding: 0px; min-height:auto;">×</a>
+        </span>
+    </div>
+</script>
+
 <button 
+    uib-popover-template="'popoverTemplate.html'" 
+    popover-trigger="'none'"
+    popover-is-open="isPopoverOpen"
+    popover-placement="{{popoverPlacement}}"
     class="btn" 
-    ng-class="'btn-' + type"
-    ng-disabled="disabled || forbiddenPrinterState" 
-    ng-click="runAction();">
-    <span class="glyphicon" ng-show='icon' ng-class="icon ? ('glyphicon-' + icon) : ''"></span> 
-    {{buttonName}} {{isDisabled.x}}
+    ng-class="['btn-' + type, {'loading' : isActionRunning}]"
+    ng-disabled="disabled || forbiddenPrinterState || isActionRunning" 
+    ng-click="isPopoverOpen = false; runAction();">
+    <span class="btn-content">
+        <span class="glyphicon" ng-show='icon' ng-class="icon ? ('glyphicon-' + icon) : ''"></span> 
+        {{buttonName}} {{isDisabled.x}}
+    </span>
 </button>
-<span class="label label-default" ng-show="isActionRunning">Running...</span>
-<span class="label label-success" ng-show="!isActionRunning && actionSucceded">Ok</span>
-<span class="label label-warning" ng-show="!isActionRunning && !actionSucceded && actionError">Error: {{actionError}}</span>
