@@ -1,10 +1,10 @@
 ﻿app.controller('mainController', 
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
-    'websiteSettings', 'websiteSettingsService', 'fileService',
+    'websiteSettings', 'websiteSettingsService', 'fileService', '$window',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
     commandService, $q, dialogService, loader, localStorageService, browserSettings,
-    websiteSettings, websiteSettingsService, fileService) {
+    websiteSettings, websiteSettingsService, fileService, $window) {
     this.websiteSettings = websiteSettings;
     $scope.loader = loader;
     $scope.show = false;
@@ -97,6 +97,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
         $scope.diskspace = diskspace;
         $scope.$applyAsync();
     };
+
+    this.reload = function () {
+        $window.location.reload();
+    }
 
     fileService.eventAggregator.on('diskspace', refreshDiskspace);
 

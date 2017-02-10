@@ -109,19 +109,23 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href>
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#" ng-click="$ctrl.play2048();"><i class="fa fa-play-circle fa-fw"></i> Play 2048</a>
+                            <a href ng-click="$ctrl.play2048();"><i class="fa fa-play-circle fa-fw"></i> Play 2048</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-sign-out fa-fw"></i> Lock</a>
+                            <a href ng-click="$ctrl.reload()"><i class="fa fa-refresh fa-fw"></i> Reload</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href><i class="fa fa-sign-out fa-fw"></i> Lock</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
+                            <a href><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
