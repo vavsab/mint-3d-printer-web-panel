@@ -118,14 +118,14 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href ng-click="$ctrl.reload()"><i class="fa fa-refresh fa-fw"></i> Reload</a>
+                            <a href ng-click="$ctrl.reload();"><i class="fa fa-refresh fa-fw"></i> Reload</a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href><i class="fa fa-sign-out fa-fw"></i> Lock</a>
                         </li>
                         <li>
-                            <a href><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
+                            <a href ng-click="$ctrl.shutdown();"><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

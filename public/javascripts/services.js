@@ -56,6 +56,13 @@ app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
     };
 }]);
 
+app.service('shutdownService', ['httpq', 
+function (httpq) {
+    this.shutdown = function() {
+        return httpq.post('/api/shutdown');
+    };
+}]);
+
 app.service('alertService', ['eventAggregatorFactory', function (eventAggregatorFactory) {
     var self = this;
     this.alerts = [];
