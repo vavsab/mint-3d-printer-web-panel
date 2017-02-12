@@ -11,3 +11,4 @@ files/
 /macrosSettings.json
 /websiteSettings.json
 /public/javascripts/libs/chart.js/.gitignore
+/printerPasswords.json
