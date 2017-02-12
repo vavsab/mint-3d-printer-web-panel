@@ -17,6 +17,13 @@ var proxy = function () {
         return true;
     };
 
+    this.setLoggerLevel = function(level) {
+        if (!socket.connected)
+            return false;
+
+        socket.emit('setLoggerLevel', level);
+    };
+
     socket.on('connect', function(){
         logger.info('printerProxy: Printer service connected');
         self.emit('connected');

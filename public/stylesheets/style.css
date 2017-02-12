@@ -91,3 +91,59 @@ body {
     background-position: 50px 50px;
   }
 }
+
+/* Lock page */
+
+.lock-container {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-image: url('/images/wallpaper.jpg');
+  background-size: cover;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.lock-container > .center-vertically {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  transform: translateY(-50%);  
+}
+
+.lock-container .lock-input-panel:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 2px 2px 1px grey;
+}
+
+.lock-container .lock-input-panel {
+  max-width: 400px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 1px 1px 1px grey;
+  padding: 5px;
+  white-space: nowrap;
+}
+
+.lock-container .avatar {
+  float: left;
+  box-shadow: 1px 1px 1px gray;
+  margin-right: 5px;
+}
+
+.lock-container .locked-title {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.animate-show-hide.ng-hide {
+  opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  transition: all linear 0.5s;
+}

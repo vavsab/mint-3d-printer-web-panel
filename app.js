@@ -6,13 +6,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs-extra');
 var log4js = require('log4js');
+var logger = require('./logger');
+var globalConstants = require('./globalConstants');
+
+try {
+  let logLevel = JSON.parse(fs.readFileSync(globalConstants.websiteSettingsPath).toString()).logLevel;
+  if (logLevel) {
+    logger.setLevel(logLevel);
+  }
+} catch(e) {
+  logger.error(e);
+}
 
 if (!fs.existsSync('logs')){
-    fs.mkdirSync('logs');
+  fs.mkdirSync('logs');
 }
 
 if (!fs.existsSync('files')){
-    fs.mkdirSync('files');
+  fs.mkdirSync('files');
 }
 
 var printerStatusController = require('./printerStatusController');
@@ -39,10 +50,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+let tokenPassword = "";
+for (let i = 0; i < 10; i++) {
+  tokenPassword += Math.random();
+}
+
 printerStatusController = printerStatusController(server, printerProxy);
 
 app.use('/', routes);
-app.use('/api', apiCreator(printerProxy, printerStatusController));
+app.use('/api', apiCreator(tokenPassword, printerProxy, printerStatusController));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

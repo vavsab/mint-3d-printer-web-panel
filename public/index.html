@@ -33,12 +33,15 @@
     <!-- jQuery -->
     <script src="/javascripts/libs/jquery/dist/jquery.min.js"></script>
 
+    <script src="/javascripts/libs/rxjs/dist/rx.all.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="/javascripts/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/libs/angular/angular.js"></script>
     <script src="/javascripts/libs/angular-route/angular-route.js"></script>
+    <script src="/javascripts/libs/angular-cookies/angular-cookies.js"></script>
     <script src="/javascripts/libs/angular-resource/angular-resource.js"></script>
     <script src="/javascripts/libs/angular-animate/angular-animate.js"></script>
     <script src="/javascripts/libs/angular-touch/angular-touch.js"></script>
@@ -78,13 +81,13 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" ng-show="!$ctrl.printerStatus.isLocked" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#/">{{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : 'Keep Calm Printer'}} Console</a>
+                <a class="navbar-brand" href="#/">{{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : $ctrl.websiteSettings.defaultPrinterName}} Console</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -120,22 +123,22 @@
                         <li>
                             <a href ng-click="$ctrl.reload();"><i class="fa fa-refresh fa-fw"></i> Reload</a>
                         </li>
-                        <li class="divider"></li>
+                        <li class="divider" ng-show="!$ctrl.printerStatus.isLocked"></li>
                         <li>
-                            <a href><i class="fa fa-sign-out fa-fw"></i> Lock</a>
+                            <a href ng-click="$ctrl.lock();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-sign-out fa-fw"></i> Lock</a>
                         </li>
                         <li>
-                            <a href ng-click="$ctrl.shutdown();"><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
+                            <a href ng-click="$ctrl.shutdown();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
-                <li ng-show="status.state != undefined && status.state != 'Idle'">
+                <li ng-show="!$ctrl.printerStatus.isLocked && status.state != undefined && status.state != 'Idle'">
                     <action-button button-name="Emergency stop" type='danger' popover-placement="bottom" action='emergencyStop()' />
                 </li>
             </ul>
 
-            <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation" ng-show="!$ctrl.printerStatus.isLocked">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>

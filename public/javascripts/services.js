@@ -1,3 +1,11 @@
+app.service('tokenService', ['httpq', function (httpq) {
+    var self = this;
+
+    this.get = function(password) {
+        return httpq.post('/api/token', {password: password});
+    };
+}]);
+
 app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
     var self = this;
     
@@ -74,17 +82,9 @@ app.service('alertService', ['eventAggregatorFactory', function (eventAggregator
     };
 }]);
 
-app.service('commandService', ['$http', '$q', 'printerStatus', function ($http, $q, printerStatus) {
+app.service('commandService', ['httpq', function (httpq) {
     this.sendCommand = function(command) {
-        return $q(function(resolve, reject) {
-            $http.post("/api/command/", {command: command})
-            .success(function (response) {
-                resolve();
-            })
-            .error(function (response) {
-                reject(response.error);
-            })
-        });
+        return httpq.post("/api/command/", {command: command});
     };
 }]);
 
@@ -362,6 +362,13 @@ function ($http, $q, $resource, commandService) {
 app.service('websiteSettingsService', ['httpq', function (httpq) {
     this.get = function () {
         return httpq.get('/api/settings/website');
+    };
+
+    this.changePassword = function (oldPassword, newPassword) {
+        return httpq.post('/api/settings/website/password', {
+            oldPassword: oldPassword, 
+            newPassword: newPassword
+        });
     };
 
     this.save = function (settings) {

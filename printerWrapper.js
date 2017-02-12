@@ -4,6 +4,7 @@ var spawn = require('child_process').spawn;
 var config = require('config');
 var log4js = require('log4js');
 var fs = require('fs-extra');
+var globalConstants = require('./globalConstants');
 
 if (!fs.existsSync('logs')){
     fs.mkdirSync('logs');
@@ -22,6 +23,15 @@ log4js.configure({
 });
 
 var logger = log4js.getLogger('printerWrapper');
+
+try {
+  let logLevel = JSON.parse(fs.readFileSync(globalConstants.websiteSettingsPath).toString()).logLevel;
+  if (logLevel) {
+    logger.setLevel(logLevel);
+  }
+} catch(e) {
+  logger.error(e);
+}
 
 var port = 5555;
 server.listen(port);
@@ -43,6 +53,10 @@ socketIo.on('connection', function (socket) {
     socket.on('stdin', function (data) {
         logger.trace('stdin: ' + data);
         printerProcess.stdin.write(data);
+    });
+
+    socket.on('setLoggerLevel', function (level) {
+        logger.setLevel(level);
     });
 });
 

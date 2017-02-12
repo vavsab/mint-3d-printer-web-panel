@@ -75,6 +75,10 @@ function (printerStatusService, printerStatus) {
                             }, 1000);
                         },
                         function error(error) {
+                            if (error.error) {
+                                error = error.error;
+                            }
+                            
                             $scope.actionSucceded = false;
                             $scope.actionMessage = error;
                     })

@@ -1,12 +1,13 @@
 ﻿app = angular.module('angularModule', 
     ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 
     'ngAnimate', 'ngResource', 'LocalStorageModule',
-    'ng-virtual-keyboard', 'chart.js']);
+    'ng-virtual-keyboard', 'chart.js', 'ngCookies']);
 
 app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentProvider, $routeProvider) {
     $routeSegmentProvider.options.autoLoadTemplates = true;
 
     $routeSegmentProvider
+        .when('/lockScreen', 'lockScreen')
         .when('/', 'main')
         .when('/fileManager', 'fileManager')
         .when('/macros', 'macros')
@@ -16,6 +17,10 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/settings/console','settings.console')
         .when('/settings/printer','settings.printer')
 
+        .segment('lockScreen', {
+            templateUrl: 'partials/lockScreen.html',
+            controller: 'lockScreenController as $ctrl'
+        })
         .segment('main', {
             templateUrl: 'partials/dashboard.html',
             controller: 'dashboardController'
@@ -51,25 +56,26 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             })
             .segment('console', {
                 templateUrl: 'partials/settings.console.html',
-                controller: 'settingsConsoleController'
+                controller: 'settingsConsoleController as $ctrl'
             })
             .segment('printer', {
                 templateUrl: 'partials/settings.printer.html',
-                controller: 'settingsPrinterController'
+                controller: 'settingsPrinterController as $ctrl'
             })
         .up();
 
-    $routeProvider.otherwise({redirectTo: '/'}); 
+    $routeProvider.otherwise({redirectTo: '/lockScreen'}); 
 }]);
 
 app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('siteAvailabilityInterceptor');
+    $httpProvider.interceptors.push('tokenErrorInterceptor');
 }]);
 
 app.value('loader', {show: true});
-app.value('printerStatus', {status: {}});
+app.value('printerStatus', {status: {}, isLocked: false});
 app.value('browserSettings', {showVirtualKeyboard: false});
-app.value('websiteSettings', {settings: {}});
+app.value('websiteSettings', {settings: {}, defaultPrinterName: 'Keep Calm Printer'});
 
 app.factory('httpq', ['$http', '$q', function($http, $q) {
   return {

@@ -1,10 +1,13 @@
 ﻿app.controller('mainController', 
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
-    'websiteSettings', 'websiteSettingsService', 'fileService', '$window', 'shutdownService',
+    'websiteSettings', 'websiteSettingsService', 'fileService', '$window', 'shutdownService', 
+    'printerStatus', '$location', 'tokenErrorInterceptor', '$cookies',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
     commandService, $q, dialogService, loader, localStorageService, browserSettings,
-    websiteSettings, websiteSettingsService, fileService, $window, shutdownService) {
+    websiteSettings, websiteSettingsService, fileService, $window, shutdownService,
+    printerStatus, $location, tokenErrorInterceptor, $cookies) {
+    var self = this;
     this.websiteSettings = websiteSettings;
     $scope.loader = loader;
     $scope.show = false;
@@ -13,9 +16,22 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
         dialogService.play2048();
     };
 
+    this.printerStatus = printerStatus;
+
+    this.lock = function () {
+        self.printerStatus.isLocked = true;
+        $cookies.remove('token');
+        $location.path('/lockScreen');
+    }
+
     $scope.alerts = alertService.alerts;
+
     siteAvailabilityInterceptor.onError = function () {
         alertService.add('danger', 'Site is not available');
+    };
+
+    tokenErrorInterceptor.onError = function () {
+        $location.path('/lockScreen');
     };
 
     $scope.isMinimized = false;
@@ -121,6 +137,45 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     loader.show = false;
 }]);
 
+app.controller('lockScreenController', 
+['printerStatus', '$location', 'websiteSettings', '$cookies', 'tokenService', 'loader',
+function (printerStatus, $location, websiteSettings, $cookies, tokenService, loader) {
+    var self = this;
+    printerStatus.isLocked = true;
+    this.printerStatus = printerStatus;
+    this.websiteSettings = websiteSettings;
+    this.showPasswordInput = false;
+    this.password = null;
+    this.error = null;
+        
+    this.tryEnter = function(type) {
+        if (type == 'click' && self.showPasswordInput) {
+            return;
+        }
+
+        loader.show = true;
+        var password = self.showPasswordInput ? self.password : null;
+
+        tokenService.get(password).then(function success(response) {
+            $cookies.put('token', response.token);
+            self.printerStatus.isLocked = false;
+            $location.path('/');
+        }, function error(response) {
+            if (self.showPasswordInput) {   
+                self.error = response.error;
+            } else {
+                self.showPasswordInput = true;
+            }
+        }).finally(function () { 
+            loader.show = false;
+        });
+    }
+
+    if ($cookies.get('token')) {
+        self.tryEnter();
+    }
+}]);
+
 app.controller('dashboardController', 
 ['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 'loader', 
 function ($scope, commandService, alertService, macrosService, $uibModal, websiteSettingsService, loader) {
@@ -177,8 +232,10 @@ function ($scope, commandService, alertService, macrosService, $uibModal, websit
     };
 }]);
 
-app.controller('fileManagerController', ['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload', 'websiteSettings',
+app.controller('fileManagerController', 
+['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload', 'websiteSettings',
 function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upload, websiteSettings) {
+
     $scope.isRunning = false;
     $scope.uploadProgress = 0;
     $scope.websiteSettings = websiteSettings;
@@ -539,7 +596,6 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
     };
 
     $scope.removeParameter = function (param) {
-        console.log(param);
         $scope.selectedMacro.parameters.splice($scope.selectedMacro.parameters.indexOf(param), 1);
     };
 
@@ -663,81 +719,116 @@ function ($scope, printerSettingsService, commandService, printerStatusService) 
 }]);
 
 app.controller('settingsConsoleController', 
-['$scope', 'websiteSettingsService', 'macrosService', 'websiteSettings',
-function ($scope, websiteSettingsService, macrosService, websiteSettings) {
+['websiteSettingsService', 'macrosService', 'websiteSettings',
+function (websiteSettingsService, macrosService, websiteSettings) {
+    var self = this;
 
-    $scope.dashboardMacroses = [];
-    $scope.selectedMacroses = [];
-    $scope.selectedDashboardMacroses = [];
-    $scope.websiteSettings = null;
+    this.logLevels = [
+        { title: 'All', value: 'ALL' },
+        { title: 'Trace', value: 'TRACE' },
+        { title: 'Debug', value: 'DEBUG' },
+        { title: 'Info', value: 'INFO' },
+        { title: 'Warn', value: 'WARN' },
+        { title: 'Error', value: 'ERROR' },
+        { title: 'Fatal', value: 'FATAL' },
+        { title: 'Off', value: 'OFF' }
+    ];
+
+    this.selectedLogLevel = null;
+    this.oldPassword = null;
+    this.newPassword = null;
+
+    this.dashboardMacroses = [];
+    this.selectedMacroses = [];
+    this.selectedDashboardMacroses = [];
+    this.websiteSettings = null;
     var macrosResource = macrosService.getMacrosResource();
-    macrosResource.query().$promise.then(
-    function success(data) {
-        $scope.macroses = data;
+
+    macrosResource.query().$promise.then(function success(data) {
+        self.macroses = data;
         
         return websiteSettingsService.get().then(function success(settings) {
-            $scope.websiteSettings = settings;
-            $scope.websiteSettings.dashboardMacrosIds.forEach(function (macrosId) {
+            self.websiteSettings = settings;
+
+            Rx.Observable.fromArray(self.logLevels)
+            .first({
+                predicate: function(level) { return level.value == settings.logLevel;},
+                defaultValue: null
+            })
+            .subscribe(function (value) {
+                self.selectedLogLevel = value;
+            });
+
+            self.websiteSettings.dashboardMacrosIds.forEach(function (macrosId) {
                 var macrosToMoveIndex = null;
-                for (var i = 0; i < $scope.macroses.length; i++) {
-                    if ($scope.macroses[i].id == macrosId) {
+                for (var i = 0; i < self.macroses.length; i++) {
+                    if (self.macroses[i].id == macrosId) {
                         macrosToMoveIndex = i;
                         break;
                     }
                 }
 
                 if (macrosToMoveIndex != null) {
-                    $scope.dashboardMacroses.push($scope.macroses.splice(macrosToMoveIndex, 1)[0]);
+                    self.dashboardMacroses.push(self.macroses.splice(macrosToMoveIndex, 1)[0]);
                 }    
             });
         });
     },
     function error(error) {
-        $scope.error = 'Error while page loading: ' + error;
+        self.error = 'Error while page loading: ' + error;
     });
 
-    $scope.moveToDashboard = function (macroses) {
+    this.moveToDashboard = function (macroses) {
         macroses.forEach(function (macros) {
-            var index = $scope.macroses.indexOf(macros);
-            $scope.dashboardMacroses.push($scope.macroses.splice(index, 1)[0]);
+            var index = self.macroses.indexOf(macros);
+            self.dashboardMacroses.push(self.macroses.splice(index, 1)[0]);
         });
     };
 
-    $scope.removeFromDashboard = function (macroses) {
+    this.removeFromDashboard = function (macroses) {
         macroses.forEach(function (macros) {
-            var index = $scope.dashboardMacroses.indexOf(macros);
-            $scope.macroses.push($scope.dashboardMacroses.splice(index, 1)[0]);
+            var index = self.dashboardMacroses.indexOf(macros);
+            self.macroses.push(self.dashboardMacroses.splice(index, 1)[0]);
         });
     };
 
-    $scope.moveDashboardMacrosUp = function (macros) {
-        var index = $scope.dashboardMacroses.indexOf(macros);
+    this.moveDashboardMacrosUp = function (macros) {
+        var index = self.dashboardMacroses.indexOf(macros);
         if (index - 1 >= 0) {
-            var tmp = $scope.dashboardMacroses[index - 1];
-            $scope.dashboardMacroses[index - 1] = $scope.dashboardMacroses[index];
-            $scope.dashboardMacroses[index] = tmp;
+            var tmp = self.dashboardMacroses[index - 1];
+            self.dashboardMacroses[index - 1] = self.dashboardMacroses[index];
+            self.dashboardMacroses[index] = tmp;
         }
     };
 
-    $scope.moveDashboardMacrosDown = function (macros) {
-        var index = $scope.dashboardMacroses.indexOf(macros);
-        if (index + 1 < $scope.dashboardMacroses.length) {
-            var tmp = $scope.dashboardMacroses[index + 1];
-            $scope.dashboardMacroses[index + 1] = $scope.dashboardMacroses[index];
-            $scope.dashboardMacroses[index] = tmp;
+    this.moveDashboardMacrosDown = function (macros) {
+        var index = self.dashboardMacroses.indexOf(macros);
+        if (index + 1 < self.dashboardMacroses.length) {
+            var tmp = self.dashboardMacroses[index + 1];
+            self.dashboardMacroses[index + 1] = self.dashboardMacroses[index];
+            self.dashboardMacroses[index] = tmp;
         }
     };
 
-    $scope.saveSettings = function () {
+    this.changePassword = function () {
+        return websiteSettingsService.changePassword(self.oldPassword, self.newPassword)
+        .finally(function () {
+            self.newPassword = null;
+            self.oldPassword = null;
+        });
+    }
+
+    this.saveSettings = function () {
         var macrosIds = [];
-        $scope.dashboardMacroses.forEach(function (macros) {
+        self.dashboardMacroses.forEach(function (macros) {
             macrosIds.push(macros.id);
         });
 
-        $scope.websiteSettings.dashboardMacrosIds = macrosIds;
+        self.websiteSettings.logLevel = self.selectedLogLevel.value;
+        self.websiteSettings.dashboardMacrosIds = macrosIds;
 
-        return websiteSettingsService.save($scope.websiteSettings).then(function success() {
-            websiteSettings.settings = $scope.websiteSettings;
+        return websiteSettingsService.save(self.websiteSettings).then(function success() {
+            websiteSettings.settings = self.websiteSettings;
             document.title = websiteSettings.settings.printerName + " Console";
         });
     };

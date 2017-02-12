@@ -1,5 +1,6 @@
 {
     "printerName": null,
     "dashboardMacrosIds" : [1, 2, 3],
-    "isPrintingWithBuffer": false
+    "isPrintingWithBuffer": false,
+    "logLevel": "ALL"
 }

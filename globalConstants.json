@@ -1,0 +1,9 @@
+{
+    "websiteSettingsPath": "websiteSettings.json",
+    "defaultWebsiteSettingsPath": "websiteSettingsDefault.json",
+    "macrosSettingsPath": "macrosSettings.json",
+    "defaultMacrosSettingsPath": "macrosSettingsDefault.json",
+    "printerSettingsPath": "printerSettings.cfg",
+    "defaultPrinterSettingsPath": "printerSettingsDefault.cfg",
+    "printerPasswordsPath": "printerPasswords.json"
+}
