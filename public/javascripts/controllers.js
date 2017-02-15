@@ -1,4 +1,8 @@
-﻿app.controller('mainController', 
+﻿app.controller("themeController", ['browserSettings', function (browserSettings) {
+    this.browserSettings = browserSettings;
+}]);
+
+app.controller('mainController', 
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
     'websiteSettings', 'websiteSettingsService', 'fileService', '$window', 'shutdownService', 
@@ -102,6 +106,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
     if (localStorageService.isSupported) {
         browserSettings.showVirtualKeyboard = localStorageService.get('showVirtualKeyboard');
+        browserSettings.isDarkTheme = localStorageService.get('isDarkTheme');
     }
 
     websiteSettingsService.get().then(function success(settings) { 
@@ -839,6 +844,7 @@ function (localStorageService, browserSettings, $scope) {
 
     var self = this;
     this.showVirtualKeyboard = browserSettings.showVirtualKeyboard;
+    this.isDarkTheme = browserSettings.isDarkTheme;
 
     $scope.$watch(function () { return self.showVirtualKeyboard; }, 
     function (newValue, oldValue) {
@@ -847,5 +853,14 @@ function (localStorageService, browserSettings, $scope) {
         }
 
         browserSettings.showVirtualKeyboard = newValue;
+    });
+
+    $scope.$watch(function () { return self.isDarkTheme; }, 
+    function (newValue, oldValue) {
+        if (localStorageService.isSupported) {
+            localStorageService.set('isDarkTheme', newValue);
+        }
+
+        browserSettings.isDarkTheme = newValue;
     });
 }]);

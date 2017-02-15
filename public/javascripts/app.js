@@ -74,7 +74,7 @@ app.config(['$httpProvider', function($httpProvider) {
 
 app.value('loader', {show: true});
 app.value('printerStatus', {status: {}, isLocked: false});
-app.value('browserSettings', {showVirtualKeyboard: false});
+app.value('browserSettings', {showVirtualKeyboard: false, isDarkTheme: false});
 app.value('websiteSettings', {settings: {}, defaultPrinterName: 'Keep Calm Printer'});
 
 app.factory('httpq', ['$http', '$q', function($http, $q) {

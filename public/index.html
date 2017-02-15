@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="angularModule">
 
-<head>
+<head ng-controller="themeController as $ctrl">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,25 +10,31 @@
 
     <title>Keep Calm Printer Console</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/javascripts/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->    
+    <link href="/javascripts/libs/bootstrap/dist/css/bootstrap.min.css"
+        ng-href="{{$ctrl.browserSettings.isDarkTheme ? '/stylesheets/theme-styles/bootstrap-dark.css' : '/javascripts/libs/bootstrap/dist/css/bootstrap.min.css' }}" 
+        rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="/javascripts/libs/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/stylesheets/theme-styles/sb-admin-2.css" rel="stylesheet">
+    <link href="/stylesheets/theme-styles/sb-admin-2.css" 
+        ng-href="/stylesheets/theme-styles/sb-admin-2{{$ctrl.browserSettings.isDarkTheme ? '-dark' : ''}}.css"
+        rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="/javascripts/libs/morris.js/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="/javascripts/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/icons/custom-icons.css" rel="stylesheet" type="text/css">
     
     <link href="/javascripts/libs/keyboard/dist/css/keyboard-dark.min.css" rel="stylesheet" type="text/css">
 
     <link href="/stylesheets/style.css" rel="stylesheet">
 
+    <link ng-href="/stylesheets/style{{$ctrl.browserSettings.isDarkTheme ? '-dark' : ''}}.css" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="/javascripts/libs/jquery/dist/jquery.min.js"></script>
@@ -94,13 +100,13 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" uib-tooltip="Temperature" tooltip-placement="bottom">
-                        <img src="/images/temperature.png" width="14" height="14" />
+                        <span class="fa fa-thermometer-full"></span>
                         {{status.temp / 10 | replaceIfUndefined}} °C
                     </a>
                 </li>
                 <li class="dropdown" uib-tooltip="Fan" tooltip-placement="bottom">
                     <a class="dropdown-toggle">
-                        <img src="/images/fan.png" width="14" height="14" />
+                        <span class="icon-fan"></span>
                         {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}% 
                     </a>
                 </li>

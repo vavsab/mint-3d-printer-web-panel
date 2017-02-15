@@ -147,3 +147,7 @@ body {
 .animate-show-hide.ng-hide-remove {
   transition: all linear 0.5s;
 }
+
+.navbar-default {
+  background-color: rgba(255, 255, 255, 0.7);  
+}
