@@ -424,7 +424,7 @@
         fs.copySync(globalConstants.defaultPrinterSettingsPath, globalConstants.printerSettingsPath);
     }
 
-    router.get('/settings/printer', function (req, res) {
+    var getPrinterSettingsJson = function () {
         var result = "{";
         fs.readFileSync(globalConstants.printerSettingsPath).toString().split(/\n/)
         .forEach(function (line) {
@@ -438,16 +438,24 @@
         result = result.replace(/,\s*$/, ''); // remove last comma
         result += "}";
 
-        res.json(JSON.parse(result));
+        return JSON.parse(result);
+    };
+
+    router.get('/settings/printer', function (req, res) {
+        res.json(getPrinterSettingsJson());
     });
 
     router.post('/settings/printer', function (req, res) {
-        var result = '';
+        var currentSettings = getPrinterSettingsJson();
         var settings = req.body;
-        for (var property in settings) {
-            if (settings.hasOwnProperty(property)) {
-                result += property + ' ' + settings[property] + '\n';  
-            }
+        
+        for (let property in settings) {
+            currentSettings[property] = settings[property];
+        }
+
+        let result = '';
+        for (let property in currentSettings) {
+            result += property + " " + currentSettings[property] + "\n";
         }
 
         fs.writeFileSync(globalConstants.printerSettingsPath, result);

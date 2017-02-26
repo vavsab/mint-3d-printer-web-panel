@@ -377,6 +377,7 @@ app.service('websiteSettingsService', ['httpq', function (httpq) {
 }]);
 
 app.service('printerSettingsService', ['httpq', function (httpq) {
+
     this.reset = function () {
         return httpq.post('/api/settings/printer/reset');
     };

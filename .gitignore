@@ -12,3 +12,4 @@ files/
 /websiteSettings.json
 /public/javascripts/libs/chart.js/.gitignore
 /printerPasswords.json
+/debug.log

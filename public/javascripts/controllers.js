@@ -616,45 +616,45 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
 }]);
 
 app.controller('settingsPrinterController', 
-['$scope', 'printerSettingsService', 'commandService', 'printerStatusService',
-function ($scope, printerSettingsService, commandService, printerStatusService) {
-
-    $scope.temperatureChartLabels = [];
-    $scope.temperatureChartSeries = ['Temperature', 'Base temperature'];
+['$scope', 'printerSettingsService', 'commandService', 'printerStatusService', '$q',
+function ($scope, printerSettingsService, commandService, printerStatusService, $q) {
+    var self = this;
+    this.temperatureChartLabels = [];
+    this.temperatureChartSeries = ['Temperature', 'Base temperature'];
     
     // 0 seria - temperature, 1 seria - base temperature
-    $scope.temperatureChartData = [[],[]];
+    this.temperatureChartData = [[],[]];
 
     var refreshChartByStatus = function (status) {
-        while ($scope.temperatureChartLabels.length > 30) {
-            $scope.temperatureChartLabels.shift();
-            $scope.temperatureChartData[0].shift();
-            $scope.temperatureChartData[1].shift();      
+        while (self.temperatureChartLabels.length > 30) {
+            self.temperatureChartLabels.shift();
+            self.temperatureChartData[0].shift();
+            self.temperatureChartData[1].shift();      
         }
 
-        $scope.temperatureChartLabels.push(new Date(status.date).toLocaleTimeString());
-        $scope.temperatureChartData[0].push(status.temp / 10);
-        $scope.temperatureChartData[1].push(status.baseTemp / 10);
+        self.temperatureChartLabels.push(new Date(status.date).getSeconds());
+        self.temperatureChartData[0].push(status.temp / 10);
+        self.temperatureChartData[1].push(status.baseTemp / 10);
     }
 
     printerStatusService.getTemperatureChartData().then(function success(temperatureData) {
         temperatureData.temp.forEach(function (chartPoint) {
-             $scope.temperatureChartLabels.push(new Date(chartPoint.date).toLocaleTimeString());
-             $scope.temperatureChartData[0].push(chartPoint.value / 10);
+             self.temperatureChartLabels.push(new Date(chartPoint.date).toLocaleTimeString());
+             self.temperatureChartData[0].push(chartPoint.value / 10);
         });
 
         temperatureData.baseTemp.forEach(function (chartPoint) {
-            $scope.temperatureChartData[1].push(chartPoint.value / 10);
+            self.temperatureChartData[1].push(chartPoint.value / 10);
         });
     }).then(function success () { // do not update chart until it is loaded
         printerStatusService.eventAggregator.on('statusReceived', refreshChartByStatus);
     });
 
-    $scope.settings = null;
-    $scope.offset = { z: 0 };
-    $scope.isLoading = true;
+    this.settings = null;
+    this.offset = { z: 0 };
+    this.isLoading = true;
 
-    $scope.displaySettings = [
+    this.displaySettings = [
         { title: "L", tag: "L", comment: "mm * 10^-5" },
         { title: "Height", tag: "H", comment: "mm * 10^-5" },
         { title: "Zero Height", tag: "Z", comment: "mm * 10^-5" },
@@ -671,55 +671,119 @@ function ($scope, printerSettingsService, commandService, printerStatusService) 
         { title: "Heater 1. Kp", tag: "H1Kp", comment: "constant" },
         { title: "Heater 1. Kdd", tag: "H1Kdd", comment: "constant" },
         { title: "Heater 1. Kid", tag: "H1Kid", comment: "constant" },
-        { title: "Extruder 1. Tick per minute", tag: "extruder.TickPerM", comment: "constant" },
-        { title: "Extruder 1. Delay interval to speed", tag: "extruder.DelayIntervalToSpeed", comment: "constant" },
-        { title: "Min speed", tag: "MinSpeed", comment: "constant" }
+        { title: "Extruder 1. Tick per minute", tag: "E1TickPerM", comment: "constant" },
+        { title: "Extruder 1. Delay interval to speed", tag: "E1DelayIntervalToSpeed", comment: "constant" },
+        { title: "Min speed", tag: "MinSpeed", comment: "constant" },
+        { title: "Max pressure", tag: "PressureMax", comment: "constant" }
     ];
 
     var refresh = function () {
-        $scope.loading = true;
+        self.loading = true;
         printerSettingsService.get().then(
         function success(data) {
-            $scope.settings = data;
+            self.settings = data;
         },
         function error(error) {
-            $scope.error = "Error while loading: " + error;
+            self.error = "Error while loading: " + error;
         })
         .finally(function () {
-            $scope.isLoading = false;
+            self.isLoading = false;
         });
     };
     
     refresh();
 
-    $scope.save = function () {
-        return printerSettingsService.save($scope.settings);
+    this.save = function () {
+        return printerSettingsService.save(self.settings);
     }
 
-    $scope.saveOffset = function () {
-        $scope.settings.Z = parseInt($scope.settings.Z) + Math.round(parseFloat($scope.offset.z) * 100000);
-        var promise = printerSettingsService.save($scope.settings);
+    this.saveOffset = function () {
+        self.settings.Z = parseInt(self.settings.Z) + Math.round(parseFloat(self.offset.z) * 100000);
+        var promise = printerSettingsService.save(self.settings);
         return promise.then(function success() {
-            $scope.offset.z = 0;
+            self.offset.z = 0;
         });
     }
 
-    $scope.reset = function() {
+    this.reset = function() {
         return printerSettingsService.reset().then(function success() { 
             refresh();
         });
     };
 
-    $scope.moveHome = function () {
+    this.moveHome = function () {
         return commandService.sendCommand('G28'); 
     };
 
-    $scope.test = function () {
-        return commandService.sendCommand("G1 Z" + $scope.offset.z.toFixed(3) + " F3000");
+    this.test = function () {
+        return commandService.sendCommand("G1 Z" + self.offset.z.toFixed(3) + " F3000");
     }
 
     $scope.$on('$destroy', function () {
         printerStatusService.eventAggregator.unsubscribe('statusReceived', refreshChartByStatus);
+    });
+
+    /* Extruder calibration */
+
+    this.extruderPosition = 0;
+    this.actualExtruderPosition = 0;
+    this.status = null;
+
+    var statusReceived = function (status) {
+        self.status = status;
+    };
+
+    printerStatusService.eventAggregator.on('statusReceived', statusReceived)
+
+    this.resetExtruderPosition = function () {
+        return commandService.sendCommand("G92 E0").then(function () { 
+            self.extruderPosition = 0; 
+            self.actualExtruderPosition = 0; 
+        });
+    };
+
+    this.extrude = function () {
+        return commandService.sendCommand("G1 E" + self.extruderPosition);
+    };
+
+    this.resetOverExtrusion = function () {
+        return commandService.sendCommand("M221 S100");
+    };
+
+    this.recalculateOverExtrusion = function () {
+        return commandService.sendCommand("M221 S" + parseInt(self.extruderPosition * 100 / self.actualExtruderPosition));
+    };
+
+    this.applyOverExtrusion = function () {
+        if (self.status == null || self.status.extrOver == null)
+            return $q.defer().reject("Has no extruder status received from printer. Cannot apply settings.");
+
+        var delayKey = "E1DelayIntervalToSpeed";
+        var tickKey = "E1TickPerM";
+
+        var overExtrusion = self.status.extrOver;
+        var latestOverExtrusion = 100;
+
+        var delay = self.settings[delayKey];
+        delay =  (delay /= 1000) | 0;  // |0 is the fast way to convert float into integer
+        delay = (delay * latestOverExtrusion) | 0;
+        delay = (delay / overExtrusion) | 0;
+        delay = (delay * 1000) | 0;
+
+        var tick = self.settings[tickKey];
+        tick = (tick * 1000) | 0;
+        tick = (tick / latestOverExtrusion) | 0;
+        tick = (tick * overExtrusion) | 0;
+        tick = (tick / 1000) | 0;
+
+        self.settings[delayKey] = delay;
+        self.settings[tickKey] = tick;
+
+        return printerSettingsService.save(self.settings).then(commandService.sendCommand("M221 S100"));
+    };
+
+    $scope.$on('$destroy', function () {
+        printerStatusService.eventAggregator.unsubscribe('statusReceived', statusReceived);
     });
 }]);
 
@@ -841,12 +905,11 @@ function (websiteSettingsService, macrosService, websiteSettings) {
 
 app.controller('settingsGeneralController', ['localStorageService', 'browserSettings', '$scope',
 function (localStorageService, browserSettings, $scope) {
-
     var self = this;
     this.showVirtualKeyboard = browserSettings.showVirtualKeyboard;
     this.isDarkTheme = browserSettings.isDarkTheme;
 
-    $scope.$watch(function () { return self.showVirtualKeyboard; }, 
+    $scope.$watch(function () { return self.showVirtualKeyboard; },
     function (newValue, oldValue) {
         if (localStorageService.isSupported) {
             localStorageService.set('showVirtualKeyboard', newValue);

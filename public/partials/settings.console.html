@@ -1,83 +1,97 @@
-<h4 class="page-header" style="margin-top:15px;">General</h4>
-<div class="row">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="printerName">Printer nam</label>
-            <div class="input-group col-sm-10">
-                <input type="text" class="col-xs-10 form-control" id="printerName" ng-model="$ctrl.websiteSettings.printerName" ng-keyboard>
+<div class="panel panel-default" style="margin-top: 10px;">
+    <div class="panel-heading" ng-click="showGeneral = !showGeneral">
+        General
+        <span class="fa pull-right" ng-class="{'fa-plus-square': !showGeneral, 'fa-minus-square': showGeneral}"></span>
+    </div>
+    <div class="panel-body animate-show-hide" ng-show="showGeneral">
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-2" for="printerName">Printer name</label>
+                    <div class="input-group col-xs-10">
+                        <input type="text" class="col-xs-10 form-control" id="printerName" ng-model="$ctrl.websiteSettings.printerName" ng-keyboard>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h4 class="page-header" style="margin-top:15px;">Dashboard</h4>
+        <div class="row">
+            <div class="col-xs-4">
+                <b>Macroses</b> 
+                <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in $ctrl.macroses | orderBy: 'id'" ng-model="$ctrl.selectedMacroses" />
+            </div>
+            <div class="col-xs-2">
+                <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-right" ng-click="$ctrl.moveToDashboard(selectedMacroses);" ng-class="{'disabled': $ctrl.selectedMacroses.length == 0}"></button></div>
+                <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-left" ng-click="$ctrl.removeFromDashboard(selectedDashboardMacroses);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length == 0}"></button></div>
+            </div>
+            <div class="col-xs-4">
+                <b>Dashboard macroses</b>
+                <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in $ctrl.dashboardMacroses" ng-model="$ctrl.selectedDashboardMacroses" />
+            </div>
+            <div class="col-xs-2">
+                <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-up" ng-click="$ctrl.moveDashboardMacrosUp($ctrl.selectedDashboardMacroses[0]);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length != 1}"></button></div>
+                <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-down" ng-click="$ctrl.moveDashboardMacrosDown($ctrl.selectedDashboardMacroses[0]);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length != 1}"></button></div>
             </div>
         </div>
-    </form>
-</div>
-<h4 class="page-header" style="margin-top:15px;">Dashboard</h4>
-<div class="row">
-    <div class="col-xs-4">
-        <b>Macroses</b> 
-        <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in $ctrl.macroses | orderBy: 'id'" ng-model="$ctrl.selectedMacroses" />
-    </div>
-    <div class="col-xs-2">
-        <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-right" ng-click="$ctrl.moveToDashboard(selectedMacroses);" ng-class="{'disabled': $ctrl.selectedMacroses.length == 0}"></button></div>
-        <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-left" ng-click="$ctrl.removeFromDashboard(selectedDashboardMacroses);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length == 0}"></button></div>
-    </div>
-    <div class="col-xs-4">
-        <b>Dashboard macroses</b>
-        <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in $ctrl.dashboardMacroses" ng-model="$ctrl.selectedDashboardMacroses" />
-    </div>
-    <div class="col-xs-2">
-        <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-up" ng-click="$ctrl.moveDashboardMacrosUp($ctrl.selectedDashboardMacroses[0]);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length != 1}"></button></div>
-        <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-down" ng-click="$ctrl.moveDashboardMacrosDown($ctrl.selectedDashboardMacroses[0]);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length != 1}"></button></div>
-    </div>
-</div>
-<h4 class="page-header">Print behavior</h4>
-<div class="row">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="isPrintingWithBuffer">Use pre-buffering</label>
-            <div class="input-group col-sm-10">
-                <input type="checkbox" id="isPrintingWithBuffer" style="margin-top:10px;" ng-model="$ctrl.websiteSettings.isPrintingWithBuffer" />
+        <h4 class="page-header">Print behavior</h4>
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-2" for="isPrintingWithBuffer">Use pre-buffering</label>
+                    <div class="input-group col-xs-10">
+                        <input type="checkbox" id="isPrintingWithBuffer" style="margin-top:10px;" ng-model="$ctrl.websiteSettings.isPrintingWithBuffer" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-2" for="logLevel">Log level</label>
+                    <div class="input-group col-xs-10">
+                        <select id="logLevel" class="form-control" ng-model="$ctrl.selectedLogLevel" ng-options="i as i.title for i in $ctrl.logLevels" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="margin-top: 5px;">
+                <action-button action="$ctrl.saveSettings();" button-name="Apply" type="success" />
             </div>
         </div>
-    </form>
-</div>
-<div class="row">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="logLevel">Log level</label>
-            <div class="input-group col-sm-10">
-                <select id="logLevel" class="form-control" ng-model="$ctrl.selectedLogLevel" ng-options="i as i.title for i in $ctrl.logLevels" />
-            </div>
-        </div>
-    </form>
-</div>
-<div class="row">
-    <div class="col-sm-12" style="margin-top: 5px;">
-        <action-button action="$ctrl.saveSettings();" button-name="Apply" type="success" />
     </div>
 </div>
 
-<h4 class="page-header">Change password</h4>
-<div class="row">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="oldPassword">Old password</label>
-            <div class="input-group col-sm-10">
-                <input type="text" id="oldPassword" ng-model="$ctrl.oldPassword" />
+<div class="panel panel-default" style="margin-top: 10px;">
+    <div class="panel-heading" ng-click="showChangePassword = !showChangePassword">
+        Change password
+        <span class="fa pull-right" ng-class="{'fa-plus-square': !showChangePassword, 'fa-minus-square': showChangePassword}"></span>
+    </div>
+    <div class="panel-body animate-show-hide" ng-show="showChangePassword">
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="oldPassword">Old password</label>
+                    <div class="input-group col-xs-9">
+                        <input type="text" id="oldPassword" ng-model="$ctrl.oldPassword" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-3" for="newPassword">New password</label>
+                    <div class="input-group col-xs-9">
+                        <input type="text" id="newPassword" ng-model="$ctrl.newPassword" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="margin-top: 5px;">
+                <action-button action="$ctrl.changePassword();" button-name="Change" type="success" />
             </div>
         </div>
-    </form>
-</div>
-<div class="row">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="newPassword">New password</label>
-            <div class="input-group col-sm-10">
-                <input type="text" id="newPassword" ng-model="$ctrl.newPassword" />
-            </div>
-        </div>
-    </form>
-</div>
-<div class="row">
-    <div class="col-sm-12" style="margin-top: 5px;">
-        <action-button action="$ctrl.changePassword();" button-name="Change" type="success" />
     </div>
 </div>

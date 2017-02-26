@@ -1,57 +1,134 @@
 <div class="row" style="margin-top: 10px;">
 
-    <form class="form-horizontal" name="offsetForm">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="zOffset">Top offset</label>
-            <div class="col-sm-7">
-                <div class="input-group" ng-class="{'has-error' : offsetForm.$invalid}">
-                    <input class="form-control" id="zOffsetInput" name="zOffsetInput" placeholder="Offset" ng-model="offset.z" validation-float ng-keyboard>
-                    <span class="input-group-addon" id="zOffset">mm</span>
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-click="$ctrl.showHeadCalibration = !$ctrl.showHeadCalibration">
+            Z-index calibration
+            <span class="fa pull-right" ng-class="{'fa-plus-square': !$ctrl.showHeadCalibration, 'fa-minus-square': $ctrl.showHeadCalibration}"></span>
+        </div>
+        <div class="panel-body animate-show-hide" ng-show="$ctrl.showHeadCalibration">
+            <form class="form-horizontal" name="offsetForm">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="zOffset">Top offset</label>
+                    <div class="col-sm-4">
+                        <div class="input-group" ng-class="{'has-error' : offsetForm.$invalid}">
+                            <input class="form-control" id="zOffsetInput" name="zOffsetInput" placeholder="Offset" ng-model="$ctrl.offset.z" validation-float ng-keyboard>
+                            <span class="input-group-addon" id="zOffset">mm</span>
+                        </div>
+                        <p class="help-block text-danger" ng-if="offsetForm.zOffsetInput.$error.float">Enter valid float number</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <action-button action="$ctrl.moveHome();" button-name="Move home" allow-when-printer-is-in-state="Idle" />
+                        <action-button action="$ctrl.test();" button-name="Test" disabled="offsetForm.$invalid" allow-when-printer-is-in-state="Idle" />
+                    </div>
                 </div>
-                <p class="help-block text-danger" ng-if="offsetForm.zOffsetInput.$error.float">Enter valid float number</p>
-            </div>
-            <div class="col-sm-3">
-                <action-button action="moveHome();" button-name="Move home" allow-when-printer-is-in-state="Idle" />
-                <action-button action="test();" button-name="Test" disabled="offsetForm.$invalid" allow-when-printer-is-in-state="Idle" />
-            </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <action-button action="$ctrl.saveOffset();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <action-button action="saveOffset();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
-            </div>
-        </div>
-    </form>
+    </div>
 
-    <button class="btn btn-default" data-toggle="collapse" data-target="#advancedPrinterSettings">Advanced settings</button>
-    <form class="form-horizontal collapse" id="advancedPrinterSettings" style="margin-top: 5px;">
-        <div class="form-group" ng-repeat="displayItem in displaySettings">
-            <label class="control-label col-sm-2" for="{{displayItem.tag}}">{{displayItem.title}}</label>
-            <div class="input-group col-sm-10">
-                <input class="form-control" name="{{displayItem.tag}}" 
-                    placeholder="{{displayItem.title}}" ng-model="settings[displayItem.tag]" ng-keyboard>
-                <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-click="$ctrl.showExtruderCalibration = !$ctrl.showExtruderCalibration">
+            Extruder calibration
+            <span class="fa pull-right" ng-class="{'fa-plus-square': !$ctrl.showExtruderCalibration, 'fa-minus-square': $ctrl.showExtruderCalibration}"></span>
         </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <action-button action="save();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
-                <action-button action="reset();" button-name="Set to defaults" type="warning" allow-when-printer-is-in-state="Idle" />
+        <div class="panel-body animate-show-hide" ng-show="$ctrl.showExtruderCalibration">
+            <div class="alert alert-warning">
+                <strong class="fa fa-warning"></strong> Reset over extrusion to 100% before starting calibration.
             </div>
-        </div>
+            <form class="form-horizontal" name="extruderForm">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="extruderPosition">Position</label>
+                    <div class="col-sm-4">
+                        <div class="input-group" ng-class="{'has-error' : extruderForm.extruderPosition.$invalid}">
+                            <input class="form-control" id="extruderPosition" name="extruderPosition" placeholder="Extruder position" ng-model="$ctrl.extruderPosition" validation-float ng-keyboard>
+                            <span class="input-group-addon" id="extruderPosition">mm</span>
+                        </div>
+                        <p class="help-block text-danger" ng-if="extruderForm.extruderPosition.$error.float">Enter valid float number</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <action-button action="$ctrl.extrude();" button-name="Extrude" disabled="extruderForm.extruderPosition.$invalid" allow-when-printer-is-in-state="Idle" />
+                        <action-button action="$ctrl.resetExtruderPosition();" button-name="Reset position" allow-when-printer-is-in-state="Idle" />
+                    </div>
+                </div>
 
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Hot end temperatures
-            </div>
-            <div class="panel-body">
-                <canvas class="chart chart-line" height="75" chart-data="temperatureChartData" 
-                    chart-options="{animation: { duration: 0 }, legend: {display: true} }" 
-                    chart-series="temperatureChartSeries" 
-                    chart-labels="temperatureChartLabels"
-                    chart-colors="['#803690', '#46BFBD']">
-                </canvas>
-            </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="actualExtruderPosition">Actual position</label>
+                    <div class="col-sm-4">
+                        <div class="input-group" ng-class="{'has-error' : extruderForm.actualExtruderPosition.$invalid}">
+                            <input class="form-control" id="actualExtruderPosition" name="actualExtruderPosition" placeholder="Actual position" ng-model="$ctrl.actualExtruderPosition" validation-float ng-keyboard>
+                            <span class="input-group-addon" id="actualExtruderPosition">mm</span>
+                        </div>
+                        <p class="help-block text-danger" ng-if="extruderForm.actualExtruderPosition.$error.float">Enter valid float number</p>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="actualExtruderPosition">Over extrusion</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" value="{{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%" readonly>
+                    </div>
+                    <div class="col-sm-6">
+                        <action-button action="$ctrl.recalculateOverExtrusion();" 
+                            button-name="Recalculate" 
+                            disabled="extruderForm.actualExtruderPosition.$invalid" 
+                            allow-when-printer-is-in-state="Idle" />
+
+                        <action-button action="$ctrl.resetOverExtrusion();" 
+                            button-name="Reset" 
+                            disabled="extruderForm.actualExtruderPosition.$invalid" 
+                            allow-when-printer-is-in-state="Idle" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <action-button action="$ctrl.applyOverExtrusion();" button-name="Apply" type="success" ng-disable="extruderForm.$invalid" allow-when-printer-is-in-state="Idle" />
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-    
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-click="$ctrl.showAdvancedSettings = !$ctrl.showAdvancedSettings">
+            Advanced settings
+            <span class="fa pull-right" ng-class="{'fa-plus-square': !$ctrl.showAdvancedSettings, 'fa-minus-square': $ctrl.showAdvancedSettings}"></span>
+        </div>
+        <div class="panel-body animate-show-hide" ng-show="$ctrl.showAdvancedSettings">
+             <form class="form-horizontal">
+                <div class="form-group" ng-repeat="displayItem in $ctrl.displaySettings">
+                    <label class="control-label col-sm-4" for="{{displayItem.tag}}">{{displayItem.title}}</label>
+                    <div class="input-group col-sm-8">
+                        <input class="form-control" name="{{displayItem.tag}}" 
+                            placeholder="{{displayItem.title}}" ng-model="$ctrl.settings[displayItem.tag]" ng-keyboard>
+                        <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <action-button action="$ctrl.save();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
+                        <action-button action="$ctrl.reset();" button-name="Set to defaults" type="warning" allow-when-printer-is-in-state="Idle" />
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Hot end temperatures
+                    </div>
+                    <div class="panel-body">
+                        <canvas class="chart chart-line" height="75" chart-data="$ctrl.temperatureChartData" 
+                            chart-options="{animation: { duration: 0 }, legend: {display: true} }" 
+                            chart-series="$ctrl.temperatureChartSeries" 
+                            chart-labels="$ctrl.temperatureChartLabels"
+                            chart-colors="['#803690', '#46BFBD']">
+                        </canvas>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
