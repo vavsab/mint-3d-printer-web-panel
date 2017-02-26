@@ -556,7 +556,7 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
                 });
             },
             function error (error) {
-                reject(error);
+                resolve('cancelled');
             });
         });
     };
