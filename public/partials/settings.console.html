@@ -21,8 +21,8 @@
                 <select class="form-control" multiple style="height: 100px;" ng-options="i as i.title for i in $ctrl.macroses | orderBy: 'id'" ng-model="$ctrl.selectedMacroses" />
             </div>
             <div class="col-xs-2">
-                <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-right" ng-click="$ctrl.moveToDashboard(selectedMacroses);" ng-class="{'disabled': $ctrl.selectedMacroses.length == 0}"></button></div>
-                <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-left" ng-click="$ctrl.removeFromDashboard(selectedDashboardMacroses);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length == 0}"></button></div>
+                <div style="margin-top: 20px;"><button class="btn btn-default glyphicon glyphicon-chevron-right" ng-click="$ctrl.moveToDashboard($ctrl.selectedMacroses);" ng-class="{'disabled': $ctrl.selectedMacroses.length == 0}"></button></div>
+                <div style="margin-top: 5px;"><button class="btn btn-default glyphicon glyphicon-chevron-left" ng-click="$ctrl.removeFromDashboard($ctrl.selectedDashboardMacroses);" ng-class="{'disabled': $ctrl.selectedDashboardMacroses.length == 0}"></button></div>
             </div>
             <div class="col-xs-4">
                 <b>Dashboard macroses</b>

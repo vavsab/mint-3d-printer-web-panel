@@ -592,7 +592,15 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
             }
         });
 
-        return $scope.selectedMacro.$save();
+        return $q(function (resolve, reject) {
+            $scope.selectedMacro.$save().then(
+                function success() { 
+                    resolve(); 
+                }, 
+                function error(message) {
+                    reject(message);
+                })
+        });
     };
 
     $scope.addParameter = function () {
