@@ -22,7 +22,60 @@
     </form>
 </div>
 <!-- /.row -->
-<div class="row">
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-lighterBlue fg-white" data-role="tile">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-arrows-alt"></span>
+                <span class="tile-label">Move</span>
+            </div>
+        </div>
+        <div class="tile bg-red fg-white" data-role="tile">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-thermometer-full"></span>
+                <span class="tile-badge bg-darkRed">{{status.temp / 10 | replaceIfUndefined}} °C</span>
+                <span class="tile-label">Temp</span>
+            </div>
+        </div>
+        <div class="tile bg-cyan fg-white" data-role="tile">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-dashboard"></span>
+                <span class="tile-badge bg-darkRed">100%</span>
+                <span class="tile-label">Speed</span>
+            </div>
+        </div>
+        <div class="tile bg-orange fg-white" data-role="tile">
+            <div class="tile-content iconic">
+                <span class="icon icon-fan"></span>
+                <span class="tile-badge bg-darkRed">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}% </span>
+                <span class="tile-label">Fan</span>
+            </div>
+        </div>    
+        <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/fileManager')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-th-list"></span>
+                <span class="tile-label">File manager</span>
+            </div>
+        </div>      
+        <div class="tile bg-green fg-white" data-role="tile" ng-click="go('/macros')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-link"></span>
+                <span class="tile-label">Macros</span>
+            </div>
+        </div>
+        <div class="tile bg-pink fg-white" data-role="tile" ng-click="go('/logs')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-exclamation-triangle"></span>
+                <span class="tile-label">Logs</span>
+            </div>
+        </div>
+        <div class="tile bg-lightGreen fg-white" data-role="tile" ng-click="go('/settings')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-wrench"></span>
+                <span class="tile-label">Settings</span>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-6 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">

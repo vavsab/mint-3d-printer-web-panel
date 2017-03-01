@@ -140,6 +140,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     });
 
     loader.show = false;
+
+    $scope.go = function (path) {
+        $location.path(path);
+    };
 }]);
 
 app.controller('lockScreenController', 
