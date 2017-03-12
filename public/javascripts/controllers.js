@@ -777,16 +777,15 @@ function ($scope, printerSettingsService, commandService, printerStatusService, 
         var latestOverExtrusion = 100;
 
         var delay = self.settings[delayKey];
-        delay =  (delay /= 1000) | 0;  // |0 is the fast way to convert float into integer
-        delay = (delay * latestOverExtrusion) | 0;
-        delay = (delay / overExtrusion) | 0;
-        delay = (delay * 1000) | 0;
+
+        delay = delay * latestOverExtrusion;
+        delay = delay / overExtrusion;
+        delay = parseInt(delay*10);
 
         var tick = self.settings[tickKey];
-        tick = (tick * 1000) | 0;
-        tick = (tick / latestOverExtrusion) | 0;
-        tick = (tick * overExtrusion) | 0;
-        tick = (tick / 1000) | 0;
+        tick = tick / latestOverExtrusion;
+        tick = tick * overExtrusion;
+        tick = parseInt(tick/10);
 
         self.settings[delayKey] = delay;
         self.settings[tickKey] = tick;
