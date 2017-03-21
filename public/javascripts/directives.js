@@ -89,7 +89,7 @@ function (printerStatusService, printerStatus) {
                 }
             }
         }],
-        templateUrl: '/partials/actionButton.html'
+        templateUrl: '/partials/directives/actionButton.html'
     };
 }]);
 
@@ -131,7 +131,6 @@ app.directive('validationFloat', function () {
     };
 });
 
-
 app.directive('ngKeyboard', ['ngVirtualKeyboardService', '$timeout', 'browserSettings',
 	function(ngVirtualKeyboardService, $timeout, browserSettings) {
 		return {
@@ -158,3 +157,25 @@ app.directive('ngKeyboard', ['ngVirtualKeyboardService', '$timeout', 'browserSet
 		};
 	}
 ]);
+
+app.directive('titleControl', [function () {
+    return {
+        scope: {
+            backLink: '=?'
+        },
+        transclude: true,
+        controller: ['$scope', '$location', function ($scope, $location) {
+            if (!$scope.backLink) {
+                // Remove the last page from url
+                var pathParts = $location.path().split('/');
+                pathParts.pop();
+                if (pathParts.length <= 1) {
+                    $scope.backLink = '#/';
+                } else {
+                    $scope.backLink = '#' + pathParts.join('/');
+                }
+            }
+        }],
+        templateUrl: '/partials/directives/titleControl.html'
+    }
+}]);

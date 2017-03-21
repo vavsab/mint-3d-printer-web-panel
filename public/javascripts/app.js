@@ -11,11 +11,18 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/', 'main')
         .when('/fileManager', 'fileManager')
         .when('/macros', 'macros')
+        .when('/console', 'console')
+        .when('/status', 'status')
         .when('/logs', 'logs.general')
         .when('/logs/printer', 'logs.printer')
-        .when('/settings','settings.general')
-        .when('/settings/console','settings.console')
-        .when('/settings/printer','settings.printer')
+        .when('/settings', 'settings')
+        .when('/settings/change-password', 'settings_change-password')
+        .when('/settings/browser', 'settings_browser')
+        .when('/settings/server', 'settings_server')
+        .when('/settings/printer', 'settings_printer')
+        .when('/settings/printer/z-index', 'settings_printer_z-index')
+        .when('/settings/printer/extruder', 'settings_printer_extruder')
+        .when('/settings/printer/advanced', 'settings_printer_advanced')
 
         .segment('lockScreen', {
             templateUrl: 'partials/lockScreen.html',
@@ -46,23 +53,43 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
                 controller: 'printerLogsController as $ctrl'
             })
         .up()
-        .segment('settings', {
-            templateUrl: 'partials/settings.html'
+        .segment('console', {
+            templateUrl: 'partials/console.html',
+            controller: 'consoleController as $ctrl'
         })
-        .within()
-            .segment('general', {
-                templateUrl: 'partials/settings.general.html',
-                controller: 'settingsGeneralController as $ctrl'
-            })
-            .segment('console', {
-                templateUrl: 'partials/settings.console.html',
-                controller: 'settingsConsoleController as $ctrl'
-            })
-            .segment('printer', {
-                templateUrl: 'partials/settings.printer.html',
-                controller: 'settingsPrinterController as $ctrl'
-            })
-        .up();
+        .segment('status', {
+            templateUrl: 'partials/status.html',
+        })
+        .segment('settings', {
+            templateUrl: 'partials/settings.html',
+        })
+        .segment('settings_browser', {
+            templateUrl: 'partials/settings.browser.html',
+            controller: 'settingsBrowserController as $ctrl'
+        })
+        .segment('settings_change-password', {
+            templateUrl: 'partials/settings.change-password.html',
+            controller: 'settingsChangePasswordController as $ctrl'
+        })
+        .segment('settings_server', {
+            templateUrl: 'partials/settings.server.html',
+            controller: 'settingsServerController as $ctrl'
+        })
+        .segment('settings_printer', {
+            templateUrl: 'partials/settings.printer.html'
+        })
+        .segment('settings_printer_z-index', {
+            templateUrl: 'partials/settings.printer.z-index.html',
+            controller: 'settingsPrinterZIndexController as $ctrl'
+        })
+        .segment('settings_printer_extruder', {
+            templateUrl: 'partials/settings.printer.extruder.html',
+            controller: 'settingsPrinterExtruderController as $ctrl'
+        })
+        .segment('settings_printer_advanced', {
+            templateUrl: 'partials/settings.printer.advanced.html',
+            controller: 'settingsPrinterAdvancedController as $ctrl'
+        });
 
     $routeProvider.otherwise({redirectTo: '/lockScreen'}); 
 }]);

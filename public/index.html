@@ -148,45 +148,6 @@
                     <action-button button-name="Emergency stop" type='danger' popover-placement="bottom" action='emergencyStop()' />
                 </li>
             </ul>
-
-            <div class="navbar-default sidebar" role="navigation" ng-show="!$ctrl.printerStatus.isLocked">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="#/" ng-class="{active: ('main' | routeSegmentStartsWith)}">
-                                <span class="glyphicon glyphicon-scale"></span> 
-                                Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/fileManager" ng-class="{active: ('fileManager' | routeSegmentStartsWith)}">
-                                <span class="glyphicon glyphicon-th-list"></span>
-                                File Manager <span class="badge alert-danger" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="Less than 20% of disk space">!</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/macros" ng-class="{active: ('macros' | routeSegmentStartsWith)}">
-                                <span class="glyphicon glyphicon-link"></span> 
-                                Macros
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/logs" ng-class="{active: ('logs' | routeSegmentStartsWith)}">
-                                <span class="glyphicon glyphicon-warning-sign"></span> 
-                                Logs
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/settings" ng-class="{active: ('settings' | routeSegmentStartsWith)}">
-                                <span class="glyphicon glyphicon-wrench"></span> 
-                                Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
         </nav>
         <div id="page-wrapper" class="row animate" app-view-segment="0">
         </div>

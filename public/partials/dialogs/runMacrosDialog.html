@@ -23,6 +23,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <action-button button-name="Run" type="success" action="$ctrl.run()" disabled="$ctrl.macros.restrictedStates.indexOf($ctrl.printerStatus.status.state) != -1" />
+    <action-button button-name="Run" type="success" action="$ctrl.run()" disabled="$ctrl.macros.restrictedStates && $ctrl.macros.restrictedStates.indexOf($ctrl.printerStatus.status.state) != -1" />
     <button class="btn btn-warning" type="button" ng-click="$ctrl.close()">Close</button>
 </div>

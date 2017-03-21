@@ -1,30 +1,19 @@
 ﻿<div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Dashboard</h1>
-    </div> <!-- /.col-lg-12 -->
+    </div>
 </div>
-<div class="row" style="margin-bottom:20px;">
-    <form class="navbar-form navbar-left">
-        <div class="form-group">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Send G-code..." ng-model="command" ng-keyboard>
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li ng-repeat="c in commands"><a href ng-click="setCommand(c.command)">{{c.title}} <span class="badge">{{c.command}}</span></a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a target="_blank" href="http://reprap.org/wiki/G-code">G-code wiki (RepRap)</a></li>
-                    </ul>
-                </div><!-- /btn-group -->
-            </div>                
-            <action-button button-name="Send" action="sendCommand(command);" type="success" icon="send" />
-        </div>
-    </form>
-</div>
-<!-- /.row -->
+
 <div class="row metro">
     <div class="tile-container">
-        <div class="tile bg-lighterBlue fg-white" data-role="tile">
+        <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/fileManager')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-print"></span>
+                <span class="tile-label">Print</span>
+                <span class="tile-badge bg-darkRed" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="Less than 20% of disk space remained">Low space</span>
+            </div>
+        </div>      
+        <div class="tile bg-darkBlue fg-white" data-role="tile">
             <div class="tile-content iconic">
                 <span class="icon fa fa-arrows-alt"></span>
                 <span class="tile-label">Move</span>
@@ -37,7 +26,7 @@
                 <span class="tile-label">Temp</span>
             </div>
         </div>
-        <div class="tile bg-cyan fg-white" data-role="tile">
+        <div class="tile bg-darkCyan fg-white" data-role="tile">
             <div class="tile-content iconic">
                 <span class="icon fa fa-dashboard"></span>
                 <span class="tile-badge bg-darkRed">100%</span>
@@ -51,10 +40,16 @@
                 <span class="tile-label">Fan</span>
             </div>
         </div>    
-        <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/fileManager')">
+        <div class="tile bg-emerald fg-white" data-role="tile" ng-click="go('/console')">
             <div class="tile-content iconic">
-                <span class="icon fa fa-th-list"></span>
-                <span class="tile-label">File manager</span>
+                <span class="icon fa fa-terminal"></span>
+                <span class="tile-label">Console</span>
+            </div>
+        </div>      
+        <div class="tile bg-darkOrange fg-white" data-role="tile" ng-click="go('/status')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-info-circle"></span>
+                <span class="tile-label">Status</span>
             </div>
         </div>      
         <div class="tile bg-green fg-white" data-role="tile" ng-click="go('/macros')">
@@ -63,125 +58,16 @@
                 <span class="tile-label">Macros</span>
             </div>
         </div>
-        <div class="tile bg-pink fg-white" data-role="tile" ng-click="go('/logs')">
+        <div class="tile bg-darkPink fg-white" data-role="tile" ng-click="go('/logs')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-exclamation-triangle"></span>
                 <span class="tile-label">Logs</span>
             </div>
         </div>
-        <div class="tile bg-lightGreen fg-white" data-role="tile" ng-click="go('/settings')">
+        <div class="tile bg-gray fg-white" data-role="tile" ng-click="go('/settings')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-wrench"></span>
                 <span class="tile-label">Settings</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Sensors
-            </div>
-            <div class="panel-body">
-                <table class="table table-condensed">
-                    <thead>
-                    <tr>
-                        <th>Sensor</th>
-                        <th>Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Temperature</td>
-                        <td>{{status.temp / 10 | replaceIfUndefined}} °C</td>
-                    </tr>
-                    <tr>
-                        <td>Base</td>
-                        <td>{{status.baseTemp / 10 | replaceIfUndefined}} °C</td>
-                    </tr>
-                    <tr>
-                        <td>PWM</td>
-                        <td>{{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
-                    </tr>
-                    <tr>
-                        <td>Culler rate</td>
-                        <td>{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
-                    </tr>
-                    <tr>
-                        <td>Extruder over</td>
-                        <td>{{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
-                    </tr>
-                    <tr>
-                        <td>Feed rate</td>
-                        <td>{{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
-                    </tr>
-                    <tr>
-                        <td>Speed</td>
-                        <td>{{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/minute</td>
-                    </tr>
-                    <tr>
-                        <td>Position X</td>
-                        <td>{{status.currentPos.X / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
-                    </tr>
-                    <tr>
-                        <td>Position Y</td>
-                        <td>{{status.currentPos.Y / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
-                    </tr>
-                    <tr>
-                        <td>Position Z</td>
-                        <td>{{status.currentPos.Z / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
-                    </tr>
-                    <tr>
-                        <td>File</td>
-                        <td>{{status.fileName}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-6" ng-show="status.startDate != null">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div>
-                    <span ng-switch="status.state">
-                        <span ng-switch-when="CopyData">Copy Progress</span>
-                        <span ng-switch-when="CopyDataBuffer">Copy Progress</span>
-                        <span ng-switch-when="Buffering">Buffering Progress</span>
-                        <span ng-switch-when="PauseBuffering">Buffering Progress</span>
-                        <span ng-switch-when="PrintBuffering">Printing Progress</span>
-                        <span ng-switch-when="Printing">Printing Progress</span>
-                        <span ng-switch-when="Pause">Printing Progress</span>
-                        <span ng-switch-when="PausePrintBuffering">Printing Progress</span>
-                        <span ng-switch-default>default</span>
-                    </span>
-                    <span class="label label-default" ng-show="['PauseBuffering', 'Pause', 'PausePrintBuffering'].indexOf(status.state) != -1">
-                        paused
-                    </span>
-                </div>
-            </div>
-            <div class="panel-body">
-                <uib-progressbar class="progress-striped active" value="status.line_index / status.line_count * 100">
-                    <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
-                </uib-progressbar>
-                <div>Started on: {{status.startDate | toDate}}</div>
-                <div ng-show="status.remainedMilliseconds == null">Calculating time of printing...</div>
-                <div ng-show="status.remainedMilliseconds != null">Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
-                <div ng-show="status.endDate != null">End time: {{status.endDate | toDate}}</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Macroses
-            </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <a ng-repeat="m in macroses" class="list-group-item" href ng-click="runMacros(m);">
-                        {{m.title}}
-                    </a>
-                    <a class="list-group-item" href="#/macros"><span class="glyphicon glyphicon-link"></span><b>See all</b></a>
-                </div>
             </div>
         </div>
     </div>

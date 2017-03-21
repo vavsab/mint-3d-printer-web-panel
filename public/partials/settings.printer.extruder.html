@@ -1,0 +1,62 @@
+<div class="page-header">
+    <title-control>Extruder calibration</title-control>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="alert alert-warning">
+            <strong class="fa fa-warning"></strong> Reset over extrusion to 100% before starting calibration.
+        </div>
+        <form class="form-horizontal" name="extruderForm">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="extruderPosition">Position</label>
+                <div class="col-sm-4">
+                    <div class="input-group" ng-class="{'has-error' : extruderForm.extruderPosition.$invalid}">
+                        <input class="form-control" id="extruderPosition" name="extruderPosition" placeholder="Extruder position" ng-model="$ctrl.extruderPosition" validation-float ng-keyboard>
+                        <span class="input-group-addon" id="extruderPosition">mm</span>
+                    </div>
+                    <p class="help-block text-danger" ng-if="extruderForm.extruderPosition.$error.float">Enter valid float number</p>
+                </div>
+                <div class="col-sm-6">
+                    <action-button action="$ctrl.extrude();" button-name="Extrude" disabled="extruderForm.extruderPosition.$invalid" allow-when-printer-is-in-state="Idle" />
+                    <action-button action="$ctrl.resetExtruderPosition();" button-name="Reset position" allow-when-printer-is-in-state="Idle" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="actualExtruderPosition">Actual position</label>
+                <div class="col-sm-4">
+                    <div class="input-group" ng-class="{'has-error' : extruderForm.actualExtruderPosition.$invalid}">
+                        <input class="form-control" id="actualExtruderPosition" name="actualExtruderPosition" placeholder="Actual position" ng-model="$ctrl.actualExtruderPosition" validation-float ng-keyboard>
+                        <span class="input-group-addon" id="actualExtruderPosition">mm</span>
+                    </div>
+                    <p class="help-block text-danger" ng-if="extruderForm.actualExtruderPosition.$error.float">Enter valid float number</p>
+                </div>
+                <div class="col-sm-6">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="actualExtruderPosition">Over extrusion</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" value="{{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%" readonly>
+                </div>
+                <div class="col-sm-6">
+                    <action-button action="$ctrl.recalculateOverExtrusion();" 
+                        button-name="Recalculate" 
+                        disabled="extruderForm.actualExtruderPosition.$invalid" 
+                        allow-when-printer-is-in-state="Idle" />
+
+                    <action-button action="$ctrl.resetOverExtrusion();" 
+                        button-name="Reset" 
+                        disabled="extruderForm.actualExtruderPosition.$invalid" 
+                        allow-when-printer-is-in-state="Idle" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <action-button action="$ctrl.applyOverExtrusion();" button-name="Apply" type="success" ng-disable="extruderForm.$invalid" allow-when-printer-is-in-state="Idle" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,16 +1,32 @@
 <div class="page-header">
-    <h1>Settings</h1>
+    <title-control>Settings</title-control>
 </div>
-<ul class="nav nav-tabs">
-    <li ng-class="{active: ('settings.general' | routeSegmentStartsWith)}">
-        <a href="#/settings/">General</a>
-    </li>
-    <li ng-class="{active: ('settings.console' | routeSegmentStartsWith)}">
-        <a href="#/settings/console">Web console</a>
-    </li>
-    <li ng-class="{active: ('settings.printer' | routeSegmentStartsWith)}">
-        <a href="#/settings/printer">Printer</a>
-    </li> 
-</ul>
-<div app-view-segment="1" class="animate">
+
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/settings/browser')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-keyboard-o"></span>
+                <span class="tile-label">Theme & Keyboard</span>
+            </div>
+        </div>    
+        <div class="tile bg-red fg-white" data-role="tile" ng-click="go('/settings/server')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-server"></span>
+                <span class="tile-label">Server</span>
+            </div>
+        </div>
+        <div class="tile bg-darkCyan fg-white" data-role="tile" ng-click="go('/settings/change-password')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-unlock-alt"></span>
+                <span class="tile-label">Change password</span>
+            </div>
+        </div>
+        <div class="tile bg-orange fg-white" data-role="tile" ng-click="go('/settings/printer')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-print"></span>
+                <span class="tile-label">Printer</span>
+            </div>
+        </div>
+    </div>
 </div>

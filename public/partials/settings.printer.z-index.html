@@ -1,0 +1,29 @@
+<div class="page-header">
+    <title-control>Z-index calibration</title-control>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form class="form-horizontal" name="offsetForm">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="zOffset">Top offset</label>
+                <div class="col-sm-4">
+                    <div class="input-group" ng-class="{'has-error' : offsetForm.$invalid}">
+                        <input class="form-control" id="zOffsetInput" name="zOffsetInput" placeholder="Offset" ng-model="$ctrl.offset.z" validation-float ng-keyboard>
+                        <span class="input-group-addon" id="zOffset">mm</span>
+                    </div>
+                    <p class="help-block text-danger" ng-if="offsetForm.zOffsetInput.$error.float">Enter valid float number</p>
+                </div>
+                <div class="col-sm-6">
+                    <action-button action="$ctrl.moveHome();" button-name="Move home" allow-when-printer-is-in-state="Idle" />
+                    <action-button action="$ctrl.test();" button-name="Test" disabled="offsetForm.$invalid" allow-when-printer-is-in-state="Idle" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <action-button action="$ctrl.saveOffset();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

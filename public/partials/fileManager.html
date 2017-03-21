@@ -1,6 +1,7 @@
 ﻿<div class="page-header">
-    <h1>File Manager</h1>
+    <title-control>File Manager</title-control>
 </div>
+
 <div class="row">
     <b>Disk usage: {{diskspace.total - diskspace.free | dataSize}} of {{diskspace.total | dataSize}}</b>
     <uib-progressbar type="warning" value="(diskspace.total - diskspace.free) / diskspace.total * 100">

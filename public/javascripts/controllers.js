@@ -185,60 +185,7 @@ function (printerStatus, $location, websiteSettings, $cookies, tokenService, loa
     }
 }]);
 
-app.controller('dashboardController', 
-['$scope', 'commandService', 'alertService', 'macrosService', '$uibModal', 'websiteSettingsService', 'loader', 
-function ($scope, commandService, alertService, macrosService, $uibModal, websiteSettingsService, loader) {
-
-    loader.show = true;    
-    $scope.commands = [
-        { title: 'Home', command: 'G28' },
-        { title: 'Temperature to zero', command: 'M104 S0' }, 
-        { title: 'Temperature to 205', command: 'M104 S205' },
-        { title: 'Fan On', command: 'M106 S255' },
-        { title: 'Fan Off', command: 'M106 S0' },
-        { title: 'Reset values', command: 'M206 S0' }
-    ];
-
-    $scope.setCommand = function (command) {
-        $scope.command = command;
-    };
-
-    $scope.sendCommand = function(command) {
-        return commandService.sendCommand(command);
-    }
-
-    var macrosResource = macrosService.getMacrosResource();
-    macrosResource.query().$promise.then(
-    function success(macroses) {
-        websiteSettingsService.get().then(function success(settings) {
-            $scope.macroses = [];
-            settings.dashboardMacrosIds.forEach(function (macroId) {
-                for (var i = 0; i < macroses.length; i++) {
-                    if (macroses[i].id == macroId) {
-                        $scope.macroses.push(macroses[i]);
-                        break;
-                    }
-                }
-            });
-        });
-    }).finally(function () {
-        $scope.loader.show = false;
-    });
-
-    $scope.runMacros = function (macros) {
-        var modalInstance = $uibModal.open({
-            templateUrl: '/partials/dialogs/runMacrosDialog.html',
-            controller: 'runMacrosDialogController',
-            controllerAs: '$ctrl',
-            resolve: {
-                macros: function () {
-                    return macros;
-                }
-            }
-        });
-
-        return modalInstance.result;
-    };
+app.controller('dashboardController', [function () {
 }]);
 
 app.controller('fileManagerController', 
@@ -627,10 +574,126 @@ function ($scope, dialogService, macrosService, $q, commandService, localStorage
     };
 }]);
 
-app.controller('settingsPrinterController', 
-['$scope', 'printerSettingsService', 'commandService', 'printerStatusService', '$q',
-function ($scope, printerSettingsService, commandService, printerStatusService, $q) {
+app.controller('settingsPrinterExtruderController', 
+['printerSettingsService', 'commandService', 'loader', '$q',
+function (printerSettingsService, commandService, loader, $q) {
     var self = this;
+
+    this.extruderPosition = 0;
+    this.actualExtruderPosition = 0;
+
+    var refresh = function () {
+        loader.show = true;
+        printerSettingsService.get().then(
+        function success(data) {
+            self.settings = data;
+        },
+        function error(error) {
+            self.error = "Error while loading: " + error;
+        })
+        .finally(function () {
+            loader.show = false;
+        });
+    };
+    
+    refresh();
+
+    this.resetExtruderPosition = function () {
+        return commandService.sendCommand("G92 E0").then(function () { 
+            self.extruderPosition = 0; 
+            self.actualExtruderPosition = 0; 
+        });
+    };
+
+    this.extrude = function () {
+        return commandService.sendCommand("G1 E" + self.extruderPosition);
+    };
+
+    this.resetOverExtrusion = function () {
+        return commandService.sendCommand("M221 S100");
+    };
+
+    this.recalculateOverExtrusion = function () {
+        return commandService.sendCommand("M221 S" + parseInt(self.extruderPosition * 100 / self.actualExtruderPosition));
+    };
+
+    this.applyOverExtrusion = function () {
+        if (self.status == null || self.status.extrOver == null) {
+            return $q(function (resolve, reject) {
+                reject("Has no extruder status received from printer. Cannot apply settings.");
+            });
+        }
+
+        var delayKey = "E1DelayIntervalToSpeed";
+        var tickKey = "E1TickPerM";
+
+        var overExtrusion = self.status.extrOver;
+        var latestOverExtrusion = 100;
+
+        var delay = self.settings[delayKey];
+
+        delay = delay * latestOverExtrusion;
+        delay = delay / overExtrusion;
+        delay = parseInt(delay*10);
+
+        var tick = self.settings[tickKey];
+        tick = tick / latestOverExtrusion;
+        tick = tick * overExtrusion;
+        tick = parseInt(tick/10);
+
+        self.settings[delayKey] = delay;
+        self.settings[tickKey] = tick;
+
+        return printerSettingsService.save(self.settings).then(commandService.sendCommand("M221 S100"));
+    };
+}]);
+
+app.controller('settingsPrinterZIndexController', 
+['printerSettingsService', 'commandService', 'loader',
+function (printerSettingsService, commandService, loader) {
+    var self = this;
+
+    this.settings = null;
+    this.offset = { z: 0 };
+
+    var refresh = function () {
+        loader.show = true;
+        printerSettingsService.get().then(
+        function success(data) {
+            self.settings = data;
+        },
+        function error(error) {
+            self.error = "Error while loading: " + error;
+        })
+        .finally(function () {
+            loader.show = false;
+        });
+    };
+    
+    refresh();
+
+    this.saveOffset = function () {
+        self.settings.Z = parseInt(self.settings.Z) + Math.round(parseFloat(self.offset.z) * 100000);
+        var promise = printerSettingsService.save(self.settings);
+        return promise.then(function success() {
+            self.offset.z = 0;
+        });
+    }
+
+    this.moveHome = function () {
+        return commandService.sendCommand('G28'); 
+    };
+
+    this.test = function () {
+        return commandService.sendCommand("G1 Z" + self.offset.z.toFixed(3) + " F3000");
+    }
+}]);
+
+app.controller('settingsPrinterAdvancedController', 
+['$scope', 'printerSettingsService', 'printerStatusService', 'dialogService',
+function ($scope, printerSettingsService, printerStatusService, dialogService) {
+    var self = this;
+
     this.temperatureChartLabels = [];
     this.temperatureChartSeries = ['Temperature', 'Base temperature'];
     
@@ -709,96 +772,24 @@ function ($scope, printerSettingsService, commandService, printerStatusService, 
         return printerSettingsService.save(self.settings);
     }
 
-    this.saveOffset = function () {
-        self.settings.Z = parseInt(self.settings.Z) + Math.round(parseFloat(self.offset.z) * 100000);
-        var promise = printerSettingsService.save(self.settings);
-        return promise.then(function success() {
-            self.offset.z = 0;
-        });
-    }
-
-    this.reset = function() {
-        return printerSettingsService.reset().then(function success() { 
-            refresh();
-        });
+    this.reset = function () {
+        return dialogService
+            .confirm("Are you sure to reset all printer constants to defaults?", 'Confirm reset to defaults')
+            .then(function success() {
+                return printerSettingsService.reset().then(function success() { 
+                    refresh();
+                });
+            }, function error() {
+                return "cancelled";
+            });
     };
-
-    this.moveHome = function () {
-        return commandService.sendCommand('G28'); 
-    };
-
-    this.test = function () {
-        return commandService.sendCommand("G1 Z" + self.offset.z.toFixed(3) + " F3000");
-    }
 
     $scope.$on('$destroy', function () {
         printerStatusService.eventAggregator.unsubscribe('statusReceived', refreshChartByStatus);
     });
-
-    /* Extruder calibration */
-
-    this.extruderPosition = 0;
-    this.actualExtruderPosition = 0;
-    this.status = null;
-
-    var statusReceived = function (status) {
-        self.status = status;
-    };
-
-    printerStatusService.eventAggregator.on('statusReceived', statusReceived)
-
-    this.resetExtruderPosition = function () {
-        return commandService.sendCommand("G92 E0").then(function () { 
-            self.extruderPosition = 0; 
-            self.actualExtruderPosition = 0; 
-        });
-    };
-
-    this.extrude = function () {
-        return commandService.sendCommand("G1 E" + self.extruderPosition);
-    };
-
-    this.resetOverExtrusion = function () {
-        return commandService.sendCommand("M221 S100");
-    };
-
-    this.recalculateOverExtrusion = function () {
-        return commandService.sendCommand("M221 S" + parseInt(self.extruderPosition * 100 / self.actualExtruderPosition));
-    };
-
-    this.applyOverExtrusion = function () {
-        if (self.status == null || self.status.extrOver == null)
-            return $q.defer().reject("Has no extruder status received from printer. Cannot apply settings.");
-
-        var delayKey = "E1DelayIntervalToSpeed";
-        var tickKey = "E1TickPerM";
-
-        var overExtrusion = self.status.extrOver;
-        var latestOverExtrusion = 100;
-
-        var delay = self.settings[delayKey];
-
-        delay = delay * latestOverExtrusion;
-        delay = delay / overExtrusion;
-        delay = parseInt(delay*10);
-
-        var tick = self.settings[tickKey];
-        tick = tick / latestOverExtrusion;
-        tick = tick * overExtrusion;
-        tick = parseInt(tick/10);
-
-        self.settings[delayKey] = delay;
-        self.settings[tickKey] = tick;
-
-        return printerSettingsService.save(self.settings).then(commandService.sendCommand("M221 S100"));
-    };
-
-    $scope.$on('$destroy', function () {
-        printerStatusService.eventAggregator.unsubscribe('statusReceived', statusReceived);
-    });
 }]);
 
-app.controller('settingsConsoleController', 
+app.controller('settingsServerController', 
 ['websiteSettingsService', 'macrosService', 'websiteSettings',
 function (websiteSettingsService, macrosService, websiteSettings) {
     var self = this;
@@ -890,14 +881,6 @@ function (websiteSettingsService, macrosService, websiteSettings) {
         }
     };
 
-    this.changePassword = function () {
-        return websiteSettingsService.changePassword(self.oldPassword, self.newPassword)
-        .finally(function () {
-            self.newPassword = null;
-            self.oldPassword = null;
-        });
-    }
-
     this.saveSettings = function () {
         var macrosIds = [];
         self.dashboardMacroses.forEach(function (macros) {
@@ -914,7 +897,19 @@ function (websiteSettingsService, macrosService, websiteSettings) {
     };
 }]);
 
-app.controller('settingsGeneralController', ['localStorageService', 'browserSettings', '$scope',
+app.controller('settingsChangePasswordController', ['websiteSettingsService', function (websiteSettingsService) {
+    var self = this;
+
+    this.changePassword = function () {
+        return websiteSettingsService.changePassword(self.oldPassword, self.newPassword)
+        .finally(function () {
+            self.newPassword = null;
+            self.oldPassword = null;
+        });
+    }
+}]);
+
+app.controller('settingsBrowserController', ['localStorageService', 'browserSettings', '$scope',
 function (localStorageService, browserSettings, $scope) {
     var self = this;
     this.showVirtualKeyboard = browserSettings.showVirtualKeyboard;
@@ -937,4 +932,63 @@ function (localStorageService, browserSettings, $scope) {
 
         browserSettings.isDarkTheme = newValue;
     });
+}]);
+
+app.controller('consoleController', 
+['macrosService', '$uibModal', 'websiteSettingsService', 'loader', 'commandService', 
+function (macrosService, $uibModal, websiteSettingsService, loader, commandService) {
+    var self = this;
+    loader.show = true;  
+
+    this.commands = [
+        { title: 'Home', command: 'G28' },
+        { title: 'Temperature to zero', command: 'M104 S0' }, 
+        { title: 'Temperature to 205', command: 'M104 S205' },
+        { title: 'Fan On', command: 'M106 S255' },
+        { title: 'Fan Off', command: 'M106 S0' },
+        { title: 'Reset values', command: 'M206 S0' }
+    ];
+
+    this.setCommand = function (command) {
+        self.command = command;
+    };
+
+    this.sendCommand = function(command) {
+        return commandService.sendCommand(command);
+    }  
+
+    var macrosResource = macrosService.getMacrosResource();
+
+    this.macroses = [];
+    
+    macrosResource.query().$promise.then(
+    function success(macroses) {
+        websiteSettingsService.get().then(function success(settings) {
+            settings.dashboardMacrosIds.forEach(function (macroId) {
+                for (var i = 0; i < macroses.length; i++) {
+                    if (macroses[i].id == macroId) {
+                        self.macroses.push(macroses[i]);
+                        break;
+                    }
+                }
+            });
+        });
+    }).finally(function () {
+        loader.show = false;
+    });
+
+    this.runMacros = function (macros) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/partials/dialogs/runMacrosDialog.html',
+            controller: 'runMacrosDialogController',
+            controllerAs: '$ctrl',
+            resolve: {
+                macros: function () {
+                    return macros;
+                }
+            }
+        });
+
+        return modalInstance.result;
+    };
 }]);

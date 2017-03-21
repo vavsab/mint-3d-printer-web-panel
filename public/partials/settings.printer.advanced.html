@@ -1,0 +1,38 @@
+<div class="page-header">
+    <title-control>Advanced printer settings</title-control>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form class="form-horizontal">
+            <div class="form-group" ng-repeat="displayItem in $ctrl.displaySettings">
+                <label class="control-label col-sm-4" for="{{displayItem.tag}}">{{displayItem.title}}</label>
+                <div class="input-group col-sm-8">
+                    <input class="form-control" name="{{displayItem.tag}}" 
+                        placeholder="{{displayItem.title}}" ng-model="$ctrl.settings[displayItem.tag]" ng-keyboard>
+                    <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <action-button action="$ctrl.save();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
+                    <action-button action="$ctrl.reset();" button-name="Set to defaults" type="warning" allow-when-printer-is-in-state="Idle" />
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Hot end temperatures
+                </div>
+                <div class="panel-body">
+                    <canvas class="chart chart-line" height="75" chart-data="$ctrl.temperatureChartData" 
+                        chart-options="{animation: { duration: 0 }, legend: {display: true} }" 
+                        chart-series="$ctrl.temperatureChartSeries" 
+                        chart-labels="$ctrl.temperatureChartLabels"
+                        chart-colors="['#803690', '#46BFBD']">
+                    </canvas>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

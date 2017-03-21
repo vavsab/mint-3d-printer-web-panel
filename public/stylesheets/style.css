@@ -156,3 +156,11 @@ body {
   margin-left: 0;
   margin-right: 0;
 }
+
+#page-wrapper {
+  margin: 20px 0 0 0;  
+}
+
+.title a:hover, .title a:visited, .title a:focus {
+  text-decoration: none;
+}
