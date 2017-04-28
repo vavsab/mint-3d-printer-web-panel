@@ -13,6 +13,7 @@ namespace PrinterEmulator
 {
     public partial class MainWindow
     {
+        private const int MaxLineCount = 100;
         private CancellationTokenSource cancellationTokenSource;
         private readonly Random random = new Random(DateTime.Now.Millisecond);
 
@@ -21,9 +22,10 @@ namespace PrinterEmulator
             InitializeComponent();
             DataContext = this;
             States = Enum.GetValues(typeof(State)).OfType<State>().ToList();
-            SelectedState = (State)999;
+            SelectedState = State.Idle;
             LineCount = 100;
             LineIndex = 1;
+            CheckBoxStatus.IsChecked = true;
         }
 
         public List<State> States { get; set; }
@@ -52,7 +54,7 @@ namespace PrinterEmulator
                 Console.Write(output);
             }
 
-            TextBoxOutput.Text += $"{(error ? "output error" : "output")}>> {output.Replace("\n", Environment.NewLine)}";
+            AppendTextToOutput($"{(error ? "output error" : "output")}>> {output.Replace("\n", Environment.NewLine)}");
         }
 
         private void CheckBoxStatus_OnChecked(object sender, RoutedEventArgs e)
@@ -71,7 +73,7 @@ namespace PrinterEmulator
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            TextBoxOutput.Text += $"input>> {buffer}{Environment.NewLine}";
+                            AppendTextToOutput(TextBoxOutput.Text += $"input>> {buffer}{Environment.NewLine}");
                             if (buffer.StartsWith("G300"))
                             {
                                 ConsoleWrite(GetInfo() + "\n");
@@ -155,6 +157,15 @@ namespace PrinterEmulator
                 Speed = random.Next(1000, 1000000),
                 FileName = @"C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\files\Folder1\CubeHeight.stl"
             });
+        }
+
+        private void AppendTextToOutput(string text)
+        {
+            TextBoxOutput.Text += text;
+            if (TextBoxOutput.LineCount > MaxLineCount)
+            {
+                TextBoxOutput.Text = String.Join(Environment.NewLine, TextBoxOutput.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(TextBoxOutput.LineCount - MaxLineCount));
+            }
         }
     }
 }

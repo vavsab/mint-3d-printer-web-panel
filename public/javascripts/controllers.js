@@ -61,12 +61,13 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     var onStatusReceived = function(status) {
         $scope.status = status;
         $scope.$applyAsync();
+        printerStatus.status = status;
     };
 
         // get current status
     printerStatusService.getStatus()
     .then(function success(status) {
-        $scope.status = status;
+        onStatusReceived(status);
     });
 
     printerStatusService.eventAggregator.on('statusReceived', onStatusReceived);
@@ -991,4 +992,39 @@ function (macrosService, $uibModal, websiteSettingsService, loader, commandServi
 
         return modalInstance.result;
     };
+}]);
+
+app.controller('movementsController', [function () {
+
+}]);
+
+app.controller('fanController', [function () {
+
+}]);
+
+app.controller('temperatureController', ['commandService', 'printerStatus', function (commandService, printerStatus) {
+    var self = this;
+    self.value = printerStatus.status.baseTemp / 10;
+
+    self.changeValue = function (delta) {
+        if (self.value + delta > 300) {
+            self.value = 300;
+            return;
+        }
+
+        if (self.value + delta < 0) {
+            self.value = 0;
+            return;
+        }
+
+        self.value = self.value + delta;
+    };
+
+    self.apply = function () {
+        return commandService.sendCommand('M104 S' + self.value);
+    }
+}]);
+
+app.controller('speedController', [function () {
+
 }]);

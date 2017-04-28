@@ -1,7 +1,7 @@
 ﻿app = angular.module('angularModule', 
     ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 
     'ngAnimate', 'ngResource', 'LocalStorageModule',
-    'ng-virtual-keyboard', 'chart.js', 'ngCookies']);
+    'ng-virtual-keyboard', 'chart.js', 'ngCookies', 'rzModule']);
 
 app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentProvider, $routeProvider) {
     $routeSegmentProvider.options.autoLoadTemplates = true;
@@ -13,6 +13,10 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/macros', 'macros')
         .when('/console', 'console')
         .when('/status', 'status')
+        .when('/movements', 'movements')
+        .when('/fan', 'fan')
+        .when('/temperature', 'temperature')
+        .when('/speed', 'speed')
         .when('/logs', 'logs.general')
         .when('/logs/printer', 'logs.printer')
         .when('/settings', 'settings')
@@ -39,6 +43,22 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .segment('macros', {
             templateUrl: 'partials/macros.html',
             controller: 'macrosController'
+        })
+        .segment('movements', {
+            templateUrl: 'partials/regulations/movements.html',
+            controller: 'movementsController as $ctrl'
+        })
+        .segment('fan', {
+            templateUrl: 'partials/regulations/fan.html',
+            controller: 'fanController as $ctrl'
+        })
+        .segment('temperature', {
+            templateUrl: 'partials/regulations/temperature.html',
+            controller: 'temperatureController as $ctrl'
+        })
+        .segment('speed', {
+            templateUrl: 'partials/regulations/speed.html',
+            controller: 'speedController as $ctrl'
         })
         .segment('logs', {
             templateUrl: 'partials/logs.html'

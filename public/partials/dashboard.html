@@ -13,27 +13,27 @@
                 <span class="tile-badge bg-darkRed" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="Less than 20% of disk space remained">Low space</span>
             </div>
         </div>      
-        <div class="tile bg-darkBlue fg-white" data-role="tile">
+        <div class="tile bg-darkBlue fg-white" data-role="tile" ng-click="go('/movements')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-arrows-alt"></span>
                 <span class="tile-label">Move</span>
             </div>
         </div>
-        <div class="tile bg-red fg-white" data-role="tile">
+        <div class="tile bg-red fg-white" data-role="tile" ng-click="go('/temperature')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-thermometer-full"></span>
                 <span class="tile-badge bg-darkRed">{{status.temp / 10 | replaceIfUndefined}} °C</span>
                 <span class="tile-label">Temp</span>
             </div>
         </div>
-        <div class="tile bg-darkCyan fg-white" data-role="tile">
+        <div class="tile bg-darkCyan fg-white" data-role="tile" ng-click="go('/speed')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-dashboard"></span>
                 <span class="tile-badge bg-darkRed">100%</span>
                 <span class="tile-label">Speed</span>
             </div>
         </div>
-        <div class="tile bg-orange fg-white" data-role="tile">
+        <div class="tile bg-orange fg-white" data-role="tile" ng-click="go('/fan')">
             <div class="tile-content iconic">
                 <span class="icon icon-fan"></span>
                 <span class="tile-badge bg-darkRed">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}% </span>

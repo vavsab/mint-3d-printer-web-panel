@@ -1,0 +1,26 @@
+<div class="page-header">
+    <title-control>Temperature control</title-control>
+</div>
+
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-red fg-white">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-thermometer-full"></span>
+                <span class="tile-badge bg-darkRed">{{status.baseTemp / 10 | replaceIfUndefined}} °C</span>
+                <span class="tile-label">Base temp</span>
+            </div>
+        </div>
+    </div>
+    <rzslider rz-slider-model="$ctrl.value"  rz-slider-options="{floor: 0, ceil: 300}"></rzslider>
+    <div style="text-align: center;">
+        <button class="btn btn-default" ng-click="$ctrl.changeValue(-10)">-10</button>
+        <button class="btn btn-default" ng-click="$ctrl.changeValue(-1)">-1</button>
+        <input type="number" style="display: inline-block; width: 70px;" min="0" max="300" class="form-control" ng-model="$ctrl.value">
+        <button class="btn btn-default" ng-click="$ctrl.changeValue(1)">+1</button>
+        <button class="btn btn-default" ng-click="$ctrl.changeValue(10)">+10</button>
+    </div>
+</div>
+<div class="row">
+    <action-button type="success" button-name="Apply" action="$ctrl.apply()" />
+</div>

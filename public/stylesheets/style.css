@@ -164,3 +164,18 @@ body {
 .title a:hover, .title a:visited, .title a:focus {
   text-decoration: none;
 }
+
+.metro .slider.slider-big .slider-backside,
+.metro .slider.slider-big .complete {
+  height: 2.5rem;
+}
+
+.metro .slider.slider-big .marker {
+  height: 3rem;
+  width: 2rem;
+  background-color: #5b5769;
+}
+
+.metro .slider.slider-big {
+  height: 7.125rem;
+}
