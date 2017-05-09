@@ -144,8 +144,8 @@ namespace PrinterEmulator
                 LineCount = LineCount,
                 LineIndex = LineIndex,
                 TempPWM = (short)random.Next(0, 1024),
-                Temperature = random.Next(0, 5000),
-                BaseTemperature = random.Next(0, 5000),
+                Temperature = random.Next(0, 300),
+                BaseTemperature = random.Next(0, 300),
                 CurrentPosition = new Position
                 {
                     X = random.Next(0, 10000000),
@@ -154,7 +154,7 @@ namespace PrinterEmulator
                 },
                 FeedRate = random.Next(10, 5000),
                 ExtruderOver = random.Next(10, 5000),
-                Speed = random.Next(1000, 1000000),
+                Speed = random.Next(5, 300),
                 FileName = @"C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\files\Folder1\CubeHeight.stl"
             });
         }

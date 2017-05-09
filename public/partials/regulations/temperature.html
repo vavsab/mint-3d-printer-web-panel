@@ -12,14 +12,7 @@
             </div>
         </div>
     </div>
-    <rzslider rz-slider-model="$ctrl.value"  rz-slider-options="{floor: 0, ceil: 300}"></rzslider>
-    <div style="text-align: center;">
-        <button class="btn btn-default" ng-click="$ctrl.changeValue(-10)">-10</button>
-        <button class="btn btn-default" ng-click="$ctrl.changeValue(-1)">-1</button>
-        <input type="number" style="display: inline-block; width: 70px;" min="0" max="300" class="form-control" ng-model="$ctrl.value">
-        <button class="btn btn-default" ng-click="$ctrl.changeValue(1)">+1</button>
-        <button class="btn btn-default" ng-click="$ctrl.changeValue(10)">+10</button>
-    </div>
+    <slider-regulator units="°C" value="$ctrl.value" min="{{$ctrl.minValue}}" max="{{$ctrl.maxValue}}" step="0.1" left-shifts="['-10', '-1']" right-shifts="['+1', '+10']" />
 </div>
 <div class="row">
     <action-button type="success" button-name="Apply" action="$ctrl.apply()" />

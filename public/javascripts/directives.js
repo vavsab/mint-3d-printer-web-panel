@@ -179,3 +179,63 @@ app.directive('titleControl', [function () {
         templateUrl: '/partials/directives/titleControl.html'
     }
 }]);
+
+app.directive('sliderRegulator', [function () {
+    return {
+        scope: {
+            value: '=',
+            units: '@',
+            min: '@',
+            max: '@',
+            step: '@',
+            leftShifts: '=',
+            rightShifts: '='
+        },
+        controller: ['$scope', function ($scope) {
+            var self = this;
+            self.min = 0
+            self.max = 100;
+            self.step = 0.1;
+
+            if ($scope.min != null) {
+                self.min = parseFloat($scope.min);
+            }
+
+            if ($scope.max != null) {
+                self.max = parseFloat($scope.max);
+            }
+
+            if ($scope.step != null) {
+                self.step = parseFloat($scope.step);
+            }
+            
+            self.sliderOptions = { 
+                floor: self.min, 
+                ceil: self.max, 
+                step: self.step, 
+                precision: 1,
+                translate: function(value, sliderId, label) {
+                    return value + ' ' + $scope.units;
+                }
+            };
+
+            self.changeValue = function (delta) {
+                delta = parseFloat(delta);
+                
+                if ($scope.value + delta > self.max) {
+                    $scope.value = self.max;
+                    return;
+                }
+
+                if ($scope.value + delta < self.min) {
+                    $scope.value = self.min;
+                    return;
+                }
+
+                $scope.value = $scope.value + delta;
+            };
+        }],
+        controllerAs: "$ctrl",
+        templateUrl: '/partials/directives/sliderRegulator.html'
+    }
+}]);

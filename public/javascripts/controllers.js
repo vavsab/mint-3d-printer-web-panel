@@ -998,33 +998,100 @@ app.controller('movementsController', [function () {
 
 }]);
 
-app.controller('fanController', [function () {
+app.controller('baseSliderController', 
+['parent', '$scope', '$rootScope', 'dialogService', '$location',
+function (parent, $scope, $rootScope, dialogService, $location) {
+    var self = parent;
 
-}]);
+    var onRouteChange = function (event, newUrl) {
+        if (self.value !== self.getValue()) {
+            dialogService.confirm("Are you sure to discard changes?", 'Unsaved changes')
+            .then(function success () {
+                locationChangeUnregistrator();
+                var path = newUrl.substring(newUrl.indexOf("#") + 2, newUrl.length);
+                $location.path(path);
+            });
 
-app.controller('temperatureController', ['commandService', 'printerStatus', function (commandService, printerStatus) {
-    var self = this;
-    self.value = printerStatus.status.baseTemp / 10;
+            event.preventDefault();
+        }
+    };
+
+    var locationChangeUnregistrator = $rootScope.$on('$locationChangeStart', onRouteChange);
+
+    $scope.$on('$destroy', function () {
+       locationChangeUnregistrator(); 
+    });
+
+    self.value = self.getValue();
 
     self.changeValue = function (delta) {
-        if (self.value + delta > 300) {
-            self.value = 300;
+        if (self.value + delta > self.maxValue) {
+            self.value = self.maxValue;
             return;
         }
 
-        if (self.value + delta < 0) {
-            self.value = 0;
+        if (self.value + delta < self.minValue) {
+            self.value = self.minValue;
             return;
         }
 
         self.value = self.value + delta;
     };
+}]); 
+
+app.controller('fanController', 
+['commandService', '$controller', '$scope', 'printerStatus',
+function (commandService, $controller, $scope, printerStatus) {
+    var self = this;
+
+    self.getValue = function () {
+        return printerStatus.status.speed / 2550 * 100;
+    };
+
+    self.minValue = 0;
+    self.maxValue = 100;
+
+    self.apply = function () {
+        return commandService.sendCommand('M106 S' + parseInt(255 * (self.value / 100)));
+    }
+
+    $controller('baseSliderController', { parent: self, $scope: $scope });
+}]);
+
+app.controller('temperatureController', 
+['commandService', '$controller', '$scope', 'printerStatus',
+function (commandService, $controller, $scope, printerStatus) {
+    var self = this;
+
+    self.getValue = function () {
+        return printerStatus.status.baseTemp / 10;
+    };
+
+    self.minValue = 0;
+    self.maxValue = 300;
 
     self.apply = function () {
         return commandService.sendCommand('M104 S' + self.value);
     }
+
+    $controller('baseSliderController', { parent: self, $scope: $scope });
 }]);
 
-app.controller('speedController', [function () {
+app.controller('speedController', 
+['commandService', '$controller', '$scope', 'printerStatus',
+function (commandService, $controller, $scope, printerStatus) {
+    var self = this;
 
+    self.getValue = function () {
+        return printerStatus.status.cullerRate;
+    };
+
+    self.minValue = 5;
+    self.maxValue = 300;
+
+    self.apply = function () {
+        return commandService.sendCommand('M220 S' + self.value);
+    }
+
+    $controller('baseSliderController', { parent: self, $scope: $scope });
 }]);

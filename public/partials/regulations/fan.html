@@ -1,3 +1,19 @@
 <div class="page-header">
     <title-control>Fan control</title-control>
 </div>
+
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-orange fg-white">
+            <div class="tile-content iconic">
+                <span class="icon icon-fan"></span>
+                <span class="tile-badge bg-darkRed">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
+                <span class="tile-label">Fan</span>
+            </div>
+        </div>
+    </div>
+    <slider-regulator units="%" value="$ctrl.value" min="{{$ctrl.minValue}}" max="{{$ctrl.maxValue}}" step="0.1" left-shifts="['-20', '-10']" right-shifts="['+10', '+20']" />
+</div>
+<div class="row">
+    <action-button type="success" button-name="Apply" action="$ctrl.apply()" />
+</div>
