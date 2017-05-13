@@ -1,7 +1,7 @@
 ﻿app = angular.module('angularModule', 
     ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 
     'ngAnimate', 'ngResource', 'LocalStorageModule',
-    'ng-virtual-keyboard', 'chart.js', 'ngCookies', 'rzModule']);
+    'ng-virtual-keyboard', 'chart.js', 'ngCookies']);
 
 app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentProvider, $routeProvider) {
     $routeSegmentProvider.options.autoLoadTemplates = true;

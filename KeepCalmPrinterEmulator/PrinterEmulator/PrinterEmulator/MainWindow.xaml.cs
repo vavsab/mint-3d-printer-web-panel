@@ -140,7 +140,7 @@ namespace PrinterEmulator
                 JsonSerializer.Serialize(new InfoOutput
             {
                 State = SelectedState,
-                CullerRate = random.Next(0, 100),
+                CullerRate = random.Next(0, 2550),
                 LineCount = LineCount,
                 LineIndex = LineIndex,
                 TempPWM = (short)random.Next(0, 1024),

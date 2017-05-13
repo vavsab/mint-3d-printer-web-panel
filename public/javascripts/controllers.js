@@ -1045,7 +1045,7 @@ function (commandService, $controller, $scope, printerStatus) {
     var self = this;
 
     self.getValue = function () {
-        return printerStatus.status.speed / 2550 * 100;
+        return parseInt(printerStatus.status.cullerRate / 2550 * 100);
     };
 
     self.minValue = 0;
@@ -1083,7 +1083,7 @@ function (commandService, $controller, $scope, printerStatus) {
     var self = this;
 
     self.getValue = function () {
-        return printerStatus.status.cullerRate;
+        return printerStatus.status.speed;
     };
 
     self.minValue = 5;

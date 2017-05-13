@@ -195,7 +195,10 @@ app.directive('sliderRegulator', [function () {
             var self = this;
             self.min = 0
             self.max = 100;
+            self.distance = 100;
             self.step = 0.1;
+
+            $scope.sliderInputId = 'sliderInput' + parseInt(Math.random() * 100000);
 
             if ($scope.min != null) {
                 self.min = parseFloat($scope.min);
@@ -204,6 +207,10 @@ app.directive('sliderRegulator', [function () {
             if ($scope.max != null) {
                 self.max = parseFloat($scope.max);
             }
+
+            // Slider has bug with click offset when min is not 0.
+            // So slider always uses 0 as min. Other min values are emulated.
+            self.distance = self.max - self.min;
 
             if ($scope.step != null) {
                 self.step = parseFloat($scope.step);
@@ -234,8 +241,35 @@ app.directive('sliderRegulator', [function () {
 
                 $scope.value = $scope.value + delta;
             };
+
+            $scope.$watch('sliderValue', function(newValue) {
+                if (newValue !== undefined) {
+                    $scope.value = newValue + self.min;
+                }
+            });
+
+            $scope.$watch('value', function(newValue) {
+                if (newValue !== undefined) {
+                    $scope.sliderValue = newValue - self.min;
+                }
+            });
         }],
         controllerAs: "$ctrl",
         templateUrl: '/partials/directives/sliderRegulator.html'
     }
 }]);
+
+app.directive("sliderTargetInput", function () {
+    return {
+        restrict: 'A',
+        priority: -1, // give it lower priority than built-in directives
+        link: function(scope, element, attr) {
+            scope.$watch(attr.ngModel, function(value) {
+                if (value !== undefined) {
+                    var event = new Event('keyup');
+                    element[0].dispatchEvent(event);
+                }
+            });
+        }
+    }
+});
