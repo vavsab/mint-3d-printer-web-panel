@@ -74,7 +74,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
     var onPrintingEnded = function() {
         var time = new Date().toLocaleTimeString();
-        if (Notification.permission == 'granted') {
+        if (window.Notification != null && Notification != null && Notification.permission == 'granted') {
             new Notification('Printing is finished', { body: 'Finished at ' + time, icon: '/images/notification-done.png' })
         }
         
@@ -100,8 +100,8 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
             });
         });
     };
-
-    if (Notification.permission == "default") {
+    
+    if (window.Notification != null && Notification.permission == "default") {
         Notification.requestPermission();
     } 
 
