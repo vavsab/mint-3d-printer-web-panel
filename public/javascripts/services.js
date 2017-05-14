@@ -76,8 +76,17 @@ app.service('alertService', ['eventAggregatorFactory', function (eventAggregator
     this.alerts = [];
     this.eventAggregator = new eventAggregatorFactory();
 
-    this.add = function(type, message) {
-        self.alerts.push({type: type, message: message});
+    this.add = function(type, message, code) {
+        if (code != null) {
+            for (var i = 0; i < self.alerts.length; i++) {
+                if (self.alerts[i].code === code) {
+                    self.alerts.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        self.alerts.push({type: type, message: message, code: code, time: new Date()});
         self.eventAggregator.trigger('alertsChanged');
     };
 }]);

@@ -1,2 +1,0 @@
-#!/bin/bash
-NODE_ENV=stage DEBUG=myapp:* npm start

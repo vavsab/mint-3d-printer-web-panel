@@ -31,11 +31,12 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     $scope.alerts = alertService.alerts;
 
     siteAvailabilityInterceptor.onError = function () {
-        alertService.add('danger', 'Site is not available');
+        alertService.add('danger', 'Site is not available', 'site_not_available');
     };
 
     tokenErrorInterceptor.onError = function () {
-        $location.path('/lockScreen');
+        self.lock();
+        alertService.add('warning', 'Session has expired', 'session_expired');
     };
 
     $scope.isMinimized = false;
@@ -55,7 +56,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     }  
 
     alertService.eventAggregator.on('alertsChanged', function () {
-        $scope.$apply();
+        $scope.$applyAsync();
     });
 
     var onStatusReceived = function(status) {
@@ -78,7 +79,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
             new Notification('Printing is finished', { body: 'Finished at ' + time, icon: '/images/notification-done.png' })
         }
         
-        alertService.add('success', 'Printing was finished at ' + time);
+        alertService.add('success', 'Printing was finished', 'printing_finished');
     };
     
     printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
@@ -127,7 +128,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     this.shutdown = function () {
         dialogService.confirm('Are you sure to shutdown?').then(function () {
             shutdownService.shutdown().catch(function (error) {
-                alertService.add('danger', 'Shutdown failed: ' + error);
+                alertService.add('danger', 'Shutdown failed: ' + error, 'shutdown_failed');
             });
         });
     }

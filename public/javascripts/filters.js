@@ -94,3 +94,30 @@ app.filter('millisecondsToTime', [function() {
         return putLeadingZeros(hrs, 2) + ':' + putLeadingZeros(mins, 2) + ':' + putLeadingZeros(secs, 2);
     }
 }]);
+
+app.filter('timeFromNow', [function() {
+    function timeFromNowFilter(time) {
+        var diff = new Date() - time;
+        if (diff < 1000 * 10) { // < 10 sec
+            return 'just now';
+        }
+
+        if (diff < 1000 * 60) { // < 1 min
+            return parseInt(diff / 1000) + ' sec ago';
+        }
+
+        if (diff < 1000 * 60 * 60) { // < 1 hour
+            return parseInt(diff / (1000 * 60)) + ' min ago';
+        }
+
+        if (diff < 1000 * 60 * 60 * 24) { // < 1 day
+            return parseInt(diff / (1000 * 60 * 60)) + ' hour(s) ago';
+        }
+
+        // >= 1 day
+        return parseInt(diff / (1000 * 60 * 60 * 24)) + ' day(s) ago';
+    };
+
+    timeFromNowFilter.$stateful = true;
+    return timeFromNowFilter;
+}]);

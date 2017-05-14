@@ -163,7 +163,9 @@
                 <span class="glyphicon glyphicon-menu-down" style="margin-left:10px; float: right" href ng-show="!isMinimized" ng-click="isMinimized = true;"></span>
             </div>
             <div class="panel-body" ng-show="!isMinimized">
-                <div uib-alert ng-repeat="alert in alerts" style="margin-bottom: 5px;" ng-class="'alert-' + (alert.type || 'warning')" close="removeAlert(alert)">{{alert.message}}</div>
+                <div uib-alert ng-repeat="alert in alerts" style="margin-bottom: 5px;" ng-class="'alert-' + (alert.type || 'warning')" close="removeAlert(alert)">
+                    {{alert.message}} <small>{{alert.time | timeFromNow }}</small>
+                </div>
             </div>
         </div>
     </div>
