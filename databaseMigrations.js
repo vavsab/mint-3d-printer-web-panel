@@ -16,7 +16,7 @@ module.exports.update = () => {
     return mongoClient.connect('mongodb://localhost:27017/mint3d').then(db => {
         database = db;
         configuration = db.collection('configuration');
-        return configuration.findOne({key: 'databaseVersion'}).then(result => result.value);
+        return configuration.findOne({key: 'databaseVersion'}).then(result => result == null ? null : result.value);
     }).then(databaseVersion => {
         if (databaseVersion == null) {
             databaseVersion = 0;
