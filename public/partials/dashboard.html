@@ -29,7 +29,7 @@
         <div class="tile bg-darkCyan fg-white" data-role="tile" ng-click="go('/speed')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-dashboard"></span>
-                <span class="tile-badge bg-darkRed">100%</span>
+                <span class="tile-badge bg-darkRed">{{status.feedRate / 10 | replaceIfUndefined}}%</span>
                 <span class="tile-label">Speed</span>
             </div>
         </div>

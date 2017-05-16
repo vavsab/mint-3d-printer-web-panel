@@ -7,7 +7,7 @@
         <div class="tile bg-darkCyan fg-white">
             <div class="tile-content iconic">
                 <span class="icon fa fa-dashboard"></span>
-                <span class="tile-badge bg-darkRed">{{status.speed | replaceIfUndefined}}%</span>
+                <span class="tile-badge bg-darkRed">{{status.feedRate / 10 | replaceIfUndefined}}%</span>
                 <span class="tile-label">Speed</span>
             </div>
         </div>

@@ -1084,14 +1084,14 @@ function (commandService, $controller, $scope, printerStatus) {
     var self = this;
 
     self.getValue = function () {
-        return printerStatus.status.speed;
+        return printerStatus.status.feedRate / 10;
     };
 
     self.minValue = 5;
     self.maxValue = 300;
 
     self.apply = function () {
-        return commandService.sendCommand('M220 S' + self.value);
+        return commandService.sendCommand('M220 S' + parsetInt(self.value * 10));
     }
 
     $controller('baseSliderController', { parent: self, $scope: $scope });
