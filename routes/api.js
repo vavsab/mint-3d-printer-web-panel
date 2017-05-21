@@ -89,6 +89,11 @@
 
     /* Secure services */
 
+    router.get('/checkToken', function(req, res, next) {
+        // If reached here then it passed token verification
+        res.send();
+    });
+
     router.post('/shutdown', function (req, res) { 
         powerOff(function (err, stderr, stdout) {
             if(!err && !stderr) {

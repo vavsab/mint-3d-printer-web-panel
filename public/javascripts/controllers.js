@@ -6,11 +6,11 @@ app.controller('mainController',
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
     'websiteSettings', 'websiteSettingsService', 'fileService', '$window', 'shutdownService', 
-    'printerStatus', '$location', 'tokenErrorInterceptor', '$cookies',
+    'printerStatus', '$location', 'tokenErrorInterceptor', '$cookies', 'tokenService',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
     commandService, $q, dialogService, loader, localStorageService, browserSettings,
     websiteSettings, websiteSettingsService, fileService, $window, shutdownService,
-    printerStatus, $location, tokenErrorInterceptor, $cookies) {
+    printerStatus, $location, tokenErrorInterceptor, $cookies, tokenService) {
     var self = this;
     this.websiteSettings = websiteSettings;
     $scope.loader = loader;
@@ -35,8 +35,10 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     };
 
     tokenErrorInterceptor.onError = function () {
-        self.lock();
-        alertService.add('warning', 'Session has expired', 'session_expired');
+        if ($location.path().indexOf('lockScreen') == -1) {
+            self.lock();
+            alertService.add('warning', 'Session has expired', 'session_expired');
+        }
     };
 
     $scope.isMinimized = false;
@@ -65,7 +67,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
         printerStatus.status = status;
     };
 
-        // get current status
+    // get current status
     printerStatusService.getStatus()
     .then(function success(status) {
         onStatusReceived(status);
@@ -146,6 +148,13 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     $scope.go = function (path) {
         $location.path(path);
     };
+
+    // Start token checking
+    tokenService.checkToken().then(function () {
+        if ($location.path().indexOf('lockScreen') != -1) {
+            $location.path('/');
+        }
+    });
 }]);
 
 app.controller('lockScreenController', 

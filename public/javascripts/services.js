@@ -4,6 +4,10 @@ app.service('tokenService', ['httpq', function (httpq) {
     this.get = function(password) {
         return httpq.post('/api/token', {password: password});
     };
+
+    this.checkToken = function() {
+        return httpq.get('/api/checkToken');
+    };
 }]);
 
 app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
