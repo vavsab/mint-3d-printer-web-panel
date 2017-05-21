@@ -1,0 +1,1 @@
+# Desktop loader for MINT console

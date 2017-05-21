@@ -10,6 +10,9 @@
 
     <title>MINT Console</title>
 
+    <!-- Insert this line above script imports for electron integration -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
     <!-- jQuery -->
     <script src="/javascripts/libs/jquery/dist/jquery.min.js"></script>
 
@@ -82,6 +85,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Insert this line after script imports for electron integration -->
+    <script>if (window.module) module = window.module;</script>
 </head>
 
 <body ng-controller="mainController as $ctrl" ng-cloak>
