@@ -86,22 +86,23 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     
     printerStatusService.eventAggregator.on('printingEnded', onPrintingEnded);
     
-    $scope.emergencyStop = function () {
-        return $q(function (resolve, reject) {
-            dialogService.confirm("Are you sure to stop printing?", 'Emergency stop').then(
+    self.stop = function () {
+        return dialogService.confirm("Are you sure to stop printing?", 'Emergency stop').then(
             function success () {
-                commandService.sendCommand("stop").then(
-                function success () {
-                    resolve();
-                },
-                function error (error) {
-                    reject(error);
-                });
-            },
-            function error () {
-                resolve('cancelled');
-            });
+                return commandService.sendCommand("stop");
         });
+    };
+
+    self.pause = function () { 
+        return dialogService.confirm("Are you sure to pause?", 'Pause').then(
+            function success() {
+                return commandService.sendCommand("pause");
+            }
+        );
+    };
+
+    self.resume = function () { 
+        return commandService.sendCommand("resume");
     };
     
     if (window.Notification != null && Notification.permission == "default") {
@@ -133,7 +134,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
                 alertService.add('danger', 'Shutdown failed: ' + error, 'shutdown_failed');
             });
         });
-    }
+    };
 
     fileService.eventAggregator.on('diskspace', refreshDiskspace);
 
@@ -196,7 +197,32 @@ function (printerStatus, $location, websiteSettings, $cookies, tokenService, loa
     }
 }]);
 
-app.controller('dashboardController', [function () {
+app.controller('dashboardController', ['printerStatusService', 'dialogService', 'commandService', 
+function (printerStatusService, dialogService, commandService) {
+    var self = this;
+
+    self.isPauseMode = false;
+
+    self.resume = function () { 
+        return commandService.sendCommand("resume")
+            .then(function success() {
+                self.isPauseMode = false;
+            });
+    };
+
+    self.cancelResume = function () {
+        return dialogService.confirm("Are you sure that you don't need to resume? It will be impossible to resume after that.", 'Clear pause')
+            .then(function success() {
+                return printerStatusService.cancelResume();
+            })
+            .then(function success() {
+                self.isPauseMode = false;
+            });
+    };
+
+    printerStatusService.checkResume().then(function (result) {
+        self.isPauseMode = result;
+    });
 }]);
 
 app.controller('fileManagerController', 

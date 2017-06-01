@@ -34,7 +34,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         })
         .segment('main', {
             templateUrl: 'partials/dashboard.html',
-            controller: 'dashboardController'
+            controller: 'dashboardController as $ctrl'
         })
         .segment('fileManager', {
             templateUrl: 'partials/fileManager.html',
@@ -123,24 +123,3 @@ app.value('loader', {show: true});
 app.value('printerStatus', {status: {}, isLocked: false});
 app.value('browserSettings', {showVirtualKeyboard: false, isDarkTheme: false});
 app.value('websiteSettings', {settings: {}, defaultPrinterName: 'Keep Calm Printer'});
-
-app.factory('httpq', ['$http', '$q', function($http, $q) {
-  return {
-    get: function() {
-      var deferred = $q.defer();
-      $http.get.apply(null, arguments)
-        .success(deferred.resolve)
-        .error(deferred.reject);
-
-      return deferred.promise;
-    },
-    post: function() {
-      var deferred = $q.defer();
-      $http.post.apply(null, arguments)
-        .success(deferred.resolve)
-        .error(deferred.reject);
-
-      return deferred.promise;
-    }
-  };
-}]);

@@ -147,8 +147,14 @@
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+                <li ng-show="!$ctrl.printerStatus.isLocked && status.state == 'Pause'">
+                    <action-button button-name="Resume" type='info' popover-placement="bottom" action='$ctrl.resume()' />
+                </li>
+                <li ng-show="!$ctrl.printerStatus.isLocked && status.state == 'Printing'">
+                    <action-button button-name="Pause" type='warning' popover-placement="bottom" action='$ctrl.pause()' />
+                </li>
                 <li ng-show="!$ctrl.printerStatus.isLocked && status.state != undefined && status.state != 'Idle'">
-                    <action-button button-name="Emergency stop" type='danger' popover-placement="bottom" action='emergencyStop()' />
+                    <action-button button-name="Stop" type='danger' popover-placement="bottom" action='$ctrl.stop()' />
                 </li>
             </ul>
         </nav>

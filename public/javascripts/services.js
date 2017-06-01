@@ -146,6 +146,14 @@ function ($http, httpq, eventAggregatorFactory, $q, printerStatus) {
         return httpq.get('/api/status/temperature');
     };
 
+    this.checkResume = function () {
+        return httpq.get('/api/status/resume');
+    };
+
+    this.cancelResume = function () {
+        return httpq.delete('/api/status/resume');
+    };
+
     this.getStatus();
 }]);
 

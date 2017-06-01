@@ -4,6 +4,14 @@
     </div>
 </div>
 
+<div class="alert alert-info" ng-if="$ctrl.isPauseMode && status.state == 'Idle'">
+  <strong>Pause detected!</strong> Printing was previously paused. Do you want to resume? 
+  <div style="margin-top: 10px;">
+    <action-button button-name="Resume" type='success' action='$ctrl.resume()' />
+    <action-button button-name="Cancel" type='warning' action='$ctrl.cancelResume()' />
+  </div>
+</div>
+
 <div class="row metro">
     <div class="tile-container">
         <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/fileManager')">

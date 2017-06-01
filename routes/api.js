@@ -191,6 +191,16 @@
         res.status(200).json(printerStatusController.temperatureChartData);
     });
 
+    router.get('/status/resume', function(req, res, next) {
+        let pauseFileExists = fs.existsSync('pause.info');
+        res.send(pauseFileExists);
+    });
+
+    router.delete('/status/resume', function(req, res, next) {
+        fs.removeSync('pause.info');
+        res.send();
+    });
+
     router.get('/fileManager', function (req, res) {
         var currentFolderAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.path));
         if (!currentFolderAbsolutePath.startsWith(fileManagerRootPath)) {

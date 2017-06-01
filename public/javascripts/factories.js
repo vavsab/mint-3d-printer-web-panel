@@ -31,3 +31,32 @@ app.factory('tokenErrorInterceptor', ['$q', function($q) {
 
     return this;
 }]);
+
+app.factory('httpq', ['$http', '$q', function($http, $q) {
+  return {
+    get: function() {
+      var deferred = $q.defer();
+      $http.get.apply(null, arguments)
+        .success(deferred.resolve)
+        .error(deferred.reject);
+
+      return deferred.promise;
+    },
+    post: function() {
+      var deferred = $q.defer();
+      $http.post.apply(null, arguments)
+        .success(deferred.resolve)
+        .error(deferred.reject);
+
+      return deferred.promise;
+    },
+    delete: function() {
+      var deferred = $q.defer();
+      $http.delete.apply(null, arguments)
+        .success(deferred.resolve)
+        .error(deferred.reject);
+
+      return deferred.promise;
+    }
+  };
+}]);
