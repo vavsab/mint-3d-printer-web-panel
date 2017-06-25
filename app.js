@@ -11,6 +11,8 @@ const logger = require('./logger');
 const globalConstants = require('./globalConstants');
 const databaseMigrations = require('./databaseMigrations');
 const repository = require('./repository');
+const socketControllerFactory = require('./controllers/socketController');
+const updateControllerFactory = require('./controllers/updateController');
 const port = 3123;
 
 try {
@@ -37,9 +39,6 @@ databaseMigrations.update().then(() => {
   var printerProxy = require('./printerProxy');
   printerProxy = new printerProxy();
 
-  var routes = require('./routes/index');
-  var apiCreator = require('./routes/api');
-
   var app = express();
   var server = require('http').Server(app);
   server.listen(3123);
@@ -57,13 +56,21 @@ databaseMigrations.update().then(() => {
   app.use(express.static(path.join(__dirname, 'public')));
 
   repository.getTokenPassword().then(tokenPassword => {
-    printerStatusController = printerStatusController(server, printerProxy);
+    let socketController = socketControllerFactory(server);
+    let updateController = updateControllerFactory(socketController);
+
+    printerStatusController = printerStatusController(socketController, printerProxy);
+
+    var routes = require('./routes/index');
+    var apiFactory = require('./routes/api');
+    var apiSettingsFactory = require('./routes/api.settings');
 
     app.use('/', routes);
-    app.use('/api', apiCreator(tokenPassword, printerProxy, printerStatusController));
+    app.use('/api', apiFactory(tokenPassword, printerProxy, printerStatusController));
+    app.use('/api', apiSettingsFactory(updateController));
 
     // catch 404 and forward to error handler
-    app.use(function(req, res, next) {
+    app.use((req, res, next) => {
       var err = new Error('Not Found');
       err.status = 404;
       next(err);
@@ -74,7 +81,7 @@ databaseMigrations.update().then(() => {
     // development error handler
     // will print stacktrace
     if (app.get('env') !== 'production') {
-      app.use(function(err, req, res, next) {
+      app.use((err, req, res, next) => {
         logger.error(err);
         res.status(err.status || 500);
         res.json({
@@ -86,7 +93,7 @@ databaseMigrations.update().then(() => {
 
     // production error handler
     // no stacktraces leaked to user
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
       res.status(err.status || 500);
       res.json({
         error: err.message
@@ -108,13 +115,17 @@ databaseMigrations.update().then(() => {
       
       if (options.exit) {
         logger.info("Flush logger and exit");
-        log4js.shutdown(function() { 
-          process.exit(); 
-        });
+        log4js.shutdown(() => process.exit());
       }
 
-      printerStatusController.flush();
+      if (printerStatusController.flush) {
+        printerStatusController.flush();
+      }
   }
+
+  process.on('unhandledRejection', (reason, p) => {
+    logger.error(`Unhandled promise rejection: ${reason}`);
+  });
 
   //do something when app is closing
   process.on('exit', exitHandler.bind(null, { cleanup: true }));

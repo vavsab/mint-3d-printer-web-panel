@@ -24,6 +24,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/settings/browser', 'settings_browser')
         .when('/settings/server', 'settings_server')
         .when('/settings/printer', 'settings_printer')
+        .when('/settings/update', 'settings_update')
         .when('/settings/printer/z-index', 'settings_printer_z-index')
         .when('/settings/printer/extruder', 'settings_printer_extruder')
         .when('/settings/printer/advanced', 'settings_printer_advanced')
@@ -84,30 +85,34 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             templateUrl: 'partials/settings.html',
         })
         .segment('settings_browser', {
-            templateUrl: 'partials/settings.browser.html',
+            templateUrl: 'partials/settings/browser.html',
             controller: 'settingsBrowserController as $ctrl'
         })
         .segment('settings_change-password', {
-            templateUrl: 'partials/settings.change-password.html',
+            templateUrl: 'partials/settings/change-password.html',
             controller: 'settingsChangePasswordController as $ctrl'
         })
         .segment('settings_server', {
-            templateUrl: 'partials/settings.server.html',
+            templateUrl: 'partials/settings/server.html',
             controller: 'settingsServerController as $ctrl'
         })
         .segment('settings_printer', {
-            templateUrl: 'partials/settings.printer.html'
+            templateUrl: 'partials/settings/printer.html'
+        })
+        .segment('settings_update', {
+            templateUrl: 'partials/settings/update.html',
+            controller: 'settingsUpdateController as $ctrl'
         })
         .segment('settings_printer_z-index', {
-            templateUrl: 'partials/settings.printer.z-index.html',
+            templateUrl: 'partials/settings/printer/z-index.html',
             controller: 'settingsPrinterZIndexController as $ctrl'
         })
         .segment('settings_printer_extruder', {
-            templateUrl: 'partials/settings.printer.extruder.html',
+            templateUrl: 'partials/settings/printer/extruder.html',
             controller: 'settingsPrinterExtruderController as $ctrl'
         })
         .segment('settings_printer_advanced', {
-            templateUrl: 'partials/settings.printer.advanced.html',
+            templateUrl: 'partials/settings/printer/advanced.html',
             controller: 'settingsPrinterAdvancedController as $ctrl'
         });
 
@@ -120,6 +125,7 @@ app.config(['$httpProvider', function($httpProvider) {
 }]);
 
 app.value('loader', {show: true});
+app.value('socket', io.connect());
 app.value('printerStatus', {status: {}, isLocked: false});
-app.value('browserSettings', {showVirtualKeyboard: false, isDarkTheme: false});
+app.value('browserSettings', {showVirtualKeyboard: false, isDarkTheme: true});
 app.value('websiteSettings', {settings: {}, defaultPrinterName: 'Keep Calm Printer'});

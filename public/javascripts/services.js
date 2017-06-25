@@ -102,8 +102,8 @@ app.service('commandService', ['httpq', function (httpq) {
 }]);
 
 app.service('printerStatusService', 
-['$http', 'httpq', 'eventAggregatorFactory', '$q', 'printerStatus', 
-function ($http, httpq, eventAggregatorFactory, $q, printerStatus) {
+['$http', 'httpq', 'eventAggregatorFactory', '$q', 'printerStatus', 'socket', 
+function ($http, httpq, eventAggregatorFactory, $q, printerStatus, socket) {
     this.eventAggregator = new eventAggregatorFactory();
     var self = this;
 
@@ -113,7 +113,6 @@ function ($http, httpq, eventAggregatorFactory, $q, printerStatus) {
         self.eventAggregator.trigger('statusReceived', status);
     };
 
-    var socket = io.connect();
     socket.on('status', function (data) {
         refreshStatus(data);
     });
@@ -395,6 +394,24 @@ app.service('websiteSettingsService', ['httpq', function (httpq) {
     this.save = function (settings) {
         return httpq.post('/api/settings/website', settings);
     };
+}]);
+
+app.service('updateService', ['httpq', function (httpq) {
+    this.getStatus = function () {
+        return httpq.get('/api/settings/update/status');
+    };
+
+    this.fetch = function () {
+        return httpq.get('/api/settings/update/fetch');
+    };
+
+    this.pullAsync = function () {
+        return httpq.post('/api/settings/update/pull');
+    }
+
+    this.installAsync = function () {
+        return httpq.post('/api/settings/update/install');
+    }
 }]);
 
 app.service('printerSettingsService', ['httpq', function (httpq) {

@@ -1,3 +1,5 @@
 {
-    "PrinterFilePath" : "KeepCalmPrinterEmulator/PrinterEmulator/PrinterEmulator/bin/Debug/PrinterEmulator.exe"    
+    "PrinterFilePath" : "emulators/printer/PrinterEmulator/bin/Debug/PrinterEmulator.exe",
+    "pathToUpdateScript": "emulators\\update\\update.bat",
+    "pathToVersion": "emulators\\update\\version"
 }

@@ -41,35 +41,35 @@ var socketIo = require('socket.io')(server);
 var browserSockets = [];
 var printerProcess = spawn(config.get("PrinterFilePath"));
 
-socketIo.on('connection', function (socket) {
+socketIo.on('connection', (socket) => {
     logger.info("socket connected")
     browserSockets.push(socket);
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
         logger.info("socket disconnected")
         browserSockets.splice(browserSockets.indexOf(socket), 1);
     });
 
-    socket.on('stdin', function (data) {
+    socket.on('stdin', (data) => {
         logger.trace('stdin: ' + data);
         printerProcess.stdin.write(data);
     });
 
-    socket.on('setLoggerLevel', function (level) {
+    socket.on('setLoggerLevel', (level) => {
         logger.setLevel(level);
     });
 });
 
-printerProcess.stderr.on('data', function(data) {
+printerProcess.stderr.on('data', (data) => {
     data = data.toString();
     logger.error(data);
 
-    browserSockets.forEach(function(socket, i, arr) {
+    browserSockets.forEach((socket, i, arr) => {
         socket.emit('stderr', data);
     });
 });
 
-printerProcess.stdout.on('data', function(data) {
+printerProcess.stdout.on('data', (data) => {
     data = data.toString();
     logger.trace("Data from printer was received: " + data);
 
@@ -77,17 +77,13 @@ printerProcess.stdout.on('data', function(data) {
         return;
     }
 
-    browserSockets.forEach(function(socket, i, arr) {
-        socket.emit('stdout', data);
-    });
+    browserSockets.forEach((socket, i, arr) => socket.emit('stdout', data));
 });
 
-printerProcess.on('exit', function () {
+printerProcess.on('exit', () => {
     logger.info('Exit bacause printer process stopped');
     logger.info("Flush logger and exit");
-    log4js.shutdown(function() { 
-        process.exit(); 
-    });
+    log4js.shutdown(() => process.exit());
 });
 
 function exitHandler(options, err) {
@@ -103,11 +99,13 @@ function exitHandler(options, err) {
 
     if (options.exit) {
         logger.info("Flush logger and exit");
-        log4js.shutdown(function() { 
-            process.exit(); 
-        });
+        log4js.shutdown(() => process.exit());
     }
 }
+
+process.on('unhandledRejection', (reason, p) => {
+    logger.error(`Unhandled promise rejection: ${reason}`);
+});
 
 //do something when app is closing
 process.on('exit', exitHandler.bind(null, { cleanup: true }));

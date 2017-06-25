@@ -1,4 +1,4 @@
-module.exports = function (server, printerProxy)
+module.exports = (socketController, printerProxy) =>
 {
   function RemainingTimeCounter() {
     var initialStartTime = null;
@@ -10,16 +10,16 @@ module.exports = function (server, printerProxy)
     var doneItems = null;
     var totalItems = null;
 
-    this.start = function () {
+    this.start = () => {
       initialStartTime = new Date();
       virtualStartTime = initialStartTime;
     };
 
-    this.pause = function () {
+    this.pause = () => {
       lastPauseTime = new Date();
     };
 
-    this.resume = function () {
+    this.resume = () => {
       if (lastPauseTime != null) {
         // add pause time to start time
         virtualStartTime = new Date(virtualStartTime.getTime() + (new Date() - lastPauseTime));
@@ -27,12 +27,12 @@ module.exports = function (server, printerProxy)
       }
     };
 
-    this.setProgress = function (done, total) {
+    this.setProgress = (done, total) => {
       doneItems = done;
       totalItems = total;
     };
 
-    this.getRemainedTime = function () {
+    this.getRemainedTime = () => {
       if (virtualStartTime == null || doneItems == null || totalItems == null) {
         return null;
       }
@@ -42,13 +42,8 @@ module.exports = function (server, printerProxy)
       return (totalItems - doneItems) * averageTimePerItem;
     };
 
-    this.getDoneItems = function () {
-      return doneItems;
-    };
-
-    this.getStartTime = function () {
-      return initialStartTime;
-    };
+    this.getDoneItems = () => doneItems;
+    this.getStartTime = () => initialStartTime;
   };
 
   var remainingTimeCounter = new RemainingTimeCounter();
@@ -95,14 +90,12 @@ module.exports = function (server, printerProxy)
     temp: [] 
   };
 
-  var io = require('socket.io')(server);
   var config = require('config');
   var logger = require('./logger');
   var fs = require('fs-extra');
   var fileManagerRootPath = fs.realpathSync("files");
 
   var lastPrintingStatusUpdateDate = new Date(0); // Status for printing process
-  var browserSockets = [];
 
   var printerErrorsFilePath = 'logs/lastPrinterErrros.json'; 
   var maxPrinterErrorCount = 50;
@@ -116,33 +109,31 @@ module.exports = function (server, printerProxy)
     }
   }
 
-  printerProxy.on('connected', function() {
+  printerProxy.on('connected', () => {
     printerProxy.send(requestPrinterStatusCommand); // Request printer status
   });
 
   // Request status in idle mode
-  setInterval(function () {
+  setInterval(() => {
     if (new Date() - lastPrintingStatusUpdateDate > 1000) {
       printerProxy.send(requestPrinterStatusCommand); // Request printer status
     }
   }, 1000);
 
-  printerProxy.on('data', function(data) {
+  printerProxy.on('data', (data) => {
     data = data.toString();
     logger.trace("printerStatusController: Data received: " + data);
     if (data.includes("End print")) {
       // to receive the last status message
       lastPrintingStatusUpdateDate = new Date(0);
-      browserSockets.forEach(function(socket, i, arr) {
-        socket.emit("event", { type: "endPrint" });
-      });
+      socketController.sendToAll('event', { type: 'endPrint'});
       
       return;
     }
 
-    if (browserSockets.length > 0 && new Date() - lastPrintingStatusUpdateDate > 1000) {
+    if (socketController.getClientsCount() > 0 && new Date() - lastPrintingStatusUpdateDate > 1000) {
       var strings = data.split("\n");
-      strings.forEach(function(item, i, arr) { 
+      strings.forEach((item, i, arr) => { 
         if (item.startsWith("I")) {
           lastPrintingStatusUpdateDate = new Date();
           item = item.substr(1);
@@ -157,12 +148,12 @@ module.exports = function (server, printerProxy)
 
           status.date = new Date();
 
-          temperatureChartData.baseTemp.push({date: status.date, value: status.baseTemp});
-          temperatureChartData.temp.push({date: status.date, value: status.temp});
+          self.temperatureChartData.baseTemp.push({date: status.date, value: status.baseTemp});
+          self.temperatureChartData.temp.push({date: status.date, value: status.temp});
 
-          while (temperatureChartData.baseTemp.length > 30) {
-            temperatureChartData.baseTemp.shift();
-            temperatureChartData.temp.shift();
+          while (self.temperatureChartData.baseTemp.length > 30) {
+            self.temperatureChartData.baseTemp.shift();
+            self.temperatureChartData.temp.shift();
           };
           
 
@@ -214,35 +205,23 @@ module.exports = function (server, printerProxy)
 
           self.currentStatus = status;
           
-          browserSockets.forEach(function(socket, i, arr) {       
-            socket.emit('status', status);
-          });
+          socketController.sendToAll('status', status);
 
           logger.trace("printerStatusController: sent status to subscribers");
       }});
     }
   });
 
-  printerProxy.on('error', function(data) { 
+  printerProxy.on('error', (data) => { 
     self.lastPrinterErrors.push({ date: new Date(), message: data});
     while (self.lastPrinterErrors.length > maxPrinterErrorCount){
       self.lastPrinterErrors.shift();
     }
   });
 
-  this.flush = function () {
+  this.flush = () => {
     fs.writeFileSync(printerErrorsFilePath, JSON.stringify(self.lastPrinterErrors));
   }
-
-  io.on('connection', function (socket) {
-    logger.info("socket connected")
-    browserSockets.push(socket)
-
-    socket.on('disconnect', function () {
-        logger.info("socket disconnected")
-        browserSockets.splice(browserSockets.indexOf(socket), 1);
-    });
-  });
 
   return this;
 }
