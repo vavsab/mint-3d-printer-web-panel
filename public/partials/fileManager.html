@@ -1,13 +1,15 @@
 ﻿<div class="page-header">
-    <title-control>File Manager</title-control>
+    <title-control><translate>File Manager</translate></title-control>
 </div>
 
 <div class="row">
-    <b>Disk usage: {{diskspace.total - diskspace.free | dataSize}} of {{diskspace.total | dataSize}}</b>
+    <b translate translate-params-free="diskspace.free | dataSize" translate-params-total="diskspace.total | dataSize">
+        Disk usage: {{free}} free of {{total}}
+    </b>
     <uib-progressbar type="warning" value="(diskspace.total - diskspace.free) / diskspace.total * 100">
         <span>{{((diskspace.total - diskspace.free) / diskspace.total * 100) | toFixed : 2 }}%</span>
     </uib-progressbar>
-    <span class="label label-default" ng-show="isFolderLoading">Folder is loading...</span>
+    <span class="label label-default" ng-show="isFolderLoading"><translate>Folder is loading...</translate></span>
     <span class="label label-warning" ng-show="folderLoadingError != null">Error: {{folderLoadingError}}</span>
     <div ng-show="!isFolderLoading && !folderLoadingError">
 

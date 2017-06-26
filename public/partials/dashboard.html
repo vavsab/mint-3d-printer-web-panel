@@ -1,14 +1,14 @@
 ﻿<div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Dashboard</h1>
+        <h1 class="page-header" translate>Dashboard</h1>
     </div>
 </div>
 
 <div class="alert alert-info" ng-if="$ctrl.isPauseMode && status.state == 'Idle'">
-  <strong>Pause detected!</strong> Printing was previously paused. Do you want to resume? 
+  <strong><translate>Pause detected!</translate></strong> <translate>Printing was previously paused. Do you want to resume?</translate> 
   <div style="margin-top: 10px;">
-    <action-button button-name="Resume" type='success' action='$ctrl.resume()' />
-    <action-button button-name="Cancel" type='warning' action='$ctrl.cancelResume()' />
+    <action-button button-name="{{'Resume' | translate}}" type='success' action='$ctrl.resume()' />
+    <action-button button-name="{{'Cancel' | translate}}" type='warning' action='$ctrl.cancelResume()' />
   </div>
 </div>
 
@@ -17,67 +17,66 @@
         <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/fileManager')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-print"></span>
-                <span class="tile-label">Print</span>
-                <span class="tile-badge bg-darkRed" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="Less than 20% of disk space remained">Low space</span>
+                <span class="tile-label" translate translate-context="Tile">Print</span>
+                <span class="tile-badge bg-darkRed" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="{{'Less than 20% of disk space remained' | translate}}" translate>Low space</span>
             </div>
         </div>      
         <div class="tile bg-darkBlue fg-white" data-role="tile" ng-click="go('/movements')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-arrows-alt"></span>
-                <span class="tile-label">Move</span>
+                <span class="tile-label" translate translate-context="Tile">Move</span>
             </div>
         </div>
         <div class="tile bg-red fg-white" data-role="tile" ng-click="go('/temperature')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-thermometer-full"></span>
                 <span class="tile-badge bg-darkRed">{{status.temp / 10 | replaceIfUndefined}} °C</span>
-                <span class="tile-label">Temp</span>
+                <span class="tile-label" translate translate-context="Tile">Temp</span>
             </div>
         </div>
         <div class="tile bg-darkCyan fg-white" data-role="tile" ng-click="go('/speed')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-dashboard"></span>
                 <span class="tile-badge bg-darkRed">{{status.feedRate / 10 | replaceIfUndefined}}%</span>
-                <span class="tile-label">Speed</span>
+                <span class="tile-label" translate translate-context="Tile">Speed</span>
             </div>
         </div>
         <div class="tile bg-orange fg-white" data-role="tile" ng-click="go('/fan')">
             <div class="tile-content iconic">
                 <span class="icon icon-fan"></span>
                 <span class="tile-badge bg-darkRed">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
-                <span class="tile-label">Fan</span>
+                <span class="tile-label" translate translate-context="Tile">Fan</span>
             </div>
         </div>    
         <div class="tile bg-emerald fg-white" data-role="tile" ng-click="go('/console')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-terminal"></span>
-                <span class="tile-label">Console</span>
+                <span class="tile-label" translate translate-context="Tile">Console</span>
             </div>
         </div>      
         <div class="tile bg-darkOrange fg-white" data-role="tile" ng-click="go('/status')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-info-circle"></span>
-                <span class="tile-label">Status</span>
+                <span class="tile-label" translate translate-context="Tile">Status</span>
             </div>
         </div>      
         <div class="tile bg-green fg-white" data-role="tile" ng-click="go('/macros')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-link"></span>
-                <span class="tile-label">Macros</span>
+                <span class="tile-label" translate translate-context="Tile">Macros</span>
             </div>
         </div>
         <div class="tile bg-darkPink fg-white" data-role="tile" ng-click="go('/logs')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-exclamation-triangle"></span>
-                <span class="tile-label">Logs</span>
+                <span class="tile-label" translate translate-context="Tile">Logs</span>
             </div>
         </div>
         <div class="tile bg-gray fg-white" data-role="tile" ng-click="go('/settings')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-wrench"></span>
-                <span class="tile-label">Settings</span>
+                <span class="tile-label" translate translate-context="Tile">Settings</span>
             </div>
         </div>
     </div>
 </div>
-<!-- /.row -->

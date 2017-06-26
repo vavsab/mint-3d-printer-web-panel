@@ -4,23 +4,25 @@ app.filter('toTrusted', ['$sce', function($sce){
     };
 }]);
 
-app.filter('toStatusText', [function(){
+app.filter('toStatusText', ['gettextCatalog', function(gettextCatalog){
     return function(status) {        
         switch (status) {
-            case "CopyData":
-                return "Copying data";
-            case "CopyDataBuffer":
-                return "Copying (buffer)";
-            case "PauseBuffering":
-                return "Buffering paused";
-            case "PrintBuffering":
-                return "Buffering";
-            case "Printing":
-                return "Printing";
-            case "Pause":
-                return "Paused";
-            case "PausePrintBuffering":
-                return "Paused (buffer)";
+            case 'CopyData':
+                return gettextCatalog.getString('Copying data');
+            case 'CopyDataBuffer':
+                return gettextCatalog.getString('Copying (buffer)');
+            case 'PauseBuffering':
+                return gettextCatalog.getString('Buffering paused');
+            case 'PrintBuffering':
+                return gettextCatalog.getString('Buffering');
+            case 'Printing':
+                return gettextCatalog.getString('Printing');
+            case 'Pause':
+                return gettextCatalog.getString('Paused');
+            case 'PausePrintBuffering':
+                return gettextCatalog.getString('Paused (buffer)');
+            case 'Idle':
+                return gettextCatalog.getString('Idle');
             default:
                 return status;
         }

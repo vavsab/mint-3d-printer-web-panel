@@ -1,7 +1,13 @@
 ﻿app = angular.module('angularModule', 
     ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 
     'ngAnimate', 'ngResource', 'LocalStorageModule',
-    'ng-virtual-keyboard', 'chart.js', 'ngCookies']);
+    'ng-virtual-keyboard', 'chart.js', 'ngCookies', 'gettext']);
+
+app.run(['gettextCatalog', function (gettextCatalog) {
+    var lang = 'en_US';
+    gettextCatalog.setCurrentLanguage(lang);
+    gettextCatalog.loadRemote('/i18n/' + lang + '.json');
+}]);
 
 app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentProvider, $routeProvider) {
     $routeSegmentProvider.options.autoLoadTemplates = true;

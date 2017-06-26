@@ -1,5 +1,5 @@
 <div class="page-header">
-    <title-control>Advanced printer settings</title-control>
+    <title-control><translate>Advanced printer settings</translate></title-control>
 </div>
 
 <div class="row">
@@ -15,14 +15,14 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <action-button action="$ctrl.save();" button-name="Apply" type="success" allow-when-printer-is-in-state="Idle" />
-                    <action-button action="$ctrl.reset();" button-name="Set to defaults" type="warning" allow-when-printer-is-in-state="Idle" />
+                    <action-button action="$ctrl.save();" button-name="{{'Apply' | translate}}" type="success" allow-when-printer-is-in-state="Idle" />
+                    <action-button action="$ctrl.reset();" button-name="{{'Set to defaults' | translate}}" type="warning" allow-when-printer-is-in-state="Idle" />
                 </div>
             </div>
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Hot end temperatures
+                    <translate>Hot end temperatures</translate>
                 </div>
                 <div class="panel-body">
                     <canvas class="chart chart-line" height="75" chart-data="$ctrl.temperatureChartData" 

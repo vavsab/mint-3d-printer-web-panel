@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MINT Console</title>
+    <title translate>MINT Console</title>
 
     <!-- Insert this line above script imports for electron integration -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
@@ -58,6 +58,7 @@
     <script src="/javascripts/libs/angular-animate/angular-animate.js"></script>
     <script src="/javascripts/libs/angular-touch/angular-touch.js"></script>
     <script src="/javascripts/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/javascripts/libs/angular-gettext/dist/angular-gettext.js"></script>
     <script src="/javascripts/libs/ng-file-upload/ng-file-upload.js"></script>
     <script src="/javascripts/libs/jquery-ui/jquery-ui.js"></script>
 
@@ -91,7 +92,7 @@
 </head>
 
 <body ng-controller="mainController as $ctrl" ng-cloak>
-    <div id="loading" class="alert" ng-show="loader.show">Loading...</div>
+    <div id="loading" class="alert" ng-show="loader.show" translate>Loading...</div>
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -108,18 +109,18 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" uib-tooltip="Temperature" tooltip-placement="bottom">
+                    <a class="dropdown-toggle" uib-tooltip="{{'Temperature' | translate}}" tooltip-placement="bottom">
                         <span class="fa fa-thermometer-full"></span>
                         {{status.temp / 10 | replaceIfUndefined}} °C
                     </a>
                 </li>
-                <li class="dropdown" uib-tooltip="Fan" tooltip-placement="bottom">
+                <li class="dropdown" uib-tooltip="{{'Fan' | translate}}" tooltip-placement="bottom">
                     <a class="dropdown-toggle">
                         <span class="icon-fan"></span>
                         {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}% 
                     </a>
                 </li>
-                <li class="dropdown" uib-tooltip="Status" tooltip-placement="bottom">
+                <li class="dropdown" uib-tooltip="{{'Status' | translate}}" tooltip-placement="bottom">
                     <a class="dropdown-toggle">
                         <span class="label label-bg" ng-class="{'label-success': ['Printing', 'PrintBuffering'].indexOf(status.state) != -1, 'label-warning': ['CopyData', 'CopyDataBuffer', 'Buffering', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf(status.state) != -1, 'label-default': status.state == 'Idle'}">
                             {{status.state | toStatusText}}
@@ -132,30 +133,30 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href ng-click="$ctrl.play2048();"><i class="fa fa-play-circle fa-fw"></i> Play 2048</a>
+                            <a href ng-click="$ctrl.play2048();"><i class="fa fa-play-circle fa-fw"></i> <translate>Play 2048</translate></a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href ng-click="$ctrl.reload();"><i class="fa fa-refresh fa-fw"></i> Reload</a>
+                            <a href ng-click="$ctrl.reload();"><i class="fa fa-refresh fa-fw"></i> <translate>Reload</translate></a>
                         </li>
                         <li class="divider" ng-show="!$ctrl.printerStatus.isLocked"></li>
                         <li>
-                            <a href ng-click="$ctrl.lock();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-sign-out fa-fw"></i> Lock</a>
+                            <a href ng-click="$ctrl.lock();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-sign-out fa-fw"></i> <translate>Lock</translate></a>
                         </li>
                         <li>
-                            <a href ng-click="$ctrl.shutdown();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-power-off fa-fw"></i> Shutdown</a>
+                            <a href ng-click="$ctrl.shutdown();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-power-off fa-fw"></i> <translate>Shutdown</translate></a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
                 <li ng-show="!$ctrl.printerStatus.isLocked && status.state == 'Pause'">
-                    <action-button button-name="Resume" type='info' popover-placement="bottom" action='$ctrl.resume()' />
+                    <action-button button-name="{{'Resume' | translate}}" type='info' popover-placement="bottom" action='$ctrl.resume()' />
                 </li>
                 <li ng-show="!$ctrl.printerStatus.isLocked && status.state == 'Printing'">
-                    <action-button button-name="Pause" type='warning' popover-placement="bottom" action='$ctrl.pause()' />
+                    <action-button button-name="{{'Pause' | translate}}" type='warning' popover-placement="bottom" action='$ctrl.pause()' />
                 </li>
                 <li ng-show="!$ctrl.printerStatus.isLocked && status.state != undefined && status.state != 'Idle'">
-                    <action-button button-name="Stop" type='danger' popover-placement="bottom" action='$ctrl.stop()' />
+                    <action-button button-name="{{'Stop' | translate}}" type='danger' popover-placement="bottom" action='$ctrl.stop()' />
                 </li>
             </ul>
         </nav>
@@ -169,7 +170,7 @@
     <div style="position: fixed; bottom: 0; left: 3px;" ng-show="alerts.length > 0">
         <div class="panel panel-default" style="margin-bottom: 3px;">
             <div class="panel-heading">
-                Messages <span class="badge">{{alerts.length}}</span>
+                <translate>Messages</translate> <span class="badge">{{alerts.length}}</span>
                 <span class="glyphicon glyphicon-trash" style="margin-left:10px; float: right" href ng-click="removeAllAlerts();"></span>
                 <span class="glyphicon glyphicon-menu-up" style="margin-left:10px; float: right" href ng-show="isMinimized" ng-click="isMinimized = false;"></span>
                 <span class="glyphicon glyphicon-menu-down" style="margin-left:10px; float: right" href ng-show="!isMinimized" ng-click="isMinimized = true;"></span>
