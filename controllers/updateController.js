@@ -17,9 +17,13 @@ module.exports = (socketController) => {
     // - InstallingError
 
     let status = {state: 'Idle', error: null};
- 
-    let versionString = fs.readFileSync(pathToVersion).toString();
-    status.version = JSON.parse(versionString);
+    
+    try {
+        let versionString = fs.readFileSync(pathToVersion).toString();
+        status.version = JSON.parse(versionString);
+    } catch (e) {
+        logger.error(`Could not read version file ${e}`)
+    }
 
     let refreshDownloadedVersion = () => {
         let stateString = execSync(`${pathToUpdateScript} --state`).toString();
