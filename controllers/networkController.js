@@ -2,6 +2,10 @@ module.exports = () => {
     const wifiControl = require('wifi-control');
     const logger = require('../logger');
 
+    wifiControl.configure({
+        iface: 'wlan0'
+    });
+
     this.getWifiAPs = () =>
         new Promise((resolve, reject) => {
             wifiControl.scanForWiFi((err, response) => {
