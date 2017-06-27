@@ -1,0 +1,14 @@
+<div class="page-header">
+    <title-control><translate>Network</translate></title-control>
+</div>
+
+<div class="row">
+    <h2><translate>Wifi connection</translate></h2> 
+</div>
+
+<div class="row">
+    <action-button button-name="{{'Scan for wifi networks' | translate}}" action="$ctrl.getWifiAPs()" />
+    <div ng-repeat="ap in $ctrl.wifiAPs">
+        {{ap}}
+    </div>
+</div>

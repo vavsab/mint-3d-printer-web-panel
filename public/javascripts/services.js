@@ -414,6 +414,16 @@ app.service('updateService', ['httpq', function (httpq) {
     }
 }]);
 
+app.service('networkService', ['httpq', function (httpq) {
+    this.getWifiAPs = function () {
+        return httpq.get('/api/settings/network/wifi');
+    };
+
+    this.connectToAP = function (apName, password) {
+        return httpq.post('/api/settings/network/wifi', {apName: apName, password: password});
+    };
+}]);
+
 app.service('printerSettingsService', ['httpq', function (httpq) {
 
     this.reset = function () {

@@ -24,7 +24,7 @@ function ($uibModalInstance, message, title) {
     };
 
     self.cancel = function () {
-        $uibModalInstance.dismiss();
+        $uibModalInstance.dismiss('cancelled');
   };
 }]);
 

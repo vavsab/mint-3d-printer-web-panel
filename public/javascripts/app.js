@@ -4,9 +4,9 @@
     'ng-virtual-keyboard', 'chart.js', 'ngCookies', 'gettext']);
 
 app.run(['gettextCatalog', function (gettextCatalog) {
-    var lang = 'en_US';
-    gettextCatalog.setCurrentLanguage(lang);
-    gettextCatalog.loadRemote('/i18n/' + lang + '.json');
+    // var lang = 'en_US';
+    // gettextCatalog.setCurrentLanguage(lang);
+    // gettextCatalog.loadRemote('/i18n/' + lang + '.json');
 }]);
 
 app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentProvider, $routeProvider) {
@@ -31,6 +31,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/settings/server', 'settings_server')
         .when('/settings/printer', 'settings_printer')
         .when('/settings/update', 'settings_update')
+        .when('/settings/network', 'settings_network')
         .when('/settings/printer/z-index', 'settings_printer_z-index')
         .when('/settings/printer/extruder', 'settings_printer_extruder')
         .when('/settings/printer/advanced', 'settings_printer_advanced')
@@ -108,6 +109,10 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .segment('settings_update', {
             templateUrl: 'partials/settings/update.html',
             controller: 'settingsUpdateController as $ctrl'
+        })
+        .segment('settings_network', {
+            templateUrl: 'partials/settings/network.html',
+            controller: 'settingsNetworkController as $ctrl'
         })
         .segment('settings_printer_z-index', {
             templateUrl: 'partials/settings/printer/z-index.html',

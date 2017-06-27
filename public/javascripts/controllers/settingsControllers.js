@@ -392,3 +392,22 @@ function (updateService, socket) {
 
     self.install = function () { return updateService.installAsync(); };
 }]);
+
+app.controller('settingsNetworkController', ['networkService', 'dialogService',
+function (networkService, dialogService) {
+    var self = this;
+
+    self.wifiAPs = [];
+
+    self.getWifiAPs = function () {
+        return networkService.getWifiAPs().then(function success(wifiAPs) {
+            self.wifiAPs = wifiAPs;
+        });
+    }
+
+    self.connectToAP = function (apName) {
+        return dialogService.prompt('Specify network password', '').then(function success(password) {
+            return networkService.connectToAP(apName, password);
+        });
+    }
+}]);

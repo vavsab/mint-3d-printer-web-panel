@@ -13,6 +13,8 @@ const databaseMigrations = require('./databaseMigrations');
 const repository = require('./repository');
 const socketControllerFactory = require('./controllers/socketController');
 const updateControllerFactory = require('./controllers/updateController');
+const networkControllerFactory = require('./controllers/networkController');
+
 const port = 3123;
 
 try {
@@ -58,6 +60,7 @@ databaseMigrations.update().then(() => {
   repository.getTokenPassword().then(tokenPassword => {
     let socketController = socketControllerFactory(server);
     let updateController = updateControllerFactory(socketController);
+    let networkController = networkControllerFactory();
 
     printerStatusController = printerStatusController(socketController, printerProxy);
 
@@ -67,7 +70,7 @@ databaseMigrations.update().then(() => {
 
     app.use('/', routes);
     app.use('/api', apiFactory(tokenPassword, printerProxy, printerStatusController));
-    app.use('/api', apiSettingsFactory(updateController));
+    app.use('/api', apiSettingsFactory(updateController, networkController));
 
     // catch 404 and forward to error handler
     app.use((req, res, next) => {

@@ -1,4 +1,4 @@
-module.exports = (updateController) => {
+module.exports = (updateController, networkController) => {
     let express = require('express');
     let fs = require('fs-extra');
     let path = require('path');
@@ -29,6 +29,26 @@ module.exports = (updateController) => {
     router.post('/settings/update/install', (req, res) => {
         updateController.startInstall();
         res.send();
+    });
+
+    router.get('/settings/network/wifi', (req, res) => {
+        networkController.getWifiAPs()
+            .then((result) => res.json(result))
+            .catch((err) => res.status(500).json({error: err}));
+    });
+
+    router.post('/settings/network/wifi', (req, res) => {
+        let apName = req.body.apName;
+        let password = req.body.password;
+
+        if (!apName) {
+            res.status(400).json({error: 'Name of wifi AP is reqired'});
+            return;
+        }
+        
+        networkController.connectToAP(apName, password)
+            .then((result) => res.json(result))
+            .catch((err) => res.status(500).json({error: err}));
     });
 
     return router;
