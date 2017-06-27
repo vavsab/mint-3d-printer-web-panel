@@ -22,7 +22,7 @@ module.exports = (socketController) => {
         let versionString = fs.readFileSync(pathToVersion).toString();
         status.version = JSON.parse(versionString);
     } catch (e) {
-        logger.error(`Could not read version file ${e}`)
+        logger.error(`Could not read version file ${e}`);
     }
 
     let refreshDownloadedVersion = () => {
@@ -30,7 +30,11 @@ module.exports = (socketController) => {
         status.downloaded_version = JSON.parse(stateString).downloaded_version;
     }
     
-    refreshDownloadedVersion();
+    try {
+        refreshDownloadedVersion();
+    } catch (e) {
+        logger.error(`Could not check update status ${e}`);
+    }
     
     if (status.downloaded_version) {
         status.state = 'Downloaded';
