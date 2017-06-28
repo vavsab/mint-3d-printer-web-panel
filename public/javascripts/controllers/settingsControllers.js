@@ -398,6 +398,7 @@ function (networkService, dialogService) {
     var self = this;
 
     self.wifiAPs = [];
+    self.message = null;
 
     self.getWifiAPs = function () {
         return networkService.getWifiAPs().then(function success(wifiAPs) {
@@ -406,8 +407,15 @@ function (networkService, dialogService) {
     }
 
     self.connectToAP = function (apName) {
-        return dialogService.prompt('Specify network password', '').then(function success(password) {
+        self.message = null;
+
+        return dialogService.prompt('Specify network password', '')
+        .then(function success(password) {
             return networkService.connectToAP(apName, password);
+        })
+        .then(function success() {
+            self.wifiAPs = [];
+            self.message = "Connected to " + apName;
         });
     }
 }]);

@@ -13,7 +13,7 @@ module.exports = () => {
                     logger.error(`NetworkController > Error while scanning networks > ${err}`);
                     reject(err);
                 } else {
-                    resolve(response);
+                    resolve(response.networks);
                 }
             });
         });
