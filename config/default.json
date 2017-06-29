@@ -1,6 +1,7 @@
 {
     "PrinterFilePath" : "emulators/printer/PrinterEmulator/bin/Debug/PrinterEmulator.exe",
     "pathToUpdateScript": "emulators\\update\\update.bat",
+    "pathToInstallScript": "",
     "pathToVersion": "emulators\\update\\version",
     "pathToPrinterId": ""
 }

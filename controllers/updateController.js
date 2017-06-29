@@ -6,6 +6,7 @@ module.exports = (socketController) => {
 
     let self = this;
     let pathToUpdateScript = config.get('pathToUpdateScript');
+    let pathToInstallScript = config.get('pathToInstallScript');
     let pathToPrinterId = config.get('pathToPrinterId');
     let pathToVersion = config.get('pathToVersion');
 
@@ -116,22 +117,12 @@ module.exports = (socketController) => {
         
         status.state = 'Installing';
         raiseStatusRefresh();
-        checkPrinterID((printer_id) => {
-            try {
-                var out = fs.openSync('./updateLog.log', 'a');
-                var err = fs.openSync('./updateLog.log', 'a');
-
-                let child = spawn(pathToUpdateScript, ['--install', '--printer-id', printer_id], {
-                    detached: true,
-                    stdio: [ 'ignore', out, err ]
-                });
-
-                child.unref();
-            } catch (e) {
-                logger.error(`Error during installing updates ${e}`);
+        
+        exec(pathToInstallScript,  (err, stdout, stderr) => {
+            if (err) {
+                logger.error(`Error during installation of updates ${err + stderr}`);
             }
-          }              
-        );
+        });
     };
 
     return self;
