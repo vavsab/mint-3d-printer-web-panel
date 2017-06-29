@@ -179,3 +179,15 @@ body {
 .metro .slider.slider-big {
   height: 7.125rem;
 }
+
+/* Hide scroll */
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}

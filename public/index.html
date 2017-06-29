@@ -43,7 +43,7 @@
 
     <link href="/stylesheets/style.css" rel="stylesheet">
 
-    <link ng-href="/stylesheets/style{{$ctrl.browserSettings.isDarkTheme ? '-dark' : ''}}.css" rel="stylesheet">
+    <link ng-if="$ctrl.browserSettings.isDarkTheme" href="/stylesheets/style-dark.css" rel="stylesheet">
 
     <script src="/javascripts/libs/rxjs/dist/rx.all.js"></script>
 
