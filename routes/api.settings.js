@@ -31,6 +31,10 @@ module.exports = (updateController, networkController) => {
         res.send();
     });
 
+    router.get('/settings/network/ip', (req, res) => {
+        res.json(networkController.getIP());
+    });
+
     router.get('/settings/network/wifi', (req, res) => {
         networkController.getWifiAPs()
             .then((result) => res.json(result))

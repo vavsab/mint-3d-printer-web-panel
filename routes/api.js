@@ -406,7 +406,7 @@
         let newPassword = req.body.newPassword;
 
         if (currentPassword != null && currentPassword != crypto.createHash('md5').update(oldPassword).digest('hex')) {
-            res.status(400).json({error: 'Old and new passwords do not match'})
+            res.status(400).json({error: 'Old password is wrong'})
             return;
         }
 

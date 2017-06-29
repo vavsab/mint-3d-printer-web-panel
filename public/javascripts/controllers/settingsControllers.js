@@ -230,8 +230,6 @@ function (websiteSettingsService, macrosService, websiteSettings) {
     ];
 
     this.selectedLogLevel = null;
-    this.oldPassword = null;
-    this.newPassword = null;
 
     this.dashboardMacroses = [];
     this.selectedMacroses = [];
@@ -321,14 +319,25 @@ function (websiteSettingsService, macrosService, websiteSettings) {
     };
 }]);
 
-app.controller('settingsChangePasswordController', ['websiteSettingsService', function (websiteSettingsService) {
+app.controller('settingsChangePasswordController', 
+['websiteSettingsService', '$q', function (websiteSettingsService, $q) {
     var self = this;
 
     this.changePassword = function () {
-        return websiteSettingsService.changePassword(self.oldPassword, self.newPassword)
-        .finally(function () {
+        return $q(function (resolve, reject) {
+            if (self.newPassword != self.confirmPassword) {
+                reject('New passwords do not match');
+            } else {
+                resolve();
+            }
+        })
+        .then(function () {
+            return websiteSettingsService.changePassword(self.oldPassword, self.newPassword)
+        })
+        .then(function () {
             self.newPassword = null;
             self.oldPassword = null;
+            self.confirmPassword = null;
         });
     }
 }]);
@@ -399,6 +408,17 @@ function (networkService, dialogService) {
 
     self.wifiAPs = [];
     self.message = null;
+    self.ip = null;
+
+    var refreshIP = function () {
+        return networkService.getIP().then(function success(ip) {
+            self.ip = ip;
+        }, function error() {
+            self.ip = null;
+        });
+    };
+
+    refreshIP();
 
     self.getWifiAPs = function () {
         return networkService.getWifiAPs().then(function success(wifiAPs) {
@@ -416,6 +436,9 @@ function (networkService, dialogService) {
         .then(function success() {
             self.wifiAPs = [];
             self.message = "Connected to " + apName;
+        })
+        .then(function () {
+            return refreshIP();
         });
     }
 }]);

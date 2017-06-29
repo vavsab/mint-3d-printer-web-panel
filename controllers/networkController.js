@@ -6,6 +6,15 @@ module.exports = () => {
         iface: 'wlan0'
     });
 
+    this.getIP = () => {
+        try {
+            return os.networkInterfaces().wlan0[0].address
+        } catch (e) {
+            logger.warn(`Error while getting IP address ${e}`);
+            return null;
+        }
+    }
+
     this.getWifiAPs = () =>
         new Promise((resolve, reject) => {
             wifiControl.scanForWiFi((err, response) => {

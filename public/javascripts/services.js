@@ -415,6 +415,10 @@ app.service('updateService', ['httpq', function (httpq) {
 }]);
 
 app.service('networkService', ['httpq', function (httpq) {
+    this.getIP = function () {
+        return httpq.get('/api/settings/network/ip');
+    };
+
     this.getWifiAPs = function () {
         return httpq.get('/api/settings/network/wifi');
     };

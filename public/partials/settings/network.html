@@ -3,10 +3,11 @@
 </div>
 
 <div class="row">
-    <h2><translate>Wifi connection</translate></h2>
+    <h2><translate>Wifi connection</translate></h2> 
+    <span><translate>IP address:</translate> {{($ctrl.ip ? $ctrl.ip : ('Not available' | translate))}}</span>
 </div>
 
-<div class="row">
+<div class="row" style="margin-top: 10px;">
     <action-button button-name="{{'Scan for wifi networks' | translate}}" action="$ctrl.getWifiAPs()" icon="refresh" />
 
     <table class="table table-striped" style="margin-top: 5px;" ng-if="$ctrl.wifiAPs.length > 0">

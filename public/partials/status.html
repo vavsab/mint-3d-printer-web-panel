@@ -30,7 +30,7 @@
                         <td>{{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
                     </tr>
                     <tr>
-                        <td>Culler rate</td>
+                        <td>Fan rate</td>
                         <td>{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
                     </tr>
                     <tr>
@@ -38,12 +38,12 @@
                         <td>{{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
                     </tr>
                     <tr>
-                        <td>Feed rate</td>
+                        <td>Feedrate</td>
                         <td>{{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
                     </tr>
                     <tr>
                         <td>Speed</td>
-                        <td>{{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/minute</td>
+                        <td>{{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/min</td>
                     </tr>
                     <tr>
                         <td>Position X</td>
