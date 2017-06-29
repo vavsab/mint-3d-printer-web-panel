@@ -121,7 +121,7 @@ module.exports = (socketController) => {
             var out = fs.openSync('./updateLog.log', 'a');
             var err = fs.openSync('./updateLog.log', 'a');
 
-            let child = spawn(pathToUpdateScript + ' --install --printer-id ' + printer_id, [], {
+            let child = spawn("/bin/bash -c '" + pathToUpdateScript + " --install --printer-id " + printer_id + "'", [], {
                 detached: true,
                 stdio: [ 'ignore', out, err ]
             });
