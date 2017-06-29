@@ -1,6 +1,7 @@
 module.exports = () => {
     const wifiControl = require('wifi-control');
     const logger = require('../logger');
+    const os = require('os');
 
     wifiControl.configure({
         iface: 'wlan0'
