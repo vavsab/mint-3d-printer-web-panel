@@ -117,14 +117,14 @@ module.exports = (socketController) => {
         status.state = 'Installing';
         raiseStatusRefresh();
         checkPrinterID((printer_id) =>{
-              let install = spawn(pathToUpdateScript + ` --install --printer-id ${printer_id}`, [], { detached: true, stdio: [ 'ignore', 'ignore', 'ignore' ] });
-              install.unref();
-  
-              install.on('error', (err) => {
-                  status.error = err + stderr;
-                  status.state = 'InstallingError';
-                  raiseStatusRefresh();    
-              }); 
+              let install = exec(pathToUpdateScript + ` --install --printer-id ${printer_id}`, 
+                (err, stdout, stderr) => {
+                  if (err) {
+                    status.error = err + stderr;
+                    status.state = 'InstallingError';
+                    raiseStatusRefresh();    
+                  }
+              });
           }              
         );
     };
