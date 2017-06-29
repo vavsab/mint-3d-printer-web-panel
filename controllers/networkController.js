@@ -26,7 +26,7 @@ module.exports = () => {
                 password: password
             };
 
-            wiFiControl.connectToAP(apInfo, (err, response) => {
+            wifiControl.connectToAP(apInfo, (err, response) => {
                 if (err) {
                     logger.error(`NetworkController > Error while connecting to network '${apName}' > ${err}`);
                     reject(err);
