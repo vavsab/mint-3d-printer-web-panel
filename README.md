@@ -1,3 +1,3 @@
 # README #
 
-Web site of printer console
+Web site of printer
