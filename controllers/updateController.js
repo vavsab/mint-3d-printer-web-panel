@@ -116,15 +116,20 @@ module.exports = (socketController) => {
         
         status.state = 'Installing';
         raiseStatusRefresh();
-        checkPrinterID((printer_id) =>{
-              let install = exec(pathToUpdateScript + ` --install --printer-id ${printer_id}`, 
-                (err, stdout, stderr) => {
-                  if (err) {
-                    status.error = err + stderr;
-                    status.state = 'InstallingError';
-                    raiseStatusRefresh();    
-                  }
-              });
+        checkPrinterID((printer_id) => {
+
+            let printerIdParam = `--printer-id ${printer_id}`;
+            var out = fs.openSync('./updateLog.log', 'a');
+            var err = fs.openSync('./updateLog.log', 'a');
+            
+            fs.writeFile('./updateParams.log', printerIdParam);
+
+            let child = spawn(pathToUpdateScript, ['--install', printerIdParam], {
+                detached: true,
+                stdio: [ 'ignore', out, err ]
+            });
+
+            child.unref();
           }              
         );
     };
