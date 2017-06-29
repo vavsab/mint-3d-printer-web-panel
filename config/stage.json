@@ -1,5 +1,6 @@
 {
     "PrinterFilePath" : "./printer",
-    "pathToUpdateScript": "$MINT_HOME/software/update/update.py",
-    "pathToVersion": "$MINT_HOME/software/version"
+    "pathToUpdateScript": "/mint-home/software/update/update.py",
+    "pathToVersion": "/mint-home/software/version",
+    "pathToPrinterId": "/mint-home/printer_id"
 }

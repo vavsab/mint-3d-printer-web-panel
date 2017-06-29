@@ -6,6 +6,7 @@ module.exports = (socketController) => {
 
     let self = this;
     let pathToUpdateScript = config.get('pathToUpdateScript');
+    let pathToPrinterId = config.get('pathToPrinterId');
     let pathToVersion = config.get('pathToVersion');
 
     // Statuses:
@@ -26,7 +27,7 @@ module.exports = (socketController) => {
     }
 
     let refreshDownloadedVersion = () => {
-        let stateString = execSync(`${pathToUpdateScript} --state`).toString();
+        let stateString = execSync(`${pathToUpdateScript} --status`).toString();
         status.downloaded_version = JSON.parse(stateString).downloaded_version;
     }
     
@@ -51,22 +52,38 @@ module.exports = (socketController) => {
     };
 
     self.getStatus = () => status;
-
+    
+    var checkPrinterID = (callback) =>{
+       exec(`${pathToPrinterId} `+socketController.ID,(err,stdout,stderr)=>{
+              if (err) {
+                    reject({error: err});
+                } else {
+                  let printer_id = JSON.parse(stdout);
+                  callback(printer_id.printer_id);
+                }});
+    };
+    
     self.fetch = () => {
         return new Promise((resolve, reject) => {
             if (status.state == 'Downloading' || status.state == 'Installing'){
                 reject(`Operation is not allowed for status '${status}'`);
                 return;
             }  
-
-            exec(`${pathToUpdateScript} --fetch`, (err, stdout, stderr) => {
-                if (err) {
-                    reject({error: err});
-                } else {
-                    let version = JSON.parse(stdout);
-                    resolve(version);
-                }
-            });
+            if(socketController.ID === undefined)
+            {
+              reject("Can't get serial data");
+                return;
+            }
+            checkPrinterID((printer_id) =>{
+              exec(`${pathToUpdateScript} --fetch --printer-id ${printer_id}`, (err, stdout, stderr) => {
+                      if (err) {
+                          reject({error: err});
+                      } else {
+                          let version = JSON.parse(stdout);
+                          resolve(version);
+                      }
+                    });
+            }); 
         });
     };
 
@@ -77,17 +94,19 @@ module.exports = (socketController) => {
         status.state = 'Downloading';
         raiseStatusRefresh();
 
-        status.error = null;   
-        exec(`${pathToUpdateScript} --pull`, (err, stdout, stderr) => {
-            if (err) {
+        status.error = null;
+        checkPrinterID((printer_id) =>{   
+            exec(`${pathToUpdateScript} --pull --printer-id ${printer_id}`, (err, stdout, stderr) => {
+              if (err) {
                 status.error = err + stderr;
                 status.state = 'DownloadingError';
                 raiseStatusRefresh();
-            } else {
+              } else {
                 status.state = 'Downloaded';
                 refreshDownloadedVersion();
                 raiseStatusRefresh();
-            }
+              }
+            });
         });
     }
 
@@ -97,14 +116,17 @@ module.exports = (socketController) => {
         
         status.state = 'Installing';
         raiseStatusRefresh();
+        checkPrinterID((printer_id) =>{
+              let install = spawn(pathToUpdateScript, [`--install --printer-id ${printer_id}`], { detached: true });
+  
+              install.on('error', (err) => {
+                  status.error = err + stderr;
+                  status.state = 'InstallingError';
+                  raiseStatusRefresh();    
+              }); 
+          }              
+        );
         
-        let install = spawn(pathToUpdateScript, ['--install'], { detached: true });
-        
-        install.on('error', (err) => {
-            status.error = err + stderr;
-            status.state = 'InstallingError';
-            raiseStatusRefresh();    
-        });
     };
 
     return self;
