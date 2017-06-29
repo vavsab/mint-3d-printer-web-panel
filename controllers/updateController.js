@@ -117,16 +117,19 @@ module.exports = (socketController) => {
         status.state = 'Installing';
         raiseStatusRefresh();
         checkPrinterID((printer_id) => {
+            try {
+                var out = fs.openSync('./updateLog.log', 'a');
+                var err = fs.openSync('./updateLog.log', 'a');
 
-            var out = fs.openSync('./updateLog.log', 'a');
-            var err = fs.openSync('./updateLog.log', 'a');
+                let child = spawn(pathToUpdateScript, ['--install', '--printer-id', printer_id], {
+                    detached: true,
+                    stdio: [ 'ignore', out, err ]
+                });
 
-            let child = spawn("/bin/bash -c '" + pathToUpdateScript + " --install --printer-id " + printer_id + "'", [], {
-                detached: true,
-                stdio: [ 'ignore', out, err ]
-            });
-
-            child.unref();
+                child.unref();
+            } catch (e) {
+                logger.error(`Error during installing updates ${e}`);
+            }
           }              
         );
     };
