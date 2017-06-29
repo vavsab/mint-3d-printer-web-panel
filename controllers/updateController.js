@@ -118,13 +118,10 @@ module.exports = (socketController) => {
         raiseStatusRefresh();
         checkPrinterID((printer_id) => {
 
-            let printerIdParam = `--printer-id ${printer_id}`;
             var out = fs.openSync('./updateLog.log', 'a');
             var err = fs.openSync('./updateLog.log', 'a');
-            
-            fs.writeFile('./updateParams.log', printerIdParam);
 
-            let child = spawn(pathToUpdateScript, ['--install', printerIdParam], {
+            let child = spawn(pathToUpdateScript, ['--install', `--printer-id\ ${printer_id}`], {
                 detached: true,
                 stdio: [ 'ignore', out, err ]
             });
