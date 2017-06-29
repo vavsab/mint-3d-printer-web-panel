@@ -82,6 +82,7 @@ module.exports = (socketController, printerProxy) =>
   ];
 
   var requestPrinterStatusCommand = "G300";
+  var requestPrinterSerialCommand = "M1";
   var self = this;
   this.currentStatus = null;
 
@@ -117,6 +118,8 @@ module.exports = (socketController, printerProxy) =>
   setInterval(() => {
     if (new Date() - lastPrintingStatusUpdateDate > 1000) {
       printerProxy.send(requestPrinterStatusCommand); // Request printer status
+      if(socketController.ID === undefined)
+        printerProxy.send(requestPrinterSerialCommand); // Request printer serial
     }
   }, 1000);
 
@@ -145,7 +148,10 @@ module.exports = (socketController, printerProxy) =>
             logger.warn("Could not parse JSON '" + item + "': " + error);
             return;
           }
-
+          if(status.hasOwnProperty('ID')){
+            socketController.ID = status.ID;
+            return;
+          }
           status.date = new Date();
 
           self.temperatureChartData.baseTemp.push({date: status.date, value: status.baseTemp});
