@@ -3,5 +3,6 @@
     "pathToUpdateScript": "/mint-home/software/update/update.py",
     "pathToInstallScript": "/mint-home/software/update/spawn-install",
     "pathToVersion": "/mint-home/software/version",
-    "pathToPrinterId": "/mint-home/printer_id"
+    "pathToPrinterId": "/mint-home/printer_id",
+    "pathToPauseInfo": "printerInfo.txt"
 }

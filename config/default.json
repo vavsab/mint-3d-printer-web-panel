@@ -3,5 +3,6 @@
     "pathToUpdateScript": "emulators\\update\\update.bat",
     "pathToInstallScript": "",
     "pathToVersion": "emulators\\update\\version",
-    "pathToPrinterId": ""
+    "pathToPrinterId": "",
+    "pathToPauseInfo": "printerInfo.txt"
 }

@@ -4,6 +4,7 @@
     var path = require('path');
     var multer = require('multer');
     var diskspace = require('diskspace');
+    var config = require('config');
     var logger = require('../logger');
     var gcodeAnalyser = require('../gcodeAnalyser');
     var globalConstants = require('../globalConstants');
@@ -192,12 +193,12 @@
     });
 
     router.get('/status/resume', function(req, res, next) {
-        let pauseFileExists = fs.existsSync('printerInfo.txt');
+        let pauseFileExists = fs.existsSync(config.get('pathToPauseInfo'));
         res.send(pauseFileExists);
     });
 
     router.delete('/status/resume', function(req, res, next) {
-        fs.removeSync('printerInfo.txt');
+        fs.removeSync(config.get('pathToPauseInfo'));
         res.send();
     });
 
