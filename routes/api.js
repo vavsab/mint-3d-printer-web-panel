@@ -192,12 +192,12 @@
     });
 
     router.get('/status/resume', function(req, res, next) {
-        let pauseFileExists = fs.existsSync('pause.info');
+        let pauseFileExists = fs.existsSync('printerInfo.txt');
         res.send(pauseFileExists);
     });
 
     router.delete('/status/resume', function(req, res, next) {
-        fs.removeSync('pause.info');
+        fs.removeSync('printerInfo.txt');
         res.send();
     });
 
