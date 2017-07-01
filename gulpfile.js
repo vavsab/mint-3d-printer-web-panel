@@ -51,8 +51,8 @@ gulp.task('copy_raw_to_build', () =>
       .pipe(gulp.dest('build/public')),
     gulp.src(['service/**'])
       .pipe(gulp.dest('build/service')),
-    gulp.src(['desktop-loader/**'])
-      .pipe(gulp.dest('build/desktop-loader')),
+    // gulp.src(['desktop-loader/**'])
+    //   .pipe(gulp.dest('build/desktop-loader')),
     gulp.src(['*SettingsDefault*', 'pm2.json'])
       .pipe(gulp.dest('build'))
   )
