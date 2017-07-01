@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "start node printerWrapper.js & node app.js"
+    "start": "start node service/printerWrapper.js & node service/app.js"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -28,6 +28,11 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-angular-gettext": "^2.2.0",
-    "gulp-less": "^3.3.0"
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^3.3.0",
+    "gulp-minify": "^1.0.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uglifycss": "^1.0.8"
   }
 }

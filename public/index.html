@@ -13,63 +13,24 @@
     <!-- Insert this line above script imports for electron integration -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-    <!-- jQuery -->
-    <script src="/javascripts/libs/jquery/dist/jquery.min.js"></script>
-
-    <!-- Metro UI CSS -->
-    <link href="/stylesheets/metro/metro.css" rel="stylesheet">
-
-    <!-- Bootstrap Core CSS -->    
-    <link href="/javascripts/libs/bootstrap/dist/css/bootstrap.min.css"
-        ng-href="{{$ctrl.browserSettings.isDarkTheme ? '/stylesheets/theme-styles/bootstrap-dark.css' : '/javascripts/libs/bootstrap/dist/css/bootstrap.min.css' }}" 
+    <link href="/stylesheets/build/lib-styles.css" rel="stylesheet">
+  
+    <link href="/stylesheets/theme-styles/bootstrap-dark.css"
+        ng-href="{{$ctrl.browserSettings.isDarkTheme ? '/stylesheets/theme-styles/bootstrap-dark.css' : '/stylesheets/theme-styles/bootstrap.min.css' }}" 
         rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="/javascripts/libs/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/stylesheets/theme-styles/sb-admin-2.css" 
+    <link href="/stylesheets/theme-styles/sb-admin-2-dark.css" 
         ng-href="/stylesheets/theme-styles/sb-admin-2{{$ctrl.browserSettings.isDarkTheme ? '-dark' : ''}}.css"
         rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="/javascripts/libs/morris.js/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/javascripts/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/icons/custom-icons.css" rel="stylesheet" type="text/css">
-    
-    <link href="/javascripts/libs/keyboard/dist/css/keyboard-dark.min.css" rel="stylesheet" type="text/css">
-
     <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/icons/custom-icons.css" rel="stylesheet">
 
     <link ng-if="$ctrl.browserSettings.isDarkTheme" href="/stylesheets/style-dark.css" rel="stylesheet">
 
-    <script src="/javascripts/libs/rxjs/dist/rx.all.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/javascripts/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="/javascripts/lib-scripts.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/javascripts/libs/angular/angular.js"></script>
-    <script src="/javascripts/libs/angular-route/angular-route.js"></script>
-    <script src="/javascripts/libs/angular-cookies/angular-cookies.js"></script>
-    <script src="/javascripts/libs/angular-resource/angular-resource.js"></script>
-    <script src="/javascripts/libs/angular-animate/angular-animate.js"></script>
-    <script src="/javascripts/libs/angular-touch/angular-touch.js"></script>
-    <script src="/javascripts/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/javascripts/libs/angular-gettext/dist/angular-gettext.js"></script>
-    <script src="/javascripts/libs/ng-file-upload/ng-file-upload.js"></script>
-    <script src="/javascripts/libs/jquery-ui/jquery-ui.js"></script>
-
-    <script src="/javascripts/libs/keyboard/dist/js/jquery.keyboard.js"></script>
-    <script src="/javascripts/libs/ng-virtual-keyboard/dist/ng-virtual-keyboard.js"></script>
-
-    <script src="/javascripts/libs/chart.js/dist/Chart.js"></script>
-    <script src="/javascripts/libs/angular-chart.js/dist/angular-chart.js"></script>
-
-    <script src="/javascripts/libs/angular-local-storage/dist/angular-local-storage.js"></script>
-    <script src="/javascripts/libs/angular-route-segment/build/angular-route-segment.js"></script>
+    
     <script src="/javascripts/app.js"></script>
     <script src="/javascripts/factories.js"></script>
     <script src="/javascripts/filters.js"></script>
@@ -183,18 +144,7 @@
         </div>
     </div>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/javascripts/libs/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="/javascripts/libs/raphael/raphael.min.js"></script>
-    <!--<script src="/javascripts/libs/morris.js/morris.min.js"></script>
-    <script src="/data/morris-data.js"></script>-->
-
     <!-- Custom Theme JavaScript -->
     <script src="/javascripts/theme-scripts/sb-admin-2.js"></script>
-
-    <script src="/javascripts/libs/metro/build/js/metro.js"></script> 
 </body>
-
 </html>

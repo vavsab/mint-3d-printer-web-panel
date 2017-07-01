@@ -1,5 +1,5 @@
 {
-    "PrinterFilePath" : "./printer",
+    "PrinterFilePath" : "/mint-home/software/web/printer",
     "pathToUpdateScript": "/mint-home/software/update/update.py",
     "pathToInstallScript": "/mint-home/software/update/spawn-install",
     "pathToVersion": "/mint-home/software/version",
