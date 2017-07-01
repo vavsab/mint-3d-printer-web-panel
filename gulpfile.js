@@ -8,6 +8,7 @@ const concat = require('gulp-concat');
 const minify = require('gulp-minify');
 const uglify = require('gulp-uglify');
 const uglifyCss = require('gulp-uglifycss');
+const merge = require('merge-stream');
 
 gulp.task('default', ['less', 'i18n']);
 gulp.task('i18n', ['i18n_generate', 'i18n_compile']);
@@ -41,11 +42,19 @@ gulp.task('clean', () =>
 		.pipe(clean())
 );
 
-gulp.task('build', ['copy_public', 'build_js_custom']);
+gulp.task('build', ['copy_raw_to_build', 'build_js_custom']);
 
-gulp.task('copy_public', () => 
-  gulp.src(['public/**', '!public/javascripts/**'])
-    .pipe(gulp.dest('build/public'))
+gulp.task('copy_raw_to_build', () => 
+  merge(
+    gulp.src(['public/**', '!public/javascripts/**'])
+      .pipe(gulp.dest('build/public')),
+    gulp.src(['service/**'])
+      .pipe(gulp.dest('build/service')),
+    gulp.src(['desktop-loader/**'])
+      .pipe(gulp.dest('build/desktop-loader')),
+    gulp.src(['*SettingsDefault*', 'pm2.json'])
+      .pipe(gulp.dest('build'))
+  )
 );
 
 gulp.task('build_js_custom', () => 
@@ -70,7 +79,7 @@ gulp.task('build_css_libs', () => {
 
     return gulp.src(libs)
       .pipe(concat('lib-styles.css'))
-      //.pipe(uglifyCss())
+      .pipe(uglifyCss())
       .pipe(gulp.dest('public/stylesheets'));
 });
 
