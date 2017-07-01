@@ -9,6 +9,7 @@ const minify = require('gulp-minify');
 const uglify = require('gulp-uglify');
 const uglifyCss = require('gulp-uglifycss');
 const merge = require('merge-stream');
+const gulpSequence = require('gulp-sequence');
 
 gulp.task('default', ['less', 'i18n']);
 gulp.task('i18n', ['i18n_generate', 'i18n_compile']);
@@ -42,7 +43,7 @@ gulp.task('clean', () =>
 		.pipe(clean())
 );
 
-gulp.task('build', ['copy_raw_to_build', 'build_js_custom']);
+gulp.task('build', gulpSequence(['copy_raw_to_build', 'build_js_custom']));
 
 gulp.task('copy_raw_to_build', () => 
   merge(
