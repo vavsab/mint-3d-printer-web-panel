@@ -7,9 +7,12 @@ module.exports = () => {
         iface: 'wlan0'
     });
 
-    this.getIP = () => {
+    this.getState = () => {
         try {
-            return os.networkInterfaces().wlan0[0].address
+            return { 
+                ip: os.networkInterfaces().wlan0[0].address,
+                ssid: wifiControl.getIfaceState().ssid
+            }
         } catch (e) {
             logger.warn(`Error while getting IP address ${e}`);
             return null;

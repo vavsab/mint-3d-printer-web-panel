@@ -408,19 +408,21 @@ function (networkService, dialogService) {
 
     self.wifiAPs = [];
     self.message = null;
-    self.ip = null;
+    self.state = null;
 
     var refreshIP = function () {
-        return networkService.getIP().then(function success(ip) {
-            self.ip = ip;
+        return networkService.getState().then(function success(state) {
+            self.state = state;
         }, function error() {
-            self.ip = null;
+            self.state = null;
         });
     };
 
     refreshIP();
 
     self.getWifiAPs = function () {
+        self.message = null;
+
         return networkService.getWifiAPs().then(function success(wifiAPs) {
             self.wifiAPs = wifiAPs;
         });
@@ -431,7 +433,9 @@ function (networkService, dialogService) {
 
         return dialogService.prompt('Specify network password', '')
         .then(function success(password) {
-            return networkService.connectToAP(apName, password);
+            return networkService.connectToAP(apName, password).then(function success() {
+                refreshIP();
+            });
         })
         .then(function success() {
             self.wifiAPs = [];

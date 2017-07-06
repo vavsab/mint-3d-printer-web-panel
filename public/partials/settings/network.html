@@ -4,11 +4,14 @@
 
 <div class="row">
     <h2><translate>Wifi connection</translate></h2> 
-    <span><translate>Website address:</translate> {{($ctrl.ip ? ($ctrl.ip + ':3123') : ('Not available' | translate))}}</span>
+    <div><translate>Connected to WiFi:</translate> {{($ctrl.state.ssid ? $ctrl.state.ssid : '-')}}</div>
+    <div><translate>Website address:</translate> {{($ctrl.state.ip ? ($ctrl.state.ip + ':3123') : '-')}}</div>
 </div>
 
 <div class="row" style="margin-top: 10px;">
     <action-button button-name="{{'Scan for wifi networks' | translate}}" action="$ctrl.getWifiAPs()" icon="refresh" />
+
+    <div class="well" ng-if="$ctrl.message">{{$ctrl.message}}</div>
 
     <table class="table table-striped" style="margin-top: 5px;" ng-if="$ctrl.wifiAPs.length > 0">
             <thead>
@@ -26,6 +29,4 @@
                 </tr>
             </tbody>
     </table>
-
-    <div class="well" ng-if="$ctrl.message">{{$ctrl.message}}</div>
 </div>
