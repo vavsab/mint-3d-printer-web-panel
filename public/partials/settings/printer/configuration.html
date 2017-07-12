@@ -1,0 +1,11 @@
+<div class="page-header">
+    <title-control><translate>Printer configuration</translate></title-control>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <h3 translate>Uninterruptible Power Supply (UPS): 
+        <small ng-if="!$ctrl.powerStatus" translate class="label label-primary">Pending...</small>
+        <small ng-if="$ctrl.powerStatus && $ctrl.powerStatus.isUPSEnabled" translate class="label label-success">Enabled</small>
+        <small ng-if="$ctrl.powerStatus && !$ctrl.powerStatus.isUPSEnabled" translate class="label label-default">Disabled</small>
+    </h3>
+</div>

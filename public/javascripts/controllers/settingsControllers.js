@@ -446,3 +446,14 @@ function (networkService, dialogService) {
         });
     }
 }]);
+
+app.controller('settingsPrinterConfigurationController', 
+['powerService', function (powerService) {
+    var self = this;
+
+    self.powerStatus = null;
+    
+    powerService.getStatus().then(function success(status) {
+        self.powerStatus = status;
+    });
+}]);

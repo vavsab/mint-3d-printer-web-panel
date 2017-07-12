@@ -66,12 +66,20 @@ app.service('dialogService', ['$uibModal', '$q', function ($uibModal, $q) {
 
         return modalInstance.result;
     };
-}]);
 
-app.service('shutdownService', ['httpq', 
-function (httpq) {
-    this.shutdown = function() {
-        return httpq.post('/api/shutdown');
+    this.powerOff = function (shutdownTime) {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/partials/dialogs/powerOffDialog.html',
+            controller: 'powerOffDialogController',
+            controllerAs: '$ctrl',
+            resolve: {
+                shutdownTime: function () {
+                    return shutdownTime;
+                }
+            }
+        });
+
+        return modalInstance;
     };
 }]);
 

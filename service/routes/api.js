@@ -10,7 +10,6 @@
     const globalConstants = require('../globalConstants');
     const jsonWebToken = require('jsonwebtoken');
     const crypto = require('crypto');
-    const powerOff = require('power-off');
     const utils = require('../utils');
     
     const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase("files"));
@@ -93,16 +92,6 @@
     router.get('/checkToken', function(req, res, next) {
         // If reached here then it passed token verification
         res.send();
-    });
-
-    router.post('/shutdown', function (req, res) { 
-        powerOff(function (err, stderr, stdout) {
-            if(!err && !stderr) {
-                res.status(500).json({error: stderr});
-            } else {
-                res.send(200);
-            }
-        });
     });
 
     router.post('/command', function (req, res) {

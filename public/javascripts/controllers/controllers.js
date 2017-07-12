@@ -5,11 +5,11 @@
 app.controller('mainController', 
 ['$scope', 'alertService', 'siteAvailabilityInterceptor', 'printerStatusService', 
     'commandService', '$q', 'dialogService', 'loader', 'localStorageService', 'browserSettings',
-    'websiteSettings', 'websiteSettingsService', 'fileService', '$window', 'shutdownService', 
+    'websiteSettings', 'websiteSettingsService', 'fileService', '$window', 'powerService', 
     'printerStatus', '$location', 'tokenErrorInterceptor', '$cookies', 'tokenService',
 function ($scope, alertService, siteAvailabilityInterceptor, printerStatusService, 
     commandService, $q, dialogService, loader, localStorageService, browserSettings,
-    websiteSettings, websiteSettingsService, fileService, $window, shutdownService,
+    websiteSettings, websiteSettingsService, fileService, $window, powerService,
     printerStatus, $location, tokenErrorInterceptor, $cookies, tokenService) {
     var self = this;
     this.websiteSettings = websiteSettings;
@@ -130,11 +130,12 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
     this.shutdown = function () {
         dialogService.confirm('Are you sure to shutdown?').then(function () {
-            shutdownService.shutdown().catch(function (error) {
+            powerService.shutdown().catch(function (error) {
                 alertService.add('danger', 'Shutdown failed: ' + error, 'shutdown_failed');
             });
         });
     };
+
 
     fileService.eventAggregator.on('diskspace', refreshDiskspace);
 

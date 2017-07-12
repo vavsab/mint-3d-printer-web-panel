@@ -14,6 +14,8 @@ const repository = require('./repository');
 const socketControllerFactory = require('./controllers/socketController');
 const updateControllerFactory = require('./controllers/updateController');
 const networkControllerFactory = require('./controllers/networkController');
+const powerControllerFactory = require('./controllers/powerController');
+const printerStatusControllerFactory = require('./controllers/printerStatusController');
 
 const port = 3123;
 
@@ -36,7 +38,6 @@ databaseMigrations.update().then(() => {
     fs.mkdirSync('../files');
   }
 
-  var printerStatusController = require('./controllers/printerStatusController');
   var logger = require('./logger');
   var printerProxy = require('./printerProxy');
   printerProxy = new printerProxy();
@@ -58,19 +59,24 @@ databaseMigrations.update().then(() => {
   app.use(express.static(path.join(__dirname, '../public')));
 
   repository.getTokenPassword().then(tokenPassword => {
-    let socketController = socketControllerFactory(server);
-    let updateController = updateControllerFactory(socketController);
-    let networkController = networkControllerFactory();
+    const socketController = socketControllerFactory(server);
+    const updateController = updateControllerFactory(socketController);
+    const networkController = networkControllerFactory();
+    const printerStatusController = printerStatusControllerFactory(socketController, printerProxy);
+    const powerController = powerControllerFactory(socketController, printerProxy, printerStatusController);
 
-    printerStatusController = printerStatusController(socketController, printerProxy);
+    const routes = require('./routes/index');
+    const apiFactory = require('./routes/api');
+    const apiSettingsFactory = require('./routes/api.settings');
+    const apiPowerFactory = require('./routes/api.power');
 
-    var routes = require('./routes/index');
-    var apiFactory = require('./routes/api');
-    var apiSettingsFactory = require('./routes/api.settings');
+    const powerRouters = apiPowerFactory(powerController);
 
     app.use('/', routes);
+    app.use('/api', powerRouters.openRouter);
     app.use('/api', apiFactory(tokenPassword, printerProxy, printerStatusController));
     app.use('/api', apiSettingsFactory(updateController, networkController));
+    app.use('/api', powerRouters.router);
 
     // catch 404 and forward to error handler
     app.use((req, res, next) => {
@@ -127,7 +133,7 @@ databaseMigrations.update().then(() => {
   }
 
   process.on('unhandledRejection', (reason, p) => {
-    logger.error(`Unhandled promise rejection: ${reason}`);
+    logger.error(`Unhandled promise rejection: ${reason}. Promise: ${p}`);
   });
 
   //do something when app is closing

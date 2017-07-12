@@ -82,3 +82,31 @@ function ($uibModalInstance, macros, macrosService, localStorageService, printer
 
     self.close = $uibModalInstance.close;
 }]);
+
+app.controller('powerOffDialogController', 
+['$uibModalInstance', 'powerService', '$scope', 'printerStatus', 'shutdownTime',
+function ($uibModalInstance, powerService, $scope, printerStatus, shutdownTime) { 
+    var self = this;
+
+    self.printerStatus = printerStatus;
+
+    var updateSeconds = function () {
+        self.secondsToShutdown = parseInt((shutdownTime - new Date()) / 1000);
+        if (self.secondsToShutdown < 0) {
+            self.secondsToShutdown = 0;
+        }
+
+        $scope.$applyAsync();
+    }
+    
+    updateSeconds();
+    var intervalHandler = setInterval(updateSeconds, 1000);
+    
+    self.shutdown = function () {
+        return powerService.safeShutdown();
+    };
+
+    $scope.$on('$destroy', function () {
+        clearInterval(intervalHandler);
+    });
+}]);

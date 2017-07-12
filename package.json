@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "start node service/printerWrapper.js & node service/app.js"
+    "start": "start node service/printerWrapper.js & node --trace-warnings service/app.js"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
