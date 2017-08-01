@@ -1,9 +1,9 @@
 module.exports = (socketController, printerProxy, printerStatusController) => {
     const logger = require('../logger');
     const powerOff = require('power-off');
-    const secondsToShutdown = 20;
+    const configurationController = require('./configurationController');
     const secondsToPause = 2;
-    const secondsBetweenPinsQuery = 1;
+    const secondsBetweenPinsQuery = 10;
     const STATE_POWER_ON = 'PowerOn';
     const STATE_POWER_OFF = 'PowerOff';
 
@@ -42,10 +42,14 @@ module.exports = (socketController, printerProxy, printerStatusController) => {
             return;
         
         if (status.state == STATE_POWER_OFF && !status.shutdownTime) {
-            status.shutdownTime = new Date(new Date().getTime() +  secondsToShutdown * 1000); 
-            logger.warn(`UPS > Schedule to power off at ${status.shutdownTime}`);
-            socketController.sendToAll('UPS.powerOff', { shutdownTime: status.shutdownTime });
-            shutdownTimer = setTimeout(self.safeShutdown, status.shutdownTime - new Date());
+            configurationController.get(configurationController.KEY_WEBSITE_SETTINGS)
+            .then(websiteSettings => {
+                let secondsToShutdown = websiteSettings.secondsToShutdownOnPowerOff;
+                status.shutdownTime = new Date(new Date().getTime() + secondsToShutdown * 1000); 
+                logger.warn(`UPS > Schedule to power off at ${status.shutdownTime}`);
+                socketController.sendToAll('UPS.powerOff', { shutdownTime: status.shutdownTime });
+                shutdownTimer = setTimeout(self.safeShutdown, status.shutdownTime - new Date());
+            });
         }
 
         if (status.state == STATE_POWER_ON && status.shutdownTime) {

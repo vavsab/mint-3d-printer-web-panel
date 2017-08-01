@@ -3,9 +3,32 @@
 </div>
 
 <div class="row" style="margin-top: 5px;">
-    <h3 translate>Uninterruptible Power Supply (UPS): 
-        <small ng-if="!$ctrl.powerStatus" translate class="label label-primary">Pending...</small>
-        <small ng-if="$ctrl.powerStatus && $ctrl.powerStatus.isUPSEnabled" translate class="label label-success">Enabled</small>
-        <small ng-if="$ctrl.powerStatus && !$ctrl.powerStatus.isUPSEnabled" translate class="label label-default">Disabled</small>
-    </h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" translate>Uninterruptible Power Supply (UPS)</label>
+            <div class="input-group col-xs-7">
+                <small ng-if="!$ctrl.powerStatus" translate class="label label-primary">Pending...</small>
+                <small ng-if="$ctrl.powerStatus && $ctrl.powerStatus.isUPSEnabled" translate class="label label-success">Enabled</small>
+                <small ng-if="$ctrl.powerStatus && !$ctrl.powerStatus.isUPSEnabled" translate class="label label-default">Disabled</small>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="secondsToShutdownOnPowerOff" translate>Seconds to shutdown on power off</label>
+            <div class="input-group col-xs-7">
+                <input id="secondsToShutdownOnPowerOff" class="form-control" type="number" min="10" max="3600" ng-model="$ctrl.websiteSettings.secondsToShutdownOnPowerOff" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-12" style="margin-top: 5px;">
+        <action-button action="$ctrl.save();" button-name="{{'Save' | translate}}" type="success" />
+    </div>
 </div>

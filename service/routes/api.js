@@ -45,10 +45,6 @@
         res.status(200).json(printerStatusController.currentStatus);
     });
 
-    router.get('/settings/website', function (req, res) {
-         res.json(JSON.parse(fs.readFileSync(utils.getPathFromBase(globalConstants.websiteSettingsPath)).toString()));
-    });
-
     router.get('/fileManager/diskspace', function (req, res) {
         diskspace.check(path.parse(fileManagerRootPath).root, function (err, total, free, status) {
             if (err) {
@@ -377,14 +373,6 @@
         res.send();
     });
 
-    try {
-        fs.statSync(utils.getPathFromBase(globalConstants.websiteSettingsPath));
-    }
-    catch (e) {
-        fs.copySync(utils.getPathFromBase(globalConstants.defaultWebsiteSettingsPath), 
-            utils.getPathFromBase(globalConstants.websiteSettingsPath));
-    }
-
     router.post('/settings/website/password', function (req, res) {
         let passwords;
         try {
@@ -409,18 +397,6 @@
         }
 
         fs.writeFileSync(utils.getPathFromBase(globalConstants.printerPasswordsPath), JSON.stringify(passwords));
-        res.send();
-    });
-
-    router.post('/settings/website', function (req, res) {
-        let level = req.body.logLevel;
-        if (level) {
-            logger.setLevel(level);
-            printerProxy.setLoggerLevel(level);
-            logger.info("Log level was set to " + req.body.logLevel);
-        }
-
-        fs.writeFileSync(utils.getPathFromBase(globalConstants.websiteSettingsPath), JSON.stringify(req.body));
         res.send();
     });
 

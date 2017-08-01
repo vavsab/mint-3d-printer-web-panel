@@ -11,6 +11,7 @@ const logger = require('./logger');
 const globalConstants = require('./globalConstants');
 const databaseMigrations = require('./databaseMigrations');
 const repository = require('./repository');
+const configurationController = require('./controllers/configurationController');
 const socketControllerFactory = require('./controllers/socketController');
 const updateControllerFactory = require('./controllers/updateController');
 const networkControllerFactory = require('./controllers/networkController');
@@ -19,17 +20,20 @@ const printerStatusControllerFactory = require('./controllers/printerStatusContr
 
 const port = 3123;
 
-try {
-  let logLevel = JSON.parse(fs.readFileSync(globalConstants.websiteSettingsPath).toString()).logLevel;
-  if (logLevel) {
-    logger.setLevel(logLevel);
+databaseMigrations.update()
+.then(() => configurationController.get(configurationController.KEY_WEBSITE_SETTINGS))
+.then((websiteSettings) => {
+  try {
+    let logLevel = websiteSettings.logLevel;
+    if (logLevel) {
+      logger.setLevel(logLevel);
+    }
+  } catch(e) {
+    logger.error(e);
   }
-} catch(e) {
-  logger.error(e);
-}
-
-databaseMigrations.update().then(() => {
-
+})
+.then(() => {  
+  
   if (!fs.existsSync('../logs')){
     fs.mkdirSync('../logs');
   }
@@ -71,11 +75,13 @@ databaseMigrations.update().then(() => {
     const apiPowerFactory = require('./routes/api.power');
 
     const powerRouters = apiPowerFactory(powerController);
+    const settingsRouters = apiSettingsFactory(updateController, networkController, printerProxy);
 
     app.use('/', routes);
     app.use('/api', powerRouters.openRouter);
+    app.use('/api', settingsRouters.openRouter);
     app.use('/api', apiFactory(tokenPassword, printerProxy, printerStatusController));
-    app.use('/api', apiSettingsFactory(updateController, networkController));
+    app.use('/api', settingsRouters.router);
     app.use('/api', powerRouters.router);
 
     // catch 404 and forward to error handler
@@ -133,7 +139,7 @@ databaseMigrations.update().then(() => {
   }
 
   process.on('unhandledRejection', (reason, p) => {
-    logger.error(`Unhandled promise rejection: ${reason}. Promise: ${p}`);
+    logger.error(`Unhandled promise rejection: ${reason}. Promise: ${JSON.stringify(p)}`);
   });
 
   //do something when app is closing
