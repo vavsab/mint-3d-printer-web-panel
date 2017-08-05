@@ -32,6 +32,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/settings/printer', 'settings_printer')
         .when('/settings/update', 'settings_update')
         .when('/settings/network', 'settings_network')
+        .when('/settings/support', 'settings_support')
         .when('/settings/printer/z-index', 'settings_printer_z-index')
         .when('/settings/printer/extruder', 'settings_printer_extruder')
         .when('/settings/printer/advanced', 'settings_printer_advanced')
@@ -115,6 +116,10 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             templateUrl: 'partials/settings/network.html',
             controller: 'settingsNetworkController as $ctrl'
         })
+        .segment('settings_support', {
+            templateUrl: 'partials/settings/support.html',
+            controller: 'settingsSupportController as $ctrl'
+        })
         .segment('settings_printer_z-index', {
             templateUrl: 'partials/settings/printer/z-index.html',
             controller: 'settingsPrinterZIndexController as $ctrl'
@@ -132,7 +137,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             controller: 'settingsPrinterConfigurationController as $ctrl'
         });
 
-    $routeProvider.otherwise({redirectTo: '/lockScreen'}); 
+    $routeProvider.otherwise({redirectTo: '/'}); 
 }]);
 
 app.config(['$httpProvider', function($httpProvider) {

@@ -11,6 +11,9 @@ namespace PrintDream.Model
     {
         public const string PackagePrefix = "I";
 
+        [DataMember(Name = "ID", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
+
         [DataMember(Name = "State")]
         public int StateCode { get; set; }
 

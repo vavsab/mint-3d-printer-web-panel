@@ -3,6 +3,7 @@ module.exports = (socketController) => {
     const logger = require('../logger');
     const config = require('config');
     const fs = require('fs-extra');
+    const printerIdController = require('./printerIdController');
 
     let self = this;
     let pathToUpdateScript = config.get('pathToUpdateScript');
@@ -54,37 +55,25 @@ module.exports = (socketController) => {
 
     self.getStatus = () => status;
     
-    var checkPrinterID = (callback) =>{
-       exec(`${pathToPrinterId} `+socketController.ID,(err,stdout,stderr)=>{
-              if (err) {
-                    reject({error: err});
-                } else {
-                  let printer_id = JSON.parse(stdout);
-                  callback(printer_id.printer_id);
-                }});
-    };
-    
     self.fetch = () => {
         return new Promise((resolve, reject) => {
             if (status.state == 'Downloading' || status.state == 'Installing'){
                 reject(`Operation is not allowed for status '${status}'`);
                 return;
-            }  
-            if(socketController.ID === undefined)
-            {
-              reject("Can't get serial data");
-                return;
-            }
-            checkPrinterID((printer_id) =>{
-              exec(`${pathToUpdateScript} --fetch --printer-id ${printer_id}`, (err, stdout, stderr) => {
-                      if (err) {
-                          reject({error: err});
-                      } else {
-                          let version = JSON.parse(stdout);
-                          resolve(version);
-                      }
-                    });
-            }); 
+            } 
+
+            printerIdController.getIdHash()
+            .then(printerIdHash => {
+                exec(`${pathToUpdateScript} --fetch --printer-id ${printer_id}`, (err, stdout, stderr) => {
+                    if (err) {
+                        reject({error: err + stderr + stdout});
+                    } else {
+                        let version = JSON.parse(stdout);
+                        resolve(version);
+                    }
+                });
+            })
+            .catch(error => reject(error));
         });
     };
 
@@ -96,18 +85,27 @@ module.exports = (socketController) => {
         raiseStatusRefresh();
 
         status.error = null;
-        checkPrinterID((printer_id) =>{   
-            exec(`${pathToUpdateScript} --pull --printer-id ${printer_id}`, (err, stdout, stderr) => {
-              if (err) {
-                status.error = err + stderr;
-                status.state = 'DownloadingError';
-                raiseStatusRefresh();
-              } else {
-                status.state = 'Downloaded';
-                refreshDownloadedVersion();
-                raiseStatusRefresh();
-              }
-            });
+
+        printerIdController.getIdHash()
+        .then(printerIdHash => {
+            return new Promise((resolve, reject) => {
+                exec(`${pathToUpdateScript} --pull --printer-id ${printerIdHash}`, (err, stdout, stderr) => {
+                    if (err) {
+                        reject(err + stderr);
+                    } else {
+                        resolve();
+                    }
+                });
+            })
+        })
+        .then(() => {
+            status.state = 'Downloaded';
+            refreshDownloadedVersion();
+            raiseStatusRefresh();
+        }, (error) => {
+            status.error = err + stderr;
+            status.state = 'DownloadingError';
+            raiseStatusRefresh();
         });
     }
 

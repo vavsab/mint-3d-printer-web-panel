@@ -43,6 +43,7 @@ var proxy = function () {
 
     socket.on('disconnect', function() {
         logger.info('printerProxy: Printer service disconnected');
+        self.emit('disconnected');
     });
 };
 

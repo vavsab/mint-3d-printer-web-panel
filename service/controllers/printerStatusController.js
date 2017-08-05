@@ -95,6 +95,7 @@ module.exports = (socketController, printerProxy) =>
   const logger = require('../logger');
   const fs = require('fs-extra');
   const utils = require('../utils');
+  const printerIdController = require('./printerIdController');
   const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase("files"));
 
   var lastPrintingStatusUpdateDate = new Date(0); // Status for printing process
@@ -111,16 +112,17 @@ module.exports = (socketController, printerProxy) =>
     }
   }
 
-  printerProxy.on('connected', () => {
-    printerProxy.send(requestPrinterStatusCommand); // Request printer status
-  });
+  statusInterval = null;
 
   // Request status in idle mode
-  setInterval(() => {
+  statusInterval = setInterval(() => {
     if (new Date() - lastPrintingStatusUpdateDate > 1000) {
-      printerProxy.send(requestPrinterStatusCommand); // Request printer status
-      if(socketController.ID === undefined)
+      if (printerIdController.id == null) {
+        logger.info('printerStatusController > Printer id requested');
         printerProxy.send(requestPrinterSerialCommand); // Request printer serial
+      } else {
+        printerProxy.send(requestPrinterStatusCommand); // Request printer status
+      }
     }
   }, 1000);
 
@@ -135,7 +137,8 @@ module.exports = (socketController, printerProxy) =>
       return;
     }
 
-    if (socketController.getClientsCount() > 0 && new Date() - lastPrintingStatusUpdateDate > 1000) {
+    if ((socketController.getClientsCount() > 0 && new Date() - lastPrintingStatusUpdateDate > 1000)
+      || printerIdController.id == null) {
       var strings = data.split("\n");
       strings.forEach((item, i, arr) => { 
         if (item.startsWith("I")) {
@@ -149,8 +152,10 @@ module.exports = (socketController, printerProxy) =>
             logger.warn("Could not parse JSON '" + item + "': " + error);
             return;
           }
+
           if(status.hasOwnProperty('ID')){
-            socketController.ID = status.ID;
+            logger.info('printerStatusController > Printer id was received');
+            printerIdController.id = status.ID;
             return;
           }
           status.date = new Date();

@@ -467,3 +467,42 @@ function (powerService, websiteSettingsService) {
         return websiteSettingsService.save(self.websiteSettings);
     }
 }]);
+
+app.controller('settingsSupportController', 
+['supportSettingsService', 'dialogService', 
+function (supportSettingsService, dialogService) {
+    var self = this;
+
+    self.isConnected = null;
+    self.error = null;
+
+    supportSettingsService.getStatus()
+    .then(function success(isConnected) {
+        self.isConnected = isConnected;
+        self.error = null;
+    }, function error(error) {
+        self.error = error;
+    });
+
+    self.connect = function () {
+        return dialogService.prompt('Specify support reason (optional)')
+        .then(function success(message) {
+            return supportSettingsService.connect(message);
+        })
+        .then(function success() {
+            self.isConnected = true;
+            self.error = null;
+        });
+    }
+
+    self.disconnect = function () {
+        return dialogService.confirm('Are you sure to disconnect support session?', 'Support session disconnect')
+        .then(function success()  {
+            return supportSettingsService.disconnect();
+        })
+        .then(function success() {
+            self.isConnected = false;
+            self.error = null;
+        });
+    }
+}]);

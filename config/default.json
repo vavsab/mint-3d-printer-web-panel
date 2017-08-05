@@ -2,7 +2,8 @@
     "PrinterFilePath" : "emulators/printer/PrinterEmulator/bin/Debug/PrinterEmulator.exe",
     "pathToUpdateScript": "emulators\\update\\update.bat",
     "pathToInstallScript": "",
+    "pathToSupportScript": "emulators\\support\\support.bat",
     "pathToVersion": "emulators\\update\\version",
-    "pathToPrinterId": "",
+    "pathToPrinterId": "emulators\\printer_id.bat",
     "pathToPauseInfo": "printerInfo.txt"
 }

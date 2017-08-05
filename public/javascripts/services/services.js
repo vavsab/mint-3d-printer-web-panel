@@ -450,3 +450,18 @@ app.service('printerSettingsService', ['httpq', function (httpq) {
         return httpq.post('/api/settings/printer', settings);
     };
 }]);
+
+app.service('supportSettingsService', ['httpq', function (httpq) {
+
+    this.getStatus = function () {
+        return httpq.get('/api/settings/support');
+    }
+
+    this.connect = function (message) {
+        return httpq.post('/api/settings/support/connect', {message: message});
+    }
+
+    this.disconnect = function () {
+        return httpq.post('/api/settings/support/disconnect');
+    }
+}]);

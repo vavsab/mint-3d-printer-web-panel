@@ -1,10 +1,11 @@
 module.exports = (updateController, networkController, printerProxy) => {
-    let express = require('express');
-    let fs = require('fs-extra');
-    let path = require('path');
-    let logger = require('../logger');
-    let globalConstants = require('../globalConstants');
+    const express = require('express');
+    const fs = require('fs-extra');
+    const path = require('path');
+    const logger = require('../logger');
+    const globalConstants = require('../globalConstants');
     const configurationController = require('../controllers/configurationController');
+    const supportController = require('../controllers/supportController');
 
     let router = express.Router();
     let openRouter = express.Router();
@@ -75,6 +76,30 @@ module.exports = (updateController, networkController, printerProxy) => {
     openRouter.get('/settings/website', (req, res) => {
         configurationController.get(configurationController.KEY_WEBSITE_SETTINGS)
         .then(websiteSettings => res.json(websiteSettings));
+    });
+
+    router.get('/settings/support', (req, res) => {
+        supportController.isConnected()
+        .then((isConnected) => res.send(isConnected), 
+            (error) => {
+                res.status(500).json({error: error});
+            });
+    });
+
+    router.post('/settings/support/connect', (req, res) => {
+        supportController.connect(req.body.message)
+        .then(() => res.send(), 
+            (error) => {
+                res.status(500).json({error: error});
+            });
+    });
+
+    router.post('/settings/support/disconnect', (req, res) => {
+        supportController.disconnect()
+        .then(() => res.send(), 
+            (error) => {
+                res.status(500).json({error: error});
+            });
     });
 
     return { router: router, openRouter: openRouter };

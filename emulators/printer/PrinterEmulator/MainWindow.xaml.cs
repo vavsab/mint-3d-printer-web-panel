@@ -74,9 +74,9 @@ namespace PrinterEmulator
                         Dispatcher.Invoke(() =>
                         {
                             AppendTextToOutput(TextBoxOutput.Text += $"input>> {buffer}{Environment.NewLine}");
-                            if (buffer.StartsWith("G300"))
+                            if (buffer.StartsWith("G300") || buffer.StartsWith("M1"))
                             {
-                                ConsoleWrite(GetInfo() + "\n");
+                                ConsoleWrite(GetInfo(sendId: buffer.StartsWith("M1")) + "\n");
                             }
                         });
 
@@ -134,11 +134,12 @@ namespace PrinterEmulator
             ConsoleWrite("Some error #" + random.Next() + '\n', error: true);   
         }
 
-        private string GetInfo(bool isPrinting = false)
+        private string GetInfo(bool isPrinting = false, bool sendId = false)
         {
             return InfoOutput.PackagePrefix + 
                 JsonSerializer.Serialize(new InfoOutput
             {
+                Id = sendId ? "testKey" : null,
                 State = SelectedState,
                 CullerRate = random.Next(0, 2550),
                 LineCount = LineCount,
