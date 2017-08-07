@@ -30,7 +30,7 @@ function (printerSettingsService, commandService, loader, $q, printerStatus) {
     };
 
     this.extrude = function () {
-        return commandService.sendCommand("G1 E" + self.extruderPosition);
+        return commandService.sendCommand("G1 E" + self.extruderPosition + " F1000");
     };
 
     this.resetOverExtrusion = function () {
