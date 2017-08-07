@@ -1,6 +1,6 @@
 app.controller('settingsPrinterExtruderController', 
-['printerSettingsService', 'commandService', 'loader', '$q',
-function (printerSettingsService, commandService, loader, $q) {
+['printerSettingsService', 'commandService', 'loader', '$q', 'printerStatus',
+function (printerSettingsService, commandService, loader, $q, printerStatus) {
     var self = this;
 
     this.extruderPosition = 0;
@@ -42,7 +42,7 @@ function (printerSettingsService, commandService, loader, $q) {
     };
 
     this.applyOverExtrusion = function () {
-        if (self.status == null || self.status.extrOver == null) {
+        if (printerStatus.status == null || printerStatus.status.extrOver == null) {
             return $q(function (resolve, reject) {
                 reject("Has no extruder status received from printer. Cannot apply settings.");
             });
@@ -51,7 +51,7 @@ function (printerSettingsService, commandService, loader, $q) {
         var delayKey = "E1DelayIntervalToSpeed";
         var tickKey = "E1TickPerM";
 
-        var overExtrusion = self.status.extrOver;
+        var overExtrusion = printerStatus.status.extrOver;
         var latestOverExtrusion = 100;
 
         var delay = self.settings[delayKey];
@@ -170,7 +170,7 @@ function ($scope, printerSettingsService, printerStatusService, dialogService) {
         { title: "Heater 1. Kp", tag: "H1Kp", comment: "constant" },
         { title: "Heater 1. Kdd", tag: "H1Kdd", comment: "constant" },
         { title: "Heater 1. Kid", tag: "H1Kid", comment: "constant" },
-        { title: "Extruder 1. Tick per minute", tag: "E1TickPerM", comment: "constant" },
+        { title: "Extruder 1. Tick per meter", tag: "E1TickPerM", comment: "constant" },
         { title: "Extruder 1. Delay interval to speed", tag: "E1DelayIntervalToSpeed", comment: "constant" },
         { title: "Min speed", tag: "MinSpeed", comment: "constant" },
         { title: "Max pressure", tag: "PressureMax", comment: "constant" }
