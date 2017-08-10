@@ -10,6 +10,7 @@ const uglify = require('gulp-uglify');
 const uglifyCss = require('gulp-uglifycss');
 const merge = require('merge-stream');
 const gulpSequence = require('gulp-sequence');
+const spawn = require('child_process').spawn;
 
 gulp.task('default', ['less', 'i18n']);
 gulp.task('i18n', ['i18n_generate', 'i18n_compile']);
@@ -39,11 +40,11 @@ gulp.task('i18n_compile', ['i18n_generate'], () =>
 
 
 gulp.task('clean', () => 
-  gulp.src('build', {read: false})
+  gulp.src(['build/*', '!build/node_modules/'])
 		.pipe(clean())
 );
 
-gulp.task('build', gulpSequence(['copy_raw_to_build', 'build_js_custom']));
+gulp.task('build', gulpSequence(['copy_raw_to_build', 'build_js_custom', 'build_install_packages']));
 
 gulp.task('copy_raw_to_build', () => 
   merge(
@@ -51,12 +52,33 @@ gulp.task('copy_raw_to_build', () =>
       .pipe(gulp.dest('build/public')),
     gulp.src(['service/**'])
       .pipe(gulp.dest('build/service')),
-    // gulp.src(['desktop-loader/**'])
-    //   .pipe(gulp.dest('build/desktop-loader')),
-    gulp.src(['*SettingsDefault*', 'pm2.json'])
-      .pipe(gulp.dest('build'))
-  )
+    gulp.src(['desktop-loader/**', '!desktop-loader/node_modules/**'])
+      .pipe(gulp.dest('build/desktop-loader')),
+    gulp.src(['pm2.json', 'package.json'])
+      .pipe(gulp.dest('build')),
+    gulp.src(['*SettingsDefault*'])
+      .pipe(gulp.dest('build/configs')))
 );
+
+gulp.task('build_install_packages', (done) => {
+  let npmCommand = 'npm';
+  if (/^win/.test(process.platform)) {
+    npmCommand = 'npm.cmd';
+  }
+
+  new Promise((resolve, reject) => {
+    spawn(npmCommand, ['install', '--production'], { cwd: `${__dirname}/build` })
+      .on('close', resolve)
+      .on('error', reject);
+  })
+  .then(new Promise((resolve, reject) => {
+    spawn(npmCommand, ['prune', '--production'], { cwd: `${__dirname}/build` })
+      .on('close', resolve)
+      .on('error', reject)
+  }))
+  .then(done)
+  .catch(reason => console.error(reason));
+});
 
 gulp.task('build_js_custom', () => 
   gulp.src(['public/javascripts/**/*.js', '!public/javascripts/libs/**'])
