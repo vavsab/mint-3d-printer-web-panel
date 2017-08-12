@@ -12,9 +12,9 @@
     const crypto = require('crypto');
     const utils = require('../utils');
     
-    const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase("files"));
-    const logsRootPath = fs.realpathSync(utils.getPathFromBase("logs"));
-
+    const logsRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToLogsFolder')));
+    const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToFilesFolder')));
+    
     const router = express.Router();
 
     /* Open services */
@@ -22,7 +22,7 @@
     router.post('/token', function (req, res) {
         let password;
         try {
-            password = JSON.parse(fs.readFileSync(utils.getPathFromBase(globalConstants.printerPasswordsPath)).toString())[0].password;
+            password = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath)).toString())[0].password;
         } catch (e) {
             password = null;
         }
@@ -178,12 +178,12 @@
     });
 
     router.get('/status/resume', function(req, res, next) {
-        let pauseFileExists = fs.existsSync(utils.getPathFromBase(config.get('pathToPauseInfo')));
+        let pauseFileExists = fs.existsSync(utils.getPathForConfig(globalConstants.printerPauseInfoPath));
         res.send(pauseFileExists);
     });
 
     router.delete('/status/resume', function(req, res, next) {
-        fs.removeSync(utils.getPathFromBase(config.get('pathToPauseInfo')));
+        fs.removeSync(utils.getPathForConfig(globalConstants.printerPauseInfoPath));
         res.send();
     });
 
@@ -305,21 +305,21 @@
     });
 
     try {
-        fs.statSync(utils.getPathFromBase(globalConstants.macrosSettingsPath));
+        fs.statSync(utils.getPathForConfig(globalConstants.macrosSettingsPath));
     }
     catch (e) {
-        fs.copySync(utils.getPathFromBase(globalConstants.defaultMacrosSettingsPath), 
-            utils.getPathFromBase(globalConstants.macrosSettingsPath));
+        fs.copySync(utils.getPathForConfig(globalConstants.defaultMacrosSettingsPath), 
+            utils.getPathForConfig(globalConstants.macrosSettingsPath));
     }
 
     router.get('/macros', function (req, res) {
         if (req.id == null) {
-            res.json(JSON.parse(fs.readFileSync(utils.getPathFromBase(globalConstants.macrosSettingsPath)).toString()));
+            res.json(JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.macrosSettingsPath)).toString()));
         }
     });
 
     router.post('/macros/:id', function (req, res) {
-        macrosList = JSON.parse(fs.readFileSync(utils.getPathFromBase(globalConstants.macrosSettingsPath)).toString());
+        macrosList = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.macrosSettingsPath)).toString());
         var id = req.params.id;
         var indexToReplace = null;
         for (var i = 0; i < macrosList.length; i++) {
@@ -341,12 +341,12 @@
             macrosList.push(req.body);
         }
 
-        fs.writeFileSync(utils.getPathFromBase(globalConstants.macrosSettingsPath), JSON.stringify(macrosList));
+        fs.writeFileSync(utils.getPathForConfig(globalConstants.macrosSettingsPath), JSON.stringify(macrosList));
         res.send();
     });
 
     router.delete('/macros/:id', function (req, res) {
-        macrosList = JSON.parse(fs.readFileSync(utils.getPathFromBase(globalConstants.macrosSettingsPath)).toString());
+        macrosList = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.macrosSettingsPath)).toString());
 
         var id = req.params.id;
         var indexToReplace = null;
@@ -365,7 +365,7 @@
             }
 
             macrosList.splice(indexToReplace, 1);
-            fs.writeFileSync(utils.getPathFromBase(globalConstants.macrosSettingsPath), JSON.stringify(macrosList));
+            fs.writeFileSync(utils.getPathForConfig(globalConstants.macrosSettingsPath), JSON.stringify(macrosList));
         } else {
             res.status(404);
         }
@@ -376,7 +376,7 @@
     router.post('/settings/website/password', function (req, res) {
         let passwords;
         try {
-            passwords = JSON.parse(fs.readFileSync(utils.getPathFromBase(globalConstants.printerPasswordsPath)).toString());
+            passwords = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath)).toString());
         } catch (e) {
             passwords = [{ user: 'mint', password: null }];
         }
@@ -396,21 +396,21 @@
             passwords[0].password = null;
         }
 
-        fs.writeFileSync(utils.getPathFromBase(globalConstants.printerPasswordsPath), JSON.stringify(passwords));
+        fs.writeFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath), JSON.stringify(passwords));
         res.send();
     });
 
     try {
-        fs.statSync(utils.getPathFromBase(globalConstants.printerSettingsPath));
+        fs.statSync(utils.getPathForConfig(globalConstants.printerSettingsPath));
     }
     catch (e) {
-        fs.copySync(utils.getPathFromBase(globalConstants.defaultPrinterSettingsPath), 
-            utils.getPathFromBase(globalConstants.printerSettingsPath));
+        fs.copySync(utils.getPathForConfig(globalConstants.defaultPrinterSettingsPath), 
+            utils.getPathForConfig(globalConstants.printerSettingsPath));
     }
 
     var getPrinterSettingsJson = function () {
         var result = "{";
-        fs.readFileSync(utils.getPathFromBase(globalConstants.printerSettingsPath)).toString().split(/\n/)
+        fs.readFileSync(utils.getPathForConfig(globalConstants.printerSettingsPath)).toString().split(/\n/)
         .forEach(function (line) {
             var keyValue = line.split(' ');
             if (keyValue.length != 2)
@@ -442,14 +442,14 @@
             result += property + " " + currentSettings[property] + "\n";
         }
 
-        fs.writeFileSync(utils.getPathFromBase(globalConstants.printerSettingsPath), result);
+        fs.writeFileSync(utils.getPathForConfig(globalConstants.printerSettingsPath), result);
         printerProxy.send('UpdateSettings');
         res.send();
     });
 
     router.post('/settings/printer/reset', function (req, res) {
-        fs.copySync(utils.getPathFromBase(globalConstants.defaultPrinterSettingsPath), 
-            utils.getPathFromBase(globalConstants.printerSettingsPath), { clobber : true });
+        fs.copySync(utils.getPathForConfig(globalConstants.defaultPrinterSettingsPath), 
+            utils.getPathForConfig(globalConstants.printerSettingsPath), { clobber : true });
 
         printerProxy.send('UpdateSettings');
         res.send();

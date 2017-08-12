@@ -1,5 +1,5 @@
 {
-  "name": "mint-desktop-loader",
+  "name": "desktop-loader",
   "version": "1.0.0",
   "description": "Loads site on desktop in kiosk mode",
   "main": "main.js",

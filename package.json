@@ -30,11 +30,13 @@
     "gulp-angular-gettext": "^2.2.0",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.1",
+    "gulp-html-replace": "^1.6.2",
     "gulp-less": "^3.3.0",
     "gulp-minify": "^1.0.0",
     "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^3.0.0",
     "gulp-uglifycss": "^1.0.8",
-    "merge-stream": "^1.0.1"
+    "merge-stream": "^1.0.1",
+    "yargs": "^8.0.2"
   }
 }
