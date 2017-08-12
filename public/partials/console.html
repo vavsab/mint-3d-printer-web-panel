@@ -1,0 +1,38 @@
+<div class="page-header">
+    <title-control><translate>Console</translate></title-control>
+</div>
+
+<div class="row" style="margin-bottom:20px;">
+    <form class="navbar-form navbar-left">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="{{'Send G-code...' | translate}}" ng-model="$ctrl.command" ng-keyboard>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-repeat="c in $ctrl.commands"><a href ng-click="$ctrl.setCommand(c.command)">{{c.title}} <span class="badge">{{c.command}}</span></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a target="_blank" href="http://reprap.org/wiki/G-code" translate>G-code wiki (RepRap)</a></li>
+                    </ul>
+                </div>
+            </div>                
+            <action-button button-name="{{'Send' | translate}}" action="$ctrl.sendCommand($ctrl.command);" type="success" icon="send" />
+        </div>
+    </form>
+</div>
+
+<div class="col-lg-6 col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <translate>Macroses</translate>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <a ng-repeat="m in $ctrl.macroses" class="list-group-item" href ng-click="$ctrl.runMacros(m);">
+                    {{m.title}}
+                </a>
+                <a class="list-group-item" href="#/macros"><span class="glyphicon glyphicon-link"></span><b translate>See all</b></a>
+            </div>
+        </div>
+    </div>
+</div>

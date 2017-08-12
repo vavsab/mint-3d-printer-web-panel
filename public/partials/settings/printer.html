@@ -1,0 +1,32 @@
+<div class="page-header">
+    <title-control><translate>Printer settings</translate></title-control>
+</div>
+
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-orange fg-white" data-role="tile" ng-click="go('/settings/printer/extruder')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-shower"></span>
+                <span class="tile-label" translate translate-context="Tile">Extruder calibration</span>
+            </div>
+        </div>    
+        <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/settings/printer/z-index')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-text-height"></span>
+                <span class="tile-label" translate translate-context="Tile">Z-Index calibration</span>
+            </div>
+        </div>
+        <div class="tile bg-red fg-white" data-role="tile" ng-click="go('/settings/printer/advanced')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-sliders"></span>
+                <span class="tile-label" translate translate-context="Tile">Advanced</span>
+            </div>
+        </div>
+        <div class="tile bg-gray fg-white" data-role="tile" ng-click="go('/settings/printer/configuration')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-wrench"></span>
+                <span class="tile-label" translate translate-context="Tile">Configuration</span>
+            </div>
+        </div>
+    </div>
+</div>

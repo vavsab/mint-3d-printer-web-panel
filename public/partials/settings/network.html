@@ -1,0 +1,32 @@
+<div class="page-header">
+    <title-control><translate>Network</translate></title-control>
+</div>
+
+<div class="row">
+    <h2><translate>Wifi connection</translate></h2> 
+    <div><translate>Connected to WiFi:</translate> {{($ctrl.state.ssid ? $ctrl.state.ssid : '-')}}</div>
+    <div><translate>Website address:</translate> {{($ctrl.state.ip ? ($ctrl.state.ip + ':3123') : '-')}}</div>
+</div>
+
+<div class="row" style="margin-top: 10px;">
+    <action-button button-name="{{'Scan for wifi networks' | translate}}" action="$ctrl.getWifiAPs()" icon="refresh" />
+
+    <div class="well" ng-if="$ctrl.message">{{$ctrl.message}}</div>
+
+    <table class="table table-striped" style="margin-top: 5px;" ng-if="$ctrl.wifiAPs.length > 0">
+            <thead>
+                <th translate>SSID</th>
+                <th translate>Signal level</th>
+                <th translate>Actions</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ap in $ctrl.wifiAPs">
+                    <td>{{ap.ssid}}</td>
+                    <td>{{ap.signal_level}}</td>
+                    <td>
+                        <action-button button-name="{{'Connect' | translate}}" action="$ctrl.connectToAP(ap.ssid)" type="success" icon="ok" />
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+</div>

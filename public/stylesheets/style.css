@@ -1,0 +1,193 @@
+.progress-bar {
+  min-width: 6em;
+}
+
+.bigger {
+  font-size: 1.5em;
+}
+
+body {
+  padding-top: 60px;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-top: 15px;
+  }
+}
+
+.animate.ng-enter {
+	transition: opacity 0.5s;
+	opacity: 0.0;
+}
+
+.animate.ng-enter-active {
+	opacity: 1.0;
+}
+
+.animate.ng-leave {
+    display: none;
+}
+
+#loading {
+    position: absolute;
+    width: 300px;
+    top: 10px;
+    right: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    z-index: 1040;
+}
+
+.ui-keyboard {
+  border-radius: 0;
+  left: 0;
+  top: auto !important;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+/* Button styles */
+
+.btn.loading {
+  padding: 0;
+}
+
+.btn.loading span.btn-content {
+  display: block;
+  padding: 6px 12px;
+  height: 100%;
+  background-color: rgba(179, 179, 179, .3);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.loading span.btn-content:after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: linear-gradient(
+    -45deg, 
+    rgba(255, 255, 255, .2) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, .2) 50%, 
+    rgba(255, 255, 255, .2) 75%, 
+    transparent 75%, 
+    transparent
+  );
+  z-index: 1;
+  background-size: 50px 50px;
+  animation: loading-move 2s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes loading-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+/* Lock page */
+
+.lock-container {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-image: url('/images/wallpaper.jpg');
+  background-size: cover;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.lock-container > .center-vertically {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  transform: translateY(-50%);  
+}
+
+.lock-container .lock-input-panel:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 2px 2px 1px grey;
+}
+
+.lock-container .lock-input-panel {
+  max-width: 400px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 1px 1px 1px grey;
+  padding: 5px;
+  white-space: nowrap;
+}
+
+.lock-container .avatar {
+  float: left;
+  box-shadow: 1px 1px 1px gray;
+  margin-right: 5px;
+}
+
+.lock-container .locked-title {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.animate-show-hide.ng-hide {
+  opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.navbar-default {
+  background-color: rgba(255, 255, 255, 0.7);  
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#page-wrapper {
+  margin: 20px 0 0 0;  
+}
+
+.title a:hover, .title a:visited, .title a:focus {
+  text-decoration: none;
+}
+
+.metro .slider.slider-big .slider-backside,
+.metro .slider.slider-big .complete {
+  height: 2.5rem;
+}
+
+.metro .slider.slider-big .marker {
+  height: 3rem;
+  width: 2rem;
+  background-color: black;
+}
+
+.metro .slider.slider-big {
+  height: 7.125rem;
+}
+
+/* Hide scroll */
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}

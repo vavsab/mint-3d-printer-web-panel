@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h3 class="modal-title" translate>Power is off</h3>
+</div>
+<div class="modal-body" translate 
+    translate-params-seconds="$ctrl.secondsToShutdown">
+    Preparing to shutdown in {{seconds}} sec.
+</div>
+<div class="modal-footer">
+    <action-button type="warning" ng-click="$ctrl.shutdown()" 
+        ng-if="!$ctrl.printerStatus.isLocked"
+        button-name="{{['Idle', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf($ctrl.printerStatus.status.state) != -1 ? ('Shutdown' | translate) : ('Pause and shutdown' | translate)}}" />
+</div>

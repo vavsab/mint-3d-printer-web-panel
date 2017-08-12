@@ -1,0 +1,20 @@
+<div class="page-header">
+    <title-control><translate>Support</translate></title-control>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" translate>Connection status</label>
+            <div class="input-group col-xs-7">
+                <span class="label label-success" ng-if="$ctrl.isConnected === true" translate>Active</span>
+                <span class="label label-default" ng-if="$ctrl.isConnected === false" translate>Disconnected</span>
+                <span class="label label-info" ng-if="$ctrl.isConnected == null" translate>Loading...</span>
+                <span class="label label-danger" ng-if="$ctrl.error">{{$ctrl.error}}</span>
+
+                <action-button button-name="{{'Disconnect' | translate}}" type='warning' ng-if="$ctrl.isConnected === true"  action='$ctrl.disconnect()' />
+                <action-button button-name="{{'Connect' | translate}}" type='success' ng-if="$ctrl.isConnected === false" action='$ctrl.connect()' />
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+{
+  "apps" : [{
+    "name"        : "server",
+    "script"      : "service/app.js",
+    "error_file"      : "/dev/null",
+    "out_file"        : "/dev/null",
+    "env": {
+      "NODE_ENV": "stage"
+    }
+  }, {
+    "name"       : "printer",
+    "script"     : "service/printerWrapper.js",
+    "error_file"      : "/dev/null",
+    "out_file"        : "/dev/null",
+    "env": {
+      "NODE_ENV": "stage"
+    }
+  }]
+}

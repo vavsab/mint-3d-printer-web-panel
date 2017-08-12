@@ -1,0 +1,19 @@
+<div class="page-header">
+    <title-control><translate>Speed control</translate></title-control>
+</div>
+
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-darkCyan fg-white">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-dashboard"></span>
+                <span class="tile-badge bg-darkRed">{{status.feedRate / 10 | replaceIfUndefined}}%</span>
+                <span class="tile-label" translate translate-context="Tile">Speed</span>
+            </div>
+        </div>
+    </div>
+    <slider-regulator units="%" value="$ctrl.value" min="{{$ctrl.minValue}}" max="{{$ctrl.maxValue}}" step="1" left-shifts="['-10', '-1']" right-shifts="['+1', '+10']" />
+</div>
+<div class="row">
+    <action-button type="success" button-name="{{'Apply' | translate}}" action="$ctrl.apply()" />
+</div>

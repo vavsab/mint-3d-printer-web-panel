@@ -1,0 +1,50 @@
+<div class="page-header">
+    <title-control><translate>Settings</translate></title-control>
+</div>
+
+<div class="row metro">
+    <div class="tile-container">
+        <div class="tile bg-cobalt fg-white" data-role="tile" ng-click="go('/settings/browser')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-keyboard-o"></span>
+                <span class="tile-label"><translate translate-context="Tile">Theme and Keyboard</translate></span>
+            </div>
+        </div>    
+        <div class="tile bg-red fg-white" data-role="tile" ng-click="go('/settings/server')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-server"></span>
+                <span class="tile-label" translate translate-context="Tile">Server</span>
+            </div>
+        </div>
+        <div class="tile bg-darkCyan fg-white" data-role="tile" ng-click="go('/settings/change-password')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-unlock-alt"></span>
+                <span class="tile-label" translate translate-context="Tile">Change password</span>
+            </div>
+        </div>
+        <div class="tile bg-orange fg-white" data-role="tile" ng-click="go('/settings/printer')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-print"></span>
+                <span class="tile-label" translate translate-context="Tile">Printer</span>
+            </div>
+        </div>
+        <div class="tile bg-green fg-white" data-role="tile" ng-click="go('/settings/network')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-globe"></span>
+                <span class="tile-label" translate translate-context="Tile">Network</span>
+            </div>
+        </div>
+        <div class="tile bg-gray fg-white" data-role="tile" ng-click="go('/settings/update')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-refresh"></span>
+                <span class="tile-label" translate translate-context="Tile">Update</span>
+            </div>
+        </div>
+        <div class="tile bg-darkGreen fg-white" data-role="tile" ng-click="go('/settings/support')">
+            <div class="tile-content iconic">
+                <span class="icon fa fa-life-ring"></span>
+                <span class="tile-label" translate translate-context="Tile">Support</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="page-header">
+    <title-control><translate>Update</translate></title-control>
+</div>
+
+<div class="row">
+    <h2><translate>Current version</translate> <span class="label label-default">{{$ctrl.status.version.version}}</span></h2>
+</div>
+<div ng-if="['Downloading', 'Installing'].indexOf($ctrl.status.state) == -1">
+    <div class="row" style="margin-top: 10px;">
+        <action-button button-name="{{('Install' | translate) + ' ' + $ctrl.status.downloaded_version}}" type='success' 
+            action='$ctrl.install()'
+            ng-if="$ctrl.status.state == 'Downloaded'" />
+        <action-button button-name="{{'Check for updates' | translate}}" type='primary' action='$ctrl.fetch()' />
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-if="$ctrl.newVersion && $ctrl.newVersion.version != $ctrl.status.downloaded_version">
+        <div class="well">
+            <strong translate>New version is available</strong> 
+            {{$ctrl.newVersion.version}}
+            ({{$ctrl.newVersion.tarball_size | dataSize}})
+
+            <action-button button-name="{{'Download' | translate}}" type='success' action='$ctrl.pull()' />
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-if="$ctrl.isUpToDate">
+        <div class="well">
+            <translate>Software is up to date</translate>
+        </div>
+    </div>
+</div>
+
+<uib-progressbar class="progress-striped active" 
+    type="success" ng-if="['Downloading', 'Installing'].indexOf($ctrl.status.state) != -1"
+    ng-switch on="$ctrl.status.state">
+    <span ng-switch-when="Downloading" translate>Downloading updates...</span>
+    <span ng-switch-when="Installing" translate>Installing updates...</span>
+</uib-progressbar>

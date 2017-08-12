@@ -1,0 +1,3137 @@
+.op-default {
+  background-color: rgba(27, 161, 226, 0.7);
+}
+.fg-black {
+  color: #000000 !important;
+}
+.bg-black {
+  background-color: #000000 !important;
+}
+.fg-white {
+  color: #ffffff !important;
+}
+.bg-white {
+  background-color: #ffffff !important;
+}
+.fg-lime {
+  color: #a4c400 !important;
+}
+.bg-lime {
+  background-color: #a4c400 !important;
+}
+.fg-green {
+  color: #60a917 !important;
+}
+.bg-green {
+  background-color: #60a917 !important;
+}
+.fg-emerald {
+  color: #008a00 !important;
+}
+.bg-emerald {
+  background-color: #008a00 !important;
+}
+.fg-blue {
+  color: #00AFF0 !important;
+}
+.bg-blue {
+  background-color: #00AFF0 !important;
+}
+.fg-teal {
+  color: #00aba9 !important;
+}
+.bg-teal {
+  background-color: #00aba9 !important;
+}
+.fg-cyan {
+  color: #1ba1e2 !important;
+}
+.bg-cyan {
+  background-color: #1ba1e2 !important;
+}
+.fg-cobalt {
+  color: #0050ef !important;
+}
+.bg-cobalt {
+  background-color: #0050ef !important;
+}
+.fg-indigo {
+  color: #6a00ff !important;
+}
+.bg-indigo {
+  background-color: #6a00ff !important;
+}
+.fg-violet {
+  color: #aa00ff !important;
+}
+.bg-violet {
+  background-color: #aa00ff !important;
+}
+.fg-pink {
+  color: #dc4fad !important;
+}
+.bg-pink {
+  background-color: #dc4fad !important;
+}
+.fg-magenta {
+  color: #d80073 !important;
+}
+.bg-magenta {
+  background-color: #d80073 !important;
+}
+.fg-crimson {
+  color: #a20025 !important;
+}
+.bg-crimson {
+  background-color: #a20025 !important;
+}
+.fg-red {
+  color: #CE352C !important;
+}
+.bg-red {
+  background-color: #CE352C !important;
+}
+.fg-orange {
+  color: #fa6800 !important;
+}
+.bg-orange {
+  background-color: #fa6800 !important;
+}
+.fg-amber {
+  color: #f0a30a !important;
+}
+.bg-amber {
+  background-color: #f0a30a !important;
+}
+.fg-yellow {
+  color: #e3c800 !important;
+}
+.bg-yellow {
+  background-color: #e3c800 !important;
+}
+.fg-brown {
+  color: #825a2c !important;
+}
+.bg-brown {
+  background-color: #825a2c !important;
+}
+.fg-olive {
+  color: #6d8764 !important;
+}
+.bg-olive {
+  background-color: #6d8764 !important;
+}
+.fg-steel {
+  color: #647687 !important;
+}
+.bg-steel {
+  background-color: #647687 !important;
+}
+.fg-mauve {
+  color: #76608a !important;
+}
+.bg-mauve {
+  background-color: #76608a !important;
+}
+.fg-taupe {
+  color: #87794e !important;
+}
+.bg-taupe {
+  background-color: #87794e !important;
+}
+.fg-dark {
+  color: #1d1d1d !important;
+}
+.bg-dark {
+  background-color: #1d1d1d !important;
+}
+.fg-darkBrown {
+  color: #63362F !important;
+}
+.bg-darkBrown {
+  background-color: #63362F !important;
+}
+.fg-darkCrimson {
+  color: #640024 !important;
+}
+.bg-darkCrimson {
+  background-color: #640024 !important;
+}
+.fg-darkMagenta {
+  color: #81003C !important;
+}
+.bg-darkMagenta {
+  background-color: #81003C !important;
+}
+.fg-darkIndigo {
+  color: #4B0096 !important;
+}
+.bg-darkIndigo {
+  background-color: #4B0096 !important;
+}
+.fg-darkCyan {
+  color: #1B6EAE !important;
+}
+.bg-darkCyan {
+  background-color: #1B6EAE !important;
+}
+.fg-darkCobalt {
+  color: #00356A !important;
+}
+.bg-darkCobalt {
+  background-color: #00356A !important;
+}
+.fg-darkTeal {
+  color: #004050 !important;
+}
+.bg-darkTeal {
+  background-color: #004050 !important;
+}
+.fg-darkEmerald {
+  color: #003e00 !important;
+}
+.bg-darkEmerald {
+  background-color: #003e00 !important;
+}
+.fg-darkGreen {
+  color: #128023 !important;
+}
+.bg-darkGreen {
+  background-color: #128023 !important;
+}
+.fg-darkOrange {
+  color: #bf5a15 !important;
+}
+.bg-darkOrange {
+  background-color: #bf5a15 !important;
+}
+.fg-darkRed {
+  color: #9a1616 !important;
+}
+.bg-darkRed {
+  background-color: #9a1616 !important;
+}
+.fg-darkPink {
+  color: #9a165a !important;
+}
+.bg-darkPink {
+  background-color: #9a165a !important;
+}
+.fg-darkViolet {
+  color: #57169a !important;
+}
+.bg-darkViolet {
+  background-color: #57169a !important;
+}
+.fg-darkBlue {
+  color: #16499a !important;
+}
+.bg-darkBlue {
+  background-color: #16499a !important;
+}
+.fg-lightBlue {
+  color: #4390df !important;
+}
+.bg-lightBlue {
+  background-color: #4390df !important;
+}
+.fg-lighterBlue {
+  color: #00CCFF !important;
+}
+.bg-lighterBlue {
+  background-color: #00CCFF !important;
+}
+.fg-lightTeal {
+  color: #45fffd !important;
+}
+.bg-lightTeal {
+  background-color: #45fffd !important;
+}
+.fg-lightOlive {
+  color: #78aa1c !important;
+}
+.bg-lightOlive {
+  background-color: #78aa1c !important;
+}
+.fg-lightOrange {
+  color: #ffc194 !important;
+}
+.bg-lightOrange {
+  background-color: #ffc194 !important;
+}
+.fg-lightPink {
+  color: #f472d0 !important;
+}
+.bg-lightPink {
+  background-color: #f472d0 !important;
+}
+.fg-lightRed {
+  color: #da5a53 !important;
+}
+.bg-lightRed {
+  background-color: #da5a53 !important;
+}
+.fg-lightGreen {
+  color: #7ad61d !important;
+}
+.bg-lightGreen {
+  background-color: #7ad61d !important;
+}
+.fg-lightCyan {
+  color: #59cde2 !important;
+}
+.bg-lightCyan {
+  background-color: #59cde2 !important;
+}
+.fg-grayed {
+  color: #585858 !important;
+}
+.bg-grayed {
+  background-color: #585858 !important;
+}
+.fg-grayDarker {
+  color: #222222 !important;
+}
+.bg-grayDarker {
+  background-color: #222222 !important;
+}
+.fg-grayDark {
+  color: #333333 !important;
+}
+.bg-grayDark {
+  background-color: #333333 !important;
+}
+.fg-gray {
+  color: #555555 !important;
+}
+.bg-gray {
+  background-color: #555555 !important;
+}
+.fg-grayLight {
+  color: #999999 !important;
+}
+.bg-grayLight {
+  background-color: #999999 !important;
+}
+.fg-grayLighter {
+  color: #eeeeee !important;
+}
+.bg-grayLighter {
+  background-color: #eeeeee !important;
+}
+.fg-lightGray {
+  color: #999999 !important;
+}
+.bg-lightGray {
+  background-color: #999999 !important;
+}
+.fg-lighterGray {
+  color: #eeeeee !important;
+}
+.bg-lighterGray {
+  background-color: #eeeeee !important;
+}
+.fg-darkGray {
+  color: #333333 !important;
+}
+.bg-darkGray {
+  background-color: #333333 !important;
+}
+.fg-darkerGray {
+  color: #222222 !important;
+}
+.bg-darkerGray {
+  background-color: #222222 !important;
+}
+.fg-darker {
+  color: #222222 !important;
+}
+.bg-darker {
+  background-color: #222222 !important;
+}
+.metro {
+  /* transform functions */
+  /* Block function */
+}
+.metro .rotate45 {
+  transform: rotate(45deg);
+}
+.metro .rotate90 {
+  transform: rotate(90deg);
+}
+.metro .rotate135 {
+  transform: rotate(135deg);
+}
+.metro .rotate180 {
+  transform: rotate(180deg);
+}
+.metro .rotate225 {
+  transform: rotate(225deg);
+}
+.metro .rotate270 {
+  transform: rotate(270deg);
+}
+.metro .rotate360 {
+  transform: rotate(360deg);
+}
+.metro .rotate-45 {
+  transform: rotate(-45deg);
+}
+.metro .rotate-90 {
+  transform: rotate(-90deg);
+}
+.metro .rotate-135 {
+  transform: rotate(-135deg);
+}
+.metro .rotate-180 {
+  transform: rotate(-180deg);
+}
+.metro .rotate-225 {
+  transform: rotate(-225deg);
+}
+.metro .rotate-270 {
+  transform: rotate(-270deg);
+}
+.metro .rotate-360 {
+  transform: rotate(-360deg);
+}
+.metro .rotateX45 {
+  transform: rotateX(45deg);
+}
+.metro .rotateX90 {
+  transform: rotateX(90deg);
+}
+.metro .rotateX135 {
+  transform: rotateX(135deg);
+}
+.metro .rotateX180 {
+  transform: rotateX(180deg);
+}
+.metro .rotateX225 {
+  transform: rotateX(225deg);
+}
+.metro .rotateX270 {
+  transform: rotateX(270deg);
+}
+.metro .rotateX360 {
+  transform: rotateX(360deg);
+}
+.metro .rotateX-45 {
+  transform: rotateX(-45deg);
+}
+.metro .rotateX-90 {
+  transform: rotateX(-90deg);
+}
+.metro .rotateX-135 {
+  transform: rotateX(-135deg);
+}
+.metro .rotateX-180 {
+  transform: rotateX(-180deg);
+}
+.metro .rotateX-225 {
+  transform: rotateX(-225deg);
+}
+.metro .rotateX-270 {
+  transform: rotateX(-270deg);
+}
+.metro .rotateX-360 {
+  transform: rotateX(-360deg);
+}
+.metro .rotateY45 {
+  transform: rotateY(45deg);
+}
+.metro .rotateY90 {
+  transform: rotateY(90deg);
+}
+.metro .rotateY135 {
+  transform: rotateY(135deg);
+}
+.metro .rotateY180 {
+  transform: rotateY(180deg);
+}
+.metro .rotateY225 {
+  transform: rotateY(225deg);
+}
+.metro .rotateY270 {
+  transform: rotateY(270deg);
+}
+.metro .rotateY360 {
+  transform: rotateY(360deg);
+}
+.metro .rotateY-45 {
+  transform: rotateY(-45deg);
+}
+.metro .rotateY-90 {
+  transform: rotateY(-90deg);
+}
+.metro .rotateY-135 {
+  transform: rotateY(-135deg);
+}
+.metro .rotateY-180 {
+  transform: rotateY(-180deg);
+}
+.metro .rotateY-225 {
+  transform: rotateY(-225deg);
+}
+.metro .rotateY-270 {
+  transform: rotateY(-270deg);
+}
+.metro .rotateY-360 {
+  transform: rotateY(-360deg);
+}
+.metro .dropdown-toggle {
+  position: relative;
+  cursor: pointer;
+}
+.metro .dropdown-toggle:before {
+  display: block;
+  position: absolute;
+  vertical-align: middle;
+  color: transparent;
+  font-size: 0;
+  content: "";
+  height: 5px;
+  width: 5px;
+  background-color: transparent;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #1d1d1d;
+  top: 50%;
+  left: 100%;
+  margin-left: -1rem;
+  margin-top: -0.1625rem;
+  z-index: 2;
+  transform: rotate(-45deg);
+}
+.metro .dropdown-toggle.drop-marker-light:before {
+  border-color: #ffffff;
+}
+.metro *.dropdown-toggle {
+  padding-right: 1.625rem;
+}
+.metro .flush-list {
+  padding: 0;
+  margin: 0;
+  list-style: none inside none;
+}
+.metro .shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.metro .before-shadow:before {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.metro .after-shadow:after {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.metro .block-shadow {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+.metro .block-shadow-success {
+  box-shadow: 0 0 25px 0 rgba(0, 128, 0, 0.7);
+}
+.metro .block-shadow-error {
+  box-shadow: 0 0 25px 0 rgba(128, 0, 0, 0.7);
+}
+.metro .block-shadow-danger {
+  box-shadow: 0 0 25px 0 rgba(128, 0, 0, 0.7);
+}
+.metro .block-shadow-warning {
+  box-shadow: 0 0 25px 0 rgba(255, 165, 0, 0.7);
+}
+.metro .block-shadow-info {
+  box-shadow: 0 0 25px 0 rgba(89, 205, 226, 0.7);
+}
+.metro .block-shadow-impact {
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+.metro .bottom-shadow {
+  box-shadow: -1px 6px 6px -6px rgba(0, 0, 0, 0.35);
+}
+.metro .text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.metro .before-text-shadow:before {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.metro .after-text-shadow:after {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.metro .no-shadow {
+  box-shadow: none !important;
+}
+.metro .full-size {
+  width: 100% !important;
+}
+.metro .block {
+  display: block !important;
+}
+.metro .inline-block {
+  display: inline-block !important;
+}
+.metro .no-display {
+  display: none !important;
+}
+.metro .no-margin {
+  margin: 0 !important;
+}
+.metro .no-margin-right {
+  margin-right: 0 !important;
+}
+.metro .no-margin-left {
+  margin-left: 0 !important;
+}
+.metro .no-margin-top {
+  margin-top: 0 !important;
+}
+.metro .no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+.metro .no-padding {
+  padding: 0 !important;
+}
+.metro .no-padding-left {
+  padding-left: 0 !important;
+}
+.metro .no-padding-right {
+  padding-right: 0 !important;
+}
+.metro .no-padding-top {
+  padding-top: 0 !important;
+}
+.metro .no-padding-bottom {
+  padding-bottom: 0 !important;
+}
+.metro .no-float {
+  float: none !important;
+}
+.metro .no-visible {
+  visibility: hidden !important;
+}
+.metro .no-border {
+  border: 0 !important;
+}
+.metro .no-overflow {
+  overflow: hidden !important;
+}
+.metro .no-scroll {
+  overflow: hidden !important;
+}
+.metro .no-scroll-x {
+  overflow-x: hidden !important;
+}
+.metro .no-scroll-y {
+  overflow-y: hidden !important;
+}
+.metro .no-wrap {
+  white-space: nowrap !important;
+}
+.metro .no-border-left {
+  border-left: none !important;
+}
+.metro .no-border-right {
+  border-right: none !important;
+}
+.metro .no-border-top {
+  border-top: none !important;
+}
+.metro .no-border-bottom {
+  border-bottom: none !important;
+}
+.metro .transparent-border {
+  border-color: transparent !important;
+}
+.metro .place-right {
+  float: right !important;
+}
+.metro .place-left {
+  float: left !important;
+}
+.metro .clear-float:before,
+.metro .clear-float:after {
+  display: table;
+  content: "";
+}
+.metro .clear-float:after {
+  clear: both;
+}
+.metro .clearfix:before,
+.metro .clearfix:after {
+  display: table;
+  content: "";
+}
+.metro .clearfix:after {
+  clear: both;
+}
+.metro .no-user-select {
+  user-select: none;
+}
+.metro .no-appearance {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.metro .debug {
+  border: 1px dashed red;
+}
+.metro .example {
+  padding: .625rem 1.825rem .625rem 2.5rem;
+  border: 1px #ccc dashed;
+  position: relative;
+  margin: 0 0 .625rem 0;
+  background-color: #ffffff;
+}
+.metro .example:before,
+.metro .example:after {
+  display: table;
+  content: "";
+}
+.metro .example:after {
+  clear: both;
+}
+.metro .example:before {
+  position: absolute;
+  content: attr(data-text);
+  text-transform: lowercase;
+  left: 1.5rem;
+  top: 11.875rem;
+  color: gray;
+  display: block;
+  font-size: 1rem;
+  line-height: 1rem;
+  height: 1rem;
+  text-align: right;
+  white-space: nowrap;
+  direction: ltr;
+  width: 12.5rem;
+  transform: rotate(-90deg);
+  transform-origin: 0 100%;
+}
+.metro .video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+.metro .video-container iframe,
+.metro .video-container object,
+.metro .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.metro .padding10 {
+  padding: 0.625rem;
+}
+.metro .padding20 {
+  padding: 1.25rem;
+}
+.metro .padding30 {
+  padding: 1.875rem;
+}
+.metro .padding40 {
+  padding: 2.5rem;
+}
+.metro .padding50 {
+  padding: 3.125rem;
+}
+.metro .padding60 {
+  padding: 3.75rem;
+}
+.metro .padding70 {
+  padding: 4.375rem;
+}
+.metro .padding80 {
+  padding: 5rem;
+}
+.metro .padding90 {
+  padding: 5.625rem;
+}
+.metro .padding100 {
+  padding: 6.25rem;
+}
+.metro .padding5 {
+  padding: 5px;
+}
+.metro .margin5 {
+  margin: 5px;
+}
+.metro .margin10 {
+  margin: 0.625rem;
+}
+.metro .margin20 {
+  margin: 1.25rem;
+}
+.metro .margin30 {
+  margin: 1.875rem;
+}
+.metro .margin40 {
+  margin: 2.5rem;
+}
+.metro .margin50 {
+  margin: 3.125rem;
+}
+.metro .margin60 {
+  margin: 3.75rem;
+}
+.metro .margin70 {
+  margin: 4.375rem;
+}
+.metro .margin80 {
+  margin: 5rem;
+}
+.metro .margin90 {
+  margin: 5.625rem;
+}
+.metro .margin100 {
+  margin: 6.25rem;
+}
+.metro .opacity {
+  opacity: .9;
+}
+.metro .half-opacity {
+  opacity: .5;
+}
+.metro .hi-opacity {
+  opacity: .2;
+}
+.metro .element-selected {
+  border: 4px #4390df solid;
+}
+.metro .element-selected:after {
+  position: absolute;
+  display: block;
+  border-top: 28px solid #4390df;
+  border-left: 28px solid transparent;
+  right: 0;
+  content: "";
+  top: 0;
+  z-index: 101;
+}
+.metro .element-selected:before {
+  position: absolute;
+  display: block;
+  content: "";
+  background-color: transparent;
+  border-color: #ffffff;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  height: .25rem;
+  width: .5rem;
+  right: 0;
+  top: 0;
+  z-index: 102;
+  transform: rotate(-45deg);
+}
+.metro .set-border {
+  border: 1px #d9d9d9 solid;
+}
+.metro .set-border.medium-border {
+  border-width: 8px;
+}
+.metro .set-border.large-border {
+  border-width: 16px;
+}
+.metro .fix-slow-animation {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.metro .tile-area {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 120px 80px 0 0;
+  overflow: hidden;
+}
+.metro .tile-area:before,
+.metro .tile-area:after {
+  display: table;
+  content: "";
+}
+.metro .tile-area:after {
+  clear: both;
+}
+.metro .tile-area .tile-area-title {
+  position: fixed;
+  top: 20px;
+  left: 80px;
+  font-weight: 300;
+  font-size: 42px;
+  line-height: 1.1;
+}
+.metro .tile-group {
+  margin-left: 80px;
+  min-width: 80px;
+  width: auto;
+  float: left;
+  display: block;
+  padding-top: 40px;
+  position: relative;
+}
+.metro .tile-group.one {
+  width: 160px;
+}
+.metro .tile-group.two,
+.metro .tile-group.double {
+  width: 320px;
+}
+.metro .tile-group.three,
+.metro .tile-group.triple {
+  width: 480px;
+}
+.metro .tile-group.four,
+.metro .tile-group.quadro {
+  width: 640px;
+}
+.metro .tile-group.five {
+  width: 800px;
+}
+.metro .tile-group.six {
+  width: 960px;
+}
+.metro .tile-group.seven {
+  width: 1120px;
+}
+.metro .tile-group .tile-group-title {
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 20px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+.metro .tile-container {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.metro .tile-container:before,
+.metro .tile-container:after {
+  display: table;
+  content: "";
+}
+.metro .tile-container:after {
+  clear: both;
+}
+.metro .tile {
+  width: 150px;
+  height: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+.metro .tile:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile:active {
+  outline: 0;
+}
+.metro .tile.no-outline {
+  outline-color: transparent;
+}
+.metro .tile.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-square {
+  width: 150px;
+  height: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  overflow: visible;
+}
+.metro .tile-square:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile-square:active {
+  outline: 0;
+}
+.metro .tile-square.no-outline {
+  outline-color: transparent;
+}
+.metro .tile-square.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-square.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-square.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile-square.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-square.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-square.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-square .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-square:hover .tile-content.flipVertical,
+.metro .tile-square.hover .tile-content.flipVertical,
+.metro .tile-square.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-square .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-square .tile-content.flipVertical .slide,
+.metro .tile-square .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-square .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-square .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-square .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-square:hover .tile-content.flipHorizontal,
+.metro .tile-square.hover .tile-content.flipHorizontal,
+.metro .tile-square.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-square .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-square .tile-content.flipHorizontal .slide,
+.metro .tile-square .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-square .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-square .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile-square .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile-square .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-small {
+  width: 150px;
+  height: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  overflow: visible;
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-small:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile-small:active {
+  outline: 0;
+}
+.metro .tile-small.no-outline {
+  outline-color: transparent;
+}
+.metro .tile-small.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-small.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-small.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile-small.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-small.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-small.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-small .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-small:hover .tile-content.flipVertical,
+.metro .tile-small.hover .tile-content.flipVertical,
+.metro .tile-small.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-small .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-small .tile-content.flipVertical .slide,
+.metro .tile-small .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-small .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-small .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-small .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-small:hover .tile-content.flipHorizontal,
+.metro .tile-small.hover .tile-content.flipHorizontal,
+.metro .tile-small.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-small .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-small .tile-content.flipHorizontal .slide,
+.metro .tile-small .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-small .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-small .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile-small .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile-small .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-wide {
+  width: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  overflow: visible;
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-wide:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile-wide:active {
+  outline: 0;
+}
+.metro .tile-wide.no-outline {
+  outline-color: transparent;
+}
+.metro .tile-wide.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-wide.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-wide.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile-wide.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-wide.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-wide.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-wide .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-wide:hover .tile-content.flipVertical,
+.metro .tile-wide.hover .tile-content.flipVertical,
+.metro .tile-wide.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-wide .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-wide .tile-content.flipVertical .slide,
+.metro .tile-wide .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-wide .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-wide .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-wide .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-wide:hover .tile-content.flipHorizontal,
+.metro .tile-wide.hover .tile-content.flipHorizontal,
+.metro .tile-wide.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-wide .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-wide .tile-content.flipHorizontal .slide,
+.metro .tile-wide .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-wide .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-wide .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile-wide .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile-wide .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-large {
+  width: 150px;
+  height: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  overflow: visible;
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-large:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile-large:active {
+  outline: 0;
+}
+.metro .tile-large.no-outline {
+  outline-color: transparent;
+}
+.metro .tile-large.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-large.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-large.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile-large.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-large.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-large.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-large .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-large:hover .tile-content.flipVertical,
+.metro .tile-large.hover .tile-content.flipVertical,
+.metro .tile-large.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-large .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-large .tile-content.flipVertical .slide,
+.metro .tile-large .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-large .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-large .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-large .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-large:hover .tile-content.flipHorizontal,
+.metro .tile-large.hover .tile-content.flipHorizontal,
+.metro .tile-large.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-large .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-large .tile-content.flipHorizontal .slide,
+.metro .tile-large .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-large .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-large .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile-large .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile-large .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-big {
+  width: 150px;
+  height: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  overflow: visible;
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-big:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile-big:active {
+  outline: 0;
+}
+.metro .tile-big.no-outline {
+  outline-color: transparent;
+}
+.metro .tile-big.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-big.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-big.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile-big.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-big.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-big.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-big .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-big:hover .tile-content.flipVertical,
+.metro .tile-big.hover .tile-content.flipVertical,
+.metro .tile-big.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-big .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-big .tile-content.flipVertical .slide,
+.metro .tile-big .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-big .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-big .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-big .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-big:hover .tile-content.flipHorizontal,
+.metro .tile-big.hover .tile-content.flipHorizontal,
+.metro .tile-big.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-big .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-big .tile-content.flipHorizontal .slide,
+.metro .tile-big .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-big .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-big .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile-big .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile-big .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-super {
+  width: 150px;
+  height: 150px;
+  display: block;
+  float: left;
+  margin: 5px;
+  background-color: #eeeeee;
+  box-shadow: inset 0 0 1px #FFFFCC;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  overflow: visible;
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-super:hover {
+  outline: #999999 solid 3px;
+}
+.metro .tile-super:active {
+  outline: 0;
+}
+.metro .tile-super.no-outline {
+  outline-color: transparent;
+}
+.metro .tile-super.small-tile {
+  width: 70px;
+  height: 70px;
+}
+.metro .tile-super.wide-tile {
+  width: 310px;
+  height: 150px;
+}
+.metro .tile-super.wide-tile-v {
+  height: 310px;
+  width: 150px;
+}
+.metro .tile-super.large-tile {
+  width: 310px;
+  height: 310px;
+}
+.metro .tile-super.big-tile {
+  width: 470px;
+  height: 470px;
+}
+.metro .tile-super.super-tile {
+  width: 630px;
+  height: 630px;
+}
+.metro .tile-super .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-super:hover .tile-content.flipVertical,
+.metro .tile-super.hover .tile-content.flipVertical,
+.metro .tile-super.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-super .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-super .tile-content.flipVertical .slide,
+.metro .tile-super .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-super .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-super .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-super .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-super:hover .tile-content.flipHorizontal,
+.metro .tile-super.hover .tile-content.flipHorizontal,
+.metro .tile-super.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-super .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-super .tile-content.flipHorizontal .slide,
+.metro .tile-super .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-super .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-super .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile-super .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile-super .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-small-x {
+  width: 70px;
+}
+.metro .tile-square-x {
+  width: 150px;
+}
+.metro .tile-wide-x {
+  width: 310px;
+}
+.metro .tile-large-x {
+  width: 310px;
+}
+.metro .tile-big-x {
+  width: 470px;
+}
+.metro .tile-super-x {
+  width: 630px;
+}
+.metro .tile-small-y {
+  height: 70px;
+}
+.metro .tile-square-y {
+  height: 150px;
+}
+.metro .tile-wide-y {
+  height: 310px;
+}
+.metro .tile-large-y {
+  height: 310px;
+}
+.metro .tile-big-y {
+  height: 470px;
+}
+.metro .tile-super-y {
+  height: 630px;
+}
+.metro .tile-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: inherit;
+  overflow: hidden;
+  display: none;
+}
+.metro .tile-content:first-child {
+  display: block;
+}
+.metro .tile-content .live-slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+  overflow: hidden;
+}
+.metro .tile-content .live-slide:nth-child(1) {
+  display: block;
+}
+.metro .tile-content.iconic .icon {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  font-size: 64px;
+  top: 50%;
+  margin-top: -40px;
+  left: 50%;
+  margin-left: -32px;
+  text-align: center;
+}
+.tile-small .metro .tile-content.iconic .icon {
+  width: 32px;
+  height: 32px;
+  font-size: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+}
+.metro .tile-content.image-set > img,
+.metro .tile-content.image-set > .image-container {
+  margin: 0;
+  padding: 0;
+  width: 25% ;
+  height: 50% ;
+  float: left;
+  border: 1px #1e1e1e solid;
+}
+.metro .tile-content.image-set > img:first-child,
+.metro .tile-content.image-set > .image-container:first-child {
+  width: 50% ;
+  float: left;
+  height: 100% ;
+}
+.metro .tile-content.slide-up > .slide,
+.metro .tile-content.slide-down > .slide,
+.metro .tile-content.slide-up-2 > .slide,
+.metro .tile-content.slide-down-2 > .slide,
+.metro .tile-content.slide-left > .slide,
+.metro .tile-content.slide-right > .slide,
+.metro .tile-content.slide-left-2 > .slide,
+.metro .tile-content.slide-right-2 > .slide,
+.metro .tile-content.slide-up > .slide-over,
+.metro .tile-content.slide-down > .slide-over,
+.metro .tile-content.slide-up-2 > .slide-over,
+.metro .tile-content.slide-down-2 > .slide-over,
+.metro .tile-content.slide-left > .slide-over,
+.metro .tile-content.slide-right > .slide-over,
+.metro .tile-content.slide-left-2 > .slide-over,
+.metro .tile-content.slide-right-2 > .slide-over {
+  width: 100%;
+  height: inherit;
+  display: block;
+  position: absolute;
+  box-shadow: inset 0 0 1px #FFFFCC;
+}
+.metro .tile-content.slide-up > .slide,
+.metro .tile-content.slide-down > .slide,
+.metro .tile-content.slide-up-2 > .slide,
+.metro .tile-content.slide-down-2 > .slide,
+.metro .tile-content.slide-left > .slide,
+.metro .tile-content.slide-right > .slide,
+.metro .tile-content.slide-left-2 > .slide,
+.metro .tile-content.slide-right-2 > .slide {
+  top: 0;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-up:hover > .slide,
+.metro .tile-content.slide-down:hover > .slide,
+.metro .tile-content.slide-up-2:hover > .slide,
+.metro .tile-content.slide-down-2:hover > .slide,
+.metro .tile-content.slide-left:hover > .slide,
+.metro .tile-content.slide-right:hover > .slide,
+.metro .tile-content.slide-left-2:hover > .slide,
+.metro .tile-content.slide-right-2:hover > .slide {
+  transform: scale(1.5);
+  transition: all 0.6s ease;
+}
+.metro .tile-content.slide-up > .slide-over {
+  top: 100%;
+  z-index: 2;
+  height: 75%;
+  transition: all 0.6s ease;
+}
+.metro .tile-content.slide-up:hover > .slide-over {
+  top: 25%;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-up-2 > .slide-over {
+  top: 100%;
+  z-index: 2;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-up-2:hover > .slide {
+  transform: scale(1);
+  top: -100%;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-up-2:hover > .slide-over {
+  top: 0;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-down > .slide-over {
+  top: -100%;
+  z-index: 2;
+  height: 75%;
+  transition: all 0.6s ease;
+}
+.metro .tile-content.slide-down:hover > .slide-over {
+  top: 0;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-down-2 > .slide-over {
+  top: -100%;
+  z-index: 2;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-down-2:hover > .slide {
+  transform: scale(1);
+  top: 100%;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-down-2:hover > .slide-over {
+  top: 0;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-left > .slide-over {
+  left: -100%;
+  z-index: 2;
+  width: 75%;
+  height: 100%;
+  transition: all 0.6s ease;
+}
+.metro .tile-content.slide-left:hover > .slide-over {
+  left: 0;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-left-2 > .slide {
+  left: 0;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-left-2 > .slide-over {
+  left: -100%;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-left-2:hover > .slide {
+  transform: scale(1);
+  left: 100%;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-left-2:hover > .slide-over {
+  left: 0;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-right > .slide-over {
+  left: 100%;
+  z-index: 2;
+  width: 75%;
+  height: 100%;
+  transition: all 0.6s ease;
+}
+.metro .tile-content.slide-right:hover > .slide-over {
+  left: 25%;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-right-2 > .slide {
+  left: 0;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-right-2 > .slide-over {
+  left: 100%;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+.metro .tile-content.slide-right-2:hover > .slide {
+  transform: scale(1);
+  left: -100%;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.slide-right-2:hover > .slide-over {
+  left: 0;
+  transition: all 0.4s ease;
+}
+.metro .tile-content.zooming .slide {
+  box-shadow: inset 0 0 1px #FFFFCC;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  transition: all 0.6s ease;
+}
+.metro .tile-content.zooming .slide:hover {
+  transform: scale(1.5);
+  transition: all 0.6s ease;
+}
+.metro .tile-content.zooming-out .slide {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  transform: scale(1.5);
+  transition: all 0.6s ease;
+}
+.metro .tile-content.zooming-out .slide:hover {
+  transform: scale(1);
+  transition: all 0.6s ease;
+}
+.metro .tile-small,
+.metro .tile,
+.metro .tile-square,
+.metro .tile-wide,
+.metro .tile-large,
+.metro .tile-big,
+.metro .tile-super {
+  overflow: visible;
+}
+.metro .tile-small .tile-content.flipVertical,
+.metro .tile .tile-content.flipVertical,
+.metro .tile-square .tile-content.flipVertical,
+.metro .tile-wide .tile-content.flipVertical,
+.metro .tile-large .tile-content.flipVertical,
+.metro .tile-big .tile-content.flipVertical,
+.metro .tile-super .tile-content.flipVertical {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-small:hover .tile-content.flipVertical,
+.metro .tile:hover .tile-content.flipVertical,
+.metro .tile-square:hover .tile-content.flipVertical,
+.metro .tile-wide:hover .tile-content.flipVertical,
+.metro .tile-large:hover .tile-content.flipVertical,
+.metro .tile-big:hover .tile-content.flipVertical,
+.metro .tile-super:hover .tile-content.flipVertical,
+.metro .tile-small.hover .tile-content.flipVertical,
+.metro .tile.hover .tile-content.flipVertical,
+.metro .tile-square.hover .tile-content.flipVertical,
+.metro .tile-wide.hover .tile-content.flipVertical,
+.metro .tile-large.hover .tile-content.flipVertical,
+.metro .tile-big.hover .tile-content.flipVertical,
+.metro .tile-super.hover .tile-content.flipVertical,
+.metro .tile-small.flip .tile-content.flipVertical,
+.metro .tile.flip .tile-content.flipVertical,
+.metro .tile-square.flip .tile-content.flipVertical,
+.metro .tile-wide.flip .tile-content.flipVertical,
+.metro .tile-large.flip .tile-content.flipVertical,
+.metro .tile-big.flip .tile-content.flipVertical,
+.metro .tile-super.flip .tile-content.flipVertical {
+  transform: rotateY(180deg);
+}
+.metro .tile-small .tile-content.flipVertical,
+.metro .tile .tile-content.flipVertical,
+.metro .tile-square .tile-content.flipVertical,
+.metro .tile-wide .tile-content.flipVertical,
+.metro .tile-large .tile-content.flipVertical,
+.metro .tile-big .tile-content.flipVertical,
+.metro .tile-super .tile-content.flipVertical {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-small .tile-content.flipVertical .slide,
+.metro .tile .tile-content.flipVertical .slide,
+.metro .tile-square .tile-content.flipVertical .slide,
+.metro .tile-wide .tile-content.flipVertical .slide,
+.metro .tile-large .tile-content.flipVertical .slide,
+.metro .tile-big .tile-content.flipVertical .slide,
+.metro .tile-super .tile-content.flipVertical .slide,
+.metro .tile-small .tile-content.flipVertical .slide-over,
+.metro .tile .tile-content.flipVertical .slide-over,
+.metro .tile-square .tile-content.flipVertical .slide-over,
+.metro .tile-wide .tile-content.flipVertical .slide-over,
+.metro .tile-large .tile-content.flipVertical .slide-over,
+.metro .tile-big .tile-content.flipVertical .slide-over,
+.metro .tile-super .tile-content.flipVertical .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-small .tile-content.flipVertical .slide,
+.metro .tile .tile-content.flipVertical .slide,
+.metro .tile-square .tile-content.flipVertical .slide,
+.metro .tile-wide .tile-content.flipVertical .slide,
+.metro .tile-large .tile-content.flipVertical .slide,
+.metro .tile-big .tile-content.flipVertical .slide,
+.metro .tile-super .tile-content.flipVertical .slide {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+.metro .tile-small .tile-content.flipVertical .slide-over,
+.metro .tile .tile-content.flipVertical .slide-over,
+.metro .tile-square .tile-content.flipVertical .slide-over,
+.metro .tile-wide .tile-content.flipVertical .slide-over,
+.metro .tile-large .tile-content.flipVertical .slide-over,
+.metro .tile-big .tile-content.flipVertical .slide-over,
+.metro .tile-super .tile-content.flipVertical .slide-over {
+  transform: rotateY(180deg);
+}
+.metro .tile-small .tile-content.flipHorizontal,
+.metro .tile .tile-content.flipHorizontal,
+.metro .tile-square .tile-content.flipHorizontal,
+.metro .tile-wide .tile-content.flipHorizontal,
+.metro .tile-large .tile-content.flipHorizontal,
+.metro .tile-big .tile-content.flipHorizontal,
+.metro .tile-super .tile-content.flipHorizontal {
+  transform: perspective(1000px);
+  overflow: visible;
+}
+.metro .tile-small:hover .tile-content.flipHorizontal,
+.metro .tile:hover .tile-content.flipHorizontal,
+.metro .tile-square:hover .tile-content.flipHorizontal,
+.metro .tile-wide:hover .tile-content.flipHorizontal,
+.metro .tile-large:hover .tile-content.flipHorizontal,
+.metro .tile-big:hover .tile-content.flipHorizontal,
+.metro .tile-super:hover .tile-content.flipHorizontal,
+.metro .tile-small.hover .tile-content.flipHorizontal,
+.metro .tile.hover .tile-content.flipHorizontal,
+.metro .tile-square.hover .tile-content.flipHorizontal,
+.metro .tile-wide.hover .tile-content.flipHorizontal,
+.metro .tile-large.hover .tile-content.flipHorizontal,
+.metro .tile-big.hover .tile-content.flipHorizontal,
+.metro .tile-super.hover .tile-content.flipHorizontal,
+.metro .tile-small.flip .tile-content.flipHorizontal,
+.metro .tile.flip .tile-content.flipHorizontal,
+.metro .tile-square.flip .tile-content.flipHorizontal,
+.metro .tile-wide.flip .tile-content.flipHorizontal,
+.metro .tile-large.flip .tile-content.flipHorizontal,
+.metro .tile-big.flip .tile-content.flipHorizontal,
+.metro .tile-super.flip .tile-content.flipHorizontal {
+  transform: rotateX(180deg);
+}
+.metro .tile-small .tile-content.flipHorizontal,
+.metro .tile .tile-content.flipHorizontal,
+.metro .tile-square .tile-content.flipHorizontal,
+.metro .tile-wide .tile-content.flipHorizontal,
+.metro .tile-large .tile-content.flipHorizontal,
+.metro .tile-big .tile-content.flipHorizontal,
+.metro .tile-super .tile-content.flipHorizontal {
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+.metro .tile-small .tile-content.flipHorizontal .slide,
+.metro .tile .tile-content.flipHorizontal .slide,
+.metro .tile-square .tile-content.flipHorizontal .slide,
+.metro .tile-wide .tile-content.flipHorizontal .slide,
+.metro .tile-large .tile-content.flipHorizontal .slide,
+.metro .tile-big .tile-content.flipHorizontal .slide,
+.metro .tile-super .tile-content.flipHorizontal .slide,
+.metro .tile-small .tile-content.flipHorizontal .slide-over,
+.metro .tile .tile-content.flipHorizontal .slide-over,
+.metro .tile-square .tile-content.flipHorizontal .slide-over,
+.metro .tile-wide .tile-content.flipHorizontal .slide-over,
+.metro .tile-large .tile-content.flipHorizontal .slide-over,
+.metro .tile-big .tile-content.flipHorizontal .slide-over,
+.metro .tile-super .tile-content.flipHorizontal .slide-over {
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.metro .tile-small .tile-content.flipHorizontal .slide,
+.metro .tile .tile-content.flipHorizontal .slide,
+.metro .tile-square .tile-content.flipHorizontal .slide,
+.metro .tile-wide .tile-content.flipHorizontal .slide,
+.metro .tile-large .tile-content.flipHorizontal .slide,
+.metro .tile-big .tile-content.flipHorizontal .slide,
+.metro .tile-super .tile-content.flipHorizontal .slide {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.metro .tile-small .tile-content.flipHorizontal .slide-over,
+.metro .tile .tile-content.flipHorizontal .slide-over,
+.metro .tile-square .tile-content.flipHorizontal .slide-over,
+.metro .tile-wide .tile-content.flipHorizontal .slide-over,
+.metro .tile-large .tile-content.flipHorizontal .slide-over,
+.metro .tile-big .tile-content.flipHorizontal .slide-over,
+.metro .tile-super .tile-content.flipHorizontal .slide-over {
+  transform: rotateX(180deg);
+}
+.metro .tile .tile-badge {
+  position: absolute;
+  bottom: 0;
+  right: .625rem;
+  padding: .25rem .625rem;
+  z-index: 999;
+}
+.metro .tile .tile-label {
+  position: absolute;
+  bottom: 0;
+  left: .625rem;
+  padding: .425rem .25rem;
+  z-index: 999;
+}
+.metro .tile-content .image-container,
+.metro .tile-content .carousel {
+  box-shadow: inset 0 0 1px #FFFFCC;
+  width: 100%;
+  height: 100%;
+}
+.metro [class*=tile-transform-] {
+  transition: all 0.22s ease;
+}
+.metro .tile-transform-right {
+  transform-origin: left 50%;
+}
+.metro .tile.tile-transform-right {
+  transform: perspective(500px) rotateY(0.138372rad) !important;
+}
+.metro .tile-square.tile-transform-right {
+  transform: perspective(500px) rotateY(0.138372rad) !important;
+}
+.metro .tile-wide.tile-transform-right {
+  transform: perspective(500px) rotateY(0.069186rad) !important;
+}
+.metro .tile-large.tile-transform-right {
+  transform: perspective(500px) rotateY(0.069186rad) !important;
+}
+.metro .tile-big.tile-transform-right {
+  transform: perspective(500px) rotateY(0.046124rad) !important;
+}
+.metro .tile-super.tile-transform-right {
+  transform: perspective(500px) rotateY(0.034593rad) !important;
+}
+.metro .tile-small.tile-transform-right {
+  transform: perspective(500px) rotateY(0.276744rad) !important;
+}
+.metro .tile-transform-left {
+  transform-origin: right 50%;
+}
+.metro .tile.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.138372rad) !important;
+}
+.metro .tile-square.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.138372rad) !important;
+}
+.metro .tile-wide.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.069186rad) !important;
+}
+.metro .tile-large.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.069186rad) !important;
+}
+.metro .tile-big.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.046124rad) !important;
+}
+.metro .tile-super.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.034593rad) !important;
+}
+.metro .tile-small.tile-transform-left {
+  transform: perspective(500px) rotateY(-0.276744rad) !important;
+}
+.metro .tile-transform-top {
+  transform-origin: 50% bottom;
+}
+.metro .tile.tile-transform-top {
+  transform: perspective(500px) rotateX(0.138372rad) !important;
+}
+.metro .tile-square.tile-transform-top {
+  transform: perspective(500px) rotateX(0.138372rad) !important;
+}
+.metro .tile-wide.tile-transform-top {
+  transform: perspective(500px) rotateX(0.069186rad) !important;
+}
+.metro .tile-large.tile-transform-top {
+  transform: perspective(500px) rotateX(0.069186rad) !important;
+}
+.metro .tile-big.tile-transform-top {
+  transform: perspective(500px) rotateX(0.046124rad) !important;
+}
+.metro .tile-super.tile-transform-top {
+  transform: perspective(500px) rotateX(0.034593rad) !important;
+}
+.metro .tile-small.tile-transform-top {
+  transform: perspective(500px) rotateX(0.276744rad) !important;
+}
+.metro .tile-transform-bottom {
+  transform-origin: 50% top;
+}
+.metro .tile.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.138372rad) !important;
+}
+.metro .tile-square.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.138372rad) !important;
+}
+.metro .tile-wide.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.069186rad) !important;
+}
+.metro .tile-large.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.069186rad) !important;
+}
+.metro .tile-big.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.046124rad) !important;
+}
+.metro .tile-super.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.034593rad) !important;
+}
+.metro .tile-small.tile-transform-bottom {
+  transform: perspective(500px) rotateX(-0.276744rad) !important;
+}
+.metro .tile-area-scheme-dark {
+  background-color: #1d1d1d;
+}
+.metro .tile-area-scheme-dark [class*=tile] {
+  outline-color: #373737;
+}
+.metro .tile-area-scheme-darkBrown {
+  background-color: #63362F;
+}
+.metro .tile-area-scheme-darkBrown [class*=tile] {
+  outline-color: #86493f;
+}
+.metro .tile-area-scheme-darkCrimson {
+  background-color: #640024;
+}
+.metro .tile-area-scheme-darkCrimson [class*=tile] {
+  outline-color: #970036;
+}
+.metro .tile-area-scheme-darkViolet {
+  background-color: #57169a;
+}
+.metro .tile-area-scheme-darkViolet [class*=tile] {
+  outline-color: #701cc7;
+}
+.metro .tile-area-scheme-darkMagenta {
+  background-color: #81003C;
+}
+.metro .tile-area-scheme-darkMagenta [class*=tile] {
+  outline-color: #b40054;
+}
+.metro .tile-area-scheme-darkCyan {
+  background-color: #1B6EAE;
+}
+.metro .tile-area-scheme-darkCyan [class*=tile] {
+  outline-color: #228ada;
+}
+.metro .tile-area-scheme-darkCobalt {
+  background-color: #00356A;
+}
+.metro .tile-area-scheme-darkCobalt [class*=tile] {
+  outline-color: #004e9d;
+}
+.metro .tile-area-scheme-darkTeal {
+  background-color: #004050;
+}
+.metro .tile-area-scheme-darkTeal [class*=tile] {
+  outline-color: #006983;
+}
+.metro .tile-area-scheme-darkEmerald {
+  background-color: #003e00;
+}
+.metro .tile-area-scheme-darkEmerald [class*=tile] {
+  outline-color: #007100;
+}
+.metro .tile-area-scheme-darkGreen {
+  background-color: #128023;
+}
+.metro .tile-area-scheme-darkGreen [class*=tile] {
+  outline-color: #18ad2f;
+}
+.metro .tile-area-scheme-darkOrange {
+  background-color: #bf5a15;
+}
+.metro .tile-area-scheme-darkOrange [class*=tile] {
+  outline-color: #e77120;
+}
+.metro .tile-area-scheme-darkRed {
+  background-color: #9a1616;
+}
+.metro .tile-area-scheme-darkRed [class*=tile] {
+  outline-color: #c71c1c;
+}
+.metro .tile-area-scheme-darkPink {
+  background-color: #9a165a;
+}
+.metro .tile-area-scheme-darkPink [class*=tile] {
+  outline-color: #c71c74;
+}
+.metro .tile-area-scheme-darkIndigo {
+  background-color: #4B0096;
+}
+.metro .tile-area-scheme-darkIndigo [class*=tile] {
+  outline-color: #6400c9;
+}
+.metro .tile-area-scheme-darkBlue {
+  background-color: #16499a;
+}
+.metro .tile-area-scheme-darkBlue [class*=tile] {
+  outline-color: #1c5ec7;
+}
+.metro .tile-area-scheme-lightBlue {
+  background-color: #4390df;
+}
+.metro .tile-area-scheme-lightBlue [class*=tile] {
+  outline-color: #6faae6;
+}
+.metro .tile-area-scheme-lightTeal {
+  background-color: #45fffd;
+}
+.metro .tile-area-scheme-lightTeal [class*=tile] {
+  outline-color: #78fffd;
+}
+.metro .tile-area-scheme-lightOlive {
+  background-color: #78aa1c;
+}
+.metro .tile-area-scheme-lightOlive [class*=tile] {
+  outline-color: #97d623;
+}
+.metro .tile-area-scheme-lightOrange {
+  background-color: #ffc194;
+}
+.metro .tile-area-scheme-lightOrange [class*=tile] {
+  outline-color: #ffdec7;
+}
+.metro .tile-area-scheme-lightPink {
+  background-color: #f472d0;
+}
+.metro .tile-area-scheme-lightPink [class*=tile] {
+  outline-color: #f8a1e0;
+}
+.metro .tile-area-scheme-grayed {
+  background-color: #585858;
+}
+.metro .tile-area-scheme-grayed [class*=tile] {
+  outline-color: #727272;
+}
+.metro .ani-spin,
+.metro .ani-hover-spin:hover {
+  animation: ani-spin 1.5s linear infinite;
+}
+.metro .ani-spin.ani-fast,
+.metro .ani-hover-spin.ani-fast:hover {
+  animation: ani-spin 0.7s linear infinite;
+}
+.metro .ani-spin.ani-slow,
+.metro .ani-hover-spin.ani-slow:hover {
+  animation: ani-spin 2.2s linear infinite;
+}
+.metro .ani-pulse,
+.metro .ani-hover-pulse:hover {
+  animation: ani-pulse 1.7s infinite;
+}
+.metro .ani-pulse.ani-fast,
+.metro .ani-hover-pulse.ani-fast:hover {
+  animation: ani-pulse 1s infinite;
+}
+.metro .ani-pulse.ani-slow,
+.metro .ani-hover-pulse.ani-slow:hover {
+  animation: ani-pulse 3s infinite;
+}
+.metro .ani-spanner,
+.metro .ani-hover-spanner:hover {
+  transform-origin-x: 90%;
+  transform-origin-y: 35%;
+  transform-origin-z: initial;
+  animation: ani-wrench 2.5s ease infinite;
+}
+.metro .ani-spanner.ani-fast,
+.metro .ani-hover-spanner.ani-fast:hover {
+  animation: ani-wrench 1.2s ease infinite;
+}
+.metro .ani-spanner.ani-slow,
+.metro .ani-hover-spanner.ani-slow:hover {
+  animation: ani-wrench 3.7s ease infinite;
+}
+.metro .ani-ring,
+.metro .ani-hover-ring:hover {
+  transform-origin-x: 50%;
+  transform-origin-y: 0px;
+  transform-origin-z: initial;
+  animation: ani-ring 2s ease infinite;
+}
+.metro .ani-ring.ani-fast,
+.metro .ani-hover-ring.ani-fast:hover {
+  animation: ani-ring 1s ease infinite;
+}
+.metro .ani-ring.ani-slow,
+.metro .ani-hover-ring.ani-slow:hover {
+  animation: ani-ring 3s ease infinite;
+}
+.metro .ani-vertical,
+.metro .ani-hover-vertical:hover {
+  animation: ani-vertical 2s ease infinite;
+}
+.metro .ani-vertical.ani-fast,
+.metro .ani-vertical.ani-fast:hover {
+  animation: ani-vertical 1s ease infinite;
+}
+.metro .ani-vertical.ani-slow,
+.metro .ani-hover-vertical.ani-slow:hover {
+  animation: ani-vertical 4s ease infinite;
+}
+.metro .ani-horizontal,
+.metro .ani-hover-horizontal:hover {
+  animation: ani-horizontal 2s ease infinite;
+}
+.metro .ani-horizontal.ani-fast,
+.metro .ani-horizontal.ani-fast:hover {
+  animation: ani-horizontal 1s ease infinite;
+}
+.metro .ani-horizontal.ani-slow,
+.metro .ani-horizontal.ani-slow:hover {
+  animation: ani-horizontal 3s ease infinite;
+}
+.metro .ani-flash,
+.metro .ani-hover-flash:hover {
+  animation: ani-flash 2s ease infinite;
+}
+.metro .ani-flash.ani-fast,
+.metro .ani-hover-flash.ani-fast:hover {
+  animation: ani-flash 1s ease infinite;
+}
+.metro .ani-flash.ani-slow,
+.metro .ani-hover-flash.ani-slow:hover {
+  animation: ani-flash 3s ease infinite;
+}
+.metro .ani-bounce,
+.metro .ani-hover-bounce:hover {
+  animation: ani-bounce 2s ease infinite;
+}
+.metro .ani-bounce.ani-fast,
+.metro .ani-hover-bounce.ani-fast:hover {
+  animation: ani-bounce 1s ease infinite;
+}
+.metro .ani-bounce.ani-slow,
+.metro .ani-hover-bounce.ani-slow:hover {
+  animation: ani-bounce 3s ease infinite;
+}
+.metro .ani-float,
+.metro .ani-hover-float:hover {
+  animation: ani-float 2s linear infinite;
+}
+.metro .ani-float.ani-fast,
+.metro .ani-hover-float.ani-fast:hover {
+  animation: ani-float 1s linear infinite;
+}
+.metro .ani-float.ani-slow,
+.metro .ani-hover-float.ani-slow:hover {
+  animation: ani-float 3s linear infinite;
+}
+.metro .ani-heartbeat,
+.metro .ani-hover-heartbeat:hover {
+  animation: ani-heartbeat 2s linear infinite;
+}
+.metro .ani-heartbeat.ani-fast,
+.metro .ani-hover-heartbeat.ani-fast:hover {
+  animation: ani-heartbeat 1s linear infinite;
+}
+.metro .ani-heartbeat.ani-slow,
+.metro .ani-hover-heartbeat.ani-slow:hover {
+  animation: ani-heartbeat 3s linear infinite;
+}
+.metro .ani-shake,
+.metro .ani-hover-shake:hover {
+  animation: ani-wrench 2.5s ease infinite;
+}
+.metro .ani-shake.ani-fast,
+.metro .ani-hover-shake.ani-fast:hover {
+  animation: ani-wrench 1.2s ease infinite;
+}
+.metro .ani-shake.ani-slow,
+.metro .ani-hover-shake.ani-slow:hover {
+  animation: ani-wrench 3.7s ease infinite;
+}
+.metro .ani-shuttle,
+.metro .ani-hover-shuttle:hover {
+  animation: ani-shuttle 2s linear infinite;
+}
+.metro .ani-shuttle.ani-fast,
+.metro .ani-hover-shuttle.ani-fast:hover {
+  animation: ani-shuttle 1s linear infinite;
+}
+.metro .ani-shuttle.ani-slow,
+.metro .ani-hover-shuttle.ani-slow:hover {
+  animation: ani-shuttle 3s linear infinite;
+}
+.metro .ani-pass,
+.metro .ani-hover-pass:hover {
+  animation: ani-pass 2s linear infinite;
+}
+.metro .ani-pass.ani-fast,
+.metro .ani-hover-pass.ani-fast:hover {
+  animation: ani-pass 1s linear infinite;
+}
+.metro .ani-pass.ani-slow,
+.metro .ani-hover-pass.ani-slow:hover {
+  animation: ani-pass 3s linear infinite;
+}
+.metro .ani-ripple,
+.metro .ani-hover-ripple:hover {
+  animation: ani-ripple 2s infinite linear;
+}
+.metro .ani-ripple.ani-fast,
+.metro .ani-hover-ripple.ani-fast:hover {
+  animation: ani-ripple 1s infinite linear;
+}
+.metro .ani-ripple.ani-slow,
+.metro .ani-hover-ripple.ani-slow:hover {
+  animation: ani-ripple 3s infinite linear;
+}
+@keyframes swinging {
+  0% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(10deg);
+  }
+  10% {
+    transform: rotate(-9deg);
+  }
+  15% {
+    transform: rotate(8deg);
+  }
+  20% {
+    transform: rotate(-7deg);
+  }
+  25% {
+    transform: rotate(6deg);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  35% {
+    transform: rotate(4deg);
+  }
+  40% {
+    transform: rotate(-3deg);
+  }
+  45% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes scaleout {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes cubemove {
+  25% {
+    transform: translateX(10px) rotate(-90deg);
+  }
+  50% {
+    transform: translateX(10px) translateY(10px) rotate(-179deg);
+  }
+  50.1% {
+    transform: translateX(10px) translateY(10px) rotate(-180deg);
+  }
+  75% {
+    transform: translateX(0px) translateY(10px) rotate(-270deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes orbit {
+  0% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+    transform: rotate(225deg);
+  }
+  7% {
+    transform: rotate(345deg);
+    animation-timing-function: linear;
+  }
+  35% {
+    transform: rotate(495deg);
+    animation-timing-function: ease-in-out;
+  }
+  42% {
+    transform: rotate(690deg);
+    animation-timing-function: linear;
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(835deg);
+    animation-timing-function: linear;
+  }
+  76% {
+    opacity: 1;
+  }
+  77% {
+    transform: rotate(955deg);
+    animation-timing-function: ease-in;
+  }
+  78% {
+    transform: rotate(955deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(955deg);
+    opacity: 0;
+  }
+}
+@keyframes metro-slide {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+@keyframes metro-opacity {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes ani-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+@keyframes ani-pulse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+@keyframes ani-wrench {
+  0% {
+    transform: rotate(-12deg);
+  }
+  8% {
+    transform: rotate(12deg);
+  }
+  10% {
+    transform: rotate(24deg);
+  }
+  18% {
+    transform: rotate(-24deg);
+  }
+  20% {
+    transform: rotate(-24deg);
+  }
+  28% {
+    transform: rotate(24deg);
+  }
+  30% {
+    transform: rotate(24deg);
+  }
+  38% {
+    transform: rotate(-24deg);
+  }
+  40% {
+    transform: rotate(-24deg);
+  }
+  48% {
+    transform: rotate(24deg);
+  }
+  50% {
+    transform: rotate(24deg);
+  }
+  58% {
+    transform: rotate(-24deg);
+  }
+  60% {
+    transform: rotate(-24deg);
+  }
+  68% {
+    transform: rotate(24deg);
+  }
+  75% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes ani-ring {
+  0% {
+    transform: rotate(-15deg);
+  }
+  2% {
+    transform: rotate(15deg);
+  }
+  4% {
+    transform: rotate(-18deg);
+  }
+  6% {
+    transform: rotate(18deg);
+  }
+  8% {
+    transform: rotate(-22deg);
+  }
+  10% {
+    transform: rotate(22deg);
+  }
+  12% {
+    transform: rotate(-18deg);
+  }
+  14% {
+    transform: rotate(18deg);
+  }
+  16% {
+    transform: rotate(-12deg);
+  }
+  18% {
+    transform: rotate(12deg);
+  }
+  20% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes ani-vertical {
+  0% {
+    transform: translate(0, -3px);
+  }
+  4% {
+    transform: translate(0, 3px);
+  }
+  8% {
+    transform: translate(0, -3px);
+  }
+  12% {
+    transform: translate(0, 3px);
+  }
+  16% {
+    transform: translate(0, -3px);
+  }
+  20% {
+    transform: translate(0, 3px);
+  }
+  22% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes ani-horizontal {
+  0% {
+    transform: translate(0, 0);
+  }
+  6% {
+    transform: translate(5px, 0);
+  }
+  12% {
+    transform: translate(0, 0);
+  }
+  18% {
+    transform: translate(5px, 0);
+  }
+  24% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(5px, 0);
+  }
+  36% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes ani-flash {
+  0%,
+  100%,
+  50% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+@keyframes ani-bounce {
+  0%,
+  10%,
+  20%,
+  50%,
+  80% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+@keyframes ani-float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes ani-heartbeat {
+  0% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+@keyframes ani-shuttle {
+  0% {
+    transform: scale(1);
+  }
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-8deg);
+  }
+  30%,
+  50%,
+  70% {
+    transform: scale(1.3) rotate(8deg);
+  }
+  40%,
+  60% {
+    transform: scale(1.3) rotate(-8deg);
+  }
+  80% {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes ani-pass {
+  0% {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+@keyframes ani-ripple {
+  0% {
+    opacity: .6;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes ani-shrink {
+  0% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+@keyframes ani-drop {
+  0% {
+    transform: translateY(-50px);
+  }
+  25% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@keyframes ani-drop2 {
+  0% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@keyframes ani-drop3 {
+  0% {
+    transform: translateY(-50px);
+  }
+  75% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@keyframes ani-pre-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ani-bg-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+.metro .slider {
+  height: 2.125rem;
+  line-height: 1;
+  width: auto;
+  position: relative;
+}
+.metro .slider .marker {
+  height: 1rem;
+  width: 1rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.5rem;
+  left: 0;
+  background-color: #1d1d1d;
+  z-index: 2;
+}
+.metro .slider .marker:focus,
+.metro .slider .marker:active,
+.metro .slider .markerhover {
+  border: 2px #CE352C solid;
+}
+.metro .slider .slider-backside,
+.metro .slider .complete {
+  height: .5rem;
+  background: #999999;
+  width: 100%;
+  line-height: 2.125rem;
+  top: 50%;
+  margin-top: -0.25rem;
+  position: absolute;
+}
+.metro .slider .complete {
+  width: auto;
+  background-color: #00aba9;
+  z-index: 2;
+  transition: background .3s ease;
+  left: 0;
+}
+.metro .slider .buffer {
+  height: 4px;
+  width: auto;
+  background-color: #ffffff;
+  z-index: 1;
+  transition: background .3s ease;
+  position: absolute;
+  top: 50%;
+  margin-top: -2px;
+  left: 0;
+}
+.metro .slider .slider-hint {
+  min-width: 1.8rem;
+  width: auto;
+  height: auto;
+  position: absolute;
+  z-index: 3;
+  border: 1px #ccc solid;
+  padding: .25rem;
+  top: -1.2rem;
+  text-align: center;
+  font-size: .625rem;
+  display: none;
+  background: #FFFCC0;
+}
+.metro .slider .slider-hint:before {
+  border: 1px #ccc solid;
+  border-left: 0;
+  border-top: 0;
+  content: "";
+  width: .25rem;
+  height: .25rem;
+  display: block;
+  position: absolute;
+  background-color: inherit;
+  margin-top: -0.125rem;
+  margin-left: -0.15625rem;
+  top: 100%;
+  left: 50%;
+  transform: rotate(45deg);
+}
+.metro .slider.hint-bottom .slider-hint {
+  top: 100%;
+  margin-top: -0.125rem;
+}
+.metro .slider.hint-bottom .slider-hint:before {
+  top: -0.0625rem;
+  transform: rotate(-135deg);
+}
+.metro .slider.permanent-hint > .slider-hint {
+  display: block;
+}
+.metro .slider:hover .complete {
+  background-color: #45fffd;
+}
+.metro .slider:active .complete,
+.metro .slider:active + .marker:active .complete {
+  background-color: #45fffd;
+}
+.metro .slider.place-left {
+  margin-right: 20px;
+}
+.metro .slider.place-right {
+  margin-left: 20px;
+}
+.metro .slider.ani .complete {
+  animation: ani-bg-stripes 2s linear infinite;
+}
+.metro .slider.vertical {
+  min-height: 100px;
+  width: 2.125rem;
+  display: inline-block;
+}
+.metro .slider.vertical .slider-backside,
+.metro .slider.vertical .complete {
+  position: absolute;
+  height: 100%;
+  width: .5rem;
+  bottom: 0;
+  left: 50%;
+  margin-left: -0.25rem;
+  top: auto;
+}
+.metro .slider.vertical .marker {
+  left: 50%;
+  top: auto;
+  margin-left: -0.5rem;
+}
+.metro .slider.vertical .buffer {
+  position: absolute;
+  height: auto;
+  width: 6px ;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  top: auto;
+}
+.metro .slider.vertical .slider-hint {
+  left: 100%;
+  margin-top: 0;
+}
+.metro .slider.vertical .slider-hint:before {
+  height: .25rem;
+  width: .25rem;
+  transform: rotate(135deg);
+  left: -1px;
+  top: 50%;
+  margin-top: -0.125rem;
+  margin-left: -0.135rem;
+}
+.metro .slider.vertical.hint-left .slider-hint {
+  left: -100%;
+  margin-left: .25rem;
+}
+.metro .slider.vertical.hint-left .slider-hint:before {
+  left: 100%;
+  transform: rotate(-45deg);
+}
+.metro .slider.cycle-marker .marker {
+  border-radius: 50%;
+}

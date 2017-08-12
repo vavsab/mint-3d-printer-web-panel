@@ -1,0 +1,100 @@
+<div class="page-header">
+    <title-control>Status</title-control>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Sensors
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Sensor</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Temperature</td>
+                        <td>{{status.temp / 10 | replaceIfUndefined}} °C</td>
+                    </tr>
+                    <tr>
+                        <td>Base</td>
+                        <td>{{status.baseTemp / 10 | replaceIfUndefined}} °C</td>
+                    </tr>
+                    <tr>
+                        <td>PWM</td>
+                        <td>{{status.tempPWM / 1024 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Fan rate</td>
+                        <td>{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Extruder over</td>
+                        <td>{{status.extrOver / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Feedrate</td>
+                        <td>{{status.feedRate / 10 | toFixed : 2 | replaceIfUndefined}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Speed</td>
+                        <td>{{status.speed / 1000 | toFixed : 2 | replaceIfUndefined}} mm/min</td>
+                    </tr>
+                    <tr>
+                        <td>Position X</td>
+                        <td>{{status.currentPos.X / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
+                    </tr>
+                    <tr>
+                        <td>Position Y</td>
+                        <td>{{status.currentPos.Y / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
+                    </tr>
+                    <tr>
+                        <td>Position Z</td>
+                        <td>{{status.currentPos.Z / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
+                    </tr>
+                    <tr>
+                        <td>File</td>
+                        <td>{{status.fileName}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6" ng-show="status.startDate != null">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div>
+                    <span ng-switch="status.state">
+                        <span ng-switch-when="CopyData">Copy Progress</span>
+                        <span ng-switch-when="CopyDataBuffer">Copy Progress</span>
+                        <span ng-switch-when="Buffering">Buffering Progress</span>
+                        <span ng-switch-when="PauseBuffering">Buffering Progress</span>
+                        <span ng-switch-when="PrintBuffering">Printing Progress</span>
+                        <span ng-switch-when="Printing">Printing Progress</span>
+                        <span ng-switch-when="Pause">Printing Progress</span>
+                        <span ng-switch-when="PausePrintBuffering">Printing Progress</span>
+                        <span ng-switch-default>default</span>
+                    </span>
+                    <span class="label label-default" ng-show="['PauseBuffering', 'Pause', 'PausePrintBuffering'].indexOf(status.state) != -1">
+                        paused
+                    </span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <uib-progressbar class="progress-striped active" value="status.line_index / status.line_count * 100">
+                    <span style="color:white; white-space:nowrap;">{{ status.line_index / status.line_count * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
+                </uib-progressbar>
+                <div>Started on: {{status.startDate | toDate}}</div>
+                <div ng-show="status.remainedMilliseconds == null">Calculating time of printing...</div>
+                <div ng-show="status.remainedMilliseconds != null">Remained: {{status.remainedMilliseconds | millisecondsToTime }}</div>
+                <div ng-show="status.endDate != null">End time: {{status.endDate | toDate}}</div>
+            </div>
+        </div>
+    </div>
+</div>

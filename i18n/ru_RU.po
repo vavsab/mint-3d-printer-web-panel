@@ -1,0 +1,220 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: partials\settings\printer.html:22
+msgctxt "Tile"
+msgid "Advanced"
+msgstr "Продвинутые настройки"
+
+#: javascripts\filters.js:17
+msgid "Buffering"
+msgstr "Буферизация"
+
+#: javascripts\filters.js:15
+msgid "Buffering paused"
+msgstr "Буф. приостановлена"
+
+#: partials\dashboard.html:11
+msgid "Cancel"
+msgstr "Отменить"
+
+#: partials\settings.html:22
+msgctxt "Tile"
+msgid "Change password"
+msgstr "Измененить пароль"
+
+#: partials\dashboard.html:54
+msgctxt "Tile"
+msgid "Console"
+msgstr "Консоль"
+
+#: javascripts\filters.js:13
+msgid "Copying (buffer)"
+msgstr "Копирование (буфер)"
+
+#: javascripts\filters.js:11
+msgid "Copying data"
+msgstr "Копирование данных"
+
+#: partials\dashboard.html:3
+msgid "Dashboard"
+msgstr "Информационная панель"
+
+#: partials\settings\printer.html:10
+msgctxt "Tile"
+msgid "Extruder calibration"
+msgstr "Калибровка экструдера"
+
+#: partials\dashboard.html:48
+msgctxt "Tile"
+msgid "Fan"
+msgstr "Куллер"
+
+#: index.html:117
+msgid "Fan"
+msgstr "Охлаждение"
+
+#: javascripts\filters.js:25
+msgid "Idle"
+msgstr "Ожидание"
+
+#: partials\dashboard.html:21
+msgid "Less than 20% of disk space remained"
+msgstr "Осталось меньше 20% от дискового пространства"
+
+#: index.html:95
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#: index.html:144
+msgid "Lock"
+msgstr "Блокировка"
+
+#: partials\dashboard.html:72
+msgctxt "Tile"
+msgid "Logs"
+msgstr "Логи"
+
+#: partials\dashboard.html:21
+msgid "Low space"
+msgstr "Мало места"
+
+#: index.html:11
+msgid "MINT Console"
+msgstr "MINT консоль"
+
+#: partials\dashboard.html:66
+msgctxt "Tile"
+msgid "Macros"
+msgstr "Макросы"
+
+#: index.html:173
+msgid "Messages"
+msgstr "Сообщения"
+
+#: partials\dashboard.html:27
+msgctxt "Tile"
+msgid "Move"
+msgstr "Позиционирование"
+
+#: index.html:156
+msgid "Pause"
+msgstr "Пауза"
+
+#: partials\dashboard.html:8
+msgid "Pause detected!"
+msgstr "Обнаружена пауза!"
+
+#: javascripts\filters.js:21
+msgid "Paused"
+msgstr "Пауза"
+
+#: javascripts\filters.js:23
+msgid "Paused (buffer)"
+msgstr "Пауза (буфер)"
+
+#: index.html:136
+msgid "Play 2048"
+msgstr "Играть 2048"
+
+#: partials\dashboard.html:20
+msgctxt "Tile"
+msgid "Print"
+msgstr "Печать"
+
+#: partials\settings.html:28
+msgctxt "Tile"
+msgid "Printer"
+msgstr "Принтер"
+
+#: partials\settings\printer.html:2
+msgid "Printer settings"
+msgstr "Настройки принтера"
+
+#: javascripts\filters.js:19
+msgid "Printing"
+msgstr "Печать"
+
+#: partials\dashboard.html:8
+msgid "Printing was previously paused. Do you want to resume?"
+msgstr "Печать была приостановлена. Возобновить?"
+
+#: index.html:140
+msgid "Reload"
+msgstr "Перезагрузить"
+
+#: index.html:153 partials\dashboard.html:10
+msgid "Resume"
+msgstr "Возобновить"
+
+#: partials\settings.html:16
+msgctxt "Tile"
+msgid "Server"
+msgstr "Сервер"
+
+#: partials\dashboard.html:78
+msgctxt "Tile"
+msgid "Settings"
+msgstr "Настройки"
+
+#: partials\settings.html:2
+msgid "Settings"
+msgstr "Настройки"
+
+#: index.html:147
+msgid "Shutdown"
+msgstr "Выключить"
+
+#: partials\dashboard.html:41
+msgctxt "Tile"
+msgid "Speed"
+msgstr "Скорость"
+
+#: index.html:123
+msgid "Status"
+msgstr "Статус"
+
+#: partials\dashboard.html:60
+msgctxt "Tile"
+msgid "Status"
+msgstr "Статус"
+
+#: index.html:159
+msgid "Stop"
+msgstr "Остановить"
+
+#: partials\dashboard.html:34
+msgctxt "Tile"
+msgid "Temp"
+msgstr "Темп-ра"
+
+#: index.html:112
+msgid "Temperature"
+msgstr "Температура"
+
+#: partials\settings.html:10
+msgctxt "Tile"
+msgid "Theme & Keyboard"
+msgstr "Тема и клавиатура"
+
+#: partials\settings.html:34
+msgctxt "Tile"
+msgid "Update"
+msgstr "Обновление"
+
+#: partials\settings\printer.html:16
+msgctxt "Tile"
+msgid "Z-Index calibration"
+msgstr "Калибровка z-уровня"

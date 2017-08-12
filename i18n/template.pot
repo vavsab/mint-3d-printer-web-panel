@@ -1,0 +1,455 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: partials\settings\printer\extruder.html:27
+#: partials\settings\printer\extruder.html:30
+msgid "Actual position"
+msgstr ""
+
+#: partials\settings\printer.html:22
+msgctxt "Tile"
+msgid "Advanced"
+msgstr ""
+
+#: partials\settings\printer\advanced.html:2
+msgid "Advanced printer settings"
+msgstr ""
+
+#: partials\regulations\fan.html:18
+#: partials\regulations\speed.html:18
+#: partials\regulations\temperature.html:18
+#: partials\settings\printer\advanced.html:18
+#: partials\settings\printer\extruder.html:57
+#: partials\settings\printer\z-index.html:24
+#: partials\settings\server.html:57
+msgid "Apply"
+msgstr ""
+
+#: partials\regulations\temperature.html:11
+msgctxt "Tile"
+msgid "Base temp"
+msgstr ""
+
+#: javascripts\filters.js:17
+msgid "Buffering"
+msgstr ""
+
+#: javascripts\filters.js:15
+msgid "Buffering paused"
+msgstr ""
+
+#: partials\dashboard.html:11
+msgid "Cancel"
+msgstr ""
+
+#: partials\settings\change-password.html:28
+msgid "Change"
+msgstr ""
+
+#: partials\settings.html:22
+msgctxt "Tile"
+msgid "Change password"
+msgstr ""
+
+#: partials\settings\change-password.html:2
+msgid "Change password"
+msgstr ""
+
+#: partials\settings\update.html:13
+msgid "Check for updates"
+msgstr ""
+
+#: partials\console.html:2
+msgid "Console"
+msgstr ""
+
+#: partials\dashboard.html:54
+msgctxt "Tile"
+msgid "Console"
+msgstr ""
+
+#: javascripts\filters.js:13
+msgid "Copying (buffer)"
+msgstr ""
+
+#: javascripts\filters.js:11
+msgid "Copying data"
+msgstr ""
+
+#: partials\settings\update.html:6
+msgid "Current version"
+msgstr ""
+
+#: partials\dashboard.html:3
+#: partials\settings\server.html:15
+msgid "Dashboard"
+msgstr ""
+
+#: partials\settings\server.html:26
+msgid "Dashboard macroses"
+msgstr ""
+
+#: partials\fileManager.html:6
+msgid "Disk usage: {{free}} free of {{total}}"
+msgstr ""
+
+#: partials\settings\update.html:21
+msgid "Download"
+msgstr ""
+
+#: partials\settings\update.html:34
+msgid "Downloading updates..."
+msgstr ""
+
+#: partials\settings\printer\extruder.html:18
+#: partials\settings\printer\z-index.html:15
+msgid "Enter valid float number"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:21
+msgid "Extrude"
+msgstr ""
+
+#: partials\settings\printer.html:10
+msgctxt "Tile"
+msgid "Extruder calibration"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:2
+msgid "Extruder calibration"
+msgstr ""
+
+#: partials\dashboard.html:48
+#: partials\regulations\fan.html:11
+msgctxt "Tile"
+msgid "Fan"
+msgstr ""
+
+#: index.html:117
+msgid "Fan"
+msgstr ""
+
+#: partials\regulations\fan.html:2
+msgid "Fan control"
+msgstr ""
+
+#: partials\fileManager.html:2
+msgid "File Manager"
+msgstr ""
+
+#: partials\fileManager.html:12
+msgid "Folder is loading..."
+msgstr ""
+
+#: partials\console.html:15
+msgid "G-code wiki (RepRap)"
+msgstr ""
+
+#: partials\settings\printer\advanced.html:25
+msgid "Hot end temperatures"
+msgstr ""
+
+#: javascripts\filters.js:25
+msgid "Idle"
+msgstr ""
+
+#: partials\settings\update.html:35
+msgid "Installing updates..."
+msgstr ""
+
+#: partials\dashboard.html:21
+msgid "Less than 20% of disk space remained"
+msgstr ""
+
+#: index.html:95
+msgid "Loading..."
+msgstr ""
+
+#: index.html:144
+msgid "Lock"
+msgstr ""
+
+#: partials\settings\server.html:48
+msgid "Log level"
+msgstr ""
+
+#: partials\dashboard.html:72
+msgctxt "Tile"
+msgid "Logs"
+msgstr ""
+
+#: partials\dashboard.html:21
+msgid "Low space"
+msgstr ""
+
+#: index.html:11
+msgid "MINT Console"
+msgstr ""
+
+#: partials\dashboard.html:66
+msgctxt "Tile"
+msgid "Macros"
+msgstr ""
+
+#: partials\console.html:27
+#: partials\settings\server.html:18
+msgid "Macroses"
+msgstr ""
+
+#: index.html:173
+msgid "Messages"
+msgstr ""
+
+#: partials\dashboard.html:27
+msgctxt "Tile"
+msgid "Move"
+msgstr ""
+
+#: partials\regulations\movements.html:2
+msgid "Move control"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:18
+msgid "Move home"
+msgstr ""
+
+#: partials\settings\change-password.html:19
+msgid "New password"
+msgstr ""
+
+#: partials\settings\update.html:17
+msgid "New version is available"
+msgstr ""
+
+#: partials\regulations\movements.html:5
+msgid "Not implemented yet"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:12
+msgid "Offset"
+msgstr ""
+
+#: partials\settings\change-password.html:9
+msgid "Old password"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:39
+msgid "Over extrusion"
+msgstr ""
+
+#: index.html:156
+msgid "Pause"
+msgstr ""
+
+#: partials\dashboard.html:8
+msgid "Pause detected!"
+msgstr ""
+
+#: javascripts\filters.js:21
+msgid "Paused"
+msgstr ""
+
+#: javascripts\filters.js:23
+msgid "Paused (buffer)"
+msgstr ""
+
+#: index.html:136
+msgid "Play 2048"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:12
+msgid "Position"
+msgstr ""
+
+#: partials\dashboard.html:20
+msgctxt "Tile"
+msgid "Print"
+msgstr ""
+
+#: partials\settings\server.html:34
+msgid "Print behavior"
+msgstr ""
+
+#: partials\settings.html:28
+msgctxt "Tile"
+msgid "Printer"
+msgstr ""
+
+#: partials\settings\server.html:8
+msgid "Printer name"
+msgstr ""
+
+#: partials\settings\printer.html:2
+msgid "Printer settings"
+msgstr ""
+
+#: javascripts\filters.js:19
+msgid "Printing"
+msgstr ""
+
+#: partials\dashboard.html:8
+msgid "Printing was previously paused. Do you want to resume?"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:45
+msgid "Recalculate"
+msgstr ""
+
+#: index.html:140
+msgid "Reload"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:50
+msgid "Reset"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:8
+msgid "Reset over extrusion to 100% before starting calibration."
+msgstr ""
+
+#: partials\settings\printer\extruder.html:22
+msgid "Reset position"
+msgstr ""
+
+#: index.html:153
+#: partials\dashboard.html:10
+msgid "Resume"
+msgstr ""
+
+#: partials\console.html:34
+msgid "See all"
+msgstr ""
+
+#: partials\console.html:19
+msgid "Send"
+msgstr ""
+
+#: partials\console.html:9
+msgid "Send G-code..."
+msgstr ""
+
+#: partials\settings.html:16
+msgctxt "Tile"
+msgid "Server"
+msgstr ""
+
+#: partials\settings\server.html:2
+msgid "Server settings"
+msgstr ""
+
+#: partials\settings\printer\advanced.html:19
+msgid "Set to defaults"
+msgstr ""
+
+#: partials\dashboard.html:78
+msgctxt "Tile"
+msgid "Settings"
+msgstr ""
+
+#: partials\settings.html:2
+msgid "Settings"
+msgstr ""
+
+#: partials\settings\browser.html:23
+msgid "Show dark theme"
+msgstr ""
+
+#: partials\settings\browser.html:12
+msgid "Show virtual keyboard"
+msgstr ""
+
+#: index.html:147
+msgid "Shutdown"
+msgstr ""
+
+#: partials\settings\update.html:26
+msgid "Software is up to date"
+msgstr ""
+
+#: partials\dashboard.html:41
+#: partials\regulations\speed.html:11
+msgctxt "Tile"
+msgid "Speed"
+msgstr ""
+
+#: partials\regulations\speed.html:2
+msgid "Speed control"
+msgstr ""
+
+#: index.html:123
+msgid "Status"
+msgstr ""
+
+#: partials\dashboard.html:60
+msgctxt "Tile"
+msgid "Status"
+msgstr ""
+
+#: index.html:159
+msgid "Stop"
+msgstr ""
+
+#: partials\dashboard.html:34
+msgctxt "Tile"
+msgid "Temp"
+msgstr ""
+
+#: index.html:112
+msgid "Temperature"
+msgstr ""
+
+#: partials\regulations\temperature.html:2
+msgid "Temperature control"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:19
+msgid "Test"
+msgstr ""
+
+#: partials\settings.html:10
+msgctxt "Tile"
+msgid "Theme and Keyboard"
+msgstr ""
+
+#: partials\settings\browser.html:2
+msgid "Theme and Keyboard settings"
+msgstr ""
+
+#: partials\settings\browser.html:6
+msgid "These settings are saved for each browser independently."
+msgstr ""
+
+#: partials\settings\printer\z-index.html:9
+msgid "Top offset"
+msgstr ""
+
+#: partials\settings.html:34
+msgctxt "Tile"
+msgid "Update"
+msgstr ""
+
+#: partials\settings\update.html:2
+msgid "Update"
+msgstr ""
+
+#: partials\settings\server.html:38
+msgid "Use pre-buffering"
+msgstr ""
+
+#: partials\settings\printer.html:16
+msgctxt "Tile"
+msgid "Z-Index calibration"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:2
+msgid "Z-index calibration"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:16
+#: partials\settings\printer\extruder.html:31
+#: partials\settings\printer\z-index.html:13
+msgid "mm"
+msgstr ""

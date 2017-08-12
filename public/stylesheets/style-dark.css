@@ -1,0 +1,21 @@
+.lock-container .lock-input-panel:hover {
+  background-color: rgba(58, 63, 68, 0.7);
+  box-shadow: 2px 2px 1px black;
+}
+
+.lock-container .lock-input-panel {
+  background-color: rgba(58, 63, 68, 0.5);
+  box-shadow: 1px 1px 1px black;
+}
+
+.lock-container .avatar {
+  box-shadow: 1px 1px 1px black;
+}
+
+.lock-container .locked-title {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-default {
+  background-color: rgba(58, 63, 68, 0.7);  
+}
