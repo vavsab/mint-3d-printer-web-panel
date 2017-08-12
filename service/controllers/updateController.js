@@ -64,7 +64,7 @@ module.exports = (socketController) => {
 
             printerIdController.getIdHash()
             .then(printerIdHash => {
-                exec(`${pathToUpdateScript} --fetch --printer-id ${printer_id}`, (err, stdout, stderr) => {
+                exec(`${pathToUpdateScript} --fetch --printer-id ${printerIdHash}`, (err, stdout, stderr) => {
                     if (err) {
                         reject({error: err + stderr + stdout});
                     } else {
