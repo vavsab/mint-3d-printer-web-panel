@@ -1,7 +1,7 @@
 {
   "apps" : [{
     "name"        : "server",
-    "script"      : "service/app.js",
+    "script"      : "/mint-home/software/web/service/app.js",
     "error_file"      : "/dev/null",
     "out_file"        : "/dev/null",
     "env": {
@@ -9,7 +9,7 @@
     }
   }, {
     "name"       : "printer",
-    "script"     : "service/printerWrapper.js",
+    "script"     : "/mint-home/software/web/service/printerWrapper.js",
     "error_file"      : "/dev/null",
     "out_file"        : "/dev/null",
     "env": {
