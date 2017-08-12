@@ -13,6 +13,9 @@ const gulpSequence = require('gulp-sequence');
 const spawn = require('child_process').spawn;
 const htmlReplace = require('gulp-html-replace');
 
+const argv = require('yargs').argv;
+const isProduction = argv.dev === undefined;
+
 gulp.task('default', ['less', 'i18n']);
 gulp.task('i18n', ['i18n_generate', 'i18n_compile']);
 
@@ -47,8 +50,8 @@ gulp.task('clean', () =>
 
 gulp.task('build', gulpSequence('copy_raw_to_build', 'copy_html_with_replace', 'build_js_custom', 'build_install_packages'));
 
-gulp.task('copy_raw_to_build', () => 
-  merge(
+gulp.task('copy_raw_to_build', () => {
+  let tasks = [
     gulp.src(['public/**', '!public/javascripts/**'])
       .pipe(gulp.dest('build/public')),
     gulp.src(['public/javascripts/lib-scripts.js'])
@@ -62,8 +65,16 @@ gulp.task('copy_raw_to_build', () =>
     gulp.src(['config/**'])
       .pipe(gulp.dest('build/config')),
     gulp.src(['desktop-loader/bin/desktop-loader-linux-armv7l/**'])
-      .pipe(gulp.dest('build/desktop-loader')))
-);
+      .pipe(gulp.dest('build/desktop-loader'))
+  ];
+
+  if (!isProduction) {
+    tasks.push(gulp.src(['emulators/**'])
+      .pipe(gulp.dest('build/emulators')));
+  }
+
+  return merge(tasks);
+});
 
 gulp.task('copy_html_with_replace', () =>
   gulp.src('public/index.html')

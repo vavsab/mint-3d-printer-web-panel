@@ -8,9 +8,11 @@ const bodyParser = require('body-parser');
 const fs = require('fs-extra');
 const log4js = require('log4js');
 const logger = require('./logger');
+const utils = require('./utils');
 const globalConstants = require('./globalConstants');
 const databaseMigrations = require('./databaseMigrations');
 const repository = require('./repository');
+const config = require('config');
 const configurationController = require('./controllers/configurationController');
 const socketControllerFactory = require('./controllers/socketController');
 const updateControllerFactory = require('./controllers/updateController');
@@ -34,15 +36,12 @@ databaseMigrations.update()
 })
 .then(() => {  
   
-  if (!fs.existsSync('../logs')){
-    fs.mkdirSync('../logs');
+  const fileManagerRootPath = utils.getPathFromBase(config.get('pathToFilesFolder'));
+  if (!fs.existsSync(fileManagerRootPath)) {
+      fs.mkdirSync(fileManagerRootPath);
+      logger.info(`Files folder was created on '${fileManagerRootPath}'`);
   }
 
-  if (!fs.existsSync('../files')){
-    fs.mkdirSync('../files');
-  }
-
-  var logger = require('./logger');
   var printerProxy = require('./printerProxy');
   printerProxy = new printerProxy();
 

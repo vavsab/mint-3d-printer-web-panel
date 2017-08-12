@@ -13,13 +13,8 @@
     const utils = require('../utils');
     
     const logsRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToLogsFolder')));
-    const fileManagerRootPath = utils.getPathFromBase(config.get('pathToFilesFolder'));
-
-    if (!fs.existsSync(fileManagerRootPath)) {
-        fs.mkdirSync(fileManagerRootPath);
-        logger.info(`Files folder was created on '${fileManagerRootPath}'`);
-    }
-
+    const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToFilesFolder')));
+    
     const router = express.Router();
 
     /* Open services */

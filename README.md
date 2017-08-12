@@ -8,3 +8,4 @@ Web site of printer
 2. npm install
 3. gulp clean
 4. gulp build
+    OR for testing: gulp build --dev 
