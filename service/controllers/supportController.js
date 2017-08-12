@@ -21,21 +21,24 @@ const tryGetErrorText = (stdout) => {
 }
 
 self.isConnected = () => {
-    return new Promise((resolve, reject) => {
-        exec(`${pathToSupportScript} --status`, (err, stdout, stderr) => {
-            if (err) {
-                let errorText = tryGetErrorText(stdout);
-                if (errorText == null) {
-                    errorText = err + stderr + stdout;
+    return printerIdController.getIdHash()
+    .then(printerIdHash => {
+        return new Promise((resolve, reject) => {
+            exec(`${pathToSupportScript} --status --printer-id ${printerIdHash}`, (err, stdout, stderr) => {
+                if (err) {
+                    let errorText = tryGetErrorText(stdout);
+                    if (errorText == null) {
+                        errorText = err + stderr + stdout;
+                    }
+                    
+                    logger.error(`supportController > getStatus > ${errorText}`);
+                    reject(errorText);
+                } else {
+                    let outJSON = JSON.parse(stdout);
+                    resolve(outJSON.connected);
                 }
-                
-                logger.error(`supportController > getStatus > ${errorText}`);
-                reject(errorText);
-            } else {
-                let outJSON = JSON.parse(stdout);
-                resolve(outJSON.connected);
-            }
-        });
+            });
+        })
     });
 };
 

@@ -2,20 +2,15 @@
 
 ping 1.1.1.1 -n 1 -w 3000 >NUL 
 
-IF "%1" EQU "--status" ( 
-    echo {
-    echo    "connected": true
-    echo }
-    EXIT 0
-)
-
 IF "%1" NEQ "--connect" (
-	IF "%1" NEQ "--disconnect" ( 
-        echo {
-        echo    "success": false,
-        echo	"error": "Unknown operation"
-        echo }
-        EXIT -1
+	IF "%1" NEQ "--disconnect" (
+        IF "%1" NEQ "--status" ( 
+            echo {
+            echo    "success": false,
+            echo	"error": "Unknown operation"
+            echo }
+            EXIT -1
+        )
     )
 )
 
@@ -33,6 +28,13 @@ IF "%3" NEQ "testHash" (
     echo	"error": "Printer id is not correct"
     echo }
     EXIT -1
+)
+
+IF "%1" EQU "--status" ( 
+    echo {
+    echo    "connected": true
+    echo }
+    EXIT 0
 )
 
 set /a rand = (%RANDOM%) %% 2
