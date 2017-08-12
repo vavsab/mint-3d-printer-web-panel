@@ -2,10 +2,10 @@
     "PrinterFilePath" : "/mint-home/software/web/printer",
     "pathToUpdateScript": "/mint-home/software/update/update.py",
     "pathToInstallScript": "/mint-home/software/update/spawn-install",
-    "pathToSupportScript": "/home/mint/software/support/support.py",
+    "pathToSupportScript": "/mint-home/software/support/support.py",
     "pathToVersion": "/mint-home/software/version",
     "pathToPrinterId": "/mint-home/printer_id",
-    "pathToConfigFiles": "/home/mint/local/web",
-    "pathToFilesFolder": "/home/mint/files",
-    "pathToLogsFolder": "/home/mint/logs"
+    "pathToConfigFiles": "/mint-home/local/web",
+    "pathToFilesFolder": "/mint-home/files",
+    "pathToLogsFolder": "/mint-home/logs"
 }
