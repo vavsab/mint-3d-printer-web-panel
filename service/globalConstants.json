@@ -1,7 +1,8 @@
 {
     "macrosSettingsPath": "macrosSettings.json",
     "defaultMacrosSettingsPath": "macrosSettingsDefault.json",
+    "printerPasswordsPath": "printerPasswords.json",
     "printerSettingsPath": "printerSettings.cfg",
     "defaultPrinterSettingsPath": "printerSettingsDefault.cfg",
-    "printerPasswordsPath": "printerPasswords.json"
+    "printerPauseInfoPath": "printerInfo.txt"
 }

@@ -4,11 +4,15 @@ const spawn = require('child_process').spawn;
 const config = require('config');
 const log4js = require('log4js');
 const fs = require('fs-extra');
+const utils = require('./utils');
+const path = require('path');
 const globalConstants = require('./globalConstants');
 const configurationController = require('./controllers/configurationController');
 
-if (!fs.existsSync('logs')){
-    fs.mkdirSync('logs');
+const logsFolderPath = utils.getPathFromBase(config.get('pathToLogsFolder'));
+if (!fs.existsSync(logsFolderPath)){
+    fs.mkdirSync(logsFolderPath);
+    console.log(`Files folder was created on '${logsFolderPath}'`);
 }
 
 log4js.configure({
@@ -16,7 +20,7 @@ log4js.configure({
     { type: 'console' },
     { 
         type: 'dateFile', 
-        filename: 'logs/printerWrapper', 
+        filename: path.join(logsFolderPath, 'printerWrapper'), 
         category: 'printerWrapper',
         pattern: "-yyyy-MM-dd.log",
         alwaysIncludePattern: true }

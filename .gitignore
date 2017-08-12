@@ -7,11 +7,11 @@
 /KeepCalmPrinterEmulator/src/PrintDream.PrinterEmulator/bin
 logs/
 files/
-/printerSettings.cfg
-/macrosSettings.json
-/websiteSettings.json
+/configFiles/printerSettings.cfg
+/configFiles/macrosSettings.json
+/configFiles/websiteSettings.json
+/configFiles/printerPasswords.json
 /public/javascripts/libs/chart.js/.gitignore
-/printerPasswords.json
 /debug.log
 /build
 /node_modules

@@ -11,6 +11,7 @@ const uglifyCss = require('gulp-uglifycss');
 const merge = require('merge-stream');
 const gulpSequence = require('gulp-sequence');
 const spawn = require('child_process').spawn;
+const htmlReplace = require('gulp-html-replace');
 
 gulp.task('default', ['less', 'i18n']);
 gulp.task('i18n', ['i18n_generate', 'i18n_compile']);
@@ -44,20 +45,32 @@ gulp.task('clean', () =>
 		.pipe(clean())
 );
 
-gulp.task('build', gulpSequence(['copy_raw_to_build', 'build_js_custom', 'build_install_packages']));
+gulp.task('build', gulpSequence('copy_raw_to_build', 'copy_html_with_replace', 'build_js_custom', 'build_install_packages'));
 
 gulp.task('copy_raw_to_build', () => 
   merge(
     gulp.src(['public/**', '!public/javascripts/**'])
       .pipe(gulp.dest('build/public')),
+    gulp.src(['public/javascripts/lib-scripts.js'])
+      .pipe(gulp.dest('build/public/javascripts')),
     gulp.src(['service/**'])
       .pipe(gulp.dest('build/service')),
-    gulp.src(['desktop-loader/**', '!desktop-loader/node_modules/**'])
-      .pipe(gulp.dest('build/desktop-loader')),
     gulp.src(['pm2.json', 'package.json'])
       .pipe(gulp.dest('build')),
-    gulp.src(['*SettingsDefault*'])
-      .pipe(gulp.dest('build/configs')))
+    gulp.src(['configFiles/*SettingsDefault*'])
+      .pipe(gulp.dest('build/configFiles')),
+    gulp.src(['config/**'])
+      .pipe(gulp.dest('build/config')),
+    gulp.src(['desktop-loader/bin/desktop-loader-linux-armv7l/**'])
+      .pipe(gulp.dest('build/desktop-loader')))
+);
+
+gulp.task('copy_html_with_replace', () =>
+  gulp.src('public/index.html')
+    .pipe(htmlReplace({
+        'js': '/javascripts/custom-scripts.js'
+    }))
+    .pipe(gulp.dest('build/public'))
 );
 
 gulp.task('build_install_packages', (done) => {

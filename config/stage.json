@@ -5,5 +5,7 @@
     "pathToSupportScript": "/home/mint/software/support/support.py",
     "pathToVersion": "/mint-home/software/version",
     "pathToPrinterId": "/mint-home/printer_id",
-    "pathToPauseInfo": "printerInfo.txt"
+    "pathToConfigFiles": "/home/mint/local/web",
+    "pathToFilesFolder": "/home/mint/files",
+    "pathToLogsFolder": "/home/mint/logs"
 }

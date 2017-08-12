@@ -2,6 +2,7 @@ const databaseController = require('./controllers/databaseController');
 const logger = require('./logger');
 const fs = require('fs-extra');
 const utils = require('./utils');
+const config = require('config');
 
 const migrations = [
     // 0 => 1
@@ -31,8 +32,8 @@ const migrations = [
                 }
             })
             .then(() => {
-                const websiteSettingsFilePath = utils.getPathFromBase('websiteSettings.json');
-                const websiteSettingsDefaultFilePath = utils.getPathFromBase('websiteSettingsDefault.json');
+                const websiteSettingsFilePath = utils.getPathForConfig('websiteSettings.json');
+                const websiteSettingsDefaultFilePath = utils.getPathForConfig('websiteSettingsDefault.json');
 
                 const websiteSettingsDefaultValue = {
                     printerName: null,
