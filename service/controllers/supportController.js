@@ -1,7 +1,7 @@
 const printerIdController = require('./printerIdController');
 const config = require('config');
 const logger = require('../logger');
-const exec = require('child_process').exec;
+const { spawn, exec } = require('child_process');
 self = module.exports;
 
 const pathToSupportScript = config.get('pathToSupportScript');
@@ -46,20 +46,32 @@ self.connect = (message) => {
     return printerIdController.getIdHash()
     .then(printerIdHash => {
         return new Promise((resolve, reject) => {
-            let messageCommand = "";
+            let parameters = ['--connect', '--printer-id', printerIdHash];
             if (message) {
-                messageCommand = ` --msg ${message}`;
+                parameters.push('--msg');
+                parameters.push(message);
             }
 
-            exec(`${pathToSupportScript} --connect --printer-id ${printerIdHash}${messageCommand}`, 
-            (err, stdout, stderr) => {
-                if (err) {
-                    let errorText = tryGetErrorText(stdout);
-                    if (errorText == null) {
-                        errorText = err + stderr + stdout;
-                    }
+            let errorText = '';
+            let outputText = '';
+            connectProcess = spawn(pathToSupportScript, parameters);
 
-                    reject(errorText);
+            connectProcess.stdout.on('data', (data) => {
+                outputText += data.toString();
+            });
+
+            connectProcess.stderr.on('data', (data) => {
+                errorText += data.toString();
+            });
+
+            connectProcess.on('exit', (code) => {
+                if (code != 0) {
+                    let match = /\s*"error"\s*:\s*"(.*)"/.exec(`${errorText} ${outputText}`);
+                    if (match == null || match.length < 2) {
+                        reject(`${errorText} ${outputText}`);
+                    } else {
+                        reject(match[1]);
+                    }
                 } else {
                     resolve();
                 }

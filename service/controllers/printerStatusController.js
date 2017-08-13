@@ -96,7 +96,7 @@ module.exports = (socketController, printerProxy) =>
   const fs = require('fs-extra');
   const utils = require('../utils');
   const printerIdController = require('./printerIdController');
-  const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase("files"));
+  const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToFilesFolder')));
 
   var lastPrintingStatusUpdateDate = new Date(0); // Status for printing process
 

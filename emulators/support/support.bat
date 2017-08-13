@@ -32,7 +32,7 @@ IF "%3" NEQ "testHash" (
 
 IF "%1" EQU "--status" ( 
     echo {
-    echo    "connected": true
+    echo    "connected": false
     echo }
     EXIT 0
 )

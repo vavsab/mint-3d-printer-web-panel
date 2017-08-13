@@ -132,7 +132,7 @@ databaseMigrations.update()
         log4js.shutdown(() => process.exit());
       }
 
-      if (printerStatusController.flush) {
+      if (printerStatusController != undefined && printerStatusController.flush) {
         printerStatusController.flush();
       }
   }
