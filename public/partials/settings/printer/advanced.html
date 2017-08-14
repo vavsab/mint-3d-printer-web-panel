@@ -8,7 +8,7 @@
             <div class="form-group" ng-repeat="displayItem in $ctrl.displaySettings">
                 <label class="control-label col-sm-4" for="{{displayItem.tag}}">{{displayItem.title}}</label>
                 <div class="input-group col-sm-8">
-                    <input class="form-control" name="{{displayItem.tag}}" 
+                    <input class="form-control" name="{{displayItem.tag}}" type="number"
                         placeholder="{{displayItem.title}}" ng-model="$ctrl.settings[displayItem.tag]" ng-keyboard>
                     <span class="input-group-addon" id="{{displayItem.tag}}">{{displayItem.comment}}</span>
                 </div>
