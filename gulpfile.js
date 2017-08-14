@@ -56,6 +56,8 @@ gulp.task('copy_raw_to_build', () => {
       .pipe(gulp.dest('build/public')),
     gulp.src(['public/javascripts/lib-scripts.js'])
       .pipe(gulp.dest('build/public/javascripts')),
+    gulp.src(['public/javascripts/theme-scripts/**'])
+      .pipe(gulp.dest('build/public/javascripts/theme-scripts')),
     gulp.src(['service/**'])
       .pipe(gulp.dest('build/service')),
     gulp.src(['pm2.json', 'package.json'])
@@ -105,7 +107,7 @@ gulp.task('build_install_packages', (done) => {
 });
 
 gulp.task('build_js_custom', () => 
-  gulp.src(['public/javascripts/**/*.js', '!public/javascripts/libs/**'])
+  gulp.src(['public/javascripts/**/*.js', '!public/javascripts/lib-scripts.js', '!public/javascripts/libs/**', '!public/javascripts/theme-scripts/**'])
     .pipe(concat('custom-scripts.js'))
     .pipe(gulp.dest('build/public/javascripts'))
 );
