@@ -767,7 +767,7 @@ function (commandService, $controller, $scope, printerStatus) {
     self.maxValue = 300;
 
     self.apply = function () {
-        return commandService.sendCommand('M220 S' + parseInt(self.value * 10));
+        return commandService.sendCommand('M220 S' + parseInt(self.value));
     }
 
     $controller('baseSliderController', { parent: self, $scope: $scope });
