@@ -131,7 +131,7 @@ function ($scope, printerSettingsService, printerStatusService, dialogService) {
             self.temperatureChartData[1].shift();      
         }
 
-        self.temperatureChartLabels.push(new Date(status.date).getSeconds());
+        self.temperatureChartLabels.push(new Date(status.date).toLocaleTimeString());
         self.temperatureChartData[0].push(status.temp / 10);
         self.temperatureChartData[1].push(status.baseTemp / 10);
     }
