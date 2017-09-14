@@ -23,7 +23,7 @@ module.exports = (socketController, printerProxy, printerStatusController) => {
     };
 
     // Determine whether UPS is enabled
-    status.isUPSEnabled = true;
+    status.isUPSEnabled = false;
 
     let queryPins = () => {
         if (gpio != null) {
