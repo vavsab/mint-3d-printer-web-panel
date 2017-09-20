@@ -38,6 +38,18 @@ namespace PrintDream.Model
         [DataMember(Name = "tempPWM")]
         public short TempPWM { get; set; }
 
+        [DataMember(Name = "bedTemp")]
+        public long BedTemperature { get; set; }
+
+        [DataMember(Name = "bedBaseTemp")]
+        public long BedBaseTemperature { get; set; }
+
+        /// <summary>
+        /// Teperature source voltage: from 0 to 1024.
+        /// </summary>
+        [DataMember(Name = "bedTempPwm")]
+        public short BedTempPWM { get; set; }
+
         /// <summary>
         /// TODO: Unknown unit of measurement
         /// </summary>

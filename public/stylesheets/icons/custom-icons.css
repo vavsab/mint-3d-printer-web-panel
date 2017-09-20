@@ -41,3 +41,7 @@
 .icon-fan:before {
   content: "\61";
 }
+
+.icon-heatbed:before {
+  content: "\62";
+}

@@ -448,8 +448,8 @@ function (networkService, dialogService) {
 }]);
 
 app.controller('settingsPrinterConfigurationController', 
-['powerService', 'websiteSettingsService', 
-function (powerService, websiteSettingsService) {
+['powerService', 'websiteSettingsService', 'websiteSettings',
+function (powerService, websiteSettingsService, websiteSettings) {
     var self = this;
 
     self.powerStatus = null;
@@ -464,7 +464,10 @@ function (powerService, websiteSettingsService) {
     });
 
     self.save = function () {
-        return websiteSettingsService.save(self.websiteSettings);
+        return websiteSettingsService.save(self.websiteSettings)
+        .then(function success() {
+            angular.copy(self.websiteSettings, websiteSettings.settings);
+        });
     }
 }]);
 

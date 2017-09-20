@@ -73,15 +73,25 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" uib-tooltip="{{'Temperature' | translate}}" tooltip-placement="bottom">
+                    <a class="dropdown-toggle telemetry-navigation-item" style="min-width: 90px;" 
+                        uib-tooltip="{{'Heater temperature: actual | target' | translate}}" 
+                        tooltip-placement="bottom">
                         <span class="fa fa-thermometer-full"></span>
-                        {{status.temp / 10 | replaceIfUndefined}} °C
+                        {{status.temp / 10 | number : 0 | replaceIfUndefined}} / {{status.baseTemp / 10 | number : 0 | replaceIfUndefined}} °C
                     </a>
                 </li>
-                <li class="dropdown" uib-tooltip="{{'Fan' | translate}}" tooltip-placement="bottom">
-                    <a class="dropdown-toggle">
+                <li class="dropdown" ng-show="$ctrl.websiteSettings.settings.isHeatbedAvailable">
+                    <a class="dropdown-toggle telemetry-navigation-item" style="min-width: 90px;" 
+                        uib-tooltip="{{'Bed temperature: actual | target' | translate}}" 
+                        tooltip-placement="bottom">
+                        <span class="icon-heatbed"></span>
+                        {{status.bedTemp / 10 | number : 0 | replaceIfUndefined}} / {{status.bedBaseTemp / 10 | number : 0 | replaceIfUndefined}} °C
+                    </a>
+                </li>
+                <li class="dropdown telemetry-navigation-item" uib-tooltip="{{'Fan' | translate}}" tooltip-placement="bottom">
+                    <a class="dropdown-toggle" style="min-width: 54px;">
                         <span class="icon-fan"></span>
-                        {{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}% 
+                        {{status.cullerRate / 2550 * 100 | number : 0 | replaceIfUndefined}}% 
                     </a>
                 </li>
                 <li class="dropdown" uib-tooltip="{{'Status' | translate}}" tooltip-placement="bottom">

@@ -83,6 +83,21 @@ const migrations = [
                 }
             })
         }
+    },
+    // 3 => 4
+    {
+        up: db => {
+            const configuration = db.collection('configuration');
+            const websiteSettingsKey = 'websiteSettings';
+
+            return configuration.findOne({ key: websiteSettingsKey }).then((websiteSettings) => {
+                if (websiteSettings != null) {
+                    websiteSettings.value.isHeatbedAvailable = false;
+
+                    return configuration.updateOne({ key: websiteSettingsKey }, websiteSettings);
+                }
+            })
+        }
     }
 ];
 

@@ -147,6 +147,9 @@ namespace PrinterEmulator
                 TempPWM = (short)random.Next(0, 1024),
                 Temperature = random.Next(0, 300),
                 BaseTemperature = random.Next(0, 300),
+                BedTempPWM = (short)random.Next(0, 1024),
+                BedTemperature = random.Next(0, 300),
+                BedBaseTemperature = random.Next(0, 300),
                 CurrentPosition = new Position
                 {
                     X = random.Next(0, 10000000),

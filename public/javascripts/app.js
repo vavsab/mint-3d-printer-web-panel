@@ -149,4 +149,4 @@ app.value('loader', {show: true});
 app.value('socket', io.connect());
 app.value('printerStatus', {status: {}, isLocked: false});
 app.value('browserSettings', {showVirtualKeyboard: false, isDarkTheme: true});
-app.value('websiteSettings', {settings: {}, defaultPrinterName: 'Keep Calm Printer'});
+app.value('websiteSettings', {settings: {}, defaultPrinterName: 'MINT printer'});

@@ -191,3 +191,9 @@ html {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
 }
+
+.telemetry-navigation-item {
+  text-align: center;
+  padding-left: 0px !important; 
+  padding-right: 0px !important;
+}
