@@ -1,19 +1,19 @@
 <div class="page-header">
-    <title-control><translate>Temperature control</translate></title-control>
+    <title-control back-link="'#/'"><translate>Temperature control</translate></title-control>
 </div>
 
-<div class="row metro">
-    <div class="tile-container">
-        <div class="tile bg-red fg-white">
-            <div class="tile-content iconic">
-                <span class="icon fa fa-thermometer-full"></span>
-                <span class="tile-badge bg-darkRed">{{status.baseTemp / 10 | replaceIfUndefined}} °C</span>
-                <span class="tile-label" translate translate-context="Tile">Base temp</span>
-            </div>
-        </div>
-    </div>
-    <slider-regulator units="°C" value="$ctrl.value" min="{{$ctrl.minValue}}" max="{{$ctrl.maxValue}}" step="0.1" left-shifts="['-10', '-1']" right-shifts="['+1', '+10']" />
-</div>
-<div class="row">
-    <action-button type="success" button-name="{{'Apply' | translate}}" action="$ctrl.apply()" />
+<ul class="nav nav-tabs">
+    <li ng-class="{active: ('temperature.hotend' | routeSegmentStartsWith)}">
+        <a href="#/temperature/">
+            <i class="icon-hotend"></i> <translate>Hotend<translate>
+        </a>
+    </li>
+    <li ng-if="$ctrl.websiteSettings.settings.isHeatbedAvailable" ng-class="{active: ('temperature.bed' | routeSegmentStartsWith)}">
+        <a href="#/temperature/bed">
+            <i class="icon-heatbed"></i> <translate>Bed</translate>
+        </a>
+    </li> 
+</ul>
+
+<div app-view-segment="1" class="animate">
 </div>

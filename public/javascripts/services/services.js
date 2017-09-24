@@ -149,8 +149,12 @@ function ($http, httpq, eventAggregatorFactory, $q, printerStatus, socket) {
         });
     };
 
-    this.getTemperatureChartData = function () {
-        return httpq.get('/api/status/temperature');
+    this.getHotendTemperatureChartData = function () {
+        return httpq.get('/api/status/temperature/hotend');
+    };
+
+    this.getBedTemperatureChartData = function () {
+        return httpq.get('/api/status/temperature/bed');
     };
 
     this.checkResume = function () {

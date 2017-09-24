@@ -172,9 +172,13 @@
         res.status(200).send();
     });
 
-    // For getting the last temperature measurements
-    router.get('/status/temperature', function (req, res) {
-        res.status(200).json(printerStatusController.temperatureChartData);
+    // For getting the latest temperature measurements
+    router.get('/status/temperature/hotend', function (req, res) {
+        res.status(200).json(printerStatusController.hotendTemperatureChartData);
+    });
+
+    router.get('/status/temperature/bed', function (req, res) {
+        res.status(200).json(printerStatusController.bedTemperatureChartData);
     });
 
     router.get('/status/resume', function(req, res, next) {

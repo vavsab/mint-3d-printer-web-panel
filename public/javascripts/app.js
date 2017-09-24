@@ -21,7 +21,8 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/status', 'status')
         .when('/movements', 'movements')
         .when('/fan', 'fan')
-        .when('/temperature', 'temperature')
+        .when('/temperature', 'temperature.hotend')
+        .when('/temperature/bed', 'temperature.bed')
         .when('/speed', 'speed')
         .when('/logs', 'logs.general')
         .when('/logs/printer', 'logs.printer')
@@ -66,6 +67,16 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             templateUrl: 'partials/regulations/temperature.html',
             controller: 'temperatureController as $ctrl'
         })
+        .within()
+            .segment('hotend', {
+                templateUrl: 'partials/regulations/temperature/hotend.html',
+                controller: 'temperatureHotendController as $ctrl'
+            })
+            .segment('bed', {
+                templateUrl: 'partials/regulations/temperature/bed.html',
+                controller: 'temperatureBedController as $ctrl'
+            })
+        .up()
         .segment('speed', {
             templateUrl: 'partials/regulations/speed.html',
             controller: 'speedController as $ctrl'

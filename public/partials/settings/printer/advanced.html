@@ -20,19 +20,10 @@
                 </div>
             </div>
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <translate>Hotend temperature</translate>
-                </div>
-                <div class="panel-body">
-                    <canvas class="chart chart-line" height="75" chart-data="$ctrl.temperatureChartData" 
-                        chart-options="{animation: { duration: 0 }, legend: {display: true} }" 
-                        chart-series="$ctrl.temperatureChartSeries" 
-                        chart-labels="$ctrl.temperatureChartLabels"
-                        chart-colors="['#803690', '#46BFBD']">
-                    </canvas>
-                </div>
-            </div>
+            <temperature-chart series="['Temperature', 'Base temperature']" 
+                get-start-data="$ctrl.getStartChartData"
+                get-data-from-status="$ctrl.getChartDataFromStatus"
+                title="{{'Hotend temperature' | translate}}" />
         </form>
     </div>
 </div>

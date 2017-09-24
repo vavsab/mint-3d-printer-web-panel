@@ -273,3 +273,63 @@ app.directive("sliderTargetInput", function () {
         }
     }
 });
+
+app.directive("temperatureChart", function () {
+    return {
+        scope: {
+            series: "=",
+            getStartData: "=",
+            getDataFromStatus: "=",
+            title: '@'
+        },
+        controller: ['$scope', 'printerStatusService', function ($scope, printerStatusService) {
+            var self = this;
+
+            self.temperatureChartLabels = [];
+            self.temperatureChartSeries = $scope.series;
+            self.title = $scope.title;
+            self.isLoading = true;
+
+            self.temperatureChartData = [];
+            for (var i = 0; i < self.temperatureChartSeries.length; i++) {
+                self.temperatureChartData.push([]);
+            }
+
+            var refreshChartByStatus = function (status) {
+                var statusData = $scope.getDataFromStatus(status);
+                while (self.temperatureChartLabels.length > 30) {
+                    self.temperatureChartLabels.shift();
+                    for (var i = 0; i < statusData.length; i++) {
+                        self.temperatureChartData[i].shift();    
+                    }
+                }
+
+                self.temperatureChartLabels.push(new Date(status.date).toLocaleTimeString());
+                for (var i = 0; i < statusData.length; i++) {
+                    self.temperatureChartData[i].push(statusData[i]);
+                }
+            };
+
+            $scope.getStartData().then(function success(data) {
+                self.isLoading = false;
+                data[0].forEach(function (chartPoint) {
+                    self.temperatureChartLabels.push(new Date(chartPoint.date).toLocaleTimeString());
+                });
+
+                for (var i = 0; i < data.length; i++) {
+                    data[i].forEach(function (chartPoint) {
+                        self.temperatureChartData[i].push(chartPoint.value);
+                    });
+                }
+            }).then(function success () { // do not update chart until it is loaded
+                printerStatusService.eventAggregator.on('statusReceived', refreshChartByStatus);
+            });
+
+            $scope.$on('$destroy', function () {
+                printerStatusService.eventAggregator.unsubscribe('statusReceived', refreshChartByStatus);
+            });
+        }],
+        controllerAs: "$ctrl",
+        templateUrl: '/partials/directives/temperatureChart.html'
+    };
+})

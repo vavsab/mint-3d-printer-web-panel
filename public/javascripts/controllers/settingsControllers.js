@@ -118,40 +118,15 @@ app.controller('settingsPrinterAdvancedController',
 function ($scope, printerSettingsService, printerStatusService, dialogService) {
     var self = this;
 
-    this.temperatureChartLabels = [];
-    this.temperatureChartSeries = ['Temperature', 'Base temperature'];
-    
-    // 0 seria - temperature, 1 seria - base temperature
-    this.temperatureChartData = [[],[]];
-
-    var refreshChartByStatus = function (status) {
-        while (self.temperatureChartLabels.length > 30) {
-            self.temperatureChartLabels.shift();
-            self.temperatureChartData[0].shift();
-            self.temperatureChartData[1].shift();      
-        }
-
-        self.temperatureChartLabels.push(new Date(status.date).toLocaleTimeString());
-        self.temperatureChartData[0].push(status.temp / 10);
-        self.temperatureChartData[1].push(status.baseTemp / 10);
-    }
-
-    printerStatusService.getTemperatureChartData().then(function success(temperatureData) {
-        temperatureData.temp.forEach(function (chartPoint) {
-             self.temperatureChartLabels.push(new Date(chartPoint.date).toLocaleTimeString());
-             self.temperatureChartData[0].push(chartPoint.value / 10);
-        });
-
-        temperatureData.baseTemp.forEach(function (chartPoint) {
-            self.temperatureChartData[1].push(chartPoint.value / 10);
-        });
-    }).then(function success () { // do not update chart until it is loaded
-        printerStatusService.eventAggregator.on('statusReceived', refreshChartByStatus);
-    });
-
     this.settings = null;
     this.offset = { z: 0 };
     this.isLoading = true;
+
+    self.getStartChartData = printerStatusService.getHotendTemperatureChartData;
+
+    self.getChartDataFromStatus = function (status) {
+        return [status.temp / 10, status.baseTemp / 10];
+    }
 
     this.displaySettings = [
         { title: "L", tag: "L", comment: "mm * 10^-5" },
@@ -207,10 +182,6 @@ function ($scope, printerSettingsService, printerStatusService, dialogService) {
                 return "cancelled";
             });
     };
-
-    $scope.$on('$destroy', function () {
-        printerStatusService.eventAggregator.unsubscribe('statusReceived', refreshChartByStatus);
-    });
 }]);
 
 app.controller('settingsServerController', 

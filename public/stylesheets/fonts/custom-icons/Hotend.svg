@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="8.5in" height="11in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 8500 11000"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#373435;stroke-width:6.94488}
+    .fil0 {fill:none}
+    .fil2 {fill:#373435}
+    .fil1 {fill:#6B809B}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="1296" y="5975" width="6265" height="2081"/>
+  <rect class="fil0 str0" x="2873" y="1257" width="3198" height="4710"/>
+  <rect class="fil0 str0" transform="matrix(1.23011 -1.23011 1.23011 1.23011 2212.18 7219.96)" width="1806" height="1861"/>
+  <polygon class="fil1 str0" points="3457,5975 2212,7220 3048,8056 5955,8056 6723,7288 5410,5975 "/>
+  <polygon class="fil2 str0" points="4433,4999 5401,5967 6071,5967 6071,1257 2873,1257 2873,5967 3465,5967 "/>
+  <polygon class="fil1 str0" points="5410,5975 3457,5975 2212,7220 3048,8056 5955,8056 6723,7288 "/>
+  <polygon class="fil1 str0" points="3457,5975 2212,7220 3048,8056 5955,8056 6723,7288 5410,5975 "/>
+  <polygon class="fil2 str0" points="5410,5975 6723,7288 5955,8056 7561,8056 7561,5975 "/>
+  <polygon class="fil2 str0" points="5955,8056 6723,7288 5410,5975 3457,5975 2212,7220 3048,8056 "/>
+  <polygon class="fil1 str0" points="2212,7220 3457,5975 1296,5975 1296,8056 3048,8056 "/>
+  <polygon class="fil1 str0" points="3465,5967 5401,5967 4433,4999 "/>
+  <polygon class="fil1 str0" points="2212,7220 3457,5975 1296,5975 1296,8056 3048,8056 "/>
+  <polygon class="fil2 str0" points="3465,5967 5401,5967 4433,4999 "/>
+  <polygon class="fil1 str0" points="1296,8056 1296,5975 3457,5975 3465,5967 2873,5967 2873,1257 6071,1257 6071,5967 5401,5967 5410,5975 7561,5975 7561,8056 5955,8056 4502,9509 3048,8056 "/>
+  <polygon class="fil1 str0" points="7561,5975 7561,8056 5955,8056 4502,9509 3048,8056 1296,8056 1296,5975 3457,5975 3465,5967 2873,5967 2873,1257 6071,1257 6071,5967 5401,5967 5410,5975 "/>
+  <polygon class="fil2 str0" points="7561,8056 7561,5975 5410,5975 5401,5967 6071,5967 6071,1257 2873,1257 2873,5967 3465,5967 3457,5975 1296,5975 1296,8056 3048,8056 4502,9509 5955,8056 "/>
+ </g>
+</svg>

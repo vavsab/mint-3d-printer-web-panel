@@ -86,10 +86,8 @@ module.exports = (socketController, printerProxy) =>
   var self = this;
   this.currentStatus = null;
 
-  this.temperatureChartData = {
-    baseTemp: [],
-    temp: [] 
-  };
+  this.hotendTemperatureChartData = [ [], [] ];
+  this.bedTemperatureChartData = [ [], [] ];
 
   const config = require('config');
   const logger = require('../logger');
@@ -160,14 +158,21 @@ module.exports = (socketController, printerProxy) =>
           }
           status.date = new Date();
 
-          self.temperatureChartData.baseTemp.push({date: status.date, value: status.baseTemp});
-          self.temperatureChartData.temp.push({date: status.date, value: status.temp});
+          self.hotendTemperatureChartData[0].push({date: status.date, value: status.temp / 10});
+          self.hotendTemperatureChartData[1].push({date: status.date, value: status.baseTemp / 10});
 
-          while (self.temperatureChartData.baseTemp.length > 30) {
-            self.temperatureChartData.baseTemp.shift();
-            self.temperatureChartData.temp.shift();
+          while (self.hotendTemperatureChartData[0].length > 30) {
+            self.hotendTemperatureChartData[0].shift();
+            self.hotendTemperatureChartData[1].shift();
           };
-          
+
+          self.bedTemperatureChartData[0].push({date: status.date, value: status.bedTemp / 10});
+          self.bedTemperatureChartData[1].push({date: status.date, value: status.bedBaseTemp / 10});
+
+          while (self.bedTemperatureChartData[0].length > 30) {
+            self.bedTemperatureChartData[0].shift();
+            self.bedTemperatureChartData[1].shift();
+          };
 
           if (status.State !== undefined) {
             var statusMap = ["Idle", "CopyData", "CopyDataBuffer", "Buffering",

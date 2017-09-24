@@ -681,7 +681,7 @@ function (parent, $scope, $rootScope, dialogService, $location) {
     var self = parent;
 
     var onRouteChange = function (event, newUrl) {
-        if (self.value !== self.getValue()) {
+        if (self.initialValue !== self.value) {
             dialogService.confirm("Are you sure to discard changes?", 'Unsaved changes')
             .then(function success () {
                 locationChangeUnregistrator();
@@ -700,6 +700,7 @@ function (parent, $scope, $rootScope, dialogService, $location) {
     });
 
     self.value = self.getValue();
+    self.initialValue = self.value;
 
     self.changeValue = function (delta) {
         if (self.value + delta > self.maxValue) {
@@ -713,6 +714,10 @@ function (parent, $scope, $rootScope, dialogService, $location) {
         }
 
         self.value = self.value + delta;
+    };
+
+    self.apply = function () {
+        return self.sendCommand().then(function success() { self.initialValue = self.value; });
     };
 }]); 
 
@@ -728,27 +733,8 @@ function (commandService, $controller, $scope, printerStatus) {
     self.minValue = 0;
     self.maxValue = 100;
 
-    self.apply = function () {
+    self.sendCommand = function () {
         return commandService.sendCommand('M106 S' + parseInt(255 * (self.value / 100)));
-    }
-
-    $controller('baseSliderController', { parent: self, $scope: $scope });
-}]);
-
-app.controller('temperatureController', 
-['commandService', '$controller', '$scope', 'printerStatus',
-function (commandService, $controller, $scope, printerStatus) {
-    var self = this;
-
-    self.getValue = function () {
-        return printerStatus.status.baseTemp / 10;
-    };
-
-    self.minValue = 0;
-    self.maxValue = 300;
-
-    self.apply = function () {
-        return commandService.sendCommand('M104 S' + self.value);
     }
 
     $controller('baseSliderController', { parent: self, $scope: $scope });
@@ -766,7 +752,7 @@ function (commandService, $controller, $scope, printerStatus) {
     self.minValue = 5;
     self.maxValue = 300;
 
-    self.apply = function () {
+    self.sendCommand = function () {
         return commandService.sendCommand('M220 S' + parseInt(self.value));
     }
 

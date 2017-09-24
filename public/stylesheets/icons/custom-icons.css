@@ -2,8 +2,7 @@
 
 @font-face {
   font-family: "untitled-font-1";
-  src:url("../fonts/untitled-font-1.eot");
-  src:url("../fonts/untitled-font-1.eot?#iefix") format("embedded-opentype"),
+  src:  
     url("../fonts/untitled-font-1.woff") format("woff"),
     url("../fonts/untitled-font-1.ttf") format("truetype"),
     url("../fonts/untitled-font-1.svg#untitled-font-1") format("svg");
@@ -44,4 +43,8 @@
 
 .icon-heatbed:before {
   content: "\62";
+}
+
+.icon-hotend:before {
+  content: "\63";
 }

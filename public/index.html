@@ -39,6 +39,7 @@
     <script src="/javascripts/controllers/controllers.js"></script>
     <script src="/javascripts/controllers/settingsControllers.js"></script>
     <script src="/javascripts/controllers/dialogControllers.js"></script>
+    <script src="/javascripts/controllers/temperatureControllers.js"></script>
     <script src="/javascripts/directives.js"></script>
     <script src="/javascripts/services/services.js"></script>
     <script src="/javascripts/services/powerService.js"></script>
@@ -74,15 +75,15 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle telemetry-navigation-item" style="min-width: 90px;" 
-                        uib-tooltip="{{'Heater temperature: actual | target' | translate}}" 
+                        uib-tooltip="{{'Hotend temperature: actual / target' | translate}}" 
                         tooltip-placement="bottom">
-                        <span class="fa fa-thermometer-full"></span>
+                        <span class="icon-hotend"></span>
                         {{status.temp / 10 | number : 0 | replaceIfUndefined}} / {{status.baseTemp / 10 | number : 0 | replaceIfUndefined}} °C
                     </a>
                 </li>
                 <li class="dropdown" ng-show="$ctrl.websiteSettings.settings.isHeatbedAvailable">
                     <a class="dropdown-toggle telemetry-navigation-item" style="min-width: 90px;" 
-                        uib-tooltip="{{'Bed temperature: actual | target' | translate}}" 
+                        uib-tooltip="{{'Bed temperature: actual / target' | translate}}" 
                         tooltip-placement="bottom">
                         <span class="icon-heatbed"></span>
                         {{status.bedTemp / 10 | number : 0 | replaceIfUndefined}} / {{status.bedBaseTemp / 10 | number : 0 | replaceIfUndefined}} °C
