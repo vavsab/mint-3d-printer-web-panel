@@ -116,6 +116,7 @@ gulp.task('build_css_libs', () => {
     const pathPrefix = 'public/';
 
     const libs = [
+      'javascripts/libs/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
       'stylesheets/metro/metro.css',
       'javascripts/libs/metisMenu/dist/metisMenu.min.css',
       'javascripts/libs/font-awesome/css/font-awesome.min.css',
@@ -129,7 +130,7 @@ gulp.task('build_css_libs', () => {
     return gulp.src(libs)
       .pipe(concat('lib-styles.css'))
       .pipe(uglifyCss())
-      .pipe(gulp.dest('public/stylesheets'));
+      .pipe(gulp.dest('public/stylesheets/build'));
 });
 
 gulp.task('build_js_libs', () => {
@@ -146,6 +147,8 @@ gulp.task('build_js_libs', () => {
       'angular-animate/angular-animate.js',
       'angular-touch/angular-touch.js',
       'angular-bootstrap/ui-bootstrap-tpls.js',
+      'bootstrap-switch/dist/js/bootstrap-switch.min.js',
+      'angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js',
       'angular-gettext/dist/angular-gettext.js',
       'ng-file-upload/ng-file-upload.js',
       'jquery-ui/jquery-ui.js',

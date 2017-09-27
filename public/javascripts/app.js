@@ -1,7 +1,8 @@
 ﻿app = angular.module('angularModule', 
     ['ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap', 'ngFileUpload', 
     'ngAnimate', 'ngResource', 'LocalStorageModule',
-    'ng-virtual-keyboard', 'chart.js', 'ngCookies', 'gettext']);
+    'ng-virtual-keyboard', 'chart.js', 'ngCookies', 'gettext',
+    'frapontillo.bootstrap-switch']);
 
 app.run(['gettextCatalog', function (gettextCatalog) {
     // var lang = 'en_US';

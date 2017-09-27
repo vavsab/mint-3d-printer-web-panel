@@ -672,7 +672,10 @@ function (macrosService, $uibModal, websiteSettingsService, loader, commandServi
 }]);
 
 app.controller('movementsController', [function () {
+    var self = this;
 
+    self.isMotorsOn = true;
+    self.isApplyMode = false;
 }]);
 
 app.controller('baseSliderController', 

@@ -21,12 +21,12 @@
                 <span class="tile-badge bg-darkRed" ng-show="(diskspace.free / diskspace.total) <= 0.2" uib-tooltip="{{'Less than 20% of disk space remained' | translate}}" translate>Low space</span>
             </div>
         </div>      
-        <!--<div class="tile bg-darkBlue fg-white" data-role="tile" ng-click="go('/movements')">
+        <div class="tile bg-darkBlue fg-white" data-role="tile" ng-click="go('/movements')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-arrows-alt"></span>
                 <span class="tile-label" translate translate-context="Tile">Move</span>
             </div>
-        </div>-->
+        </div>
         <div class="tile bg-red fg-white" data-role="tile" ng-click="go('/temperature')">
             <div class="tile-content iconic">
                 <span class="icon fa fa-thermometer-full"></span>

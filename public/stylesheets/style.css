@@ -173,11 +173,24 @@ body {
 .metro .slider.slider-big .marker {
   height: 3rem;
   width: 2rem;
-  background-color: black;
 }
 
 .metro .slider.slider-big {
   height: 7.125rem;
+}
+
+ .metro .slider.slider-big-vertical .slider-backside,
+.metro .slider.slider-big-vertical .complete {
+  width: 1.5rem;
+} 
+
+ .metro .slider.slider-big-vertical .marker {
+  width: 2rem;
+} 
+
+.metro .slider.slider-big-vertical {
+  width: 1rem;
+  margin-right: 9px;
 }
 
 /* Hide scroll */
@@ -196,4 +209,16 @@ html {
   text-align: center;
   padding-left: 0px !important; 
   padding-right: 0px !important;
+}
+
+action-button.fluid button {
+   width: 100%;
+}
+
+action-button.fluid-height button {
+   height: 100%;
+}
+
+action-button.margin-top-3 button {
+  margin-top: 3px;
 }
