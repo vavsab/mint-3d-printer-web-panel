@@ -21,7 +21,7 @@
             <TextBox Margin="5" Grid.Column="0" Name="TextBoxCommand" />
             <Button Margin="5" Grid.Column="1" Name="ButtonSendCommand" Content="Send command" Click="ButtonSendCommand_Click" />
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
+        <WrapPanel Orientation="Horizontal" Grid.Row="1">
             <CheckBox Margin="5" Name="CheckBoxStatus" Content="Send status" Checked="CheckBoxStatus_OnChecked" Unchecked="CheckBoxStatus_OnUnchecked" />
             <TextBlock Margin="5" Text="State" />
             <ComboBox ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" />
@@ -29,7 +29,8 @@
             <TextBox Text="{Binding LineIndex}" MinWidth="50" />
             <TextBlock Margin="5" Text="line_count" />
             <TextBox Text="{Binding LineCount}" MinWidth="50" />
-        </StackPanel>
+            <CheckBox Margin="5" Content="Motors on" IsChecked="{Binding Motors}" />
+        </WrapPanel>
         <Button Margin="5" Grid.Row="2" Name="ButtonError" Content="Send error" Click="ButtonError_OnClick" />
         <TextBlock Margin="5" Grid.Row="3" Text="Console" />
         <TextBox Margin="5" Grid.Row="4" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Name="TextBoxOutput" HorizontalScrollBarVisibility="Auto" />

@@ -98,6 +98,21 @@ const migrations = [
                 }
             })
         }
+    },
+    // 4 => 5
+    {
+        up: db => {
+            const configuration = db.collection('configuration');
+            const websiteSettingsKey = 'websiteSettings';
+
+            return configuration.findOne({ key: websiteSettingsKey }).then((websiteSettings) => {
+                if (websiteSettings != null) {
+                    websiteSettings.value.printerSize = { type: 'cylinder', x: 230, y: 230, z: 400};
+
+                    return configuration.updateOne({ key: websiteSettingsKey }, websiteSettings);
+                }
+            })
+        }
     }
 ];
 

@@ -36,6 +36,8 @@ namespace PrinterEmulator
 
         public int LineCount { get; set; }
 
+        public bool Motors { get; set; } = true;
+
         protected override void OnClosing(CancelEventArgs e)
         {
             cancellationTokenSource?.Cancel();
@@ -159,6 +161,7 @@ namespace PrinterEmulator
                 FeedRate = random.Next(10, 5000),
                 ExtruderOver = random.Next(10, 5000),
                 Speed = random.Next(5, 300),
+                MotorsOn = Motors ? 1 : 0,
                 FileName = @"C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\files\Folder1\CubeHeight.stl"
             });
         }

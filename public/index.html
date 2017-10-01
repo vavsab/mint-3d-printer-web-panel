@@ -62,29 +62,38 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#/">{{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : $ctrl.websiteSettings.defaultPrinterName}} Console</a>
+                <a class="navbar-brand" href="#/" title="{{'Home' | translate}}">
+                    <img src="/images/mint.png" width="20" height="20" style="float: left;" />
+                    <span id="headerPrinterName">
+                        {{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : $ctrl.websiteSettings.defaultPrinterName}}
+                    </span>
+                </a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle telemetry-navigation-item" style="min-width: 90px;" 
+                <li id="hotendHeaderInfo" class="dropdown">
+                    <a class="dropdown-toggle telemetry-navigation-item" 
                         uib-tooltip="{{'Hotend temperature: actual / target' | translate}}" 
                         tooltip-placement="bottom">
                         <span class="icon-hotend"></span>
-                        {{status.temp / 10 | number : 0 | replaceIfUndefined}} / {{status.baseTemp / 10 | number : 0 | replaceIfUndefined}} °C
+                        {{status.temp / 10 | number : 0 | replaceIfUndefined}} 
+                        <span class="details">/ {{status.baseTemp / 10 | number : 0 | replaceIfUndefined}}</span>
+                         °C
                     </a>
                 </li>
-                <li class="dropdown" ng-show="$ctrl.websiteSettings.settings.isHeatbedAvailable">
-                    <a class="dropdown-toggle telemetry-navigation-item" style="min-width: 90px;" 
+                <li id="heatBedHeaderInfo" class="dropdown" ng-show="$ctrl.websiteSettings.settings.isHeatbedAvailable">
+                    <a class="dropdown-toggle telemetry-navigation-item"
                         uib-tooltip="{{'Bed temperature: actual / target' | translate}}" 
                         tooltip-placement="bottom">
                         <span class="icon-heatbed"></span>
-                        {{status.bedTemp / 10 | number : 0 | replaceIfUndefined}} / {{status.bedBaseTemp / 10 | number : 0 | replaceIfUndefined}} °C
+                        {{status.bedTemp / 10 | number : 0 | replaceIfUndefined}} 
+                        <span class="details">/ {{status.bedBaseTemp / 10 | number : 0 | replaceIfUndefined}}</span>
+                         °C
                     </a>
                 </li>
-                <li class="dropdown telemetry-navigation-item" uib-tooltip="{{'Fan' | translate}}" tooltip-placement="bottom">
-                    <a class="dropdown-toggle" style="min-width: 54px;">
+                <li id="fanHeaderInfo" class="dropdown telemetry-navigation-item" uib-tooltip="{{'Fan' | translate}}" tooltip-placement="bottom">
+                    <a class="dropdown-toggle">
                         <span class="icon-fan"></span>
                         {{status.cullerRate / 2550 * 100 | number : 0 | replaceIfUndefined}}% 
                     </a>

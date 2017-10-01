@@ -31,9 +31,43 @@
         <div class="form-group">
             <label class="control-label col-xs-5" for="heatbed" translate>Heatbed available</label>
             <div class="input-group col-xs-7">
-                <input id="heatbed" class="form-control" type="checkbox" ng-model="$ctrl.websiteSettings.isHeatbedAvailable" />
+                <input bs-switch id="heatbed" type="checkbox" ng-model="$ctrl.websiteSettings.isHeatbedAvailable" />
             </div>
         </div>
+    </form>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="tableType" translate>Table type</label>
+            <div class="input-group col-xs-7">
+                <select id="tableType" class="form-control" ng-model="$ctrl.websiteSettings.printerSize.type">
+                    <option value="cylinder" translate>Cylinder</option>
+                    <option value="rectangle" translate>Rectangle</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="xSize">
+                {{$ctrl.websiteSettings.printerSize.type !== 'cylinder' ? ('X size' | translate) : ('Diameter' | translate) }} 
+            </label>
+            <div class="input-group col-xs-7">
+                <input id="xSize" class="form-control" type="number" min="5" max="1000" ng-model="$ctrl.websiteSettings.printerSize.x" />
+            </div>
+        </div>
+        <div class="form-group" ng-if="$ctrl.websiteSettings.printerSize.type !== 'cylinder'">
+            <label class="control-label col-xs-5" for="ySize" translate>Y size</label>
+            <div class="input-group col-xs-7">
+                <input id="ySize" class="form-control" type="number" min="5" max="1000" ng-model="$ctrl.websiteSettings.printerSize.y" />
+            </div>
+        </div>        
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="zSize" translate>Z size (Height)</label>
+            <div class="input-group col-xs-7">
+                <input id="zSize" class="form-control" type="number" min="5" max="1000" ng-model="$ctrl.websiteSettings.printerSize.z" />
+            </div>
+        </div>        
     </form>
 </div>
 

@@ -671,11 +671,85 @@ function (macrosService, $uibModal, websiteSettingsService, loader, commandServi
     };
 }]);
 
-app.controller('movementsController', [function () {
+app.controller('movementsController', 
+['printerStatus', 'printerStatusService', '$scope', 'commandService', 'websiteSettings',
+function (printerStatus, printerStatusService, $scope, commandService, websiteSettings) {
     var self = this;
 
-    self.isMotorsOn = true;
     self.isApplyMode = false;
+    self.bedSize = websiteSettings.settings.printerSize;
+
+    self.bedOrigin = {
+        x: self.bedSize.x / 2,
+        y: self.bedSize.y / 2,
+        z: 0
+    };
+
+    self.motorsOn = printerStatus.status.motorsOn == 1;
+
+    self.motorsChange = function () {
+        commandService.sendCommand(self.motorsOn ? 'M17' : 'M18');
+    }
+
+    self.sliderValue = 0; 
+    self.redCircleXCoord = 40;
+    self.redCircleYCoord = 40;
+
+    self.moveHome = function (axis) {
+        var command;
+        switch (axis) {
+            case 'x':
+                command = 'G1 X0';
+                break;
+            case 'y':
+                command = 'G1 Y0';
+                break;
+            case 'z':
+                command = 'G1 Z0';
+                break;
+            default:
+                command = 'G28';
+                break;
+        }
+
+        return commandService.sendCommand(command);
+    };
+
+    self.move = function (diffs) {
+        var parts = [];
+
+        if (diffs.x) {
+            var x = (printerStatus.status.currentPos.X / 100000) + diffs.x;
+            parts.push('X' + x);
+        }
+
+        if (diffs.y) {
+            var y = (printerStatus.status.currentPos.Y / 100000) + diffs.y;
+            parts.push('Y' + y);
+        }
+
+        if (diffs.z) {
+            var z = (printerStatus.status.currentPos.Z / 100000) + diffs.z;
+            parts.push('Z' + z)
+        }
+
+        if (parts.length > 0) {
+            return commandService.sendCommand('G1 ' + parts.join(' '));
+        }
+    };
+    
+    var refreshStatus = function () {
+      self.sliderValue = ((printerStatus.status.currentPos.Z / 100000) + self.bedOrigin.z) / self.bedSize.z * 100;
+      self.redCircleXCoord = ((printerStatus.status.currentPos.X / 100000) + self.bedOrigin.x) / self.bedSize.x * 80;
+      self.redCircleYCoord = ((printerStatus.status.currentPos.Y / 100000) + self.bedOrigin.y) / self.bedSize.y * 80;
+    };
+
+    refreshStatus();
+    printerStatusService.eventAggregator.on('statusReceived', refreshStatus);
+
+    $scope.$on('$destroy', function () {
+        printerStatusService.eventAggregator.unsubscribe('statusReceived', refreshStatus);
+    });
 }]);
 
 app.controller('baseSliderController', 

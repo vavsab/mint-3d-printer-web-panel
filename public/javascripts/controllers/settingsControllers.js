@@ -435,6 +435,10 @@ function (powerService, websiteSettingsService, websiteSettings) {
     });
 
     self.save = function () {
+        if (self.websiteSettings.printerSize.type === 'cylinder') {
+            self.websiteSettings.printerSize.y = self.websiteSettings.printerSize.x;
+        }
+
         return websiteSettingsService.save(self.websiteSettings)
         .then(function success() {
             angular.copy(self.websiteSettings, websiteSettings.settings);

@@ -7,12 +7,42 @@
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 15px;
 }
 
-@media (min-width: 768px) {
-  body {
-    padding-top: 15px;
+#fanHeaderInfo {
+  min-width: 54px;
+}
+
+#heatBedHeaderInfo, #hotendHeaderInfo {
+  min-width: 90px;
+}
+
+@media (max-width: 768px) {
+  .navbar-header {
+    float: left;
+  }
+
+  #fanHeaderInfo {
+    display: none;
+    min-width: unset;
+  }
+
+  #heatBedHeaderInfo .details, #hotendHeaderInfo .details, #headerPrinterName {
+    display: none;
+  }
+
+  #heatBedHeaderInfo, #hotendHeaderInfo {
+    min-width: unset;
+  }
+
+  #heatBedHeaderInfo > a, #hotendHeaderInfo > a {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .navbar-top-links {
+    float: right;
   }
 }
 
@@ -179,7 +209,7 @@ body {
   height: 7.125rem;
 }
 
- .metro .slider.slider-big-vertical .slider-backside,
+.metro .slider.slider-big-vertical .slider-backside,
 .metro .slider.slider-big-vertical .complete {
   width: 1.5rem;
 } 
@@ -187,6 +217,10 @@ body {
  .metro .slider.slider-big-vertical .marker {
   width: 2rem;
 } 
+
+.metro .slider.hide-marker .marker {
+  display: none;
+}
 
 .metro .slider.slider-big-vertical {
   width: 1rem;
