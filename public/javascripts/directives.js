@@ -304,7 +304,8 @@ app.directive("temperatureChart", function () {
                     }
                 }
 
-                self.temperatureChartLabels.push(new Date(status.date).toLocaleTimeString());
+                // Do not print time to save layout space
+                self.temperatureChartLabels.push('');
                 for (var i = 0; i < statusData.length; i++) {
                     self.temperatureChartData[i].push(statusData[i]);
                 }
@@ -313,7 +314,8 @@ app.directive("temperatureChart", function () {
             $scope.getStartData().then(function success(data) {
                 self.isLoading = false;
                 data[0].forEach(function (chartPoint) {
-                    self.temperatureChartLabels.push(new Date(chartPoint.date).toLocaleTimeString());
+                    // Do not print time to save layout space
+                    self.temperatureChartLabels.push('');
                 });
 
                 for (var i = 0; i < data.length; i++) {
