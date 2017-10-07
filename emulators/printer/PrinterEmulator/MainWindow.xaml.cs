@@ -26,6 +26,7 @@ namespace PrinterEmulator
             LineCount = 100;
             LineIndex = 1;
             CheckBoxStatus.IsChecked = true;
+            FixedData = new FixedData();
         }
 
         public List<State> States { get; set; }
@@ -37,6 +38,8 @@ namespace PrinterEmulator
         public int LineCount { get; set; }
 
         public bool Motors { get; set; } = true;
+
+        public FixedData FixedData { get; set; }
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -138,8 +141,7 @@ namespace PrinterEmulator
 
         private string GetInfo(bool isPrinting = false, bool sendId = false)
         {
-            return InfoOutput.PackagePrefix + 
-                JsonSerializer.Serialize(new InfoOutput
+            var info = new InfoOutput
             {
                 Id = sendId ? "testKey" : null,
                 State = SelectedState,
@@ -163,7 +165,18 @@ namespace PrinterEmulator
                 Speed = random.Next(5, 300),
                 MotorsOn = Motors ? 1 : 0,
                 FileName = @"C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\files\Folder1\CubeHeight.stl"
-            });
+            };
+
+            if (FixedData.IsEnabled)
+            {
+                FixedData.Apply(info);
+            }
+            else
+            {
+                FixedData.Update(info);
+            }
+
+            return InfoOutput.PackagePrefix + JsonSerializer.Serialize(info);
         }
 
         private void AppendTextToOutput(string text)

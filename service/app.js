@@ -13,12 +13,14 @@ const globalConstants = require('./globalConstants');
 const databaseMigrations = require('./databaseMigrations');
 const repository = require('./repository');
 const config = require('config');
+const EventEmitter = require('events');
 const configurationController = require('./controllers/configurationController');
 const socketControllerFactory = require('./controllers/socketController');
 const updateControllerFactory = require('./controllers/updateController');
 const networkControllerFactory = require('./controllers/networkController');
 const powerControllerFactory = require('./controllers/powerController');
 const printerStatusControllerFactory = require('./controllers/printerStatusController');
+const telegramBotFactory = require('./extensions/telegramBot');
 
 const port = 3123;
 
@@ -65,7 +67,9 @@ databaseMigrations.update()
     const socketController = socketControllerFactory(server);
     const updateController = updateControllerFactory(socketController);
     const networkController = networkControllerFactory();
-    const printerStatusController = printerStatusControllerFactory(socketController, printerProxy);
+    const printerMessageBus = new EventEmitter();
+    const printerStatusController = printerStatusControllerFactory(socketController, printerProxy, printerMessageBus);
+    const telegramBot = telegramBotFactory(printerMessageBus);
     const powerController = powerControllerFactory(socketController, printerProxy, printerStatusController);
 
     const routes = require('./routes/index');

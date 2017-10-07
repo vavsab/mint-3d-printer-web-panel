@@ -1,4 +1,4 @@
-module.exports = (socketController, printerProxy) =>
+module.exports = (socketController, printerProxy, printerMessageBus) =>
 {
   function RemainingTimeCounter() {
     var initialStartTime = null;
@@ -131,6 +131,7 @@ module.exports = (socketController, printerProxy) =>
       // to receive the last status message
       lastPrintingStatusUpdateDate = new Date(0);
       socketController.sendToAll('event', { type: 'endPrint'});
+      printerMessageBus.emit('endPrint');
       
       return;
     }

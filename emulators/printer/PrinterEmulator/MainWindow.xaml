@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -32,7 +33,55 @@
             <CheckBox Margin="5" Content="Motors on" IsChecked="{Binding Motors}" />
         </WrapPanel>
         <Button Margin="5" Grid.Row="2" Name="ButtonError" Content="Send error" Click="ButtonError_OnClick" />
-        <TextBlock Margin="5" Grid.Row="3" Text="Console" />
-        <TextBox Margin="5" Grid.Row="4" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Name="TextBoxOutput" HorizontalScrollBarVisibility="Auto" />
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Margin="5" Grid.Row="0" Content="Fixate data" IsChecked="{Binding FixedData.IsEnabled}" />
+
+            <TextBlock Margin="5" Grid.Row="1" Text="Coords" VerticalAlignment="Center" />
+            <TextBlock Margin="5" Grid.Row="2" Text="Temperatures" VerticalAlignment="Center" />
+            <TextBlock Margin="5" Grid.Row="3" Text="Fan" VerticalAlignment="Center" />
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                <TextBlock Margin="5" Text="X" VerticalAlignment="Center" />    
+                <TextBox Margin="5" Width="60" Text="{Binding FixedData.X}" />
+                <TextBlock Margin="5" Text="mm" VerticalAlignment="Center" />
+                <TextBlock Margin="5" Text="Y"  VerticalAlignment="Center" />
+                <TextBox Margin="5" Width="60" Text="{Binding FixedData.Y}" />
+                <TextBlock Margin="5" Text="mm" VerticalAlignment="Center" />
+                <TextBlock Margin="5" Text="Z" VerticalAlignment="Center" />
+                <TextBox Margin="5" Width="60" Text="{Binding FixedData.Z}" />
+                <TextBlock Margin="5" Text="mm" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                <TextBlock Margin="5" Text="Hotend" VerticalAlignment="Center" />
+                <TextBox Margin="5" Width="50" Text="{Binding FixedData.Temperature}" />
+                <TextBlock Margin="5" Text="/" VerticalAlignment="Center" />
+                <TextBox Margin="5" Width="50" Text="{Binding FixedData.BaseTemperature}" />
+                <TextBlock Margin="5" Text="°C" VerticalAlignment="Center" />
+                <TextBlock Margin="5" Text="Heatbed" VerticalAlignment="Center" />
+                <TextBox Margin="5" Width="50" Text="{Binding FixedData.BedTemperature}" />
+                <TextBlock Margin="5" Text="/" VerticalAlignment="Center" />
+                <TextBox Margin="5" Width="50" Text="{Binding FixedData.BedBaseTemperature}" />
+                <TextBlock Margin="5" Text="°C" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                <TextBox Margin="5" HorizontalAlignment="Left" Width="100" Text="{Binding FixedData.CullerRate}" />
+                <TextBlock Margin="5" Text="%" VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+        <TextBlock Margin="5" Grid.Row="4" Text="Console" />
+        <TextBox Margin="5" Grid.Row="5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Name="TextBoxOutput" HorizontalScrollBarVisibility="Auto" />
     </Grid>
 </Window>

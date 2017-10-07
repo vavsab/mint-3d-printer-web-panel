@@ -188,7 +188,17 @@ body {
 }
 
 #page-wrapper {
-  margin: 20px 0 0 0;  
+  margin: 35px 0 0 0;  
+}
+
+.page-header {
+  margin-top: 15px;  
+}
+
+.page-header-small {
+  margin: 0;  
+  border: 0;
+  padding: 0;  
 }
 
 .title a:hover, .title a:visited, .title a:focus {
@@ -251,6 +261,10 @@ action-button.fluid button {
 
 action-button.fluid-height button {
    height: 100%;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
 }
 
 action-button.margin-top-3 button {

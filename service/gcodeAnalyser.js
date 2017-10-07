@@ -1,6 +1,10 @@
+process.on('message', (msg) => {
+    onmessage(msg);
+});
+
 var self = this;
 self.postMessage = function (message) {
-    console.log(message);
+    process.send(message);
 }
 
 /**
@@ -545,32 +549,21 @@ self.postMessage = function (message) {
             }
     };
 
-onmessage = function (e){
-    var data = e.data;
+onmessage = function (msg){
     // for some reason firefox doesn't garbage collect when something inside closures is deleted, so we delete and recreate whole object eaech time
-    switch (data.cmd) {
+    switch (msg.cmd) {
         case 'parseGCode':
-            parseGCode(data.msg);
+            parseGCode(msg.data);
             break;
         case 'setOption':
-            setOption(data.msg);
+            setOption(msg.data);
             break;
         case 'analyzeModel':
-            runAnalyze(data.msg);
+            runAnalyze(msg.data);
             break;
 
         default:
-            self.postMessage('Unknown command: ' + data.msg);
+            self.postMessage('Unknown command: ' + msg.cmd);
     }
 
 };
-
-module.exports = {
-    parseGCode: function (gcode) {
-        parseGCode(gcode);
-    },
-    runAnalyze: function () {
-        runAnalyze();
-    },
-    self: self
-}

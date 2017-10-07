@@ -53,6 +53,12 @@ app.filter('replaceIfUndefined', [function(){
     };
 }]);
 
+app.filter('toMillimeters', ['sizeCoeff', function(sizeCoeff){
+    return function(number) {
+        return number / sizeCoeff; 
+    };
+}]);
+
 app.filter('dataSize', [function(){
     return function(sizeInBytes) {
         if (!sizeInBytes)

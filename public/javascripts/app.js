@@ -35,6 +35,7 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
         .when('/settings/update', 'settings_update')
         .when('/settings/network', 'settings_network')
         .when('/settings/support', 'settings_support')
+        .when('/settings/bot', 'settings_bot')
         .when('/settings/printer/z-index', 'settings_printer_z-index')
         .when('/settings/printer/extruder', 'settings_printer_extruder')
         .when('/settings/printer/advanced', 'settings_printer_advanced')
@@ -132,6 +133,10 @@ app.config(['$routeSegmentProvider', '$routeProvider', function ($routeSegmentPr
             templateUrl: 'partials/settings/support.html',
             controller: 'settingsSupportController as $ctrl'
         })
+        .segment('settings_bot', {
+            templateUrl: 'partials/settings/bot.html',
+            controller: 'settingsBotController as $ctrl'
+        })
         .segment('settings_printer_z-index', {
             templateUrl: 'partials/settings/printer/z-index.html',
             controller: 'settingsPrinterZIndexController as $ctrl'
@@ -159,6 +164,7 @@ app.config(['$httpProvider', function($httpProvider) {
 
 app.value('loader', {show: true});
 app.value('socket', io.connect());
+app.value('sizeCoeff', 100000); // Determines how many units contains 1 millimeter in hardware representation
 app.value('printerStatus', {status: {}, isLocked: false});
 app.value('browserSettings', {showVirtualKeyboard: false, isDarkTheme: true});
-app.value('websiteSettings', {settings: {}, defaultPrinterName: 'MINT printer'});
+app.value('websiteSettings', {settings: null, defaultPrinterName: 'MINT printer'});

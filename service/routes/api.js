@@ -6,11 +6,11 @@
     const diskspace = require('diskspace');
     const config = require('config');
     const logger = require('../logger');
-    const gcodeAnalyser = require('../gcodeAnalyser');
     const globalConstants = require('../globalConstants');
     const jsonWebToken = require('jsonwebtoken');
     const crypto = require('crypto');
     const utils = require('../utils');
+    const fork = require('child_process').fork;
     
     const logsRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToLogsFolder')));
     const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToFilesFolder')));
@@ -276,23 +276,27 @@
         if (!absolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});
         } else { 
-            var analyseGcode = function(absolutePath, callback) {
-                gcodeAnalyser.self.postMessage = function (message) {
+            var analyseGcode = (absolutePath, callback) => {
+                const gcodeAnalyser = fork('service/gcodeAnalyser');
+                gcodeAnalyser.on('message', (message) => {
                     if (message.cmd == 'returnModel') {
-                        logger.trace('analyseGcode: returnModel');
-                        gcodeAnalyser.runAnalyze();
+                        logger.trace('analyseGcode: model analyzed');
+                        gcodeAnalyser.send( { cmd: 'analyzeModel' });
                     }
 
                     if (message.cmd == 'analyzeDone') {
                         logger.trace('analyseGcode: analyzeDone');
                         callback(message.msg);
                     }
-                };
+                });
 
-                gcodeAnalyser.parseGCode({
-                    gcode: fs.readFileSync(absolutePath).toString().split(/\n/),
-                    options: {
-                        firstReport: 5
+                gcodeAnalyser.send({
+                    cmd: 'parseGCode',
+                    data: {
+                        gcode: fs.readFileSync(absolutePath).toString().split(/\n/),
+                        options: {
+                            firstReport: 5
+                        }
                     }
                 });
             };

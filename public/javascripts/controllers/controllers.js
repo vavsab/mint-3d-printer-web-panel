@@ -672,17 +672,23 @@ function (macrosService, $uibModal, websiteSettingsService, loader, commandServi
 }]);
 
 app.controller('movementsController', 
-['printerStatus', 'printerStatusService', '$scope', 'commandService', 'websiteSettings',
-function (printerStatus, printerStatusService, $scope, commandService, websiteSettings) {
+['printerStatus', 'printerStatusService', '$scope', 
+'commandService', 'websiteSettings', 'sizeCoeff', '$q', 'gettextCatalog',
+function (printerStatus, printerStatusService, $scope, 
+    commandService, websiteSettings, sizeCoeff, $q, gettextCatalog) {
     var self = this;
-
+    var shouldGetCoordsAfterMoveHome = false;
     self.isApplyMode = false;
-    self.bedSize = websiteSettings.settings.printerSize;
 
-    self.bedOrigin = {
-        x: self.bedSize.x / 2,
-        y: self.bedSize.y / 2,
-        z: 0
+    var getPrinterSize = function () {
+        if (websiteSettings.settings) {
+            if (websiteSettings.settings.printerSize.type != 'cylinder')
+                throw 'Only cylinder table type is supported';
+
+            return websiteSettings.settings.printerSize;
+        }
+
+        return null;
     };
 
     self.motorsOn = printerStatus.status.motorsOn == 1;
@@ -692,6 +698,7 @@ function (printerStatus, printerStatusService, $scope, commandService, websiteSe
     }
 
     self.sliderValue = 0; 
+    self.moveSpeed = 4000; 
     self.redCircleXCoord = 40;
     self.redCircleYCoord = 40;
 
@@ -699,52 +706,116 @@ function (printerStatus, printerStatusService, $scope, commandService, websiteSe
         var command;
         switch (axis) {
             case 'x':
-                command = 'G1 X0';
+                command = 'G1 X0 F' + self.moveSpeed;
+                self.currentPos.X = 0;
                 break;
             case 'y':
-                command = 'G1 Y0';
+                command = 'G1 Y0 F' + self.moveSpeed;
+                self.currentPos.Y = 0;
                 break;
             case 'z':
-                command = 'G1 Z0';
+                command = 'G1 Z0 F' + self.moveSpeed;
+                self.currentPos.Z = 0;
                 break;
             default:
                 command = 'G28';
-                break;
+                self.currentPos = null;
+                return commandService.sendCommand(command)
+                .then(function success() {
+                    shouldGetCoordsAfterMoveHome = true;
+                });
         }
 
         return commandService.sendCommand(command);
     };
 
     self.move = function (diffs) {
-        var parts = [];
+        var printerSize = getPrinterSize();
+        if (printerSize == null)
+            return $q.reject(gettextCatalog.getString('No data about printer size'));
 
-        if (diffs.x) {
-            var x = (printerStatus.status.currentPos.X / 100000) + diffs.x;
-            parts.push('X' + x);
-        }
+        if (!self.currentPos)
+            return $q.reject(gettextCatalog.getString('No data about hotend position'));
+            
+        var startX = self.currentPos.X;
+        var startY = self.currentPos.Y;
+        var startZ = self.currentPos.Z;
+        return $q(function (resolve, reject) {
+            var parts = [];
+            var outOfTableMessage = gettextCatalog.getString('Move outside of table');
 
-        if (diffs.y) {
-            var y = (printerStatus.status.currentPos.Y / 100000) + diffs.y;
-            parts.push('Y' + y);
-        }
+            if (diffs.x) {
+                self.currentPos.X += diffs.x * sizeCoeff;
+            }
 
-        if (diffs.z) {
-            var z = (printerStatus.status.currentPos.Z / 100000) + diffs.z;
-            parts.push('Z' + z)
-        }
+            if (diffs.y) {
+                self.currentPos.Y += diffs.y * sizeCoeff;
+            }
+            
+            if ((self.currentPos.X * self.currentPos.X 
+                + self.currentPos.Y * self.currentPos.Y)
+                > (printerSize.x * printerSize.x * sizeCoeff * sizeCoeff / 4)) {
+                return reject(outOfTableMessage);
+            }
+                            
+            parts.push('X' + self.currentPos.X / sizeCoeff);
+            parts.push('Y' + self.currentPos.Y / sizeCoeff);
 
-        if (parts.length > 0) {
-            return commandService.sendCommand('G1 ' + parts.join(' '));
-        }
+            if (diffs.z) {
+                self.currentPos.Z += diffs.z * sizeCoeff;
+                var maxZ = printerSize.z * sizeCoeff;
+
+                if (self.currentPos.Z < 0)
+                    return reject(outOfTableMessage);
+
+                if (self.currentPos.Z > maxZ)
+                    return reject(outOfTableMessage);
+
+                parts.push('Z' + self.currentPos.Z / sizeCoeff)
+            }
+
+            if (parts.length > 0) {
+                return commandService.sendCommand('G1 ' + parts.join(' ') + ' F3000')
+                    .then(function success() { 
+                        refreshStatus(); 
+                        resolve(); 
+                    });
+            }
+        }).catch(function error(msg) {
+            self.currentPos.X = startX;
+            self.currentPos.Y = startY;
+            self.currentPos.Z = startZ;
+            return $q.reject(msg);
+        });
     };
     
-    var refreshStatus = function () {
-      self.sliderValue = ((printerStatus.status.currentPos.Z / 100000) + self.bedOrigin.z) / self.bedSize.z * 100;
-      self.redCircleXCoord = ((printerStatus.status.currentPos.X / 100000) + self.bedOrigin.x) / self.bedSize.x * 80;
-      self.redCircleYCoord = ((printerStatus.status.currentPos.Y / 100000) + self.bedOrigin.y) / self.bedSize.y * 80;
+    var refreshStatus = function (status) {
+      var printerSize = getPrinterSize();
+      if (printerSize == null)
+        return;
+      
+      var bedOrigin = {
+        x: printerSize.x / 2,
+        y: printerSize.y / 2,
+        z: 0
+      };
+
+      if (self.currentPos == null || shouldGetCoordsAfterMoveHome) {
+          self.currentPos = {
+              X: status.currentPos.X,
+              Y: status.currentPos.Y,
+              Z: status.currentPos.Z
+          };
+          
+          shouldGetCoordsAfterMoveHome = false;
+      }
+
+      self.sliderValue = ((self.currentPos.Z / sizeCoeff) + bedOrigin.z) / printerSize.z * 100;
+      self.redCircleXCoord = ((self.currentPos.X / sizeCoeff) + bedOrigin.x) / printerSize.x * 80;
+      self.redCircleYCoord = ((self.currentPos.Y / sizeCoeff) + bedOrigin.y) / printerSize.y * 80;
     };
 
-    refreshStatus();
+    refreshStatus(printerStatus.status);
     printerStatusService.eventAggregator.on('statusReceived', refreshStatus);
 
     $scope.$on('$destroy', function () {

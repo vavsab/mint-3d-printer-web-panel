@@ -28,3 +28,16 @@ C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\pr
 C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\obj\Debug\PrinterEmulator.csproj.GenerateResource.Cache
 C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\obj\Debug\PrinterEmulator.exe
 C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\obj\Debug\PrinterEmulator.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.dll
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.xml
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Roma\Documents\Visual Studio 2015\Projects\KeepCalmPrinter\emulators\printer\PrinterEmulator\bin\Debug\Microsoft.Practices.ServiceLocation.xml
