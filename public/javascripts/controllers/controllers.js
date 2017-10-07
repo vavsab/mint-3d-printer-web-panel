@@ -761,25 +761,46 @@ function (printerStatus, printerStatusService, $scope,
             parts.push('X' + self.currentPos.X / sizeCoeff);
             parts.push('Y' + self.currentPos.Y / sizeCoeff);
 
-            if (diffs.z) {
-                self.currentPos.Z += diffs.z * sizeCoeff;
-                var maxZ = printerSize.z * sizeCoeff;
+            var maxZ = printerSize.z * sizeCoeff;
+            var moveZToAllowedZoneFirst = false;
 
-                if (self.currentPos.Z < 0)
-                    return reject(outOfTableMessage);
+            if (self.currentPos.Z > maxZ) {
+                // Need to get out of zone, where hotend cannot move free.
+                parts.push('Z' + printerSize.z);
+                moveZToAllowedZoneFirst = true;
+            } else {
+                if (diffs.z) {
+                    self.currentPos.Z += diffs.z * sizeCoeff;
 
-                if (self.currentPos.Z > maxZ)
-                    return reject(outOfTableMessage);
+                    if (self.currentPos.Z < 0 || self.currentPos.Z > maxZ)
+                        return reject(outOfTableMessage);
 
-                parts.push('Z' + self.currentPos.Z / sizeCoeff)
+                    parts.push('Z' + self.currentPos.Z / sizeCoeff);
+                }
             }
 
             if (parts.length > 0) {
-                return commandService.sendCommand('G1 ' + parts.join(' ') + ' F3000')
-                    .then(function success() { 
-                        refreshStatus(); 
-                        resolve(); 
+                var sendG1Promise = function () {
+                    var command = 'G1 ' + parts.join(' ') + ' F' + self.moveSpeed;
+                    commandService.sendCommand(command)
+                    .then(function success() {
+                        return commandService.sendCommand('G300');
+                    })
+                    .then(function success() {
+                        resolve();
                     });
+                };
+
+                if (moveZToAllowedZoneFirst) {
+                    var command = 'G1 Z' + printerSize.z + ' F' + self.moveSpeed;
+                    return commandService.sendCommand(command)
+                        .then(function success() {
+                            self.currentPos.Z = maxZ;
+                            return sendG1Promise();
+                        });
+                } else {
+                    return sendG1Promise();
+                }
             }
         }).catch(function error(msg) {
             self.currentPos.X = startX;
@@ -810,7 +831,13 @@ function (printerStatus, printerStatusService, $scope,
           shouldGetCoordsAfterMoveHome = false;
       }
 
-      self.sliderValue = ((self.currentPos.Z / sizeCoeff) + bedOrigin.z) / printerSize.z * 100;
+      var sliderValue = ((self.currentPos.Z / sizeCoeff) + bedOrigin.z) / printerSize.z * 100;
+      if (sliderValue > 100) {
+          sliderValue = 100;
+      }
+
+      self.sliderValue = sliderValue;
+
       self.redCircleXCoord = ((self.currentPos.X / sizeCoeff) + bedOrigin.x) / printerSize.x * 80;
       self.redCircleYCoord = ((self.currentPos.Y / sizeCoeff) + bedOrigin.y) / printerSize.y * 80;
     };

@@ -20,7 +20,7 @@ const updateControllerFactory = require('./controllers/updateController');
 const networkControllerFactory = require('./controllers/networkController');
 const powerControllerFactory = require('./controllers/powerController');
 const printerStatusControllerFactory = require('./controllers/printerStatusController');
-const telegramBotFactory = require('./extensions/telegramBot');
+const botControllerFactory = require('./controllers/botController');
 
 const port = 3123;
 
@@ -69,7 +69,7 @@ databaseMigrations.update()
     const networkController = networkControllerFactory();
     const printerMessageBus = new EventEmitter();
     const printerStatusController = printerStatusControllerFactory(socketController, printerProxy, printerMessageBus);
-    const telegramBot = telegramBotFactory(printerMessageBus);
+    const botController = botControllerFactory(printerMessageBus);
     const powerController = powerControllerFactory(socketController, printerProxy, printerStatusController);
 
     const routes = require('./routes/index');
@@ -78,7 +78,7 @@ databaseMigrations.update()
     const apiPowerFactory = require('./routes/api.power');
 
     const powerRouters = apiPowerFactory(powerController);
-    const settingsRouters = apiSettingsFactory(updateController, networkController, printerProxy);
+    const settingsRouters = apiSettingsFactory(updateController, networkController, printerProxy, botController);
 
     app.use('/', routes);
     app.use('/api', powerRouters.openRouter);

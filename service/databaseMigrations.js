@@ -113,6 +113,32 @@ const migrations = [
                 }
             })
         }
+    },
+    // 5 => 6
+    {
+        up: db => {
+            const configuration = db.collection('configuration');
+            const botSettingsKey = 'botSettings';
+
+            return configuration.insertOne({key: botSettingsKey, value: {
+                isEnabled: false,
+                token: '',
+                users: [
+                    { name: 'example_UserName', isEnabled: false, isAdmin: false },
+                ],
+                notifications: [
+                    { id: 'printStart', isEnabled: true, isForAdminsOnly: false },
+                    { id: 'printEnd', isEnabled: true, isForAdminsOnly: false },
+                    { id: 'unauthorizedBotAccess', isEnabled: true, isForAdminsOnly: true }
+                ]
+            }});
+        }
+    },
+    // 6 => 7
+    {
+        up: db => {
+            return db.createCollection("telegramUserNameToIdMapping");
+        }
     }
 ];
 

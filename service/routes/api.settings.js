@@ -1,4 +1,4 @@
-module.exports = (updateController, networkController, printerProxy) => {
+module.exports = (updateController, networkController, printerProxy, botController) => {
     const express = require('express');
     const fs = require('fs-extra');
     const path = require('path');
@@ -100,6 +100,18 @@ module.exports = (updateController, networkController, printerProxy) => {
             (error) => {
                 res.status(500).json({error: error});
             });
+    });
+
+    router.get('/settings/bot', (req, res) => {
+        botController.getSettings()
+        .then(botSettings => {
+            res.json(botSettings);
+        })
+    });
+
+    router.post('/settings/bot', (req, res) => {
+        botController.setSettings(req.body.botSettings)
+        .then(() => res.send());
     });
 
     return { router: router, openRouter: openRouter };

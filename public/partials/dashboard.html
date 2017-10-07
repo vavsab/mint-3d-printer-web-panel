@@ -1,10 +1,10 @@
 ﻿<div class="margin-top-10">
     <div class="alert alert-info" ng-if="$ctrl.isPauseMode && status.state == 'Idle'">
-    <strong><translate>Pause detected!</translate></strong> <translate>Printing was previously paused. Do you want to resume?</translate> 
-    <div style="margin-top: 10px;">
-        <action-button button-name="{{'Resume' | translate}}" type='success' action='$ctrl.resume()' />
-        <action-button button-name="{{'Cancel' | translate}}" type='warning' action='$ctrl.cancelResume()' />
-    </div>
+        <strong><translate>Pause detected!</translate></strong> <translate>Printing was previously paused. Do you want to resume?</translate> 
+        <div style="margin-top: 10px;">
+            <action-button button-name="{{'Resume' | translate}}" type='success' action='$ctrl.resume()' />
+            <action-button button-name="{{'Cancel' | translate}}" type='warning' action='$ctrl.cancelResume()' />
+        </div>
     </div>
 
     <div class="row metro">

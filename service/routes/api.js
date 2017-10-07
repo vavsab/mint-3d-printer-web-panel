@@ -460,7 +460,7 @@
         res.send();
     });
 
-    router.post('/settings/printer/reset', function (req, res) {
+    router.post('/settings/printer/reset', (req, res) => {
         fs.copySync(utils.getPathForConfig(globalConstants.defaultPrinterSettingsPath), 
             utils.getPathForConfig(globalConstants.printerSettingsPath), { clobber : true });
 

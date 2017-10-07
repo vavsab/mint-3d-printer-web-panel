@@ -33,7 +33,6 @@ function (printerStatusService, printerStatus) {
                 refreshState(printerStatus.status.state);
             }
             
-            
             var onStatusReceived = function (status) {
                 if (!$scope.allowWhenPrinterIsInState && !$scope.disableWhenPrinterIsInState)
                     return;

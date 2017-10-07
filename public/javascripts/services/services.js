@@ -469,3 +469,14 @@ app.service('supportSettingsService', ['httpq', function (httpq) {
         return httpq.post('/api/settings/support/disconnect');
     }
 }]);
+
+app.service('botSettingsService', ['httpq', function (httpq) {
+
+    this.get = function () {
+        return httpq.get('/api/settings/bot');
+    }
+
+    this.set = function (botSettings) {
+        return httpq.post('/api/settings/bot', {botSettings: botSettings});
+    }
+}]);
