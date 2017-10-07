@@ -21,7 +21,7 @@
 
         <form class="form-horizontal">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-xs-4">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for..." ng-model="fileFilter.fileName" ng-keyboard>
                         <span class="input-group-btn">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-9">
+                <div class="col-xs-8">
                     <span class="label label-default" ng-show="isUploading">Uploading '{{file.name}}'</span>
                     <uib-progressbar ng-show="isUploading" class="progress-striped active" value="uploadProgress" animate="false">
                         <span>{{ uploadProgress | toFixed : 2 }}%</span>

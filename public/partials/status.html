@@ -47,15 +47,15 @@
                     </tr>
                     <tr>
                         <td>Position X</td>
-                        <td>{{status.currentPos.X / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
+                        <td>{{status.currentPos.X | toMillimeters | toFixed : 2 | replaceIfUndefined}} mm</td>
                     </tr>
                     <tr>
                         <td>Position Y</td>
-                        <td>{{status.currentPos.Y / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
+                        <td>{{status.currentPos.Y | toMillimeters | toFixed : 2 | replaceIfUndefined}} mm</td>
                     </tr>
                     <tr>
                         <td>Position Z</td>
-                        <td>{{status.currentPos.Z / 100000 | toFixed : 2 | replaceIfUndefined}} mm</td>
+                        <td>{{status.currentPos.Z | toMillimeters | toFixed : 2 | replaceIfUndefined}} mm</td>
                     </tr>
                     <tr>
                         <td>File</td>
