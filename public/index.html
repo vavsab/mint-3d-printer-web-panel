@@ -99,10 +99,11 @@
                         {{status.cullerRate / 2550 * 100 | number : 0 | replaceIfUndefined}}% 
                     </a>
                 </li>
-                <li class="dropdown" uib-tooltip="{{'Status' | translate}}" tooltip-placement="bottom">
+                <li class="dropdown" uib-tooltip="{{'State' | translate}}" tooltip-placement="bottom">
                     <a class="dropdown-toggle">
                         <span class="label label-bg" ng-class="{'label-success': ['Printing', 'PrintBuffering'].indexOf(status.state) != -1, 'label-warning': ['CopyData', 'CopyDataBuffer', 'Buffering', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf(status.state) != -1, 'label-default': status.state == 'Idle'}">
-                            {{status.state | toStatusText}}
+                            {{status.state | toStatusText}} 
+                            <span ng-if="['Printing', 'PrintBuffering'].indexOf(status.state) != -1">{{ status.line_index / status.line_count * 100 | number : 0 | replaceIfUndefined}}%<span>
                         </span> 
                     </a>
                 </li>
