@@ -69,7 +69,7 @@ databaseMigrations.update()
     const networkController = networkControllerFactory();
     const printerMessageBus = new EventEmitter();
     const printerStatusController = printerStatusControllerFactory(socketController, printerProxy, printerMessageBus);
-    const botController = botControllerFactory(printerMessageBus);
+    const botController = botControllerFactory(printerMessageBus, printerStatusController);
     const powerController = powerControllerFactory(socketController, printerProxy, printerStatusController);
 
     const routes = require('./routes/index');

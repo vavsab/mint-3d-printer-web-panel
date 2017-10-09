@@ -4,7 +4,7 @@ const Telegraf = require('telegraf');
 const logger = require('../logger');
 const { Markup, Extra } = require('telegraf');
 
-module.exports = (printerMessageBus) => {
+module.exports = (printerMessageBus, printerStatusController) => {
     let self = this;
 
     self.getSettings = () => {
@@ -146,11 +146,42 @@ module.exports = (printerMessageBus) => {
             });
 
             app.hears('📊 Статус', (ctx) => {
-                ctx.reply('Еще не реализовано');
+                let status = printerStatusController.currentStatus;
+                let messageParts = [];
+                if (['Printing', 'PrintBuffering'].indexOf(status.state) != -1){
+                    messageParts.push(`🖨 *Файл*: ${status.fileName}`);
+                    messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
+                    messageParts.push(`⚡️ *Старт*: ${status.startDate.toLocaleString()}`);
+
+                    if (status.remainedMilliseconds) {
+                        let remainingText = null;
+                        let seconds = `${parseInt(status.remainedMilliseconds / 1000) % 60} сек`;
+                        let minutes = `${parseInt(status.remainedMilliseconds / 1000 / 60) % 60} мин`;
+                        let hours = `${parseInt(status.remainedMilliseconds / 1000 / 60 / 60)} час`;
+                        if (status.remainedMilliseconds < 1000 * 60) {
+                            remainingText = `${seconds}`;
+                        } 
+                        else if (status.remainedMilliseconds < 1000 * 60 * 60) {
+                            remainingText = `${minutes} ${seconds}`;
+                        }
+                        else {
+                            remainingText = `${hours} ${minutes} ${seconds}`;
+                        }
+
+                        messageParts.push(`🕐 *Осталось*: ${remainingText}`);
+                        messageParts.push(`🏁 Ориентировочное *время завершения*: ${status.endDate}`);;
+                    } else {
+                        messageParts.push(`🕐 Ориентировочное *время завершения* рассчитывается...`);;
+                    }
+                } else {
+                    messageParts.push(`☑️ Принтер находится в режиме '${status.state}'`);
+                }
+
+                ctx.reply(messageParts.join('\n'), {parse_mode: 'Markdown'});
             })
 
             app.on('text', (ctx) => {
-                return ctx.reply('Выберите команду', keyboard)
+                return ctx.reply('❓ Выберите команду', keyboard)
             })
 
             function onEndPrint() {
