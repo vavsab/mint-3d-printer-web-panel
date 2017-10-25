@@ -4,8 +4,8 @@ Web site of printer
 
 ## How to build ##
 
-1. Go to desktop-loader and build it first
-2. npm install
+1. Go to `desktop-loader` folder and build it first. Read README file there.
+2. `npm install`
 3. `gulp clean`
 4. `gulp build`
     OR for testing: `gulp build --dev`
