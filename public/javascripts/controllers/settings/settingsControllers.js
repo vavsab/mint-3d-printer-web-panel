@@ -200,7 +200,14 @@ function (websiteSettingsService, macrosService, websiteSettings) {
         { title: 'Off', value: 'OFF' }
     ];
 
+    this.languages = [
+        { title: 'English', value: 'English' },
+        { title: 'Русский (частично)', value: 'Russian' },
+        { title: 'Українська (частково)', value: 'Ukrainian' }
+    ];
+
     this.selectedLogLevel = null;
+    this.selectedLanguage = null;
 
     this.dashboardMacroses = [];
     this.selectedMacroses = [];
@@ -214,14 +221,21 @@ function (websiteSettingsService, macrosService, websiteSettings) {
         return websiteSettingsService.get().then(function success(settings) {
             self.websiteSettings = settings;
 
-            Rx.Observable.fromArray(self.logLevels)
-            .first({
-                predicate: function(level) { return level.value == settings.logLevel;},
-                defaultValue: null
-            })
-            .subscribe(function (value) {
-                self.selectedLogLevel = value;
-            });
+            for (var i = 0; i < self.logLevels.length; i++) {
+                var level = self.logLevels[i];
+                if (level.value == settings.logLevel) {
+                    self.selectedLogLevel = level;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < self.languages.length; i++) {
+                var level = self.languages[i];
+                if (level.value == settings.language) {
+                    self.selectedLanguage = level;
+                    break;
+                }
+            }
 
             self.websiteSettings.dashboardMacrosIds.forEach(function (macrosId) {
                 var macrosToMoveIndex = null;
@@ -281,11 +295,14 @@ function (websiteSettingsService, macrosService, websiteSettings) {
         });
 
         self.websiteSettings.logLevel = self.selectedLogLevel.value;
+        self.websiteSettings.language = self.selectedLanguage.value;
         self.websiteSettings.dashboardMacrosIds = macrosIds;
 
         return websiteSettingsService.save(self.websiteSettings).then(function success() {
             websiteSettings.settings = self.websiteSettings;
             document.title = websiteSettings.settings.printerName + " Console";
+        }).then(function success() {
+            return websiteSettingsService.changeLanguage(self.websiteSettings.language);
         });
     };
 }]);

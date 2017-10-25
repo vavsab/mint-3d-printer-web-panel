@@ -89,7 +89,7 @@ msgstr "Логи"
 
 #: partials\dashboard.html:21
 msgid "Low space"
-msgstr "Мало места"
+msgstr "Заполнено"
 
 #: index.html:11
 msgid "MINT Console"

@@ -117,6 +117,7 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     websiteSettingsService.get().then(function success(settings) { 
         websiteSettings.settings = settings;
         document.title = settings.printerName + " Console";
+        websiteSettingsService.changeLanguage(settings.language);
     });
 
     var refreshDiskspace = function (diskspace) {

@@ -1,0 +1,456 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 2.0.2\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk_UA\n"
+
+#: partials\settings\printer\extruder.html:27
+#: partials\settings\printer\extruder.html:30
+msgid "Actual position"
+msgstr "Поточна позиція"
+
+#: partials\settings\printer.html:22
+msgctxt "Tile"
+msgid "Advanced"
+msgstr "Розширені"
+
+#: partials\settings\printer\advanced.html:2
+msgid "Advanced printer settings"
+msgstr "Розширені налаштування принтеру"
+
+#: partials\regulations\fan.html:18 partials\regulations\speed.html:18
+#: partials\regulations\temperature.html:18
+#: partials\settings\printer\advanced.html:18
+#: partials\settings\printer\extruder.html:57
+#: partials\settings\printer\z-index.html:24 partials\settings\server.html:57
+msgid "Apply"
+msgstr "Зберегти"
+
+#: partials\regulations\temperature.html:11
+msgctxt "Tile"
+msgid "Base temp"
+msgstr "Цільова тем-ра"
+
+#: javascripts\filters.js:17
+msgid "Buffering"
+msgstr "Буферизація"
+
+#: javascripts\filters.js:15
+msgid "Buffering paused"
+msgstr "Пауза буферизації"
+
+#: partials\dashboard.html:11
+msgid "Cancel"
+msgstr "Відмінити"
+
+#: partials\settings\change-password.html:28
+msgid "Change"
+msgstr "Змінити"
+
+#: partials\settings.html:22
+msgctxt "Tile"
+msgid "Change password"
+msgstr "Змінити пароль"
+
+#: partials\settings\change-password.html:2
+msgid "Change password"
+msgstr "Змінити пароль"
+
+#: partials\settings\update.html:13
+msgid "Check for updates"
+msgstr "Перевірити наявність оновлень"
+
+#: partials\console.html:2
+msgid "Console"
+msgstr "Консоль"
+
+#: partials\dashboard.html:54
+msgctxt "Tile"
+msgid "Console"
+msgstr "Консоль"
+
+#: javascripts\filters.js:13
+msgid "Copying (buffer)"
+msgstr "Копіювання (з буфером)"
+
+#: javascripts\filters.js:11
+msgid "Copying data"
+msgstr "Копіювання даних"
+
+#: partials\settings\update.html:6
+msgid "Current version"
+msgstr "Поточна версія"
+
+#: partials\dashboard.html:3 partials\settings\server.html:15
+msgid "Dashboard"
+msgstr "Головна панель"
+
+#: partials\settings\server.html:26
+msgid "Dashboard macroses"
+msgstr "Головні макроси"
+
+#: partials\fileManager.html:6
+msgid "Disk usage: {{free}} free of {{total}}"
+msgstr "Пам'ять: {{free}} вільно з {{total}}"
+
+#: partials\settings\update.html:21
+msgid "Download"
+msgstr "Завантажити"
+
+#: partials\settings\update.html:34
+msgid "Downloading updates..."
+msgstr "Завантаження оновлень..."
+
+#: partials\settings\printer\extruder.html:18
+#: partials\settings\printer\z-index.html:15
+msgid "Enter valid float number"
+msgstr "Введіть допустиме дійстне число"
+
+#: partials\settings\printer\extruder.html:21
+msgid "Extrude"
+msgstr "Екструдувати"
+
+#: partials\settings\printer.html:10
+msgctxt "Tile"
+msgid "Extruder calibration"
+msgstr "Калібрування екструдеру"
+
+#: partials\settings\printer\extruder.html:2
+msgid "Extruder calibration"
+msgstr "Калібрування екструдеру"
+
+#: partials\dashboard.html:48 partials\regulations\fan.html:11
+msgctxt "Tile"
+msgid "Fan"
+msgstr "Обдув"
+
+#: index.html:117
+msgid "Fan"
+msgstr "Обдув"
+
+#: partials\regulations\fan.html:2
+msgid "Fan control"
+msgstr "Контроль обдуву"
+
+#: partials\fileManager.html:2
+msgid "File Manager"
+msgstr "Файловий менеджер"
+
+#: partials\fileManager.html:12
+msgid "Folder is loading..."
+msgstr "Директорія завантажується..."
+
+#: partials\console.html:15
+msgid "G-code wiki (RepRap)"
+msgstr "Опис G-code (RepRap)"
+
+#: partials\settings\printer\advanced.html:25
+msgid "Hot end temperatures"
+msgstr "Температура голівки"
+
+#: javascripts\filters.js:25
+msgid "Idle"
+msgstr "Очікування"
+
+#: partials\settings\update.html:35
+msgid "Installing updates..."
+msgstr "Встановлення оновлень..."
+
+#: partials\dashboard.html:21
+msgid "Less than 20% of disk space remained"
+msgstr "Лишилось менш ніж 20% пам'яті"
+
+#: index.html:95
+msgid "Loading..."
+msgstr "Завантаження..."
+
+#: index.html:144
+msgid "Lock"
+msgstr "Заблокувати"
+
+#: partials\settings\server.html:48
+msgid "Log level"
+msgstr "Рівень логування"
+
+#: partials\dashboard.html:72
+msgctxt "Tile"
+msgid "Logs"
+msgstr "Логування"
+
+#: partials\dashboard.html:21
+msgid "Low space"
+msgstr "Заповнено"
+
+#: index.html:11
+msgid "MINT Console"
+msgstr "MINT Панель управління"
+
+#: partials\dashboard.html:66
+msgctxt "Tile"
+msgid "Macros"
+msgstr "Макроси"
+
+#: partials\console.html:27 partials\settings\server.html:18
+msgid "Macroses"
+msgstr "Макроси"
+
+#: index.html:173
+msgid "Messages"
+msgstr "Повідомлення"
+
+#: partials\dashboard.html:27
+msgctxt "Tile"
+msgid "Move"
+msgstr "Переміщення"
+
+#: partials\regulations\movements.html:2
+msgid "Move control"
+msgstr "Контроль переміщення"
+
+#: partials\settings\printer\z-index.html:18
+msgid "Move home"
+msgstr "Додому"
+
+#: partials\settings\change-password.html:19
+msgid "New password"
+msgstr "Новий пароль"
+
+#: partials\settings\update.html:17
+msgid "New version is available"
+msgstr "Доступна нова версія"
+
+#: partials\regulations\movements.html:5
+msgid "Not implemented yet"
+msgstr "Ще не реалізовано"
+
+#: partials\settings\printer\z-index.html:12
+msgid "Offset"
+msgstr "Зміщення"
+
+#: partials\settings\change-password.html:9
+msgid "Old password"
+msgstr "Старий пароль"
+
+#: partials\settings\printer\extruder.html:39
+msgid "Over extrusion"
+msgstr "Переекструзія"
+
+#: index.html:156
+msgid "Pause"
+msgstr "Пауза"
+
+#: partials\dashboard.html:8
+msgid "Pause detected!"
+msgstr "Режим паузи!"
+
+#: javascripts\filters.js:21
+msgid "Paused"
+msgstr "Призупинено"
+
+#: javascripts\filters.js:23
+msgid "Paused (buffer)"
+msgstr "Призупинено (буфер)"
+
+#: index.html:136
+msgid "Play 2048"
+msgstr "Грати 2048"
+
+#: partials\settings\printer\extruder.html:12
+msgid "Position"
+msgstr "Позиція"
+
+#: partials\dashboard.html:20
+msgctxt "Tile"
+msgid "Print"
+msgstr "Друк"
+
+#: partials\settings\server.html:34
+msgid "Print behavior"
+msgstr "Поведінка принтера"
+
+#: partials\settings.html:28
+msgctxt "Tile"
+msgid "Printer"
+msgstr "Принтер"
+
+#: partials\settings\server.html:8
+msgid "Printer name"
+msgstr "Им'я принтера"
+
+#: partials\settings\printer.html:2
+msgid "Printer settings"
+msgstr "Налаштування принтера"
+
+#: javascripts\filters.js:19
+msgid "Printing"
+msgstr "Друк"
+
+#: partials\dashboard.html:8
+msgid "Printing was previously paused. Do you want to resume?"
+msgstr "Друк було призупинено. Відновити?"
+
+#: partials\settings\printer\extruder.html:45
+msgid "Recalculate"
+msgstr "Перерахувати"
+
+#: index.html:140
+msgid "Reload"
+msgstr "Оновити"
+
+#: partials\settings\printer\extruder.html:50
+msgid "Reset"
+msgstr "Скинути"
+
+#: partials\settings\printer\extruder.html:8
+msgid "Reset over extrusion to 100% before starting calibration."
+msgstr "Потрібно скинути переекструзію до 100% перед початком калібрування."
+
+#: partials\settings\printer\extruder.html:22
+msgid "Reset position"
+msgstr "Скинути позицію"
+
+#: index.html:153 partials\dashboard.html:10
+msgid "Resume"
+msgstr "Відновити"
+
+#: partials\console.html:34
+msgid "See all"
+msgstr "Подивития всі"
+
+#: partials\console.html:19
+msgid "Send"
+msgstr "Відправити"
+
+#: partials\console.html:9
+msgid "Send G-code..."
+msgstr "Відправити G-code..."
+
+#: partials\settings.html:16
+msgctxt "Tile"
+msgid "Server"
+msgstr "Сервер"
+
+#: partials\settings\server.html:2
+msgid "Server settings"
+msgstr "Сервер"
+
+#: partials\settings\printer\advanced.html:19
+msgid "Set to defaults"
+msgstr "Скинути за замовчуванням"
+
+#: partials\dashboard.html:78
+msgctxt "Tile"
+msgid "Settings"
+msgstr "Налаштування"
+
+#: partials\settings.html:2
+msgid "Settings"
+msgstr "Налаштування"
+
+#: partials\settings\browser.html:23
+msgid "Show dark theme"
+msgstr "Використовувати темне оформлення"
+
+#: partials\settings\browser.html:12
+msgid "Show virtual keyboard"
+msgstr "Показувати віртуальну клавіатуру"
+
+#: index.html:147
+msgid "Shutdown"
+msgstr "Вимкнути"
+
+#: partials\settings\update.html:26
+msgid "Software is up to date"
+msgstr "Програмне забезпечення в актуальному стані"
+
+#: partials\dashboard.html:41 partials\regulations\speed.html:11
+msgctxt "Tile"
+msgid "Speed"
+msgstr "Швидкість"
+
+#: partials\regulations\speed.html:2
+msgid "Speed control"
+msgstr "Контроль швидкості"
+
+#: index.html:123
+msgid "Status"
+msgstr "Статус"
+
+#: partials\dashboard.html:60
+msgctxt "Tile"
+msgid "Status"
+msgstr "Статус"
+
+#: index.html:159
+msgid "Stop"
+msgstr "Стоп"
+
+#: partials\dashboard.html:34
+msgctxt "Tile"
+msgid "Temp"
+msgstr "Температура"
+
+#: index.html:112
+msgid "Temperature"
+msgstr "Температура"
+
+#: partials\regulations\temperature.html:2
+msgid "Temperature control"
+msgstr "Контроль температури"
+
+#: partials\settings\printer\z-index.html:19
+msgid "Test"
+msgstr "Тест"
+
+#: partials\settings.html:10
+msgctxt "Tile"
+msgid "Theme and Keyboard"
+msgstr "Тема і клавіатура"
+
+#: partials\settings\browser.html:2
+msgid "Theme and Keyboard settings"
+msgstr "Тема та клавіатура"
+
+#: partials\settings\browser.html:6
+msgid "These settings are saved for each browser independently."
+msgstr "Ці налаштування зберігаються для кожного веб-переглядача окремо."
+
+#: partials\settings\printer\z-index.html:9
+msgid "Top offset"
+msgstr "Зміщення"
+
+#: partials\settings.html:34
+msgctxt "Tile"
+msgid "Update"
+msgstr "Оновлення"
+
+#: partials\settings\update.html:2
+msgid "Update"
+msgstr "Оновити"
+
+#: partials\settings\server.html:38
+msgid "Use pre-buffering"
+msgstr "Використовувати пре-буферизацію"
+
+#: partials\settings\printer.html:16
+msgctxt "Tile"
+msgid "Z-Index calibration"
+msgstr "Калібрування z-рівня"
+
+#: partials\settings\printer\z-index.html:2
+msgid "Z-index calibration"
+msgstr "Калібрування z-рівня"
+
+#: partials\settings\printer\extruder.html:16
+#: partials\settings\printer\extruder.html:31
+#: partials\settings\printer\z-index.html:13
+msgid "mm"
+msgstr "мм"

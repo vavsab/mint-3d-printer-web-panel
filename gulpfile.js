@@ -33,7 +33,7 @@ gulp.task('i18n_generate', () =>
     .pipe(gulp.dest('i18n'))
 );
 
-gulp.task('i18n_compile', ['i18n_generate'], () =>
+gulp.task('i18n_compile', () =>
   gulp.src('i18n/**/*.po')
     .pipe(gettext.compile({
       // options to pass to angular-gettext-tools... 

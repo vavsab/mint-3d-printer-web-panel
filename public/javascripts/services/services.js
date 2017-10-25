@@ -391,7 +391,8 @@ function ($http, $q, $resource, commandService) {
     };
 }]);
 
-app.service('websiteSettingsService', ['httpq', function (httpq) {
+app.service('websiteSettingsService', ['httpq', 'gettextCatalog', 
+function (httpq, gettextCatalog) {
     this.get = function () {
         return httpq.get('/api/settings/website');
     };
@@ -405,6 +406,27 @@ app.service('websiteSettingsService', ['httpq', function (httpq) {
 
     this.save = function (settings) {
         return httpq.post('/api/settings/website', settings);
+    };
+
+    this.changeLanguage = function (language) {
+        var code = null;
+        switch (language) {
+            case 'English':
+                break;
+            case 'Russian':
+                code = 'ru_RU';
+                break;
+            case 'Ukrainian':
+                code = 'uk_UA';
+                break;
+            default:
+                throw 'Language "' + language + '" is not supported';
+        }
+        
+        gettextCatalog.setCurrentLanguage(code);
+
+        if (code != null)
+            gettextCatalog.loadRemote('/i18n/' + code + '.json');
     };
 }]);
 

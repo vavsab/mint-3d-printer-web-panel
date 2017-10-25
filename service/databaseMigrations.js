@@ -139,7 +139,22 @@ const migrations = [
         up: db => {
             return db.createCollection("telegramUserNameToIdMapping");
         }
-    }
+    },
+    // 7 => 8
+    {
+        up: db => {
+            const configuration = db.collection('configuration');
+            const websiteSettingsKey = 'websiteSettings';
+
+            return configuration.findOne({ key: websiteSettingsKey }).then((websiteSettings) => {
+                if (websiteSettings != null) {
+                    websiteSettings.value.language = 'English';
+
+                    return configuration.updateOne({ key: websiteSettingsKey }, websiteSettings);
+                }
+            })
+        }
+    },
 ];
 
 module.exports.update = () => {

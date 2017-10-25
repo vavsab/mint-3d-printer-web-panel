@@ -5,6 +5,17 @@
 <div class="row">
     <form class="form-horizontal">
         <div class="form-group">
+            <label class="control-label col-xs-2" for="language" translate>Language</label>
+            <div class="input-group col-xs-10">
+                <select id="language" class="form-control" ng-model="$ctrl.selectedLanguage" ng-options="i as i.title for i in $ctrl.languages" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <form class="form-horizontal">
+        <div class="form-group">
             <label class="control-label col-xs-2" for="printerName" translate>Printer name</label>
             <div class="input-group col-xs-10">
                 <input type="text" class="col-xs-10 form-control" id="printerName" ng-model="$ctrl.websiteSettings.printerName" ng-keyboard>
