@@ -1,214 +1,206 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
+"X-Generator: Poedit 2.0.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: partials\settings\bot.html:67
+#, fuzzy
+#| msgid ""
+#| "<strong>To create a new bot, you need:</strong><br>\r\n"
+#| "            1. Search for <b>@BotFather</b> bot in <b>Telegram</b>.<br>"
+#| "\r\n"
+#| "            2. Send him a \"<b>/start</b>\" message.<br>\r\n"
+#| "            3. Then send a \"<b>/newbot</b>\" message and follow the "
+#| "instructions.<br>\r\n"
+#| "            4. <b>Note!</b> Bot name should end up with \"<b>bot</b>\". "
+#| "Otherwise, @BotFather won't create a bot for you.<br>\r\n"
+#| "            5. At the end you will get an <b>API token</b> that you need "
+#| "to put into the form below. Don't show the token to anyone for security "
+#| "reasons.<br>\r\n"
+#| "            6. Now you need to find your bot and <b>write any message</b> "
+#| "to it<br>\r\n"
+#| "            7. Reload bot settings and you will see your username. Just "
+#| "<b>enable</b> it<br>"
 msgid "<strong>To create a new bot, you need:</strong><br>1. Search for <b>@BotFather</b> bot in <b>Telegram</b>.<br>2. Send him a \"<b>/start</b>\" message.<br>3. Then send a \"<b>/newbot</b>\" message and follow the instructions.<br>4. <b>Note!</b> Bot name should end up with \"<b>bot</b>\". Otherwise, @BotFather won't create a bot for you.<br>5. At the end you will get an <b>API token</b> that you need to put into the form below. Don't show the token to anyone for security reasons.<br>6. Now you need to find your bot and <b>write any message</b> to it<br>7. Reload bot settings and you will see your username. Just <b>enable</b> it<br>"
-msgstr ""
+msgstr "<strong>Що створити бота, Вам потрібно:</strong><br>\n"
+"            1. Знайти бота на ім'я  <b>@BotFather</b>у <b>Telegram</b>.<br>\n"
+"            2. Відправити йому повідомлення \"<b>/start</b>\" (без лапок).<br>\n"
+"            3. Потім відправити повідомлення \"<b>/newbot</b>\" та слідувати інструкціям.<br>\n"
+"            4. <b>Зауваження!</b> ім'я бота повинно закінчуватися на \"<b>bot</b>\". Інакше @BotFather не створить бота для Вас.<br>\n"
+"            5. В кінці Ви отримаєте <b>API токен</b> який потрібно ввести у відповідне поле на цій сторінці. Нікому не повідомляйте Ваш токен, бо він відкриває прямий доступ до управління ботом.<br>\n"
+"            6. Тепер Ваш потрібно знайти Вашого бота та <b>надіслати йому будь-яке повідомлення</b>.<br>\n"
+"            7. Перевідкрийте налаштування боту та побачите Себе у переліку користувачів. Просто <b>активуйте</b> свого користувача.<br>"
 
 #: partials\settings\bot.html:18
 msgid "API token"
-msgstr ""
+msgstr "API токен"
 
-#: partials\logs.general.html:16
-msgid "Action"
-msgstr ""
-
-#: partials\fileManager.html:53
 #: partials\settings\network.html:20
 msgid "Actions"
-msgstr ""
+msgstr "Дії"
 
 #: partials\settings\support.html:10
 msgid "Active"
-msgstr ""
+msgstr "Активне"
 
 #: partials\settings\printer\extruder.html:27
 #: partials\settings\printer\extruder.html:30
 msgid "Actual position"
-msgstr ""
+msgstr "Поточна позиція"
 
 #: partials\settings\bot.html:41
 msgid "Add"
-msgstr ""
+msgstr "Додати"
 
-#: partials\macros.html:67
-msgid "Add parameter"
-msgstr ""
-
-#: partials\settings\bot.html:32
-#: partials\settings\bot.html:55
+#: partials\settings\bot.html:32 partials\settings\bot.html:55
 msgid "Admin"
-msgstr ""
+msgstr "Адмін"
 
 #: partials\settings\printer.html:22
 msgctxt "Tile"
 msgid "Advanced"
-msgstr ""
+msgstr "Розширені"
 
 #: partials\settings\printer\advanced.html:2
 msgid "Advanced printer settings"
-msgstr ""
+msgstr "Розширені налаштування принтеру"
 
 #: partials\settings\bot.html:56
 msgid "All"
-msgstr ""
-
-#: partials\fileManager.html:82
-msgid "Analyse"
-msgstr ""
+msgstr "Усі"
 
 #: partials\dialogs\analyseDialog.html:6
+#, fuzzy
+#| msgid "Loading..."
 msgid "Analysing..."
-msgstr ""
+msgstr "Завантаження..."
 
-#: partials\regulations\fan.html:18
-#: partials\regulations\speed.html:18
+#: partials\regulations\fan.html:18 partials\regulations\speed.html:18
 #: partials\regulations\temperature\bed.html:15
 #: partials\regulations\temperature\hotend.html:15
-#: partials\settings\bot.html:62
-#: partials\settings\printer\advanced.html:18
+#: partials\settings\bot.html:62 partials\settings\printer\advanced.html:18
 #: partials\settings\printer\extruder.html:57
-#: partials\settings\printer\z-index.html:24
-#: partials\settings\server.html:68
+#: partials\settings\printer\z-index.html:24 partials\settings\server.html:68
 msgid "Apply"
-msgstr ""
+msgstr "Зафіксувати"
 
 #: partials\regulations\temperature\bed.html:8
 #: partials\regulations\temperature\hotend.html:8
 msgctxt "Tile"
 msgid "Base temp"
-msgstr ""
+msgstr "Цільова"
 
 #: partials\regulations\temperature.html:13
 msgid "Bed"
-msgstr ""
+msgstr "Стіл"
 
 #: partials\regulations\temperature\bed.html:22
 msgid "Bed temperature"
-msgstr ""
+msgstr "Температура столу"
 
 #: index.html:88
 msgid "Bed temperature: actual / target"
-msgstr ""
+msgstr "Температура столу: поточна / цільова"
 
 #: partials\settings\bot.html:12
 msgid "Bot enabled"
-msgstr ""
+msgstr "Бот увімкнено"
 
 #: javascripts\filters.js:17
 msgid "Buffering"
-msgstr ""
-
-#: partials\status.html:76
-#: partials\status.html:77
-msgid "Buffering Progress"
-msgstr ""
+msgstr "Буферизація"
 
 #: javascripts\filters.js:15
 msgid "Buffering paused"
-msgstr ""
+msgstr "Пауза буферизації"
 
-#: partials\status.html:94
-msgid "Calculating time of printing..."
-msgstr ""
-
-#: partials\dashboard.html:6
-#: partials\dialogs\confirmDialog.html:9
+#: partials\dashboard.html:6 partials\dialogs\confirmDialog.html:9
 msgid "Cancel"
-msgstr ""
+msgstr "Відмінити"
 
 #: partials\settings\change-password.html:38
 msgid "Change"
-msgstr ""
+msgstr "Змінити"
 
 #: partials\settings\change-password.html:2
 msgid "Change password"
-msgstr ""
+msgstr "Змінити пароль"
 
 #: partials\settings.html:22
 msgctxt "Tile"
 msgid "Change password"
-msgstr ""
+msgstr "Змінити пароль"
 
 #: partials\settings\update.html:13
 msgid "Check for updates"
-msgstr ""
+msgstr "Перевірити наявність оновлень"
 
-#: partials\dialogs\2048Dialog.html:10
-#: partials\dialogs\runMacrosDialog.html:27
+#: partials\dialogs\2048Dialog.html:10 partials\dialogs\runMacrosDialog.html:27
 msgid "Close"
 msgstr ""
 
 #: partials\settings\printer.html:28
 msgctxt "Tile"
 msgid "Configuration"
-msgstr ""
+msgstr "Конфігурація"
 
 #: partials\settings\change-password.html:29
 msgid "Confirm password"
-msgstr ""
+msgstr "Підтвердити пароль"
 
-#: partials\settings\network.html:27
-#: partials\settings\support.html:16
+#: partials\settings\network.html:27 partials\settings\support.html:16
 msgid "Connect"
-msgstr ""
+msgstr "Підлючитися"
 
 #: partials\settings\network.html:7
 msgid "Connected to WiFi:"
-msgstr ""
+msgstr "Підключено до WiFi:"
 
 #: partials\settings\support.html:8
 msgid "Connection status"
-msgstr ""
+msgstr "Статус підключення"
 
 #: partials\console.html:2
 msgid "Console"
-msgstr ""
+msgstr "Консоль"
 
 #: partials\dashboard.html:48
 msgctxt "Tile"
 msgid "Console"
-msgstr ""
-
-#: partials\status.html:74
-#: partials\status.html:75
-msgid "Copy Progress"
-msgstr ""
+msgstr "Консоль"
 
 #: javascripts\filters.js:13
 msgid "Copying (buffer)"
-msgstr ""
+msgstr "Копіювання (з буфером)"
 
 #: javascripts\filters.js:11
 msgid "Copying data"
-msgstr ""
-
-#: partials\fileManager.html:40
-msgid "Create directory"
-msgstr ""
+msgstr "Копіювання даних"
 
 #: partials\settings\update.html:6
 msgid "Current version"
-msgstr ""
+msgstr "Поточна версія"
 
 #: partials\settings\printer\configuration.html:46
 msgid "Cylinder"
-msgstr ""
+msgstr "Циліндер"
 
 #: partials\settings\server.html:26
 msgid "Dashboard"
-msgstr ""
+msgstr "Головна панель"
 
 #: partials\settings\server.html:37
 msgid "Dashboard macroses"
-msgstr ""
-
-#: partials\logs.printer.html:11
-msgid "Date"
-msgstr ""
+msgstr "Головні макроси"
 
 #: partials\settings\printer\configuration.html:55
 msgid "Diameter"
@@ -216,49 +208,42 @@ msgstr ""
 
 #: partials\settings\printer\configuration.html:12
 msgid "Disabled"
-msgstr ""
+msgstr "Відключено"
 
 #: partials\settings\support.html:15
 msgid "Disconnect"
-msgstr ""
+msgstr "Відключити"
 
 #: partials\settings\support.html:11
 msgid "Disconnected"
-msgstr ""
+msgstr "Відключено"
 
 #: partials\fileManager.html:6
 msgid "Disk usage: {{free}} free of {{total}}"
-msgstr ""
+msgstr "Пам'ять: {{free}} вільно з {{total}}"
 
-#: partials\logs.general.html:25
 #: partials\settings\update.html:21
 msgid "Download"
-msgstr ""
+msgstr "Завантажити"
 
 #: partials\settings\update.html:34
 msgid "Downloading updates..."
-msgstr ""
+msgstr "Завантаження оновлень..."
 
 #: partials\settings\printer\configuration.html:11
 msgid "Enabled"
-msgstr ""
-
-#: partials\status.html:96
-msgid "End time: {{endtime}}"
-msgstr ""
+msgstr "Активовано"
 
 #: partials\settings\bot.html:20
 msgid "Enter token to change it"
-msgstr ""
+msgstr "Введіть токен, щоб змінити його"
 
 #: partials\settings\printer\extruder.html:18
 #: partials\settings\printer\z-index.html:15
 msgid "Enter valid float number"
-msgstr ""
+msgstr "Введіть допустиме дійстне число"
 
 #: partials\dialogs\analyseDialog.html:5
-#: partials\fileManager.html:13
-#: partials\logs.general.html:4
 msgid "Error: {{error}}"
 msgstr ""
 
@@ -272,55 +257,37 @@ msgstr ""
 
 #: partials\settings\printer\extruder.html:21
 msgid "Extrude"
-msgstr ""
-
-#: partials\settings\printer\extruder.html:2
-msgid "Extruder calibration"
-msgstr ""
+msgstr "Екструдувати"
 
 #: partials\settings\printer.html:10
 msgctxt "Tile"
 msgid "Extruder calibration"
-msgstr ""
+msgstr "Калібрування екструдеру"
 
-#: partials\dashboard.html:42
-#: partials\regulations\fan.html:11
+#: partials\settings\printer\extruder.html:2
+msgid "Extruder calibration"
+msgstr "Калібрування екструдеру"
+
+#: partials\dashboard.html:42 partials\regulations\fan.html:11
 msgctxt "Tile"
 msgid "Fan"
-msgstr ""
+msgstr "Обдув"
 
 #: index.html:96
 msgid "Fan"
-msgstr ""
+msgstr "Обдув"
 
 #: partials\regulations\fan.html:2
 msgid "Fan control"
-msgstr ""
-
-#: partials\status.html:33
-msgid "Fan rate"
-msgstr ""
-
-#: partials\status.html:41
-msgid "Feedrate"
-msgstr ""
-
-#: partials\status.html:61
-msgid "File"
-msgstr ""
+msgstr "Контроль обдуву"
 
 #: partials\fileManager.html:2
 msgid "File Manager"
-msgstr ""
-
-#: partials\fileManager.html:48
-#: partials\logs.general.html:14
-msgid "File name"
-msgstr ""
+msgstr "Файловий менеджер"
 
 #: partials\fileManager.html:12
 msgid "Folder is loading..."
-msgstr ""
+msgstr "Директорія завантажується..."
 
 #: partials\dialogs\analyseDialog.html:2
 msgid "G-code analyser"
@@ -328,57 +295,52 @@ msgstr ""
 
 #: partials\console.html:15
 msgid "G-code wiki (RepRap)"
-msgstr ""
-
-#: partials\logs.html:7
-msgid "General"
-msgstr ""
+msgstr "Опис G-code (RepRap)"
 
 #: partials\settings\printer\configuration.html:32
 msgid "Heatbed available"
-msgstr ""
+msgstr "Нагрівающий стіл"
 
 #: index.html:66
-#: partials\fileManager.html:18
 msgid "Home"
-msgstr ""
+msgstr "Додому"
 
 #: partials\regulations\movements.html:120
 msgid "Home x"
-msgstr ""
+msgstr "Додому x"
 
 #: partials\regulations\movements.html:122
 msgid "Home y"
-msgstr ""
+msgstr "Додому y"
 
 #: partials\regulations\movements.html:52
 msgid "Home z"
-msgstr ""
+msgstr "Додому z"
 
 #: partials\regulations\temperature.html:8
 msgid "Hotend"
-msgstr ""
+msgstr "Голівка"
 
 #: partials\regulations\temperature\hotend.html:22
 #: partials\settings\printer\advanced.html:26
 msgid "Hotend temperature"
-msgstr ""
+msgstr "Температура голівки"
 
 #: index.html:78
 msgid "Hotend temperature: actual / target"
-msgstr ""
+msgstr "Температура голівки: поточна / цільова"
 
 #: javascripts\filters.js:25
 msgid "Idle"
-msgstr ""
+msgstr "Очікування"
 
 #: partials\settings\update.html:35
 msgid "Installing updates..."
-msgstr ""
+msgstr "Встановлення оновлень..."
 
 #: partials\settings\server.html:8
 msgid "Language"
-msgstr ""
+msgstr "Мова"
 
 #: partials\dialogs\analyseDialog.html:39
 msgid "Layer count"
@@ -386,169 +348,140 @@ msgstr ""
 
 #: partials\dashboard.html:16
 msgid "Less than 20% of disk space remained"
-msgstr ""
+msgstr "Лишилось менш ніж 20% пам'яті"
 
-#: index.html:61
-#: partials\logs.general.html:1
-#: partials\logs.printer.html:1
-#: partials\macros.html:5
-#: partials\settings\bot.html:6
-#: partials\settings\support.html:12
+#: index.html:61 partials\settings\bot.html:6 partials\settings\support.html:12
 msgid "Loading..."
-msgstr ""
-
-#: partials\fileManager.html:17
-msgid "Location"
-msgstr ""
+msgstr "Завантаження..."
 
 #: index.html:124
 msgid "Lock"
-msgstr ""
+msgstr "Заблокувати"
 
 #: partials\lockScreen.html:3
+#, fuzzy
+#| msgid "Lock"
 msgid "Locked"
-msgstr ""
+msgstr "Заблокувати"
 
 #: partials\settings\server.html:59
 msgid "Log level"
-msgstr ""
+msgstr "Рівень логування"
 
 #: partials\dashboard.html:66
 msgctxt "Tile"
 msgid "Logs"
-msgstr ""
-
-#: partials\logs.html:2
-msgid "Logs"
-msgstr ""
+msgstr "Логування"
 
 #: partials\dashboard.html:16
 msgid "Low space"
-msgstr ""
+msgstr "Заповнено"
 
 #: index.html:11
 msgid "MINT Console"
-msgstr ""
-
-#: partials\macros.html:2
-msgid "Macros"
-msgstr ""
+msgstr "MINT Панель управління"
 
 #: partials\dashboard.html:60
 msgctxt "Tile"
 msgid "Macros"
-msgstr ""
+msgstr "Макроси"
 
-#: partials\console.html:27
-#: partials\settings\server.html:29
+#: partials\console.html:27 partials\settings\server.html:29
 msgid "Macroses"
-msgstr ""
-
-#: partials\logs.printer.html:12
-msgid "Message"
-msgstr ""
+msgstr "Макроси"
 
 #: index.html:153
 msgid "Messages"
-msgstr ""
+msgstr "Повідомлення"
 
 #: partials\dialogs\analyseDialog.html:19
+#, fuzzy
+#| msgid "Y size"
 msgid "Model size"
-msgstr ""
+msgstr "Розмір Y"
 
 #: partials\regulations\movements.html:73
 msgid "Motors"
-msgstr ""
+msgstr "Двигуни"
 
 #: partials\dashboard.html:22
 msgctxt "Tile"
 msgid "Move"
-msgstr ""
+msgstr "Переміщення"
 
 #: partials\regulations\movements.html:9
 msgid "Move control"
-msgstr ""
+msgstr "Контроль переміщення"
 
 #: partials\regulations\movements.html:61
 #: partials\settings\printer\z-index.html:18
 msgid "Move home"
-msgstr ""
+msgstr "Додому"
 
 #: javascripts\controllers\controllers.js:750
 msgid "Move outside of table"
-msgstr ""
+msgstr "Переміщення за кордон стола"
+
+#: partials\settings\network.html:2
+msgid "Network"
+msgstr "Мережа"
 
 #: partials\settings.html:34
 msgctxt "Tile"
 msgid "Network"
-msgstr ""
-
-#: partials\settings\network.html:2
-msgid "Network"
-msgstr ""
+msgstr "Мережа"
 
 #: partials\settings\change-password.html:19
 msgid "New password"
-msgstr ""
+msgstr "Новий пароль"
 
 #: partials\settings\update.html:17
 msgid "New version is available"
-msgstr ""
+msgstr "Доступна нова версія"
 
 #: javascripts\controllers\controllers.js:743
 msgid "No data about hotend position"
-msgstr ""
+msgstr "Відсутні дані шодо позиції голівки"
 
 #: javascripts\controllers\controllers.js:740
 msgid "No data about printer size"
-msgstr ""
+msgstr "Відсутні дані шодо розміру принтеру"
 
 #: partials\dialogs\runMacrosDialog.html:5
-#: partials\macros.html:25
 msgid "No parameters"
-msgstr ""
-
-#: partials\settings\bot.html:2
-msgid "Notification bot"
 msgstr ""
 
 #: partials\settings.html:52
 msgctxt "Tile"
 msgid "Notification bot"
-msgstr ""
+msgstr "Бот-оповіщувач"
+
+#: partials\settings\bot.html:2
+msgid "Notification bot"
+msgstr "Бот-оповіщувач"
 
 #: partials\settings\bot.html:47
 msgid "Notifications"
-msgstr ""
+msgstr "Оповіщення"
 
-#: partials\dialogs\analyseDialog.html:48
-#: partials\dialogs\confirmDialog.html:8
+#: partials\dialogs\analyseDialog.html:48 partials\dialogs\confirmDialog.html:8
 msgid "OK"
 msgstr ""
 
 #: partials\settings\printer\z-index.html:12
 msgid "Offset"
-msgstr ""
+msgstr "Зміщення"
 
 #: partials\settings\change-password.html:9
 msgid "Old password"
-msgstr ""
+msgstr "Старий пароль"
 
 #: partials\settings\printer\extruder.html:39
-#: partials\status.html:37
 msgid "Over extrusion"
-msgstr ""
+msgstr "Переекструзія"
 
 #: partials\dialogs\analyseDialog.html:14
 msgid "Parameter"
-msgstr ""
-
-#: partials\macros.html:57
-msgid "Parameter name"
-msgstr ""
-
-#: partials\macros.html:52
-msgid "Parameter title"
 msgstr ""
 
 #: partials\dialogs\runMacrosDialog.html:9
@@ -557,155 +490,113 @@ msgstr ""
 
 #: index.html:136
 msgid "Pause"
-msgstr ""
+msgstr "Пауза"
 
 #: partials\dashboard.html:3
 msgid "Pause detected!"
-msgstr ""
+msgstr "Режим паузи!"
 
 #: javascripts\filters.js:21
 msgid "Paused"
-msgstr ""
+msgstr "Призупинено"
 
 #: javascripts\filters.js:23
 msgid "Paused (buffer)"
-msgstr ""
+msgstr "Призупинено (буфер)"
 
 #: partials\settings\printer\configuration.html:10
 msgid "Pending..."
-msgstr ""
+msgstr "Опрацювання..."
 
 #: index.html:116
 msgid "Play 2048"
-msgstr ""
+msgstr "Грати 2048"
 
 #: partials\settings\printer\extruder.html:12
 msgid "Position"
-msgstr ""
-
-#: partials\status.html:49
-msgid "Position X"
-msgstr ""
-
-#: partials\status.html:53
-msgid "Position Y"
-msgstr ""
-
-#: partials\status.html:57
-msgid "Position Z"
-msgstr ""
+msgstr "Позиція"
 
 #: partials\dialogs\powerOffDialog.html:2
 msgid "Power is off"
-msgstr ""
+msgstr "Живлення відключено"
 
 #: partials\dialogs\powerOffDialog.html:4
 msgid "Preparing to shutdown in {{seconds}} sec."
-msgstr ""
-
-#: partials\fileManager.html:83
-msgid "Print"
-msgstr ""
+msgstr "Підготовка до вимкнення через {{seconds}} сек."
 
 #: partials\dashboard.html:15
 msgctxt "Tile"
 msgid "Print"
-msgstr ""
-
-#: partials\fileManager.html:84
-msgid "Print (with buffer)"
-msgstr ""
+msgstr "Друк"
 
 #: partials\settings\server.html:45
 msgid "Print behavior"
-msgstr ""
+msgstr "Поведінка принтера"
 
 #: partials\settings.html:28
 msgctxt "Tile"
 msgid "Printer"
-msgstr ""
+msgstr "Принтер"
 
 #: partials\settings\printer\configuration.html:2
 msgid "Printer configuration"
-msgstr ""
-
-#: partials\logs.html:10
-msgid "Printer error logs"
-msgstr ""
+msgstr "Конфігурація принтера"
 
 #: partials\settings\server.html:19
 msgid "Printer name"
-msgstr ""
+msgstr "Ім'я принтера"
 
 #: partials\settings\printer.html:2
 msgid "Printer settings"
-msgstr ""
+msgstr "Налаштування принтера"
 
 #: partials\regulations\movements.html:3
 msgid "Printer should be idle or paused"
-msgstr ""
+msgstr "Принтер повинен бути у стані очікування або паузи"
 
 #: javascripts\filters.js:19
 msgid "Printing"
-msgstr ""
-
-#: partials\status.html:78
-#: partials\status.html:79
-#: partials\status.html:80
-#: partials\status.html:81
-msgid "Printing Progress"
-msgstr ""
+msgstr "Друк"
 
 #: partials\dashboard.html:3
 msgid "Printing was previously paused. Do you want to resume?"
-msgstr ""
+msgstr "Друк було призупинено. Відновити?"
 
 #: partials\settings\printer\extruder.html:45
 msgid "Recalculate"
-msgstr ""
+msgstr "Перерахувати"
 
 #: partials\settings\printer\configuration.html:47
 msgid "Rectangle"
-msgstr ""
+msgstr "Прямокутник"
 
 #: index.html:120
 msgid "Reload"
-msgstr ""
-
-#: partials\status.html:95
-msgid "Remained: {{remained}}"
-msgstr ""
-
-#: partials\fileManager.html:74
-#: partials\fileManager.html:85
-#: partials\logs.general.html:27
-#: partials\macros.html:82
-msgid "Remove"
-msgstr ""
+msgstr "Оновити"
 
 #: partials\settings\printer\extruder.html:50
 msgid "Reset"
-msgstr ""
+msgstr "Скинути"
 
 #: partials\settings\printer\extruder.html:8
 msgid "Reset over extrusion to 100% before starting calibration."
-msgstr ""
+msgstr "Потрібно скинути переекструзію до 100% перед початком калібрування."
 
 #: partials\settings\printer\extruder.html:22
 msgid "Reset position"
-msgstr ""
+msgstr "Скинути позицію"
 
 #: partials\dialogs\analyseDialog.html:10
+#, fuzzy
+#| msgid "Resume"
 msgid "Results"
-msgstr ""
+msgstr "Відновити"
 
-#: index.html:133
-#: partials\dashboard.html:5
+#: index.html:133 partials\dashboard.html:5
 msgid "Resume"
-msgstr ""
+msgstr "Відновити"
 
 #: partials\dialogs\runMacrosDialog.html:26
-#: partials\macros.html:43
 msgid "Run"
 msgstr ""
 
@@ -715,188 +606,138 @@ msgstr ""
 
 #: partials\settings\network.html:18
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
-#: partials\macros.html:81
 #: partials\settings\printer\configuration.html:79
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 #: partials\settings\network.html:12
 msgid "Scan for wifi networks"
-msgstr ""
-
-#: partials\fileManager.html:26
-msgid "Search for..."
-msgstr ""
+msgstr "Сканувати мережі wifi"
 
 #: partials\settings\printer\configuration.html:21
 msgid "Seconds to shutdown on power off"
-msgstr ""
+msgstr "Секунд до виключення без живлення"
 
 #: partials\console.html:34
 msgid "See all"
-msgstr ""
-
-#: partials\macros.html:18
-msgid "Select macros to edit it."
-msgstr ""
+msgstr "Подивития всі"
 
 #: partials\console.html:19
 msgid "Send"
-msgstr ""
+msgstr "Відправити"
 
 #: partials\console.html:9
 msgid "Send G-code..."
-msgstr ""
-
-#: partials\status.html:15
-msgid "Sensor"
-msgstr ""
-
-#: partials\status.html:9
-msgid "Sensors"
-msgstr ""
+msgstr "Відправити G-code..."
 
 #: partials\settings.html:16
 msgctxt "Tile"
 msgid "Server"
-msgstr ""
+msgstr "Сервер"
 
 #: partials\settings\server.html:2
 msgid "Server settings"
-msgstr ""
+msgstr "Сервер"
 
 #: partials\settings\printer\advanced.html:19
 msgid "Set to defaults"
-msgstr ""
+msgstr "Скинути за замовчуванням"
+
+#: partials\settings.html:2
+msgid "Settings"
+msgstr "Налаштування"
 
 #: partials\dashboard.html:72
 msgctxt "Tile"
 msgid "Settings"
-msgstr ""
-
-#: partials\settings.html:2
-msgid "Settings"
-msgstr ""
+msgstr "Налаштування"
 
 #: partials\settings\browser.html:23
 msgid "Show dark theme"
-msgstr ""
+msgstr "Використовувати темне оформлення"
 
 #: partials\settings\browser.html:12
 msgid "Show virtual keyboard"
-msgstr ""
+msgstr "Показувати віртуальну клавіатуру"
 
 #: index.html:127
 msgid "Shutdown"
-msgstr ""
+msgstr "Вимкнути"
 
 #: partials\settings\network.html:19
 msgid "Signal level"
-msgstr ""
-
-#: partials\fileManager.html:52
-msgid "Size"
-msgstr ""
-
-#: partials\logs.general.html:15
-msgid "Size (Total: {{total}})"
-msgstr ""
+msgstr "Рівень сигналу"
 
 #: partials\settings\update.html:26
 msgid "Software is up to date"
-msgstr ""
+msgstr "Програмне забезпечення в актуальному стані"
 
-#: partials\status.html:45
-msgid "Speed"
-msgstr ""
-
-#: partials\dashboard.html:35
-#: partials\regulations\speed.html:11
+#: partials\dashboard.html:35 partials\regulations\speed.html:11
 msgctxt "Tile"
 msgid "Speed"
-msgstr ""
+msgstr "Швидкість"
 
 #: partials\regulations\speed.html:2
 msgid "Speed control"
-msgstr ""
-
-#: partials\status.html:93
-msgid "Started on: {{started}}"
-msgstr ""
+msgstr "Контроль швидкості"
 
 #: index.html:102
 msgid "State"
-msgstr ""
+msgstr "Стан"
 
 #: partials\dashboard.html:54
 msgctxt "Tile"
 msgid "Status"
-msgstr ""
-
-#: partials\status.html:2
-msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: index.html:139
 msgid "Stop"
-msgstr ""
+msgstr "Стоп"
 
 #: partials\settings.html:46
 msgctxt "Tile"
 msgid "Support"
-msgstr ""
+msgstr "Підтримка"
 
 #: partials\settings\support.html:2
 msgid "Support"
-msgstr ""
+msgstr "Підтримка"
 
 #: partials\settings\printer\configuration.html:43
 msgid "Table type"
-msgstr ""
-
-#: partials\status.html:25
-msgid "Target"
-msgstr ""
-
-#: partials\status.html:21
-msgid "Temperature"
-msgstr ""
+msgstr "Тип столу"
 
 #: partials\dashboard.html:28
 msgctxt "Tile"
 msgid "Temperature"
-msgstr ""
+msgstr "Температура"
 
 #: partials\regulations\temperature.html:2
 msgid "Temperature control"
-msgstr ""
+msgstr "Контроль температури"
 
 #: partials\settings\printer\z-index.html:19
 msgid "Test"
-msgstr ""
+msgstr "Тест"
 
 #: partials\settings.html:10
 msgctxt "Tile"
 msgid "Theme and Keyboard"
-msgstr ""
+msgstr "Тема і клавіатура"
 
 #: partials\settings\browser.html:2
 msgid "Theme and Keyboard settings"
-msgstr ""
-
-#: partials\logs.general.html:9
-msgid "There is no log files yet"
-msgstr ""
+msgstr "Тема та клавіатура"
 
 #: partials\settings\browser.html:6
 msgid "These settings are saved for each browser independently."
-msgstr ""
+msgstr "Ці налаштування зберігаються для кожного веб-переглядача окремо."
 
 #: partials\settings\printer\z-index.html:9
 msgid "Top offset"
-msgstr ""
+msgstr "Зміщення"
 
 #: partials\dialogs\analyseDialog.html:23
 msgid "Total filament used"
@@ -908,78 +749,65 @@ msgstr ""
 
 #: partials\settings\printer\configuration.html:8
 msgid "Uninterruptible Power Supply (UPS)"
-msgstr ""
+msgstr "Бесперервне живлення"
 
 #: partials\settings.html:40
 msgctxt "Tile"
 msgid "Update"
-msgstr ""
+msgstr "Оновлення"
 
 #: partials\settings\update.html:2
 msgid "Update"
-msgstr ""
-
-#: partials\fileManager.html:38
-msgid "Upload"
-msgstr ""
-
-#: partials\fileManager.html:34
-msgid "Uploading '{{file}}'"
-msgstr ""
+msgstr "Оновити"
 
 #: partials\settings\server.html:49
 msgid "Use pre-buffering"
-msgstr ""
+msgstr "Використовувати пре-буферизацію"
 
 #: partials\settings\bot.html:33
 msgid "User"
-msgstr ""
+msgstr "Користувач"
 
 #: partials\settings\bot.html:40
 msgid "User name"
-msgstr ""
+msgstr "Ім'я користувача"
 
 #: partials\settings\bot.html:24
 msgid "Users"
-msgstr ""
+msgstr "Користувачі"
 
 #: partials\dialogs\analyseDialog.html:15
-#: partials\status.html:16
 msgid "Value"
 msgstr ""
 
 #: partials\settings\network.html:8
 msgid "Website address:"
-msgstr ""
+msgstr "Адреса вебсайту:"
 
 #: partials\settings\network.html:6
 msgid "Wifi connection"
-msgstr ""
+msgstr "Підключення wifi"
 
 #: partials\settings\printer\configuration.html:52
 msgid "X size"
-msgstr ""
+msgstr "Розмір X"
 
 #: partials\settings\printer\configuration.html:63
 msgid "Y size"
-msgstr ""
+msgstr "Розмір Y"
 
 #: partials\settings\printer\configuration.html:69
 msgid "Z size (Height)"
-msgstr ""
+msgstr "Розмір Z (Висота)"
 
 #: partials\settings\printer.html:16
 msgctxt "Tile"
 msgid "Z-Index calibration"
-msgstr ""
+msgstr "Калібрування z-рівня"
 
 #: partials\settings\printer\z-index.html:2
 msgid "Z-index calibration"
-msgstr ""
-
-#: partials\fileManager.html:72
-msgid "dir"
-msgstr ""
+msgstr "Калібрування z-рівня"
 
 #: partials\dialogs\analyseDialog.html:28
 msgid "grams"
@@ -987,7 +815,7 @@ msgstr ""
 
 #: partials\directives\temperatureChart.html:3
 msgid "loading..."
-msgstr ""
+msgstr "завантаження..."
 
 #: partials\dialogs\analyseDialog.html:20
 #: partials\dialogs\analyseDialog.html:24
@@ -995,23 +823,23 @@ msgstr ""
 #: partials\settings\printer\extruder.html:16
 #: partials\settings\printer\extruder.html:31
 #: partials\settings\printer\z-index.html:13
-#: partials\status.html:50
-#: partials\status.html:54
 msgid "mm"
-msgstr ""
-
-#: partials\status.html:46
-msgid "mm/min"
-msgstr ""
-
-#: partials\status.html:84
-msgid "paused"
-msgstr ""
+msgstr "мм"
 
 #: partials\dialogs\analyseDialog.html:40
+#, fuzzy
+#| msgctxt "Tile"
+#| msgid "Printer"
 msgid "printed"
-msgstr ""
+msgstr "Принтер"
 
 #: partials\dialogs\analyseDialog.html:40
 msgid "visited"
 msgstr ""
+
+#~ msgid "Not implemented yet"
+#~ msgstr "Ще не реалізовано"
+#~ msgctxt "Tile"
+
+#~ msgid "Temp"
+#~ msgstr "Температура"

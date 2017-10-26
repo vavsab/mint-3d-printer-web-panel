@@ -17,7 +17,7 @@ const argv = require('yargs').argv;
 const isProduction = argv.dev === undefined;
 
 gulp.task('default', ['less', 'i18n']);
-gulp.task('i18n', ['i18n_generate', 'i18n_compile']);
+gulp.task('i18n', gulpSequence('i18n_generate', 'i18n_compile'));
 
 gulp.task('less', () => 
   gulp.src(['./public/stylesheets/less/metro.less'])

@@ -5,7 +5,7 @@ app.filter('toTrusted', ['$sce', function($sce){
 }]);
 
 app.filter('toStatusText', ['gettextCatalog', function(gettextCatalog){
-    return function(status) {        
+    function toStatusTextFilter(status) {        
         switch (status) {
             case 'CopyData':
                 return gettextCatalog.getString('Copying data');
@@ -26,7 +26,10 @@ app.filter('toStatusText', ['gettextCatalog', function(gettextCatalog){
             default:
                 return status;
         }
-    };
+    }
+
+    toStatusTextFilter.$stateful = true;
+    return toStatusTextFilter;
 }]);
 
 app.filter('toFixed', [function(){

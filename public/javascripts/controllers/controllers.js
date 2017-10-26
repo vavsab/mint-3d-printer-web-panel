@@ -117,7 +117,11 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
     websiteSettingsService.get().then(function success(settings) { 
         websiteSettings.settings = settings;
         document.title = settings.printerName + " Console";
-        websiteSettingsService.changeLanguage(settings.language);
+
+        websiteSettingsService.changeLanguage(settings.language).then(function success() {
+            // Refresh all bindings
+            $scope.$applyAsync();
+        });
     });
 
     var refreshDiskspace = function (diskspace) {
@@ -199,8 +203,8 @@ function (printerStatus, $location, websiteSettings, $cookies, tokenService, loa
     }
 }]);
 
-app.controller('dashboardController', ['printerStatusService', 'dialogService', 'commandService', 
-function (printerStatusService, dialogService, commandService) {
+app.controller('dashboardController', ['printerStatusService', 'dialogService', 'commandService', 'gettextCatalog', 
+function (printerStatusService, dialogService, commandService, gettextCatalog) {
     var self = this;
 
     self.isPauseMode = false;
@@ -213,7 +217,9 @@ function (printerStatusService, dialogService, commandService) {
     };
 
     self.cancelResume = function () {
-        return dialogService.confirm("Are you sure that you don't need to resume? It will be impossible to resume after that.", 'Clear pause')
+        return dialogService.confirm(
+            gettextCatalog.getString("Are you sure that you don't need to resume? It will be impossible to resume after that."), 
+            gettextCatalog.getString('Clear pause'))
             .then(function success() {
                 return printerStatusService.cancelResume();
             })
@@ -228,8 +234,8 @@ function (printerStatusService, dialogService, commandService) {
 }]);
 
 app.controller('fileManagerController', 
-['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload', 'websiteSettings',
-function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upload, websiteSettings) {
+['$scope', 'fileService', '$q', 'commandService', '$uibModal', 'dialogService', 'Upload', 'websiteSettings', 'gettextCatalog',
+function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upload, websiteSettings, gettextCatalog) {
 
     $scope.isRunning = false;
     $scope.uploadProgress = 0;
@@ -307,7 +313,7 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
 
     $scope.remove = function (file) {
         return $q(function (resolve, reject) {
-            dialogService.confirm("Are you sure to remove '" + file.fileName + "'?", 'Confirm removal').then(
+            dialogService.confirm("Are you sure to remove '" + file.fileName + "'?", gettextCatalog.getString('Confirm removal')).then(
             function success () {
                 fileService.remove(convertPathToString() + file.fileName)
                 .then(function success() {
@@ -319,7 +325,7 @@ function ($scope, fileService, $q, commandService, $uibModal, dialogService, Upl
                 })
             },
             function error () {
-                resolve("cancelled");
+                resolve(gettextCatalog.getString('cancelled'));
             });
         });
     };

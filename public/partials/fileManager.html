@@ -10,12 +10,12 @@
         <span>{{((diskspace.total - diskspace.free) / diskspace.total * 100) | toFixed : 2 }}%</span>
     </uib-progressbar>
     <span class="label label-default" ng-show="isFolderLoading"><translate>Folder is loading...</translate></span>
-    <span class="label label-warning" ng-show="folderLoadingError != null">Error: {{folderLoadingError}}</span>
+    <span class="label label-warning" ng-show="folderLoadingError != null" translate-params-error="folderLoadingError" translate>Error: {{error}}</span>
     <div ng-show="!isFolderLoading && !folderLoadingError">
 
         <ol class="breadcrumb">
-            Location:
-            <li><a href ng-click="goToPathIndex(0)"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+            <translate>Location</translate>
+            <li><a href ng-click="goToPathIndex(0)"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> <translate>Home</translate></a></li>
             <li ng-repeat="folderName in currentPath"><a href ng-click="goToPathIndex($index + 1)">{{folderName}}</a></li>
         </ol>
 
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-xs-4">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..." ng-model="fileFilter.fileName" ng-keyboard>
+                        <input type="text" class="form-control" placeholder="{{'Search for...' | translate}}" ng-model="fileFilter.fileName" ng-keyboard>
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" ng-show="fileFilter.fileName" ng-click="fileFilter = {}"><span class="glyphicon glyphicon-remove"></span></button>
                         </span>
@@ -31,13 +31,13 @@
                 </div>
 
                 <div class="col-xs-8">
-                    <span class="label label-default" ng-show="isUploading">Uploading '{{file.name}}'</span>
+                    <span class="label label-default" ng-show="isUploading" translate-params-file="file.name" translate>Uploading '{{file}}'</span>
                     <uib-progressbar ng-show="isUploading" class="progress-striped active" value="uploadProgress" animate="false">
                         <span>{{ uploadProgress | toFixed : 2 }}%</span>
                     </uib-progressbar>
-                    <button ng-show="!isUploading" class="btn btn-primary" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
+                    <button ng-show="!isUploading" class="btn btn-primary" ngf-select="sendFile($file)" ng-model="file"><span class="glyphicon glyphicon-cloud-upload"></span> <translate>Upload</translate></button>
 
-                    <action-button action="createDirectory()" button-name="Create directory" icon="plus" />
+                    <action-button action="createDirectory()" button-name="{{'Create directory' | translate}}" icon="plus" />
                 </div>
             </div>
         </form>
@@ -45,12 +45,12 @@
         <table class="table table-striped">
             <thead>
                 <th>
-                    <a href ng-click="isReverseSorting = !isReverseSorting">File name</a>
+                    <a href ng-click="isReverseSorting = !isReverseSorting" translate>File name</a>
                     <span ng-show="!isReverseSorting" class="glyphicon glyphicon-sort-by-attributes" />
                     <span ng-show="isReverseSorting" class="glyphicon glyphicon-sort-by-attributes-alt" />
                 </th>
-                <th>Size</th>
-                <th>Actions</th>
+                <th translate>Size</th>
+                <th translate>Actions</th>
             </thead>
             <tbody>
                 <tr ng-show="currentPath.length">
@@ -69,9 +69,9 @@
                             <span style="margin-left: 5px;">{{file.fileName}}</span>
                         </a>
                     </td>
-                    <td ng-show="file.isDirectory">dir</td>
+                    <td ng-show="file.isDirectory" translate>dir</td>
                     <td ng-show="file.isDirectory">
-                        <action-button action="remove(file)" button-name="Remove" icon="trash" type="danger" />
+                        <action-button action="remove(file)" button-name="{{'Remove' | translate}}" icon="trash" type="danger" />
                     </td>
 
                     <td ng-hide="file.isDirectory">
@@ -79,10 +79,10 @@
                     </td>
                     <td ng-hide="file.isDirectory">{{file.size | dataSize}}</td>
                     <td ng-hide="file.isDirectory">
-                        <action-button action="analyseFile(file.fileName)" button-name="Analyse" type="info" icon="tasks" />
-                        <action-button ng-show="!websiteSettings.settings.isPrintingWithBuffer" action="startPrint(file.fileName, false)" button-name="Print" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
-                        <action-button ng-show="websiteSettings.settings.isPrintingWithBuffer" action="startPrint(file.fileName, true)" button-name="Print (with buffer)" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
-                        <action-button action="remove(file)" button-name="Remove" type="danger" icon="trash" />
+                        <action-button action="analyseFile(file.fileName)" button-name="{{'Analyse' | translate}}" type="info" icon="tasks" />
+                        <action-button ng-show="!websiteSettings.settings.isPrintingWithBuffer" action="startPrint(file.fileName, false)" button-name="{{'Print' | translate}}" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
+                        <action-button ng-show="websiteSettings.settings.isPrintingWithBuffer" action="startPrint(file.fileName, true)" button-name="{{'Print (with buffer)' | translate}}'" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
+                        <action-button action="remove(file)" button-name="{{'Remove' | translate}}" type="danger" icon="trash" />
                     </td>
                 </tr>
             </tbody>

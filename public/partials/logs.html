@@ -1,13 +1,13 @@
 <div class="page-header">
-    <title-control back-link="'#/'">Logs</title-control>
+    <title-control back-link="'#/'" translate>Logs</title-control>
 </div>
 
 <ul class="nav nav-tabs">
     <li ng-class="{active: ('logs.general' | routeSegmentStartsWith)}">
-        <a href="#/logs/">General</a>
+        <a href="#/logs/" translate>General</a>
     </li>
     <li ng-class="{active: ('logs.printer' | routeSegmentStartsWith)}">
-        <a href="#/logs/printer">Printer error logs</a>
+        <a href="#/logs/printer" translate>Printer error logs</a>
     </li> 
 </ul>
 <div app-view-segment="1" class="animate">

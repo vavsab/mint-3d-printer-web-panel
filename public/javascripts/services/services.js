@@ -391,8 +391,8 @@ function ($http, $q, $resource, commandService) {
     };
 }]);
 
-app.service('websiteSettingsService', ['httpq', 'gettextCatalog', 
-function (httpq, gettextCatalog) {
+app.service('websiteSettingsService', ['httpq', 'gettextCatalog', '$q',
+function (httpq, gettextCatalog, $q) {
     this.get = function () {
         return httpq.get('/api/settings/website');
     };
@@ -426,7 +426,9 @@ function (httpq, gettextCatalog) {
         gettextCatalog.setCurrentLanguage(code);
 
         if (code != null)
-            gettextCatalog.loadRemote('/i18n/' + code + '.json');
+            return gettextCatalog.loadRemote('/i18n/' + code + '.json');
+        else
+            return $q.resolve();
     };
 }]);
 

@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <temperature-chart series="['Temperature', 'Base temperature']" 
+            <temperature-chart series="[('Temperature' | translate), ('Target temperature' | translate)]" 
                 get-start-data="$ctrl.getStartChartData"
                 get-data-from-status="$ctrl.getChartDataFromStatus"
                 title="{{'Hotend temperature' | translate}}" />

@@ -5,7 +5,7 @@
 <ul class="nav nav-tabs">
     <li ng-class="{active: ('temperature.hotend' | routeSegmentStartsWith)}">
         <a href="#/temperature/">
-            <i class="icon-hotend"></i> <translate>Hotend<translate>
+            <i class="icon-hotend"></i> <translate>Hotend</translate>
         </a>
     </li>
     <li ng-if="$ctrl.websiteSettings.settings.isHeatbedAvailable" ng-class="{active: ('temperature.bed' | routeSegmentStartsWith)}">

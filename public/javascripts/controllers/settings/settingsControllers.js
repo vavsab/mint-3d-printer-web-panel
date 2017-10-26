@@ -303,6 +303,9 @@ function (websiteSettingsService, macrosService, websiteSettings) {
             document.title = websiteSettings.settings.printerName + " Console";
         }).then(function success() {
             return websiteSettingsService.changeLanguage(self.websiteSettings.language);
+        })
+        .then(function success() {
+            return 'ok';
         });
     };
 }]);
