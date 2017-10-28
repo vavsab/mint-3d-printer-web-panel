@@ -1,18 +1,13 @@
 module.exports = (socketController, printerProxy, printerStatusController) => {
     const logger = require('../logger');
     const powerOff = require('power-off');
+    const utils = require('../utils');
+    const { exec } = require('child_process');
     const configurationController = require('./configurationController');
     const secondsToPause = 2;
-    const secondsBetweenPinsQuery = 10;
+    const secondsBetweenPinsQuery = 1;
     const STATE_POWER_ON = 'PowerOn';
     const STATE_POWER_OFF = 'PowerOff';
-
-    let gpio = null;
-    try {
-        gpio = require('rpi-gpio');
-    } catch (e) {
-        logger.warn(`Error while resolving rpi-gpio: ${e}`);
-    }
 
     let self = this;
 
@@ -22,15 +17,36 @@ module.exports = (socketController, printerProxy, printerStatusController) => {
         shutdownTime: null
     };
 
+    let getPinValue = pin => {
+        return new Promise((resolve, reject) => {
+            exec(`"${utils.getPathFromBase('service/scripts/getPinValue')}" ${pin}`,
+                (error, stdout, stderr) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(parseInt(stdout));
+                    }
+            });
+        });
+    };
+
     // Determine whether UPS is enabled
     status.isUPSEnabled = false;
 
+    const isUPSEnabledPin = 24;
+    const isPowerPresentPin = 10;
+
     let queryPins = () => {
-        if (gpio != null) {
-            // Change state and update
-            //status.state = STATE_POWER_OFF or STATE_POWER_ON;
-            //statusUpdated();
-        }
+        getPinValue(isUPSEnabledPin)
+        .then(isEnabled => {
+            status.isUPSEnabled = isEnabled;
+            if (isEnabled) {
+                return getPinValue(isPowerPresentPin)
+                .then(value => {
+                    status.state = value == 1 ? STATE_POWER_ON : STATE_POWER_OFF;
+                });
+            }
+        }).then(() => statusUpdated(), reason => logger.error(`powerController > queryPins > ${reason}`));
     }
 
     setInterval(queryPins, secondsBetweenPinsQuery * 1000);
@@ -76,14 +92,12 @@ module.exports = (socketController, printerProxy, printerStatusController) => {
         return new Promise((resolve, reject) => {
             const statesThatDoNotRequirePause = ['Idle', 'Pause', 'PauseBuffering', 'PausePrintBuffering'];
             if (statesThatDoNotRequirePause.indexOf(printerStatusController.currentStatus.state)) {
-                let result = printerProxy.send('pause');    
-                if (!result) {
-                    const errorMessage = 'PowerController > SafeShutdown > Printer is unavailable'; 
-                    logger.warn(errorMessage);
-                    reject(errorMessage);
-                } else {
-                    setTimeout(() => resolve(), secondsToPause * 1000);
-                }
+                printerProxy.send('pause');
+                printerProxy.send('M109 S50'); // Wait temperature to 50
+                printerProxy.send('M104 S0'); // Temperature to 0
+                printerProxy.send('M106 S0'); // Turn off fans
+                printerProxy.send('M18'); // Turn off motors
+                setTimeout(() => resolve(), secondsToPause * 1000);
             } else {
                 resolve();
             }
