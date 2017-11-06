@@ -180,13 +180,13 @@ module.exports = (socketController, printerProxy, printerMessageBus) =>
 	            "PrintBuffering",	"Printing",	"Pause", "PauseBuffering", 
               "PausePrintBuffering"];
             
+            status.stateCode = status.state;
+
             if (statusMap.hasOwnProperty(status.state)) {
               status.state = statusMap[status.state];
             } else {
               status.state = "Unknown";
             }
-
-            status.stateCode = status.state;
 
             // Apply transition action for calculating remaining time
             var transition = null;
