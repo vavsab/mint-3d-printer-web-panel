@@ -14,7 +14,7 @@ namespace PrintDream.Model
         [DataMember(Name = "ID", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }
 
-        [DataMember(Name = "State")]
+        [DataMember(Name = "state")]
         public int StateCode { get; set; }
 
         public State State

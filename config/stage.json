@@ -1,4 +1,5 @@
 {
+    "isStage": true,
     "PrinterFilePath" : "/mint-home/software/cpp/printer",
     "pathToUpdateScript": "/mint-home/software/update/update.py",
     "pathToInstallScript": "/mint-home/software/update/spawn-install",

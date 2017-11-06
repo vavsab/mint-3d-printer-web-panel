@@ -1,0 +1,11 @@
+{
+    "PrinterFilePath" : "emulators/printer/PrinterEmulator/bin/Debug/PrinterEmulator.exe",
+    "pathToUpdateScript": "emulators\\update\\update.bat",
+    "pathToInstallScript": "",
+    "pathToSupportScript": "emulators\\support\\support.bat",
+    "pathToVersion": "emulators\\update\\version",
+    "pathToPrinterId": "emulators\\printer_id.bat",
+    "pathToConfigFiles": "configFiles",
+    "pathToFilesFolder": "files",
+    "pathToLogsFolder": "logs"
+}

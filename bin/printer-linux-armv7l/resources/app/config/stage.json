@@ -1,0 +1,11 @@
+{
+    "PrinterFilePath" : "/mint-home/software/cpp/printer",
+    "pathToUpdateScript": "/mint-home/software/update/update.py",
+    "pathToInstallScript": "/mint-home/software/update/spawn-install",
+    "pathToSupportScript": "/mint-home/software/support/support.py",
+    "pathToVersion": "/mint-home/software/version",
+    "pathToPrinterId": "/mint-home/printer_id",
+    "pathToConfigFiles": "/mint-home/local/web",
+    "pathToFilesFolder": "/mint-home/files",
+    "pathToLogsFolder": "/mint-home/logs"
+}

@@ -1,0 +1,22 @@
+<div class="metro">
+    <div class="slider slider-big"
+        id="slider"
+        data-position="{{value}}"
+        data-target="#{{sliderInputId}}"
+        data-role="slider"
+        data-max-value="{{$ctrl.distance}}"
+        data-min-value="0"></div>
+    <input type="number" style="display: none;" id="{{sliderInputId}}" ng-model="sliderValue" slider-target-input>
+</div>
+
+<div style="text-align: center;">
+    <button class="btn btn-default" style="margin-left: 2px; margin-right: 2px;" 
+        ng-repeat="shift in leftShifts" ng-click="$ctrl.changeValue(shift)">{{shift}}</button>
+
+    <input type="number" style="display: inline-block; width: 100px;" 
+        ng-min="$ctrl.min" ng-max="$ctrl.max" 
+        class="form-control" ng-model="value">
+
+    <button class="btn btn-default" style="margin-left: 2px; margin-right: 2px;" 
+        ng-repeat="shift in rightShifts" ng-click="$ctrl.changeValue(shift)">{{shift}}</button>
+</div>

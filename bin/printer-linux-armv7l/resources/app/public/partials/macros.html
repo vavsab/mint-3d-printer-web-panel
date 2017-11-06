@@ -1,0 +1,89 @@
+<div class="page-header">
+    <title-control><translate>Macros</translate></title-control>
+</div>
+
+<div class="row" ng-show="isLoading" translate>
+    Loading...
+</div>
+<div class="row" ng-show="error">
+    {{error}}
+</div>
+<div class="row" ng-show="!isLoading && !error">
+    <div class="col-xs-3" style="padding:0;">
+        <div class="list-group">
+            <a href ng-repeat="macro in macros" ng-click="selectMacro(macro)" class="list-group-item" ng-class="{active: macro == selectedMacro}">{{macro.title}}</a>
+            <a href ng-click="create()" class="list-group-item"><span class="glyphicon glyphicon-plus"></span> Create new</a>
+        </div>
+    </div>
+    <div class="col-xs-9" style="padding-left:5px;" ng-show="!selectedMacro" translate>
+        Select macros to edit it.
+    </div>
+    <div class="col-xs-9" style="padding-left:5px;" ng-show="selectedMacro">
+        <uib-tabset active="activeForm">
+        <uib-tab index="0" heading="Run">
+            <div style="padding-top: 5px;">
+                <div ng-show="selectedMacro.parameters.length == 0" translate>
+                    No parameters
+                </div>
+                <div ng-show="selectedMacro.parameters.length > 0">
+                    <div ng-repeat="param in selectedMacro.parameters">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="{{param.name}}">{{param.title}}</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input class="form-control" name="{{param.name}}" placeholder="{{param.title}}" ng-model="values[param.name]" ng-keyboard>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <action-button action="run()" button-name="{{'Run' | translate}}" icon="send" type="success" disabled="selectedMacro.restrictedStates.indexOf(status.state) != -1" />
+            </div>
+        </uib-tab>
+        <uib-tab index="1" heading="{{selectedMacro.isReadOnly ? ('System macros code' | translate) : ('Edit' | translate)}}">
+            <div style="padding-top: 5px;">
+                <div ng-repeat="param in selectedMacro.parameters">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <input class="form-control" placeholder="{{'Parameter title' | translate}}" ng-model="param.title" ng-disabled="selectedMacro.isReadOnly" ng-keyboard>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="{{param.name}}">%</span>
+                                    <input class="form-control" name="{{param.name}}" placeholder="{{'Parameter name' | translate}}" ng-model="param.name" ng-disabled="selectedMacro.isReadOnly" ng-keyboard>
+                                    <span class="input-group-addon" id="{{param.name}}">%</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <action-button action="removeParameter(param)" icon="trash" type="danger" ng-show="!selectedMacro.isReadOnly" />            
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <action-button action="addParameter()" button-name="{{'Add parameter' | translate}}" icon="plus" type="default" ng-show="!selectedMacro.isReadOnly" />
+
+                <textarea class="form-control" rows="5" ng-model="selectedMacro.content" style="margin-top: 5px;" ng-disabled="selectedMacro.isReadOnly" ng-keyboard></textarea>
+
+                <div style="margin-top: 5px;">
+                    <button class="btn btn-default" ng-click="allowedPrinterStatesCollapsed = !allowedPrinterStatesCollapsed">Allowed printer states</button>
+                    <div uib-collapse="!allowedPrinterStatesCollapsed">
+                        <div class="checkbox" ng-repeat="stateInfo in statesInfo">
+                            <label><input type="checkbox" ng-model="stateInfo.isAllowed" ng-disabled="selectedMacro.isReadOnly">{{stateInfo.title}}</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top:5px;" ng-show="!selectedMacro.isReadOnly">
+                    <action-button action="save()" button-name="{{'Save' | translate}}" icon="floppy-disk" type="primary" />
+                    <action-button action="remove()" button-name="{{'Remove' | translate}}" icon="trash" type="danger" />
+                </div>
+
+            </div>
+        </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

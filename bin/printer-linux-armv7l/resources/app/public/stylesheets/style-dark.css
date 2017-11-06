@@ -1,0 +1,59 @@
+.lock-container .lock-input-panel:hover {
+  background-color: rgba(58, 63, 68, 0.7);
+  box-shadow: 2px 2px 1px black;
+}
+
+.lock-container .lock-input-panel {
+  background-color: rgba(58, 63, 68, 0.5);
+  box-shadow: 1px 1px 1px black;
+}
+
+.lock-container .avatar {
+  box-shadow: 1px 1px 1px black;
+}
+
+.lock-container .locked-title {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-default {
+  background-color: rgba(58, 63, 68, 0.7);  
+}
+
+.bootstrap-switch .bootstrap-switch-label {
+  background: #848484;
+}
+
+.bootstrap-switch {
+  border: 1px solid #4a4949;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
+  background: #3aa042;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default, .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default
+{
+  color: #fff;
+  background: #383838;
+}
+
+.metro .slider .marker {
+  background-color: #848484;
+}
+
+.metro .slider .slider-backside, .metro .slider .complete {
+  background: #383838;
+}
+
+.metro .slider .complete {
+  background-color: #1d7724;
+}
+
+.metro .slider:active .complete, .metro .slider:active+.marker:active .complete {
+  background-color: #2edc3b;
+}
+
+.metro .slider:hover .complete {
+  background-color: #2da036;
+}

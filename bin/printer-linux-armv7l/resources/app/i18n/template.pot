@@ -1,0 +1,1017 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: partials\settings\bot.html:67
+msgid "<strong>To create a new bot, you need:</strong><br>1. Search for <b>@BotFather</b> bot in <b>Telegram</b>.<br>2. Send him a \"<b>/start</b>\" message.<br>3. Then send a \"<b>/newbot</b>\" message and follow the instructions.<br>4. <b>Note!</b> Bot name should end up with \"<b>bot</b>\". Otherwise, @BotFather won't create a bot for you.<br>5. At the end you will get an <b>API token</b> that you need to put into the form below. Don't show the token to anyone for security reasons.<br>6. Now you need to find your bot and <b>write any message</b> to it<br>7. Reload bot settings and you will see your username. Just <b>enable</b> it<br>"
+msgstr ""
+
+#: partials\settings\bot.html:18
+msgid "API token"
+msgstr ""
+
+#: partials\logs.general.html:16
+msgid "Action"
+msgstr ""
+
+#: partials\fileManager.html:53
+#: partials\settings\network.html:20
+msgid "Actions"
+msgstr ""
+
+#: partials\settings\support.html:10
+msgid "Active"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:27
+#: partials\settings\printer\extruder.html:30
+msgid "Actual position"
+msgstr ""
+
+#: partials\settings\bot.html:41
+msgid "Add"
+msgstr ""
+
+#: partials\macros.html:67
+msgid "Add parameter"
+msgstr ""
+
+#: partials\settings\bot.html:32
+#: partials\settings\bot.html:55
+msgid "Admin"
+msgstr ""
+
+#: partials\settings\printer.html:22
+msgctxt "Tile"
+msgid "Advanced"
+msgstr ""
+
+#: partials\settings\printer\advanced.html:2
+msgid "Advanced printer settings"
+msgstr ""
+
+#: partials\settings\bot.html:56
+msgid "All"
+msgstr ""
+
+#: partials\fileManager.html:82
+msgid "Analyse"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:6
+msgid "Analysing..."
+msgstr ""
+
+#: partials\regulations\fan.html:18
+#: partials\regulations\speed.html:18
+#: partials\regulations\temperature\bed.html:15
+#: partials\regulations\temperature\hotend.html:15
+#: partials\settings\bot.html:62
+#: partials\settings\printer\advanced.html:18
+#: partials\settings\printer\extruder.html:57
+#: partials\settings\printer\z-index.html:24
+#: partials\settings\server.html:68
+msgid "Apply"
+msgstr ""
+
+#: partials\regulations\temperature\bed.html:8
+#: partials\regulations\temperature\hotend.html:8
+msgctxt "Tile"
+msgid "Base temp"
+msgstr ""
+
+#: partials\regulations\temperature.html:13
+msgid "Bed"
+msgstr ""
+
+#: partials\regulations\temperature\bed.html:22
+msgid "Bed temperature"
+msgstr ""
+
+#: index.html:88
+msgid "Bed temperature: actual / target"
+msgstr ""
+
+#: partials\settings\bot.html:12
+msgid "Bot enabled"
+msgstr ""
+
+#: javascripts\filters.js:17
+msgid "Buffering"
+msgstr ""
+
+#: partials\status.html:76
+#: partials\status.html:77
+msgid "Buffering Progress"
+msgstr ""
+
+#: javascripts\filters.js:15
+msgid "Buffering paused"
+msgstr ""
+
+#: partials\status.html:94
+msgid "Calculating time of printing..."
+msgstr ""
+
+#: partials\dashboard.html:6
+#: partials\dialogs\confirmDialog.html:9
+msgid "Cancel"
+msgstr ""
+
+#: partials\settings\change-password.html:38
+msgid "Change"
+msgstr ""
+
+#: partials\settings\change-password.html:2
+msgid "Change password"
+msgstr ""
+
+#: partials\settings.html:22
+msgctxt "Tile"
+msgid "Change password"
+msgstr ""
+
+#: partials\settings\update.html:13
+msgid "Check for updates"
+msgstr ""
+
+#: partials\dialogs\2048Dialog.html:10
+#: partials\dialogs\runMacrosDialog.html:27
+msgid "Close"
+msgstr ""
+
+#: partials\settings\printer.html:28
+msgctxt "Tile"
+msgid "Configuration"
+msgstr ""
+
+#: partials\settings\change-password.html:29
+msgid "Confirm password"
+msgstr ""
+
+#: partials\settings\network.html:27
+#: partials\settings\support.html:16
+msgid "Connect"
+msgstr ""
+
+#: partials\settings\network.html:7
+msgid "Connected to WiFi:"
+msgstr ""
+
+#: partials\settings\support.html:8
+msgid "Connection status"
+msgstr ""
+
+#: partials\console.html:2
+msgid "Console"
+msgstr ""
+
+#: partials\dashboard.html:48
+msgctxt "Tile"
+msgid "Console"
+msgstr ""
+
+#: partials\status.html:74
+#: partials\status.html:75
+msgid "Copy Progress"
+msgstr ""
+
+#: javascripts\filters.js:13
+msgid "Copying (buffer)"
+msgstr ""
+
+#: javascripts\filters.js:11
+msgid "Copying data"
+msgstr ""
+
+#: partials\fileManager.html:40
+msgid "Create directory"
+msgstr ""
+
+#: partials\settings\update.html:6
+msgid "Current version"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:46
+msgid "Cylinder"
+msgstr ""
+
+#: partials\settings\server.html:26
+msgid "Dashboard"
+msgstr ""
+
+#: partials\settings\server.html:37
+msgid "Dashboard macroses"
+msgstr ""
+
+#: partials\logs.printer.html:11
+msgid "Date"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:55
+msgid "Diameter"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:12
+msgid "Disabled"
+msgstr ""
+
+#: partials\settings\support.html:15
+msgid "Disconnect"
+msgstr ""
+
+#: partials\settings\support.html:11
+msgid "Disconnected"
+msgstr ""
+
+#: partials\fileManager.html:6
+msgid "Disk usage: {{free}} free of {{total}}"
+msgstr ""
+
+#: partials\logs.general.html:25
+#: partials\settings\update.html:21
+msgid "Download"
+msgstr ""
+
+#: partials\settings\update.html:34
+msgid "Downloading updates..."
+msgstr ""
+
+#: partials\settings\printer\configuration.html:11
+msgid "Enabled"
+msgstr ""
+
+#: partials\status.html:96
+msgid "End time: {{endtime}}"
+msgstr ""
+
+#: partials\settings\bot.html:20
+msgid "Enter token to change it"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:18
+#: partials\settings\printer\z-index.html:15
+msgid "Enter valid float number"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:5
+#: partials\fileManager.html:13
+#: partials\logs.general.html:4
+msgid "Error: {{error}}"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:35
+msgid "Estimated layer height"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:31
+msgid "Estimated print time"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:21
+msgid "Extrude"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:2
+msgid "Extruder calibration"
+msgstr ""
+
+#: partials\settings\printer.html:10
+msgctxt "Tile"
+msgid "Extruder calibration"
+msgstr ""
+
+#: partials\dashboard.html:42
+#: partials\regulations\fan.html:11
+msgctxt "Tile"
+msgid "Fan"
+msgstr ""
+
+#: index.html:96
+msgid "Fan"
+msgstr ""
+
+#: partials\regulations\fan.html:2
+msgid "Fan control"
+msgstr ""
+
+#: partials\status.html:33
+msgid "Fan rate"
+msgstr ""
+
+#: partials\status.html:41
+msgid "Feedrate"
+msgstr ""
+
+#: partials\status.html:61
+msgid "File"
+msgstr ""
+
+#: partials\fileManager.html:2
+msgid "File Manager"
+msgstr ""
+
+#: partials\fileManager.html:48
+#: partials\logs.general.html:14
+msgid "File name"
+msgstr ""
+
+#: partials\fileManager.html:12
+msgid "Folder is loading..."
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:2
+msgid "G-code analyser"
+msgstr ""
+
+#: partials\console.html:15
+msgid "G-code wiki (RepRap)"
+msgstr ""
+
+#: partials\logs.html:7
+msgid "General"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:32
+msgid "Heatbed available"
+msgstr ""
+
+#: index.html:66
+#: partials\fileManager.html:18
+msgid "Home"
+msgstr ""
+
+#: partials\regulations\movements.html:120
+msgid "Home x"
+msgstr ""
+
+#: partials\regulations\movements.html:122
+msgid "Home y"
+msgstr ""
+
+#: partials\regulations\movements.html:52
+msgid "Home z"
+msgstr ""
+
+#: partials\regulations\temperature.html:8
+msgid "Hotend"
+msgstr ""
+
+#: partials\regulations\temperature\hotend.html:22
+#: partials\settings\printer\advanced.html:26
+msgid "Hotend temperature"
+msgstr ""
+
+#: index.html:78
+msgid "Hotend temperature: actual / target"
+msgstr ""
+
+#: javascripts\filters.js:25
+msgid "Idle"
+msgstr ""
+
+#: partials\settings\update.html:35
+msgid "Installing updates..."
+msgstr ""
+
+#: partials\settings\server.html:8
+msgid "Language"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:39
+msgid "Layer count"
+msgstr ""
+
+#: partials\dashboard.html:16
+msgid "Less than 20% of disk space remained"
+msgstr ""
+
+#: index.html:61
+#: partials\logs.general.html:1
+#: partials\logs.printer.html:1
+#: partials\macros.html:5
+#: partials\settings\bot.html:6
+#: partials\settings\support.html:12
+msgid "Loading..."
+msgstr ""
+
+#: partials\fileManager.html:17
+msgid "Location"
+msgstr ""
+
+#: index.html:124
+msgid "Lock"
+msgstr ""
+
+#: partials\lockScreen.html:3
+msgid "Locked"
+msgstr ""
+
+#: partials\settings\server.html:59
+msgid "Log level"
+msgstr ""
+
+#: partials\dashboard.html:66
+msgctxt "Tile"
+msgid "Logs"
+msgstr ""
+
+#: partials\logs.html:2
+msgid "Logs"
+msgstr ""
+
+#: partials\dashboard.html:16
+msgid "Low space"
+msgstr ""
+
+#: index.html:11
+msgid "MINT Console"
+msgstr ""
+
+#: partials\macros.html:2
+msgid "Macros"
+msgstr ""
+
+#: partials\dashboard.html:60
+msgctxt "Tile"
+msgid "Macros"
+msgstr ""
+
+#: partials\console.html:27
+#: partials\settings\server.html:29
+msgid "Macroses"
+msgstr ""
+
+#: partials\logs.printer.html:12
+msgid "Message"
+msgstr ""
+
+#: index.html:153
+msgid "Messages"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:19
+msgid "Model size"
+msgstr ""
+
+#: partials\regulations\movements.html:73
+msgid "Motors"
+msgstr ""
+
+#: partials\dashboard.html:22
+msgctxt "Tile"
+msgid "Move"
+msgstr ""
+
+#: partials\regulations\movements.html:9
+msgid "Move control"
+msgstr ""
+
+#: partials\regulations\movements.html:61
+#: partials\settings\printer\z-index.html:18
+msgid "Move home"
+msgstr ""
+
+#: javascripts\controllers\controllers.js:750
+msgid "Move outside of table"
+msgstr ""
+
+#: partials\settings.html:34
+msgctxt "Tile"
+msgid "Network"
+msgstr ""
+
+#: partials\settings\network.html:2
+msgid "Network"
+msgstr ""
+
+#: partials\settings\change-password.html:19
+msgid "New password"
+msgstr ""
+
+#: partials\settings\update.html:17
+msgid "New version is available"
+msgstr ""
+
+#: javascripts\controllers\controllers.js:743
+msgid "No data about hotend position"
+msgstr ""
+
+#: javascripts\controllers\controllers.js:740
+msgid "No data about printer size"
+msgstr ""
+
+#: partials\dialogs\runMacrosDialog.html:5
+#: partials\macros.html:25
+msgid "No parameters"
+msgstr ""
+
+#: partials\settings\bot.html:2
+msgid "Notification bot"
+msgstr ""
+
+#: partials\settings.html:52
+msgctxt "Tile"
+msgid "Notification bot"
+msgstr ""
+
+#: partials\settings\bot.html:47
+msgid "Notifications"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:48
+#: partials\dialogs\confirmDialog.html:8
+msgid "OK"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:12
+msgid "Offset"
+msgstr ""
+
+#: partials\settings\change-password.html:9
+msgid "Old password"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:39
+#: partials\status.html:37
+msgid "Over extrusion"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:14
+msgid "Parameter"
+msgstr ""
+
+#: partials\macros.html:57
+msgid "Parameter name"
+msgstr ""
+
+#: partials\macros.html:52
+msgid "Parameter title"
+msgstr ""
+
+#: partials\dialogs\runMacrosDialog.html:9
+msgid "Parameters"
+msgstr ""
+
+#: index.html:136
+msgid "Pause"
+msgstr ""
+
+#: partials\dashboard.html:3
+msgid "Pause detected!"
+msgstr ""
+
+#: javascripts\filters.js:21
+msgid "Paused"
+msgstr ""
+
+#: javascripts\filters.js:23
+msgid "Paused (buffer)"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:10
+msgid "Pending..."
+msgstr ""
+
+#: index.html:116
+msgid "Play 2048"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:12
+msgid "Position"
+msgstr ""
+
+#: partials\status.html:49
+msgid "Position X"
+msgstr ""
+
+#: partials\status.html:53
+msgid "Position Y"
+msgstr ""
+
+#: partials\status.html:57
+msgid "Position Z"
+msgstr ""
+
+#: partials\dialogs\powerOffDialog.html:2
+msgid "Power is off"
+msgstr ""
+
+#: partials\dialogs\powerOffDialog.html:4
+msgid "Preparing to shutdown in {{seconds}} sec."
+msgstr ""
+
+#: partials\fileManager.html:83
+msgid "Print"
+msgstr ""
+
+#: partials\dashboard.html:15
+msgctxt "Tile"
+msgid "Print"
+msgstr ""
+
+#: partials\fileManager.html:84
+msgid "Print (with buffer)"
+msgstr ""
+
+#: partials\settings\server.html:45
+msgid "Print behavior"
+msgstr ""
+
+#: partials\settings.html:28
+msgctxt "Tile"
+msgid "Printer"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:2
+msgid "Printer configuration"
+msgstr ""
+
+#: partials\logs.html:10
+msgid "Printer error logs"
+msgstr ""
+
+#: partials\settings\server.html:19
+msgid "Printer name"
+msgstr ""
+
+#: partials\settings\printer.html:2
+msgid "Printer settings"
+msgstr ""
+
+#: partials\regulations\movements.html:3
+msgid "Printer should be idle or paused"
+msgstr ""
+
+#: javascripts\filters.js:19
+msgid "Printing"
+msgstr ""
+
+#: partials\status.html:78
+#: partials\status.html:79
+#: partials\status.html:80
+#: partials\status.html:81
+msgid "Printing Progress"
+msgstr ""
+
+#: partials\dashboard.html:3
+msgid "Printing was previously paused. Do you want to resume?"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:45
+msgid "Recalculate"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:47
+msgid "Rectangle"
+msgstr ""
+
+#: index.html:120
+msgid "Reload"
+msgstr ""
+
+#: partials\status.html:95
+msgid "Remained: {{remained}}"
+msgstr ""
+
+#: partials\fileManager.html:74
+#: partials\fileManager.html:85
+#: partials\logs.general.html:27
+#: partials\macros.html:82
+msgid "Remove"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:50
+msgid "Reset"
+msgstr ""
+
+#: partials\settings\printer\extruder.html:8
+msgid "Reset over extrusion to 100% before starting calibration."
+msgstr ""
+
+#: partials\settings\printer\extruder.html:22
+msgid "Reset position"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:10
+msgid "Results"
+msgstr ""
+
+#: index.html:133
+#: partials\dashboard.html:5
+msgid "Resume"
+msgstr ""
+
+#: partials\dialogs\runMacrosDialog.html:26
+#: partials\macros.html:43
+msgid "Run"
+msgstr ""
+
+#: partials\dialogs\runMacrosDialog.html:2
+msgid "Run macros '{{name}}'"
+msgstr ""
+
+#: partials\settings\network.html:18
+msgid "SSID"
+msgstr ""
+
+#: partials\macros.html:81
+#: partials\settings\printer\configuration.html:79
+msgid "Save"
+msgstr ""
+
+#: partials\settings\network.html:12
+msgid "Scan for wifi networks"
+msgstr ""
+
+#: partials\fileManager.html:26
+msgid "Search for..."
+msgstr ""
+
+#: partials\settings\printer\configuration.html:21
+msgid "Seconds to shutdown on power off"
+msgstr ""
+
+#: partials\console.html:34
+msgid "See all"
+msgstr ""
+
+#: partials\macros.html:18
+msgid "Select macros to edit it."
+msgstr ""
+
+#: partials\console.html:19
+msgid "Send"
+msgstr ""
+
+#: partials\console.html:9
+msgid "Send G-code..."
+msgstr ""
+
+#: partials\status.html:15
+msgid "Sensor"
+msgstr ""
+
+#: partials\status.html:9
+msgid "Sensors"
+msgstr ""
+
+#: partials\settings.html:16
+msgctxt "Tile"
+msgid "Server"
+msgstr ""
+
+#: partials\settings\server.html:2
+msgid "Server settings"
+msgstr ""
+
+#: partials\settings\printer\advanced.html:19
+msgid "Set to defaults"
+msgstr ""
+
+#: partials\dashboard.html:72
+msgctxt "Tile"
+msgid "Settings"
+msgstr ""
+
+#: partials\settings.html:2
+msgid "Settings"
+msgstr ""
+
+#: partials\settings\browser.html:23
+msgid "Show dark theme"
+msgstr ""
+
+#: partials\settings\browser.html:12
+msgid "Show virtual keyboard"
+msgstr ""
+
+#: index.html:127
+msgid "Shutdown"
+msgstr ""
+
+#: partials\settings\network.html:19
+msgid "Signal level"
+msgstr ""
+
+#: partials\fileManager.html:52
+msgid "Size"
+msgstr ""
+
+#: partials\logs.general.html:15
+msgid "Size (Total: {{total}})"
+msgstr ""
+
+#: partials\settings\update.html:26
+msgid "Software is up to date"
+msgstr ""
+
+#: partials\status.html:45
+msgid "Speed"
+msgstr ""
+
+#: partials\dashboard.html:35
+#: partials\regulations\speed.html:11
+msgctxt "Tile"
+msgid "Speed"
+msgstr ""
+
+#: partials\regulations\speed.html:2
+msgid "Speed control"
+msgstr ""
+
+#: partials\status.html:93
+msgid "Started on: {{started}}"
+msgstr ""
+
+#: index.html:102
+msgid "State"
+msgstr ""
+
+#: partials\dashboard.html:54
+msgctxt "Tile"
+msgid "Status"
+msgstr ""
+
+#: partials\status.html:2
+msgid "Status"
+msgstr ""
+
+#: index.html:139
+msgid "Stop"
+msgstr ""
+
+#: partials\settings.html:46
+msgctxt "Tile"
+msgid "Support"
+msgstr ""
+
+#: partials\settings\support.html:2
+msgid "Support"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:43
+msgid "Table type"
+msgstr ""
+
+#: partials\status.html:25
+msgid "Target"
+msgstr ""
+
+#: partials\status.html:21
+msgid "Temperature"
+msgstr ""
+
+#: partials\dashboard.html:28
+msgctxt "Tile"
+msgid "Temperature"
+msgstr ""
+
+#: partials\regulations\temperature.html:2
+msgid "Temperature control"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:19
+msgid "Test"
+msgstr ""
+
+#: partials\settings.html:10
+msgctxt "Tile"
+msgid "Theme and Keyboard"
+msgstr ""
+
+#: partials\settings\browser.html:2
+msgid "Theme and Keyboard settings"
+msgstr ""
+
+#: partials\logs.general.html:9
+msgid "There is no log files yet"
+msgstr ""
+
+#: partials\settings\browser.html:6
+msgid "These settings are saved for each browser independently."
+msgstr ""
+
+#: partials\settings\printer\z-index.html:9
+msgid "Top offset"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:23
+msgid "Total filament used"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:27
+msgid "Total filament weight used"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:8
+msgid "Uninterruptible Power Supply (UPS)"
+msgstr ""
+
+#: partials\settings.html:40
+msgctxt "Tile"
+msgid "Update"
+msgstr ""
+
+#: partials\settings\update.html:2
+msgid "Update"
+msgstr ""
+
+#: partials\fileManager.html:38
+msgid "Upload"
+msgstr ""
+
+#: partials\fileManager.html:34
+msgid "Uploading '{{file}}'"
+msgstr ""
+
+#: partials\settings\server.html:49
+msgid "Use pre-buffering"
+msgstr ""
+
+#: partials\settings\bot.html:33
+msgid "User"
+msgstr ""
+
+#: partials\settings\bot.html:40
+msgid "User name"
+msgstr ""
+
+#: partials\settings\bot.html:24
+msgid "Users"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:15
+#: partials\status.html:16
+msgid "Value"
+msgstr ""
+
+#: partials\settings\network.html:8
+msgid "Website address:"
+msgstr ""
+
+#: partials\settings\network.html:6
+msgid "Wifi connection"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:52
+msgid "X size"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:63
+msgid "Y size"
+msgstr ""
+
+#: partials\settings\printer\configuration.html:69
+msgid "Z size (Height)"
+msgstr ""
+
+#: partials\settings\printer.html:16
+msgctxt "Tile"
+msgid "Z-Index calibration"
+msgstr ""
+
+#: partials\settings\printer\z-index.html:2
+msgid "Z-index calibration"
+msgstr ""
+
+#: partials\fileManager.html:72
+msgid "dir"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:28
+msgid "grams"
+msgstr ""
+
+#: partials\directives\temperatureChart.html:3
+msgid "loading..."
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:20
+#: partials\dialogs\analyseDialog.html:24
+#: partials\dialogs\analyseDialog.html:36
+#: partials\settings\printer\extruder.html:16
+#: partials\settings\printer\extruder.html:31
+#: partials\settings\printer\z-index.html:13
+#: partials\status.html:50
+#: partials\status.html:54
+msgid "mm"
+msgstr ""
+
+#: partials\status.html:46
+msgid "mm/min"
+msgstr ""
+
+#: partials\status.html:84
+msgid "paused"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:40
+msgid "printed"
+msgstr ""
+
+#: partials\dialogs\analyseDialog.html:40
+msgid "visited"
+msgstr ""

@@ -175,19 +175,18 @@ module.exports = (socketController, printerProxy, printerMessageBus) =>
             self.bedTemperatureChartData[1].shift();
           };
 
-          if (status.State !== undefined) {
+          if (status.state !== undefined) {
             var statusMap = ["Idle", "CopyData", "CopyDataBuffer", "Buffering",
 	            "PrintBuffering",	"Printing",	"Pause", "PauseBuffering", 
               "PausePrintBuffering"];
             
-            if (statusMap.hasOwnProperty(status.State)) {
-              status.state = statusMap[status.State];
+            if (statusMap.hasOwnProperty(status.state)) {
+              status.state = statusMap[status.state];
             } else {
               status.state = "Unknown";
             }
 
-            status.stateCode = status.State;
-            delete status.State; 
+            status.stateCode = status.state;
 
             // Apply transition action for calculating remaining time
             var transition = null;

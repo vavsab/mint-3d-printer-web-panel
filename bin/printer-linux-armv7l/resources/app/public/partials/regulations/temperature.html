@@ -1,0 +1,19 @@
+<div class="page-header">
+    <title-control back-link="'#/'"><translate>Temperature control</translate></title-control>
+</div>
+
+<ul class="nav nav-tabs">
+    <li ng-class="{active: ('temperature.hotend' | routeSegmentStartsWith)}">
+        <a href="#/temperature/">
+            <i class="icon-hotend"></i> <translate>Hotend</translate>
+        </a>
+    </li>
+    <li ng-if="$ctrl.websiteSettings.settings.isHeatbedAvailable" ng-class="{active: ('temperature.bed' | routeSegmentStartsWith)}">
+        <a href="#/temperature/bed">
+            <i class="icon-heatbed"></i> <translate>Bed</translate>
+        </a>
+    </li> 
+</ul>
+
+<div app-view-segment="1" class="animate">
+</div>

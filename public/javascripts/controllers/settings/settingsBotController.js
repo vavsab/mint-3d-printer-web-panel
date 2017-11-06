@@ -18,7 +18,7 @@ function (botSettingsService) {
     self.addUser = function () {
         var userName = self.newUserName;
         self.newUserName = null;
-        self.botSettings.users.push({ name: userName, isEnabled: true, isAdmin: false },);
+        self.botSettings.users.push({ name: userName, isEnabled: true, isAdmin: false });
     }
 
     self.apply = function () {

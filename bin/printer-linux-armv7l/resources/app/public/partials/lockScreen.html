@@ -1,0 +1,21 @@
+<div class="lock-container">
+    <div class="center-vertically">
+        <h1 class="locked-title"><span class="fa fa-lock" uib-tooltip="{{'Locked' | translate}}"></span></h1>
+        <div class="lock-input-panel" ng-click="$ctrl.tryEnter('click');">
+            <img src="/images/default-avatar.jpg" class="avatar">
+            <div>
+                <h2>{{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : $ctrl.websiteSettings.settings.printerName}}</h2>
+                <form ng-submit="$ctrl.tryEnter();" class="animate-show-hide" ng-show="$ctrl.showPasswordInput">
+                    <div class="input-prepend input-group">
+                        <input class="form-control" size="16" type="password" ng-model="$ctrl.password" placeholder="Password" ng-keyboard>
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="submit"><i class="fa fa-unlock"></i></button>
+                        </span>
+                    </div>
+                    <div class="label label-danger">{{$ctrl.error}}</div>
+                <form>
+            </div>
+            <br clear="both" />
+        </div> 
+    </div>
+</div>

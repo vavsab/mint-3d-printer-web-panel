@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="angularModule">
+
+<head ng-controller="themeController as $ctrl">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title translate>MINT Console</title>
+
+    <!-- Insert this line above script imports for electron integration -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <link href="/stylesheets/build/lib-styles.css" rel="stylesheet">
+  
+    <link href="/stylesheets/theme-styles/bootstrap-dark.css"
+        ng-href="{{$ctrl.browserSettings.isDarkTheme ? '/stylesheets/theme-styles/bootstrap-dark.css' : '/stylesheets/theme-styles/bootstrap.min.css' }}" 
+        rel="stylesheet">
+
+    <link href="/stylesheets/theme-styles/sb-admin-2-dark.css" 
+        ng-href="/stylesheets/theme-styles/sb-admin-2{{$ctrl.browserSettings.isDarkTheme ? '-dark' : ''}}.css"
+        rel="stylesheet">
+
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/icons/custom-icons.css" rel="stylesheet">
+
+    <link ng-if="$ctrl.browserSettings.isDarkTheme" href="/stylesheets/style-dark.css" rel="stylesheet">
+
+    <script src="/javascripts/lib-scripts.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <!-- build:js -->
+    <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/factories.js"></script>
+    <script src="/javascripts/filters.js"></script>
+    <script src="/javascripts/extensions.js"></script>
+    <script src="/javascripts/controllers/controllers.js"></script>
+    <script src="/javascripts/controllers/settings/settingsBotController.js"></script>
+    <script src="/javascripts/controllers/settings/settingsControllers.js"></script>
+    <script src="/javascripts/controllers/dialogControllers.js"></script>
+    <script src="/javascripts/controllers/temperatureControllers.js"></script>
+    <script src="/javascripts/directives.js"></script>
+    <script src="/javascripts/services/services.js"></script>
+    <script src="/javascripts/services/powerService.js"></script>
+    <!-- endbuild -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Insert this line after script imports for electron integration -->
+    <script>if (window.module) module = window.module;</script>
+</head>
+
+<body ng-controller="mainController as $ctrl" ng-cloak>
+    <div id="loading" class="alert" ng-show="loader.show" translate>Loading...</div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/" title="{{'Home' | translate}}">
+                    <img src="/images/mint.png" width="20" height="20" style="float: left;" />
+                    <span id="headerPrinterName">
+                        {{$ctrl.websiteSettings.settings.printerName ? $ctrl.websiteSettings.settings.printerName : $ctrl.websiteSettings.defaultPrinterName}}
+                    </span>
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li id="hotendHeaderInfo" class="dropdown">
+                    <a class="dropdown-toggle telemetry-navigation-item" 
+                        uib-tooltip="{{'Hotend temperature: actual / target' | translate}}" 
+                        tooltip-placement="bottom">
+                        <span class="icon-hotend"></span>
+                        {{status.temp / 10 | number : 0 | replaceIfUndefined}} 
+                        <span class="details">/ {{status.baseTemp / 10 | number : 0 | replaceIfUndefined}}</span>
+                         °C
+                    </a>
+                </li>
+                <li id="heatBedHeaderInfo" class="dropdown" ng-show="$ctrl.websiteSettings.settings.isHeatbedAvailable">
+                    <a class="dropdown-toggle telemetry-navigation-item"
+                        uib-tooltip="{{'Bed temperature: actual / target' | translate}}" 
+                        tooltip-placement="bottom">
+                        <span class="icon-heatbed"></span>
+                        {{status.bedTemp / 10 | number : 0 | replaceIfUndefined}} 
+                        <span class="details">/ {{status.bedBaseTemp / 10 | number : 0 | replaceIfUndefined}}</span>
+                         °C
+                    </a>
+                </li>
+                <li id="fanHeaderInfo" class="dropdown telemetry-navigation-item" uib-tooltip="{{'Fan' | translate}}" tooltip-placement="bottom">
+                    <a class="dropdown-toggle">
+                        <span class="icon-fan"></span>
+                        {{status.cullerRate / 2550 * 100 | number : 0 | replaceIfUndefined}}% 
+                    </a>
+                </li>
+                <li class="dropdown" uib-tooltip="{{'State' | translate}}" tooltip-placement="bottom">
+                    <a class="dropdown-toggle">
+                        <span class="label label-bg" ng-class="{'label-success': ['Printing', 'PrintBuffering'].indexOf(status.state) != -1, 'label-warning': ['CopyData', 'CopyDataBuffer', 'Buffering', 'Pause', 'PauseBuffering', 'PausePrintBuffering'].indexOf(status.state) != -1, 'label-default': status.state == 'Idle'}">
+                            {{status.state | toStatusText}} 
+                            <span ng-if="['Printing', 'PrintBuffering'].indexOf(status.state) != -1">{{ status.line_index / status.line_count * 100 | number : 0 | replaceIfUndefined}}%<span>
+                        </span> 
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href>
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href ng-click="$ctrl.play2048();"><i class="fa fa-play-circle fa-fw"></i> <translate>Play 2048</translate></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href ng-click="$ctrl.reload();"><i class="fa fa-refresh fa-fw"></i> <translate>Reload</translate></a>
+                        </li>
+                        <li class="divider" ng-show="!$ctrl.printerStatus.isLocked"></li>
+                        <li>
+                            <a href ng-click="$ctrl.lock();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-sign-out fa-fw"></i> <translate>Lock</translate></a>
+                        </li>
+                        <li>
+                            <a href ng-click="$ctrl.shutdown();" ng-show="!$ctrl.printerStatus.isLocked"><i class="fa fa-power-off fa-fw"></i> <translate>Shutdown</translate></a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <li ng-show="!$ctrl.printerStatus.isLocked && status.state == 'Pause'">
+                    <action-button button-name="{{'Resume' | translate}}" type='info' popover-placement="bottom" action='$ctrl.resume()' />
+                </li>
+                <li ng-show="!$ctrl.printerStatus.isLocked && status.state == 'Printing'">
+                    <action-button button-name="{{'Pause' | translate}}" type='warning' popover-placement="bottom" action='$ctrl.pause()' />
+                </li>
+                <li ng-show="!$ctrl.printerStatus.isLocked && status.state != undefined && status.state != 'Idle'">
+                    <action-button button-name="{{'Stop' | translate}}" type='danger' popover-placement="bottom" action='$ctrl.stop()' />
+                </li>
+            </ul>
+        </nav>
+        <div id="page-wrapper" class="row animate" app-view-segment="0">
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <div style="position: fixed; bottom: 0; left: 3px;" ng-show="alerts.length > 0">
+        <div class="panel panel-default" style="margin-bottom: 3px;">
+            <div class="panel-heading">
+                <translate>Messages</translate> <span class="badge">{{alerts.length}}</span>
+                <span class="glyphicon glyphicon-trash" style="margin-left:10px; float: right" href ng-click="removeAllAlerts();"></span>
+                <span class="glyphicon glyphicon-menu-up" style="margin-left:10px; float: right" href ng-show="isMinimized" ng-click="isMinimized = false;"></span>
+                <span class="glyphicon glyphicon-menu-down" style="margin-left:10px; float: right" href ng-show="!isMinimized" ng-click="isMinimized = true;"></span>
+            </div>
+            <div class="panel-body" ng-show="!isMinimized">
+                <div uib-alert ng-repeat="alert in alerts" style="margin-bottom: 5px;" ng-class="'alert-' + (alert.type || 'warning')" close="removeAlert(alert)">
+                    {{alert.message}} <small>{{alert.time | timeFromNow }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme specific scripts -->
+    <script src="/javascripts/theme-scripts/sb-admin-2.js"></script>
+</body>
+</html>

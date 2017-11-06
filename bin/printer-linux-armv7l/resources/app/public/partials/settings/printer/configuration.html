@@ -1,0 +1,81 @@
+<div class="page-header">
+    <title-control><translate>Printer configuration</translate></title-control>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" translate>Uninterruptible Power Supply (UPS)</label>
+            <div class="input-group col-xs-7">
+                <small ng-if="!$ctrl.powerStatus" translate class="label label-primary">Pending...</small>
+                <small ng-if="$ctrl.powerStatus && $ctrl.powerStatus.isUPSEnabled" translate class="label label-success">Enabled</small>
+                <small ng-if="$ctrl.powerStatus && !$ctrl.powerStatus.isUPSEnabled" translate class="label label-default">Disabled</small>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="secondsToShutdownOnPowerOff" translate>Seconds to shutdown on power off</label>
+            <div class="input-group col-xs-7">
+                <input id="secondsToShutdownOnPowerOff" class="form-control" type="number" min="10" max="3600" ng-model="$ctrl.websiteSettings.secondsToShutdownOnPowerOff" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="heatbed" translate>Heatbed available</label>
+            <div class="input-group col-xs-7">
+                <input bs-switch id="heatbed" type="checkbox" ng-model="$ctrl.websiteSettings.isHeatbedAvailable" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="tableType" translate>Table type</label>
+            <div class="input-group col-xs-7">
+                <select id="tableType" class="form-control" ng-model="$ctrl.websiteSettings.printerSize.type">
+                    <option value="cylinder" translate>Cylinder</option>
+                    <option value="rectangle" translate>Rectangle</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="xSize" ng-if="$ctrl.websiteSettings.printerSize.type !== 'cylinder'" translate>
+                X size
+            </label>
+            <label class="control-label col-xs-5" for="xSize" ng-if="$ctrl.websiteSettings.printerSize.type === 'cylinder'" translate>
+                Diameter
+            </label>
+            <div class="input-group col-xs-7">
+                <input id="xSize" class="form-control" type="number" min="5" max="1000" ng-model="$ctrl.websiteSettings.printerSize.x" />
+            </div>
+        </div>
+        <div class="form-group" ng-if="$ctrl.websiteSettings.printerSize.type !== 'cylinder'">
+            <label class="control-label col-xs-5" for="ySize" translate>Y size</label>
+            <div class="input-group col-xs-7">
+                <input id="ySize" class="form-control" type="number" min="5" max="1000" ng-model="$ctrl.websiteSettings.printerSize.y" />
+            </div>
+        </div>        
+        <div class="form-group">
+            <label class="control-label col-xs-5" for="zSize" translate>Z size (Height)</label>
+            <div class="input-group col-xs-7">
+                <input id="zSize" class="form-control" type="number" min="5" max="1000" ng-model="$ctrl.websiteSettings.printerSize.z" />
+            </div>
+        </div>        
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-12" style="margin-top: 5px;">
+        <action-button action="$ctrl.save();" button-name="{{'Save' | translate}}" type="success" />
+    </div>
+</div>

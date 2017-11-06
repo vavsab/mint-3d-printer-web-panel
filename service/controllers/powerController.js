@@ -2,6 +2,7 @@ module.exports = (socketController, printerProxy, printerStatusController) => {
     const logger = require('../logger');
     const powerOff = require('power-off');
     const utils = require('../utils');
+    const config = require('config');
     const { exec } = require('child_process');
     const configurationController = require('./configurationController');
     const secondsToPause = 2;
@@ -49,7 +50,11 @@ module.exports = (socketController, printerProxy, printerStatusController) => {
         }).then(() => statusUpdated(), reason => logger.error(`powerController > queryPins > ${reason}`));
     }
 
-    setInterval(queryPins, secondsBetweenPinsQuery * 1000);
+    if (config.get('isStage')){
+        setInterval(queryPins, secondsBetweenPinsQuery * 1000);
+    } else {
+        logger.info('UPS > Switched off in test mode');
+    }
 
     let shutdownTimer;
 

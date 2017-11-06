@@ -1,0 +1,29 @@
+<div class="page-header">
+    <title-control><translate>Theme and Keyboard settings</translate></title-control>
+</div>
+
+<div class="alert alert-success">
+    <strong class="fa fa-info-circle"></strong> <translate>These settings are saved for each browser independently.</translate>
+</div>
+
+<div class="row" style="margin-top: 5px;">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-4" for="showVirtualKeyboard" translate>Show virtual keyboard</label>
+            <div class="input-group col-xs-8">
+                <input bs-switch id="showVirtualKeyboard" type="checkbox" ng-model="$ctrl.showVirtualKeyboard" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-4" for="isDarkTheme" translate>Show dark theme</label>
+            <div class="input-group col-xs-8">
+                <input bs-switch id="isDarkTheme" type="checkbox" ng-model="$ctrl.isDarkTheme" />
+            </div>
+        </div>
+    </form>
+</div>

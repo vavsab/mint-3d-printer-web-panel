@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h3 class="modal-title" translate>G-code analyser</h3>
+</div>
+<div class="modal-body">
+    <span class="label label-warning" ng-show="$ctrl.error" translate translate-params-error="$ctrl.error">Error: {{error}}</span>
+    <uib-progressbar class="progress-striped active" ng-show="$ctrl.isLoading">
+        <translate>Analysing...</translate>
+    </uib-progressbar>
+    <div class="panel panel-default" ng-show="!$ctrl.isLoading && !$ctrl.error">
+        <div class="panel-heading" translate>Results</div>
+        <div class="panel-body">
+            <table class="table tabel-condensed">
+                <thead>
+                    <th translate>Parameter</th>
+                    <th translate>Value</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td translate>Model size</td>
+                        <td>{{$ctrl.result.modelSize.x | toFixed: 2}}x{{$ctrl.result.modelSize.y | toFixed: 2}}x{{$ctrl.result.modelSize.z | toFixed: 2}} <translate>mm</translate></td>
+                    </tr>
+                    <tr>
+                        <td translate>Total filament used</td>
+                        <td>{{$ctrl.result.totalFilament | toFixed: 2}} <translate>mm</translate></td>
+                    </tr>
+                    <tr>
+                        <td translate>Total filament weight used</td>
+                        <td>{{$ctrl.result.totalWeight | toFixed: 2}} <translate>grams</translate></td>
+                    </tr>
+                    <tr>
+                        <td translate>Estimated print time</td>
+                        <td>{{$ctrl.result.printTime * 1000 | millisecondsToTime}}</td>
+                    </tr>
+                    <tr>
+                        <td translate>Estimated layer height</td>
+                        <td>{{$ctrl.result.layerHeight | toFixed: 2}} <translate>mm</translate></td>
+                    </tr>
+                    <tr>
+                        <td translate>Layer count</td>
+                        <td>{{$ctrl.result.layerCnt}} <translate>printed</translate>, {{$ctrl.result.layerTotal}} <translate>visited</translate></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()" translate>OK</button>
+</div>

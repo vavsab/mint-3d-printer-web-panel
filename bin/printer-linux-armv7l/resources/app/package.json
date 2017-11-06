@@ -1,0 +1,43 @@
+{
+  "name": "printer",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "start node service/printerWrapper.js & node --trace-warnings service/app.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "config": "^1.21.0",
+    "cookie-parser": "^1.4.3",
+    "debug": "~2.2.0",
+    "diskspace": "^1.0.3",
+    "express": "~4.13.4",
+    "fs-extra": "^0.30.0",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^7.2.1",
+    "log4js": "^0.6.38",
+    "mongodb": "^2.2.26",
+    "morgan": "~1.7.0",
+    "multer": "^1.2.0",
+    "multiparty": "^4.1.2",
+    "power-off": "^1.1.2",
+    "serve-favicon": "~2.3.0",
+    "socket.io": "^1.4.8",
+    "telegraf": "^3.12.1",
+    "wifi-control": "^2.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-gettext": "^2.2.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-less": "^3.3.0",
+    "gulp-minify": "^1.0.0",
+    "gulp-sequence": "^0.4.6",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uglifycss": "^1.0.8",
+    "merge-stream": "^1.0.1",
+    "yargs": "^8.0.2"
+  }
+}

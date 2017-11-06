@@ -1,0 +1,71 @@
+<div class="page-header">
+    <title-control><translate>Notification bot</translate></title-control>
+</div>
+
+<div ng-if="$ctrl.isLoading">
+    <translate>Loading...</translate>
+</div>
+
+<div class="row" style="margin-top: 5px;" ng-if="!$ctrl.isLoading">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-3" for="token" translate>Bot enabled</label>
+            <div class="input-group col-xs-9">
+                <input bs-switch type="checkbox" ng-model="$ctrl.botSettings.isEnabled" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3" for="token" translate>API token</label>
+            <div class="input-group col-xs-9">
+                <input id="token" class="form-control" type="password" placeholder="{{'Enter token to change it' | translate}}" ng-model="$ctrl.botSettings.token" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-3" for="token" translate>Users</label>
+            <div class="input-group col-xs-9">
+                <div class="row" ng-repeat="user in $ctrl.botSettings.users" style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="col-xs-3"><span class="fa fa-user"></span> {{user.name}}</div>
+                    <div class="col-xs-9">
+                        <input bs-switch type="checkbox" ng-model="user.isEnabled" />
+
+                        <input bs-switch type="checkbox" ng-model="user.isAdmin" 
+                            switch-on-text="{{ 'Admin' | translate }}"
+                            switch-off-text="{{ 'User' | translate }}" />
+
+                        <action-button type="danger" icon="trash" action="$ctrl.removeUser(user)" />
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <input class="form-control" type="text" max="100" placeholder="{{'User name' | translate}}" ng-model="$ctrl.newUserName" />
+                    <action-button type="success" icon="plus" button-name="{{'Add' | translate}}" action="$ctrl.addUser();" disabled="!$ctrl.newUserName" />
+                </div>                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-3" for="token" translate>Notifications</label>
+            <div class="input-group col-xs-9">
+                <div class="row" ng-repeat="notification in $ctrl.botSettings.notifications" style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="col-xs-3"><span class="fa fa-bolt"></span> {{notification.title}}</div>
+                    <div class="col-xs-9">
+                        <input bs-switch type="checkbox" ng-model="notification.isEnabled" />
+
+                        <input bs-switch type="checkbox" ng-model="notification.isForAdminsOnly" 
+                            switch-on-text="{{ 'Admin' | translate }}"
+                            switch-off-text="{{ 'All' | translate }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <action-button type="success" button-name="{{'Apply' | translate}}" action="$ctrl.apply()" />
+        </div>
+    </form>
+
+    <div class="well">
+        <translate>
+            <strong>To create a new bot, you need:</strong><br />1. Search for <b>@BotFather</b> bot in <b>Telegram</b>.<br />2. Send him a "<b>/start</b>" message.<br />3. Then send a "<b>/newbot</b>" message and follow the instructions.<br />4. <b>Note!</b> Bot name should end up with "<b>bot</b>". Otherwise, @BotFather won't create a bot for you.<br />5. At the end you will get an <b>API token</b> that you need to put into the form below. Don't show the token to anyone for security reasons.<br />6. Now you need to find your bot and <b>write any message</b> to it<br />7. Reload bot settings and you will see your username. Just <b>enable</b> it<br />
+        </translate> 
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "name": "desktop-loader",
+  "version": "1.0.0",
+  "description": "Loads site on desktop in kiosk mode",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "startDebug": "electron . --debug",
+    "startOnDifferentLocation": "electron . --url http://google.com/"
+  },
+  "dependencies": {
+    "command-line-args": "^4.0.4"
+  }
+}
