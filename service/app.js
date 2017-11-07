@@ -22,7 +22,7 @@ const powerControllerFactory = require('./controllers/powerController');
 const printerStatusControllerFactory = require('./controllers/printerStatusController');
 const botControllerFactory = require('./controllers/botController');
 
-const port = 3123;
+const port = config.get('port');
 
 databaseMigrations.update()
 .then(() => configurationController.get(configurationController.KEY_WEBSITE_SETTINGS))
@@ -49,7 +49,7 @@ databaseMigrations.update()
 
   var app = express();
   var server = require('http').Server(app);
-  server.listen(3123);
+  server.listen(port);
   server.on('listening', () => console.log(`Site is listening on port ${port}`));
 
   // view engine setup

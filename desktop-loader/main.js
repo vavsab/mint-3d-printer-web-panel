@@ -32,7 +32,7 @@ function createWindow () {
   mainWindow.setMenu(null)
 
   // and load the index.html of the app.
-  mainWindow.loadURL(options.url == null ? 'http://localhost:3123' : options.url)
+  mainWindow.loadURL(options.url == null ? 'http://localhost/' : options.url)
 
   if (options.debug) {
     // Open the DevTools.

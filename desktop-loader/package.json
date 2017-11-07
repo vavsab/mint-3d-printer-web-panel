@@ -4,8 +4,8 @@
   "description": "Loads site on desktop in kiosk mode",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "startDebug": "electron . --debug",
+    "start": "electron . --url http://localhost:3123/",
+    "startDebug": "electron . --url http://localhost:3123/ --debug",
     "startOnDifferentLocation": "electron . --url http://google.com/"
   },
   "dependencies": {

@@ -1,5 +1,6 @@
 {
     "isStage": false,
+    "port": 3123,
     "PrinterFilePath" : "emulators/printer/PrinterEmulator/bin/Debug/PrinterEmulator.exe",
     "pathToUpdateScript": "emulators\\update\\update.bat",
     "pathToInstallScript": "",
