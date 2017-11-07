@@ -1,5 +1,6 @@
 const mongoClient = require('mongodb').MongoClient;
 const utils = require('./utils');
+const moment = require('moment');
 
 const openDb = () => {
      return mongoClient.connect('mongodb://localhost:27017/mint3d');
@@ -16,7 +17,7 @@ module.exports.getTokenPassword = () => {
         let passwordValue = res.tokenPasswordValue;
         if (passwordValue.expireDate < new Date()) {
             passwordValue.value = utils.newGuid();
-            passwordValue.expireDate = utils.addDays(new Date(), 7); // give password for a week
+            passwordValue.expireDate = moment().add(365, 'days').toDate(); // give password for a year
             
             return res.configuration.findOneAndUpdate({key: 'tokenPassword'}, { $set: {value: passwordValue}})
                 .then(() => passwordValue.value);

@@ -9,12 +9,6 @@ module.exports.newGuid = () => {
     });
 }
 
-module.exports.addDays = (date, days) => {
-    let result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-}
-
 module.exports.getPathFromBase = (pathString) => {
     if (path.isAbsolute(pathString)) {
         return pathString;
