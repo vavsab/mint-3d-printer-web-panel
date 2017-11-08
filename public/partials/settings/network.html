@@ -5,7 +5,7 @@
 <div class="row">
     <h2><translate>Wifi connection</translate></h2> 
     <div><translate>Connected to WiFi:</translate> {{($ctrl.state.ssid ? $ctrl.state.ssid : '-')}}</div>
-    <div><translate>Website address:</translate> {{($ctrl.state.ip ? ($ctrl.state.ip + ':3123') : '-')}}</div>
+    <div><translate>Website address:</translate> {{($ctrl.state.ip ? $ctrl.state.ip : '-')}}</div>
 </div>
 
 <div class="row" style="margin-top: 10px;">
