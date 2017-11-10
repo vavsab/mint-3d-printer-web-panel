@@ -2,6 +2,7 @@ const configurationController = require('./configurationController');
 const databaseController = require('./databaseController');
 const Telegraf = require('telegraf');
 const logger = require('../logger');
+const moment = require('moment');
 const { Markup, Extra } = require('telegraf');
 
 module.exports = (printerMessageBus, printerStatusController) => {
@@ -151,7 +152,7 @@ module.exports = (printerMessageBus, printerStatusController) => {
                 if (['Printing', 'PrintBuffering'].indexOf(status.state) != -1){
                     messageParts.push(`🖨 *Файл*: ${status.fileName}`);
                     messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
-                    messageParts.push(`⚡️ *Старт*: ${status.startDate.toLocaleString()}`);
+                    messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
 
                     if (status.remainedMilliseconds) {
                         let remainingText = null;
@@ -169,9 +170,9 @@ module.exports = (printerMessageBus, printerStatusController) => {
                         }
 
                         messageParts.push(`🕐 *Осталось*: ${remainingText}`);
-                        messageParts.push(`🏁 Ориентировочное *время завершения*: ${status.endDate}`);;
+                        messageParts.push(`🏁 *Завершение*: ${moment(status.endDate).format('HH:ss DD.MM')}`);;
                     } else {
-                        messageParts.push(`🕐 Ориентировочное *время завершения* рассчитывается...`);;
+                        messageParts.push(`🕐 *Время завершения* рассчитывается...`);;
                     }
                 } else {
                     messageParts.push(`☑️ Принтер находится в режиме '${status.state}'`);

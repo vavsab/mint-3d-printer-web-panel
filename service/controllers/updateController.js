@@ -89,9 +89,21 @@ module.exports = (socketController) => {
         printerIdController.getIdHash()
         .then(printerIdHash => {
             return new Promise((resolve, reject) => {
-                exec(`${pathToUpdateScript} --pull --printer-id ${printerIdHash}`, (err, stdout, stderr) => {
-                    if (err) {
-                        reject(err + stderr);
+                let pullProcess = spawn(pathToUpdateScript, ['--pull', '--printer-id', printerIdHash]);
+                let error = '';
+                let out = '';
+
+                pullProcess.stdout.on('data', (chunk) => {
+                    out += chunk;
+                });
+
+                pullProcess.stderr.on('data', (chunk) => {
+                    error += chunk;
+                });
+
+                pullProcess.on('close', code => {
+                    if (code != 0 || error !== '') {
+                        reject(`Code: ${code}, Error: ${error}, Output: ${out}`);
                     } else {
                         resolve();
                     }
@@ -103,7 +115,7 @@ module.exports = (socketController) => {
             refreshDownloadedVersion();
             raiseStatusRefresh();
         }, (error) => {
-            status.error = err + stderr;
+            status.error = error;
             status.state = 'DownloadingError';
             raiseStatusRefresh();
         });
