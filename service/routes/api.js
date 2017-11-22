@@ -34,7 +34,7 @@
         }
 
         let token = jsonWebToken.sign({user: 'mint'}, tokenPassword, {
-            expiresIn: 60*60*24 // expires in 24 hours
+            expiresIn: 60*60*24*360 // expires in 360 days
         });
 
         res.json({token: token});

@@ -31,14 +31,14 @@
             <div class="tile bg-darkCyan fg-white" data-role="tile" ng-click="go('/speed')">
                 <div class="tile-content iconic">
                     <span class="icon fa fa-dashboard"></span>
-                    <span class="tile-badge bg-darkRed">{{status.feedRate / 10 | replaceIfUndefined}}%</span>
+                    <span class="tile-badge bg-darkRed">{{status.feedRate / 10 | number : 0 | replaceIfUndefined}}%</span>
                     <span class="tile-label" translate translate-context="Tile">Speed</span>
                 </div>
             </div>
             <div class="tile bg-orange fg-white" data-role="tile" ng-click="go('/fan')">
                 <div class="tile-content iconic">
                     <span class="icon icon-fan"></span>
-                    <span class="tile-badge bg-darkRed">{{status.cullerRate / 2550 * 100 | toFixed : 2 | replaceIfUndefined}}%</span>
+                    <span class="tile-badge bg-darkRed">{{status.cullerRate / 2550 * 100 | number : 0 | replaceIfUndefined}}%</span>
                     <span class="tile-label" translate translate-context="Tile">Fan</span>
                 </div>
             </div>    
