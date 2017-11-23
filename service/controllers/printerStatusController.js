@@ -136,7 +136,7 @@ module.exports = (socketController, printerProxy, printerMessageBus) =>
       return;
     }
 
-    if ((socketController.getClientsCount() > 0 && new Date() - lastPrintingStatusUpdateDate > 1000)
+    if ((new Date() - lastPrintingStatusUpdateDate > 1000)
       || printerIdController.id == null) {
       var strings = data.split("\n");
       strings.forEach((item, i, arr) => { 
