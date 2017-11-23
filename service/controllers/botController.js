@@ -150,7 +150,7 @@ module.exports = (printerMessageBus, printerStatusController) => {
                 let status = printerStatusController.currentStatus;
                 let messageParts = [];
                 if (['Printing', 'PrintBuffering'].indexOf(status.state) != -1){
-                    messageParts.push(`🖨 *Файл*: ${status.fileName}`);
+                    messageParts.push(`🖨 *Файл*: \`${status.fileName}\``);
                     messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
                     messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
 
