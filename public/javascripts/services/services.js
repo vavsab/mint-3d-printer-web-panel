@@ -5,6 +5,10 @@ app.service('tokenService', ['httpq', function (httpq) {
         return httpq.post('/api/token', {password: password});
     };
 
+    this.logout = function() {
+        return httpq.delete('/api/token');
+    };
+
     this.checkToken = function() {
         return httpq.get('/api/checkToken');
     };

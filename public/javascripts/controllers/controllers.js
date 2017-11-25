@@ -24,8 +24,11 @@ function ($scope, alertService, siteAvailabilityInterceptor, printerStatusServic
 
     this.lock = function () {
         self.printerStatus.isLocked = true;
-        $cookies.remove('token');
-        $location.path('/lockScreen');
+        tokenService.logout().then(function success() {
+            $location.path('/lockScreen');
+        }, function error(error) {
+            alertService.add('danger', 'Could not logout: ' + error, 'logout_error');
+        });
     }
 
     $scope.alerts = alertService.alerts;
@@ -183,8 +186,7 @@ function (printerStatus, $location, websiteSettings, $cookies, tokenService, loa
         loader.show = true;
         var password = self.showPasswordInput ? self.password : null;
 
-        tokenService.get(password).then(function success(response) {
-            $cookies.put('token', response.token);
+        tokenService.get(password).then(function success() {
             self.printerStatus.isLocked = false;
             $location.path('/');
         }, function error(response) {

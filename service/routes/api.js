@@ -19,25 +19,31 @@
 
     /* Open services */
 
-    router.post('/token', function (req, res) {
-        let password;
-        try {
-            password = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath)).toString())[0].password;
-        } catch (e) {
-            password = null;
-        }
+    let passwordHash;
+    try {
+        passwordHash = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath)).toString())[0].password;
+    } catch (e) {
+        passwordHash = null;
+    }
 
+    router.post('/token', function (req, res) {
         let enteredPassword = req.body.password;
-        if (password && (!enteredPassword || password != crypto.createHash('md5').update(enteredPassword).digest('hex'))) {
+
+        if (passwordHash && (!enteredPassword || passwordHash != crypto.createHash('md5').update(enteredPassword).digest('hex'))) {
             res.status(400).json({error: 'Invalid password'});
             return;
         }
 
+        let expireTimeOut = 60*60*24*360; // 1 year
         let token = jsonWebToken.sign({user: 'mint'}, tokenPassword, {
-            expiresIn: 60*60*24*360 // expires in 360 days
+            expiresIn: expireTimeOut
         });
 
-        res.json({token: token});
+        res.cookie('token', token, { maxAge: expireTimeOut, httpOnly: true }).send();
+    });
+
+    router.delete('/token', function (req, res) {
+        res.clearCookie("token").send();
     });
 
     // For getting the last printer status
@@ -59,6 +65,12 @@
 
     // Provide token security
     router.use(function (req, res, next) {
+        if (!passwordHash)
+        {
+            next();
+            return;    
+        }
+
         // check header or url parameters or post parameters for token
         var token = req.cookies.token || req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -393,7 +405,8 @@
         let oldPassword = req.body.oldPassword;
         let newPassword = req.body.newPassword;
 
-        if (currentPassword != null && currentPassword != crypto.createHash('md5').update(oldPassword).digest('hex')) {
+        if (currentPassword != null && 
+            (oldPassword == null || currentPassword != crypto.createHash('md5').update(oldPassword).digest('hex'))) {
             res.status(400).json({error: 'Old password is wrong'})
             return;
         }
@@ -404,6 +417,7 @@
             passwords[0].password = null;
         }
 
+        passwordHash = passwords[0].password;
         fs.writeFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath), JSON.stringify(passwords));
         res.send();
     });

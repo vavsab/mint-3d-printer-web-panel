@@ -77,7 +77,6 @@ module.exports = (printerMessageBus, printerStatusController) => {
         return new Promise(resolve => {
             if (app != null) {
                 app.stop(() => {
-                    app = null;
                     resolve();
                 });
             } else {
@@ -103,103 +102,104 @@ module.exports = (printerMessageBus, printerStatusController) => {
             if (!botSettings.isEnabled)
                 return;
 
-            app = new Telegraf(botSettings.token);
+            if (app == null) {
+                app = new Telegraf();
 
-            const keyboard = Markup
+                const keyboard = Markup
                 .keyboard(['📊 Статус'])
                 .oneTime(false)
                 .resize()
                 .extra()
 
-            app.use((ctx, next) => {
-                return databaseController.run(db => {
-                    let = mappingCollection = db.collection('telegramUserNameToIdMapping');
+                app.use((ctx, next) => {
+                    return databaseController.run(db => {
+                        let = mappingCollection = db.collection('telegramUserNameToIdMapping');
 
-                    return mappingCollection.findOne({ name: ctx.chat.username }).then((mapping) => {
-                        if (mapping == null) {
-                            logger.info(`Telegram bot > First request from: ${JSON.stringify(ctx.from)}, chat: ${JSON.stringify(ctx.chat)}`);
-                            mapping = { name: ctx.chat.username, id: ctx.chat.id };
-                            return mappingCollection.insertOne(mapping);
+                        return mappingCollection.findOne({ name: ctx.chat.username }).then((mapping) => {
+                            if (mapping == null) {
+                                logger.info(`Telegram bot > First request from: ${JSON.stringify(ctx.from)}, chat: ${JSON.stringify(ctx.chat)}`);
+                                mapping = { name: ctx.chat.username, id: ctx.chat.id };
+                                return mappingCollection.insertOne(mapping);
+                            }
+                        });
+                    })
+                    .then(() => {
+                        if (!botSettings.users.some(u => u.name == ctx.chat.username)) {
+                            botSettings.users.push({name: ctx.chat.username, isEnabled: false, isAdmin: false});
+                            return self.setSettings(botSettings);
                         }
+                    })
+                    .then(() => {
+                        // Block disabled users
+                        if (botSettings.users.some(u => u.isEnabled && u.name == ctx.chat.username))
+                            return next();
+
+                        return ctx.reply('⚠️ У вас нет доступа для использования этого бота')
+                        .then(() => getUserIdsToNotify('unauthorizedBotAccess'))
+                        .then(userIds => {
+                            return Promise.all(userIds.map(id =>
+                                app.telegram.sendMessage(id, `⚠️ Отказано в доступе пользователю ${ctx.from.first_name} ${ctx.from.last_name} (${ctx.from.username})`)
+                            ));
+                        });
                     });
-                })
-                .then(() => {
-                    if (!botSettings.users.some(u => u.name == ctx.chat.username)) {
-                        botSettings.users.push({name: ctx.chat.username, isEnabled: false, isAdmin: false});
-                        return self.setSettings(botSettings);
-                    }
-                })
-                .then(() => {
-                    // Block disabled users
-                    if (botSettings.users.some(u => u.isEnabled && u.name == ctx.chat.username))
-                        return next();
-                    else 
-                        return ctx.reply('⚠️ У вас нет доступа для использования этого бота');
-                    
-                    // Notify about unauthorized access
-                    return getUserIdsToNotify('unauthorizedBotAccess')
-                    .then(userIds => 
-                        Promise.all(userIds.map(id =>
-                            app.telegram.sendMessage(id, `⚠️ Отказано в доступе пользователю ${ctx.from.first_name} ${ctx.from.last_name} (${ctx.from.username})`)
-                        ))
-                    );
                 });
-            });
 
-            app.hears('📊 Статус', (ctx) => {
-                let status = printerStatusController.currentStatus;
-                let messageParts = [];
-                if (['Printing', 'PrintBuffering'].indexOf(status.state) != -1){
-                    messageParts.push(`🖨 *Файл*: \`${status.fileName}\``);
-                    messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
-                    messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
+                app.hears('📊 Статус', (ctx) => {
+                    let status = printerStatusController.currentStatus;
+                    let messageParts = [];
+                    if (['Printing', 'PrintBuffering'].indexOf(status.state) != -1){
+                        messageParts.push(`🖨 *Файл*: \`${status.fileName}\``);
+                        messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
+                        messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
 
-                    if (status.remainedMilliseconds) {
-                        let remainingText = null;
-                        let seconds = `${parseInt(status.remainedMilliseconds / 1000) % 60} сек`;
-                        let minutes = `${parseInt(status.remainedMilliseconds / 1000 / 60) % 60} мин`;
-                        let hours = `${parseInt(status.remainedMilliseconds / 1000 / 60 / 60)} час`;
-                        if (status.remainedMilliseconds < 1000 * 60) {
-                            remainingText = `${seconds}`;
-                        } 
-                        else if (status.remainedMilliseconds < 1000 * 60 * 60) {
-                            remainingText = `${minutes} ${seconds}`;
+                        if (status.remainedMilliseconds) {
+                            let remainingText = null;
+                            let seconds = `${parseInt(status.remainedMilliseconds / 1000) % 60} сек`;
+                            let minutes = `${parseInt(status.remainedMilliseconds / 1000 / 60) % 60} мин`;
+                            let hours = `${parseInt(status.remainedMilliseconds / 1000 / 60 / 60)} час`;
+                            if (status.remainedMilliseconds < 1000 * 60) {
+                                remainingText = `${seconds}`;
+                            } 
+                            else if (status.remainedMilliseconds < 1000 * 60 * 60) {
+                                remainingText = `${minutes} ${seconds}`;
+                            }
+                            else {
+                                remainingText = `${hours} ${minutes} ${seconds}`;
+                            }
+
+                            messageParts.push(`🕐 *Осталось*: ${remainingText}`);
+                            messageParts.push(`🏁 *Завершение*: ${moment(status.endDate).format('HH:ss DD.MM')}`);;
+                        } else {
+                            messageParts.push(`🕐 *Время завершения* рассчитывается...`);;
                         }
-                        else {
-                            remainingText = `${hours} ${minutes} ${seconds}`;
-                        }
-
-                        messageParts.push(`🕐 *Осталось*: ${remainingText}`);
-                        messageParts.push(`🏁 *Завершение*: ${moment(status.endDate).format('HH:ss DD.MM')}`);;
                     } else {
-                        messageParts.push(`🕐 *Время завершения* рассчитывается...`);;
+                        messageParts.push(`☑️ Принтер находится в режиме '${status.state}'`);
                     }
-                } else {
-                    messageParts.push(`☑️ Принтер находится в режиме '${status.state}'`);
+
+                    ctx.reply(messageParts.join('\n'), {parse_mode: 'Markdown'});
+                })
+
+                app.on('text', (ctx) => {
+                    return ctx.reply('❓ Выберите команду', keyboard)
+                })
+
+                function onEndPrint() {
+                    return getUserIdsToNotify('printEnd')
+                        .then(userIds => 
+                            Promise.all(userIds.map(id =>
+                                app.telegram.sendMessage(id, `✅ Печать завершена`)
+                            ))
+                        );
                 }
 
-                ctx.reply(messageParts.join('\n'), {parse_mode: 'Markdown'});
-            })
+                printerMessageBus.on('endPrint', onEndPrint)
 
-            app.on('text', (ctx) => {
-                return ctx.reply('❓ Выберите команду', keyboard)
-            })
-
-            function onEndPrint() {
-                return getUserIdsToNotify('printEnd')
-                    .then(userIds => 
-                        Promise.all(userIds.map(id =>
-                            app.telegram.sendMessage(id, `✅ Печать завершена`)
-                        ))
-                    );
+                app.catch((err) => {
+                    logger.warn('Telegram bot > Error: ', err)
+                })
             }
 
-            printerMessageBus.on('endPrint', onEndPrint)
-
-            app.catch((err) => {
-                logger.warn('Telegram bot > Error: ', err)
-            })
-
+            app.token = botSettings.token;
             app.startPolling();
         });    
     }
