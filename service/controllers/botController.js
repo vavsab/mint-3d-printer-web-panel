@@ -77,7 +77,9 @@ module.exports = (printerMessageBus, printerStatusController) => {
         return new Promise(resolve => {
             if (app != null) {
                 app.stop(() => {
-                    resolve();
+                    // Wait for longpoiling to finish
+                    logger.info('botController > Bot is stopped. Waiting 30 sec to finish last polling request...');
+                    setTimeout(() => resolve(), 1000 * 30);
                 });
             } else {
                 resolve();
@@ -144,11 +146,38 @@ module.exports = (printerMessageBus, printerStatusController) => {
                     });
                 });
 
+                function getSensorsMessageParts() {
+                    let messageParts = [];
+                    let status = printerStatusController.currentStatus;
+                    let temp = status.temp / 10;
+                    let targetTemp = status.baseTemp / 10;                        
+                    if (temp != null && targetTemp != null){
+                        messageParts.push(`🌡 *Нагреватель*: ${temp.toFixed(0)} / ${targetTemp.toFixed(0)} °C`); 
+                    }
+
+                    let fan = status.cullerRate / 2550 * 100;
+                    if (fan) {
+                        messageParts.push(`🚿 *Охладитель*: ${fan.toFixed(0)}%`);
+                    }
+
+                    return messageParts;
+                }
+
+                function getFileMessagePart() {
+                    let messageParts = [];
+                    let status = printerStatusController.currentStatus;
+                    if (status.fileName) {
+                        messageParts.push(`🖨 *Файл*: \`${status.fileName}\``);
+                    }
+
+                    return messageParts;
+                }
+
                 app.hears('📊 Статус', (ctx) => {
                     let status = printerStatusController.currentStatus;
                     let messageParts = [];
                     if (['Printing', 'PrintBuffering'].indexOf(status.state) != -1){
-                        messageParts.push(`🖨 *Файл*: \`${status.fileName}\``);
+                        getFileMessagePart().forEach(m => messageParts.push(m));
                         messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
                         messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
 
@@ -176,6 +205,8 @@ module.exports = (printerMessageBus, printerStatusController) => {
                         messageParts.push(`☑️ Принтер находится в режиме '${status.state}'`);
                     }
 
+                    getSensorsMessageParts().forEach(m => messageParts.push(m));
+
                     ctx.reply(messageParts.join('\n'), {parse_mode: 'Markdown'});
                 })
 
@@ -186,9 +217,15 @@ module.exports = (printerMessageBus, printerStatusController) => {
                 function onEndPrint() {
                     return getUserIdsToNotify('printEnd')
                         .then(userIds => 
-                            Promise.all(userIds.map(id =>
-                                app.telegram.sendMessage(id, `✅ Печать завершена`)
-                            ))
+                            Promise.all(userIds.map(id => {
+                                let messageParts = [];
+                                messageParts.push('✅ Печать завершена');
+
+                                getFileMessagePart().forEach(m => messageParts.push(m));
+                                getSensorsMessageParts().forEach(m => messageParts.push(m));
+                                
+                                return app.telegram.sendMessage(id, messageParts.join('\n'), {parse_mode: 'Markdown'});
+                            }))
                         );
                 }
 
@@ -200,6 +237,7 @@ module.exports = (printerMessageBus, printerStatusController) => {
             }
 
             app.token = botSettings.token;
+            logger.info('botController > Starting bot..');
             app.startPolling();
         });    
     }
