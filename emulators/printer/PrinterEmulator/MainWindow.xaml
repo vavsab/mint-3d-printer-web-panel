@@ -23,7 +23,7 @@
             <Button Margin="5" Grid.Column="1" Name="ButtonSendCommand" Content="Send command" Click="ButtonSendCommand_Click" />
         </Grid>
         <WrapPanel Orientation="Horizontal" Grid.Row="1">
-            <CheckBox Margin="5" Name="CheckBoxStatus" Content="Send status" Checked="CheckBoxStatus_OnChecked" Unchecked="CheckBoxStatus_OnUnchecked" />
+            <CheckBox Margin="5" Name="CheckBoxStatus" Content="Send status" />
             <TextBlock Margin="5" Text="State" />
             <ComboBox ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" />
             <TextBlock Margin="5" Text="line_index" />

@@ -16,6 +16,7 @@ namespace PrinterEmulator
         private const int MaxLineCount = 100;
         private CancellationTokenSource cancellationTokenSource;
         private readonly Random random = new Random(DateTime.Now.Millisecond);
+        private Task listeningTask;
 
         public MainWindow()
         {
@@ -27,6 +28,7 @@ namespace PrinterEmulator
             LineIndex = 1;
             CheckBoxStatus.IsChecked = true;
             FixedData = new FixedData();
+            StartListening();
         }
 
         public List<State> States { get; set; }
@@ -62,23 +64,32 @@ namespace PrinterEmulator
             AppendTextToOutput($"{(error ? "output error" : "output")}>> {output.Replace("\n", Environment.NewLine)}");
         }
 
-        private void CheckBoxStatus_OnChecked(object sender, RoutedEventArgs e)
+        private void StartListening()
         {
-            cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
-
-            Task.Run(() =>
+            listeningTask = Task.Factory.StartNew(() =>
             {
                 string buffer = "";
-                while (!cancellationToken.IsCancellationRequested)
-                {
+                while (true)
+                {                   
                     char c = (char)Console.In.Read();
+
+                    bool isChecked = true;
+                    Dispatcher.Invoke(() =>
+                    {
+                        isChecked = CheckBoxStatus.IsChecked ?? false;
+                    });
+                    
+                    if (!isChecked)
+                    {
+                        Thread.Sleep(100);
+                        continue;
+                    }    
 
                     if (c == '\n')
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            AppendTextToOutput(TextBoxOutput.Text += $"input>> {buffer}{Environment.NewLine}");
+                            AppendTextToOutput($"input>> {buffer}{Environment.NewLine}");
                             if (buffer.StartsWith("G300") || buffer.StartsWith("M1"))
                             {
                                 ConsoleWrite(GetInfo(sendId: buffer.StartsWith("M1")) + "\n");
@@ -93,40 +104,7 @@ namespace PrinterEmulator
                         buffer += c;
                     }
                 }
-            }, cancellationToken);
-
-            Task.Run(() =>
-            {
-                do
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        if (CheckBoxStatus.IsChecked ?? false)
-                        {
-                            ConsoleWrite(GetInfo() + "\n");
-                        }
-                    });
-                    Thread.Sleep(5000);
-                } while (!cancellationToken.IsCancellationRequested);
-            }, cancellationToken);
-
-            Task.Run(() =>
-            {
-                do
-                {
-                    Dispatcher.Invoke(() =>
-                    {
-                        ConsoleWrite("* Some other info output *\n");
-                    });
-                    Thread.Sleep(10000);
-                } while (!cancellationToken.IsCancellationRequested);
-            }, cancellationToken);
-        }
-
-        private void CheckBoxStatus_OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            cancellationTokenSource?.Cancel();
-            cancellationTokenSource = null;
+            });
         }
 
         private void ButtonSendCommand_Click(object sender, RoutedEventArgs e)
