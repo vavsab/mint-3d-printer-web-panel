@@ -79,7 +79,7 @@
                     </td>
                     <td ng-hide="file.isDirectory">{{file.size | dataSize}}</td>
                     <td ng-hide="file.isDirectory">
-                        <action-button action="analyseFile(file.fileName)" button-name="{{'Analyse' | translate}}" type="info" icon="tasks" />
+                        <action-button action="analyseFile(file.fileName)" button-name="{{'Analyse' | translate}}" type="info" icon="tasks" allow-when-printer-is-in-state="Idle" />
                         <action-button ng-show="!websiteSettings.settings.isPrintingWithBuffer" action="startPrint(file.fileName, false)" button-name="{{'Print' | translate}}" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
                         <action-button ng-show="websiteSettings.settings.isPrintingWithBuffer" action="startPrint(file.fileName, true)" button-name="{{'Print (with buffer)' | translate}}'" type="success" icon="print" allow-when-printer-is-in-state="Idle" />
                         <action-button action="remove(file)" button-name="{{'Remove' | translate}}" type="danger" icon="trash" />
