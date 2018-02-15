@@ -180,6 +180,7 @@ module.exports = (printerMessageBus, printerStatusController) => {
                         getFileMessagePart().forEach(m => messageParts.push(m));
                         messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
                         messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
+                        messageParts.push(' *Позиция Z*:${(status.currentPos.Z / 100000).toFixed(2)}');
 
                         if (status.remainedMilliseconds) {
                             let remainingText = null;
