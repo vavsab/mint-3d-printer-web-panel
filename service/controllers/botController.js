@@ -4,6 +4,14 @@ const Telegraf = require('telegraf');
 const logger = require('../logger');
 const moment = require('moment');
 const { Markup, Extra } = require('telegraf');
+const PiCamera = require('pi-camera');
+const myCamera = new PiCamera({
+    mode:'photo',
+    output: '/photo.jpg',
+    width: 1920,
+    height: 1080,
+    nopreview: true
+});
 
 module.exports = (printerMessageBus, printerStatusController) => {
     let self = this;
@@ -108,7 +116,7 @@ module.exports = (printerMessageBus, printerStatusController) => {
                 app = new Telegraf();
 
                 const keyboard = Markup
-                .keyboard(['📊 Статус'])
+                .keyboard(['📊 Статус','📷 Photo'])
                 .oneTime(false)
                 .resize()
                 .extra()
@@ -180,7 +188,7 @@ module.exports = (printerMessageBus, printerStatusController) => {
                         getFileMessagePart().forEach(m => messageParts.push(m));
                         messageParts.push(`📊 *Прогресс*: ${(status.line_index / status.line_count * 100).toFixed(2)}%`);
                         messageParts.push(`⚡️ *Старт*: ${moment(status.startDate).format('HH:ss DD.MM')}`);
-                        messageParts.push(' *Позиция Z*:${(status.currentPos.Z / 100000).toFixed(2)}');
+                        messageParts.push(`🎇 *Позиция Z*:${(status.currentPos.Z / 100000).toFixed(2)}`);
 
                         if (status.remainedMilliseconds) {
                             let remainingText = null;
@@ -209,6 +217,16 @@ module.exports = (printerMessageBus, printerStatusController) => {
                     getSensorsMessageParts().forEach(m => messageParts.push(m));
 
                     ctx.reply(messageParts.join('\n'), {parse_mode: 'Markdown'});
+                })
+
+                app.hears('📷 Photo', (ctx) => {
+                    myCamera.snap()
+                    .then((result) =>{
+                        ctx.replyWithPhoto({ source: '/photo.jpg' })
+                    })
+                    .catch((error) => {
+                        return ctx.reply(error);
+                    })
                 })
 
                 app.on('text', (ctx) => {
