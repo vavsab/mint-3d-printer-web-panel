@@ -9,5 +9,6 @@
     "pathToPrinterId": "/mint-home/printer_id",
     "pathToConfigFiles": "/mint-home/local/web",
     "pathToFilesFolder": "/mint-home/files",
-    "pathToLogsFolder": "/mint-home/logs"
+    "pathToLogsFolder": "/mint-home/logs",
+    "isDemo": false
 }

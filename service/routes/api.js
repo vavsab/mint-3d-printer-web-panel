@@ -16,6 +16,7 @@
     const fileManagerRootPath = fs.realpathSync(utils.getPathFromBase(config.get('pathToFilesFolder')));
     
     const router = express.Router();
+    const isDemo = config.get('isDemo');
 
     /* Open services */
 
@@ -223,6 +224,11 @@
     });
 
     router.delete('/fileManager', function(req, res) {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         var fileAbsolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.query.path));
         if (!fileAbsolutePath.startsWith(fileManagerRootPath)) {
             res.status(400).json({error: 'Path violation'});
@@ -258,6 +264,11 @@
     )}).single("file");
 
     router.post('/fileManager', function(req, res) {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         uploadFile(req, res, function (err) {
             if (err) {
                 res.status(400).json({error: 'Path violation'}); 
@@ -269,6 +280,11 @@
     });
 
     router.post('/fileManager/directory', function(req, res) {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         logger.trace("create directory:" + req.body.directoryName + " path: " + req.body.path);
         var absolutePath = fs.realpathSync(path.join(fileManagerRootPath, req.body.path));
 
@@ -394,6 +410,11 @@
     });
 
     router.post('/settings/website/password', function (req, res) {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         let passwords;
         try {
             passwords = JSON.parse(fs.readFileSync(utils.getPathForConfig(globalConstants.printerPasswordsPath)).toString());

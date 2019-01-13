@@ -9,5 +9,6 @@
     "pathToPrinterId": "emulators\\printer_id.bat",
     "pathToConfigFiles": "configFiles",
     "pathToFilesFolder": "files",
-    "pathToLogsFolder": "logs"
+    "pathToLogsFolder": "logs",
+    "isDemo": false
 }

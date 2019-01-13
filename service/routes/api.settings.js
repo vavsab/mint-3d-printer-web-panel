@@ -6,6 +6,8 @@ module.exports = (updateController, networkController, printerProxy, botControll
     const globalConstants = require('../globalConstants');
     const configurationController = require('../controllers/configurationController');
     const supportController = require('../controllers/supportController');
+    const config = require('config');
+    const isDemo = config.get('isDemo');
 
     let router = express.Router();
     let openRouter = express.Router();
@@ -25,11 +27,21 @@ module.exports = (updateController, networkController, printerProxy, botControll
     });
 
     router.post('/settings/update/pull', (req, res) => {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         updateController.startPull();
         res.send();
     });
 
     router.post('/settings/update/install', (req, res) => {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         updateController.startInstall();
         res.send();
     });
@@ -39,12 +51,22 @@ module.exports = (updateController, networkController, printerProxy, botControll
     });
 
     router.get('/settings/network/wifi', (req, res) => {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+        
         networkController.getWifiAPs()
             .then((result) => res.json(result))
             .catch((err) => res.status(500).json({error: err}));
     });
 
     router.post('/settings/network/wifi', (req, res) => {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         let apName = req.body.apName;
         let password = req.body.password;
 
@@ -59,6 +81,11 @@ module.exports = (updateController, networkController, printerProxy, botControll
     });
 
     router.post('/settings/website', (req, res) => {
+        if (isDemo) {
+            res.status(400).json({error: 'Forbidden in demo mode'});
+            return;
+        }
+
         let level = req.body.logLevel;
         if (level) {
             logger.setLevel(level);
